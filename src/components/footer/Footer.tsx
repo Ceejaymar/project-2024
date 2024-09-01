@@ -4,8 +4,8 @@ import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
 const FooterContainer = styled.footer`
   width: 100%;
-  background-color: var(--primary-color);
-  color: var(--text-color);
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.text};
   padding: 2rem 1rem;
   display: flex;
   justify-content: space-between;
@@ -18,13 +18,13 @@ const SocialLinks = styled.div`
   gap: 1rem;
 
   a {
-    color: var(--text-color);
+    color: ${({ theme }) => theme.colors.text};
     font-size: 1.5rem;
     text-decoration: none;
 
     &:hover,
     &:focus {
-      color: var(--secondary-color);
+      color: ${({ theme }) => theme.colors.secondary};
     }
   }
 `;
@@ -33,6 +33,7 @@ const Copyright = styled.p`
   margin: 0;
   font-size: 0.875rem;
 `;
+
 const socialLinks = [
   {
     name: 'GitHub',
