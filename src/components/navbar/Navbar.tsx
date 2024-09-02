@@ -4,7 +4,7 @@ const Nav = styled.nav`
   width: 100%;
   max-width: 1280px;
   padding: 1rem 2rem;
-  background-color: ${({ theme }) => theme.colors.secondary};
+  background-color: ${({ theme }) => theme.colors.primary};
   display: flex;
   justify-content: space-between;
   align-items: center;
