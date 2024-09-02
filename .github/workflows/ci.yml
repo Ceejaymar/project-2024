@@ -55,6 +55,7 @@ jobs:
           git config --global user.name "ceejaymar"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
           git checkout -b deploy || git checkout deploy
+          git rebase origin/deploy
           git add -f dist/
           git commit -m "Deploy to Netlify"
           git push origin deploy
