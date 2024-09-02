@@ -62,6 +62,6 @@ jobs:
             git checkout -b deploy
           fi
 
-          git add -f dist/
+          git add -A
           git commit -m "Deploy to Netlify"
           git push origin deploy
