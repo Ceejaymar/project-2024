@@ -46,4 +46,4 @@ jobs:
         run: yarn build
 
       - name: Deploy to Netlify
-        run: curl -X POST -d '{}' ${{ NETLIFY_DEPLOY_HOOK }}
+        run: curl -X POST -d '{}' ${{ secrets.NETLIFY_DEPLOY_HOOK }}
