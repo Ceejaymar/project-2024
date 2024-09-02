@@ -55,15 +55,10 @@ jobs:
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
           git fetch origin
 
-          if git show-ref --quiet refs/remotes/origin/deploy; then
-            git checkout deploy
-            git rebase origin/deploy
-          else
-            git checkout -b deploy
-          fi
+          git branch -D deploy || true
+          git push origin --delete deploy || echo "No remote deploy branch to delete"
 
-          git merge origin/main || git rebase origin/main
+          git checkout main
+          git checkout -b deploy
 
-          git add -f dist/
-          git commit -m "Deploy to Netlify"
-          git push origin deploy
+          git push origin deploy --force
