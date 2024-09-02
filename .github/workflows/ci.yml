@@ -64,4 +64,4 @@ jobs:
 
           git add -A
           git commit -m "Deploy to Netlify"
-          git push origin deploy
+          git push origin deploy --force
