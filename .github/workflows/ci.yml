@@ -57,11 +57,11 @@ jobs:
 
           if git show-ref --quiet refs/remotes/origin/deploy; then
             git checkout deploy
-            git rebase origin/deploy || git rebase --abort
+            git rebase origin/deploy
           else
             git checkout -b deploy
           fi
 
           git add -A
-          git commit -m "Deploy to Netlify" || echo "No changes to commit"
-          git push origin deploy --force || echo "No changes to push"
+          git commit -m "Deploy to Netlify"
+          git push origin deploy --force
