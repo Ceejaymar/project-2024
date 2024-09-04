@@ -4,11 +4,6 @@ import { motion } from 'framer-motion';
 import { Sun } from '@phosphor-icons/react';
 // import { ArrowSquareOut, Sun, CloudMoon } from '@phosphor-icons/react';
 
-interface NavLinkProps {
-  isFirst?: boolean;
-  isLast?: boolean;
-}
-
 const Nav = styled.nav`
   width: 100%;
   max-width: 1366px;
@@ -85,10 +80,13 @@ const Cursor = styled(motion.li)`
   /* z-index: 0; */
 `;
 
+interface NavLinkProps {
+  isFirst?: boolean;
+  isLast?: boolean;
+}
+
 type NavbarProps = {
   toggleTheme: () => void;
-  theme: number;
-  themeNames: string[];
 };
 
 const navbarItems = ['home', 'about', 'projects', 'contact'];
@@ -118,7 +116,6 @@ const Navbar = ({ toggleTheme }: NavbarProps) => {
                 const currentRef = navRefs.current[index];
                 if (!currentRef) return;
                 const { width } = currentRef.getBoundingClientRect();
-                console.log(width);
                 setPosition({
                   left: currentRef.offsetLeft,
                   width: width,
@@ -133,12 +130,12 @@ const Navbar = ({ toggleTheme }: NavbarProps) => {
           );
         })}
         <Cursor animate={position} />
-        {/* <NavItem>
+        <NavItem>
           <NavLink isLast href="#resume">
             resume
           </NavLink>
-          <ArrowSquareOut color="inherit" weight="regular" size="14" />
-        </NavItem> */}
+          {/* <ArrowSquareOut color="inherit" weight="regular" size="14" /> */}
+        </NavItem>
 
         <div>
           <Sun onClick={toggleTheme} color="black" weight="fill" size="24" />

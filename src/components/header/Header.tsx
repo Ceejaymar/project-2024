@@ -18,9 +18,26 @@ const HeaderSection = styled.header`
   }
 `;
 
+const Heading = styled.h1`
+  font-size: 2.5rem;
+
+  & span {
+    color: ${({ theme }) => theme.colors.quaternary};
+  }
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+`;
+
 const Header = () => (
   <HeaderSection>
-    <h1>Carlos Martinez</h1>
+    <Heading>
+      Hi, I'm Carlos
+      <br />
+      <span>Front-End Web Developer</span>
+    </Heading>
+    <p>Crafting engaging and responsive web experiences</p>
   </HeaderSection>
 );
 
