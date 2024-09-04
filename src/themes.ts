@@ -2,9 +2,10 @@ export const lightTheme = {
   colors: {
     background: '#f7f5f2',
     // 'default-text': '#212427',
-    // 'default-text': '#313131',
     'default-text': '#1c2528',
     'secondary-text': '#919191',
+    'tertiary-text': '#dddddd',
+    // 'tertiary-text': '#313131',
     text: '#f7f5f2',
     primary: '#A16AE8',
     secondary: '#03dac6',
