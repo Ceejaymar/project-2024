@@ -1,6 +1,14 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
+  #root {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -10,7 +18,6 @@ export const GlobalStyles = createGlobalStyle`
   body {
     font-family: 'Roboto', sans-serif;
     background-color: ${({ theme }) => theme.colors.background};
-    color: ${({ theme }) => theme.colors.text};
   }
 
   h1, h2, h3, h4, h5, h6 {

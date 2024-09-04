@@ -2,59 +2,65 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Sun } from '@phosphor-icons/react';
+import media from '../../utils/mediaQueries';
 // import { ArrowSquareOut, Sun, CloudMoon } from '@phosphor-icons/react';
 
-interface NavLinkProps {
-  isFirst?: boolean;
-  isLast?: boolean;
-}
-
 const Nav = styled.nav`
-  width: 100%;
-  max-width: 1366px;
-  padding: 1rem 2rem;
-  background-color: ${({ theme }) => theme.colors.background};
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
-
-const Logo = styled.div`
-  font-size: 2rem;
-  font-weight: bold;
-  color: ${({ theme }) => theme.colors['default-text']};
-`;
-
-const NavList = styled.ul`
   position: relative;
-  display: flex;
-  list-style: none;
+  width: 100%;
+  max-width: 1280px;
+  padding: 1rem 0;
+  background-color: ${({ theme }) => theme.colors.background};
   display: flex;
   justify-content: center;
   align-items: center;
 
-  @media (max-width: 768px) {
+  ${media.tablet`
+    padding: 1rem 2rem;
+    justify-content: space-between;
+  `}
+
+  ${media.desktop`
+    /* padding: 1rem 1rem; */
+  `}
+`;
+
+const Logo = styled.div`
+  flex: 1;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  color: ${({ theme }) => theme.colors['default-text']};
+
+  ${media.tablet`
+    text-align: left;
+  `}
+`;
+
+const NavList = styled.ul`
+  display: none;
+  /* display: flex; */
+  position: relative;
+  list-style: none;
+  justify-content: center;
+  align-items: center;
+
+  ${media.tablet`
+    display: flex;
+  `}/* @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
-  }
+  } */
 `;
 
 const NavItem = styled.li`
+  /* display: flex; */
   position: relative;
-  display: flex;
-  align-items: center;
-  margin: 0 1rem;
+  margin: 0 0.5rem;
+
   /* color: ${({ theme }) => theme.colors['default-text']}; */
   /* z-index: 10; */
   /* mix-blend-mode: difference; */
-
-  @media (max-width: 768px) {
-    margin: 0.5rem 0;
-  }
 `;
 
 const NavLink = styled.a<NavLinkProps>`
@@ -85,10 +91,24 @@ const Cursor = styled(motion.li)`
   /* z-index: 0; */
 `;
 
+const SunIcon = styled(Sun)`
+  position: absolute;
+  right: 10px;
+
+  ${media.tablet`
+    position: relative;
+    right: 0;
+    margin-left: 1rem;
+  `}
+`;
+
+interface NavLinkProps {
+  isFirst?: boolean;
+  isLast?: boolean;
+}
+
 type NavbarProps = {
   toggleTheme: () => void;
-  theme: number;
-  themeNames: string[];
 };
 
 const navbarItems = ['home', 'about', 'projects', 'contact'];
@@ -118,7 +138,6 @@ const Navbar = ({ toggleTheme }: NavbarProps) => {
                 const currentRef = navRefs.current[index];
                 if (!currentRef) return;
                 const { width } = currentRef.getBoundingClientRect();
-                console.log(width);
                 setPosition({
                   left: currentRef.offsetLeft,
                   width: width,
@@ -133,18 +152,17 @@ const Navbar = ({ toggleTheme }: NavbarProps) => {
           );
         })}
         <Cursor animate={position} />
-        {/* <NavItem>
+        <NavItem>
           <NavLink isLast href="#resume">
             resume
           </NavLink>
-          <ArrowSquareOut color="inherit" weight="regular" size="14" />
-        </NavItem> */}
-
-        <div>
-          <Sun onClick={toggleTheme} color="black" weight="fill" size="24" />
-          {/* <CloudMoon color="black" weight="fill" size="24" /> */}
-        </div>
+          {/* <ArrowSquareOut color="inherit" weight="regular" size="14" /> */}
+        </NavItem>
       </NavList>
+      {/* <div> */}
+      <SunIcon onClick={toggleTheme} color="black" weight="fill" size="28" />
+      {/* <CloudMoon color="black" weight="fill" size="24" /> */}
+      {/* </div> */}
     </Nav>
   );
 };
