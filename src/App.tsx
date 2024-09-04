@@ -3,10 +3,10 @@ import { GlobalStyles } from './GlobalStyles';
 import { lightTheme, darkTheme, Theme } from './themes';
 import Navbar from './components/navbar/Navbar';
 import Header from './components/header/Header';
-import About from './components/about/About';
-import Projects from './components/projects/Projects';
-import Contact from './components/contact/Contact';
-import Footer from './components/footer/Footer';
+// import About from './components/about/About';
+// import Projects from './components/projects/Projects';
+// import Contact from './components/contact/Contact';
+// import Footer from './components/footer/Footer';
 import { useState } from 'react';
 import './App.css';
 
@@ -31,10 +31,10 @@ function App() {
       <GlobalStyles />
       <Navbar themeNames={themeNames} theme={theme} toggleTheme={toggleTheme} />
       <Header />
-      <About />
+      {/* <About />
       <Projects />
       <Contact />
-      <Footer />
+      <Footer /> */}
     </ThemeProvider>
   );
 }

@@ -5,8 +5,8 @@ const HeaderSection = styled.header`
   justify-content: center;
   align-items: center;
   height: 500px;
-  background: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.text};
+  background: ${({ theme }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors['default-text']};
   text-align: center;
 
   h1 {
