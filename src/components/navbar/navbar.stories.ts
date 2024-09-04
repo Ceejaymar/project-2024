@@ -13,7 +13,5 @@ type Story = StoryObj<typeof Navbar>;
 export const Default: Story = {
   args: {
     toggleTheme: () => {},
-    theme: 0,
-    themeNames: ['light', 'dark'],
   },
 };
