@@ -1,11 +1,8 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { ArrowSquareOut, Sun, CloudMoon } from '@phosphor-icons/react';
-
-interface NavItemProps {
-  setPosition: (position: any) => void;
-}
+import { Sun } from '@phosphor-icons/react';
+// import { ArrowSquareOut, Sun, CloudMoon } from '@phosphor-icons/react';
 
 interface NavLinkProps {
   isFirst?: boolean;
@@ -46,7 +43,7 @@ const NavList = styled.ul`
   }
 `;
 
-const NavItem = styled.li<NavItemProps>`
+const NavItem = styled.li`
   position: relative;
   display: flex;
   align-items: center;
@@ -145,7 +142,7 @@ const Navbar = ({ toggleTheme }: NavbarProps) => {
 
         <div>
           <Sun onClick={toggleTheme} color="black" weight="fill" size="24" />
-          <CloudMoon color="black" weight="fill" size="24" />
+          {/* <CloudMoon color="black" weight="fill" size="24" /> */}
         </div>
       </NavList>
     </Nav>
