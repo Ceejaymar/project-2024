@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-// import { Sun } from '@phosphor-icons/react';
-import { ArrowSquareOut, Sun, CloudMoon } from '@phosphor-icons/react';
+import { Sun } from '@phosphor-icons/react';
+// import { ArrowSquareOut, Sun, CloudMoon } from '@phosphor-icons/react';
 
 const Nav = styled.nav`
   width: 100%;
