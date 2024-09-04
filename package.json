@@ -15,6 +15,7 @@
     "chromatic": "chromatic --project-token=project=<project-token>"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.1.7",
     "@storybook/testing-library": "^0.2.2",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
@@ -31,6 +32,7 @@
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-styled-components-a11y": "^2.1.35",
     "eslint-plugin-testing-library": "^6.3.0",
+    "framer-motion": "^11.4.0",
     "jest": "^29.7.0",
     "jest-styled-components": "^7.2.0",
     "prettier": "^3.3.3",

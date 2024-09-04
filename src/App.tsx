@@ -31,10 +31,10 @@ function App() {
       <GlobalStyles />
       <Navbar themeNames={themeNames} theme={theme} toggleTheme={toggleTheme} />
       <Header />
-      <About />
+      {/* <About />
       <Projects />
       <Contact />
-      <Footer />
+      <Footer /> */}
     </ThemeProvider>
   );
 }
