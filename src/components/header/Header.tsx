@@ -1,6 +1,11 @@
 import styled from 'styled-components';
-import headshot from '../../assets/render-headshot.jpg';
+import lightHeadshot from '../../assets/render-headshot.jpg';
+import darkHeadshot from '../../assets/tokyo-headshot-scaled.jpg';
 import media from '../../utils/mediaQueries';
+
+interface HeaderProps {
+  theme: string;
+}
 
 const HeaderSection = styled.header`
   display: flex;
@@ -123,10 +128,11 @@ const Image = styled.img`
 
   ${media.desktop`
     width: 400px;
+    max-height: 497.98px;
   `}
 `;
 
-const Header = () => (
+const Header = ({ theme }: HeaderProps) => (
   <HeaderSection>
     <HeadingContainer>
       <Heading>
@@ -143,7 +149,10 @@ const Header = () => (
       </Description>
     </HeadingContainer>
     <ImageContainer>
-      <Image src={headshot} alt="Carlos" />
+      <Image
+        src={theme === 'light' ? lightHeadshot : darkHeadshot}
+        alt="Carlos"
+      />
     </ImageContainer>
   </HeaderSection>
 );
