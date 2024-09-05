@@ -1,9 +1,9 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { motion, MotionConfig } from 'framer-motion';
-import { Sun } from '@phosphor-icons/react';
+import { Sun, CloudMoon } from '@phosphor-icons/react';
 import media from '../../utils/mediaQueries';
-// import { ArrowSquareOut, Sun, CloudMoon } from '@phosphor-icons/react';
+// import { ArrowSquareOut } from '@phosphor-icons/react';
 
 const Nav = styled.nav`
   position: relative;
@@ -94,6 +94,19 @@ const Cursor = styled(motion.li)`
 const SunIcon = styled(Sun)`
   position: absolute;
   right: 10px;
+  cursor: pointer;
+
+  ${media.tablet`
+    position: relative;
+    right: 0;
+    margin-left: 1rem;
+  `}
+`;
+
+const MoonIcon = styled(CloudMoon)`
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
 
   ${media.tablet`
     position: relative;
@@ -156,13 +169,14 @@ interface NavLinkProps {
   isLast?: boolean;
 }
 
-type NavbarProps = {
+interface NavbarProps {
+  theme: string;
   toggleTheme: () => void;
-};
+}
 
 const navbarItems = ['home', 'about', 'projects', 'contact'];
 
-const Navbar = ({ toggleTheme }: NavbarProps) => {
+const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
   const navRefs = useRef<(HTMLLIElement | null)[]>([]);
   const [position, setPosition] = React.useState({
     left: 0,
@@ -271,10 +285,11 @@ const Navbar = ({ toggleTheme }: NavbarProps) => {
           {/* <ArrowSquareOut color="inherit" weight="regular" size="14" /> */}
         </NavItem>
       </NavList>
-      {/* <div> */}
-      <SunIcon onClick={toggleTheme} color="black" weight="fill" size="28" />
-      {/* <CloudMoon color="black" weight="fill" size="24" /> */}
-      {/* </div> */}
+      {theme === 'light' ? (
+        <MoonIcon onClick={toggleTheme} color="black" weight="fill" size="24" />
+      ) : (
+        <SunIcon onClick={toggleTheme} color="white" weight="fill" size="24" />
+      )}
     </Nav>
   );
 };

@@ -29,7 +29,7 @@ function App() {
   return (
     <ThemeProvider theme={themes[currentTheme]}>
       <GlobalStyles />
-      <Navbar toggleTheme={toggleTheme} />
+      <Navbar theme={currentTheme} toggleTheme={toggleTheme} />
       <Header theme={currentTheme} />
       {/* <About />
       <Projects />
