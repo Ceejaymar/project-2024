@@ -22,10 +22,10 @@ const HeaderSection = styled.header`
     flex-direction: row;
     padding: 0 2rem;
     padding-top: 1.5rem;
+    justify-content: space-between;
   `}
 
   ${media.laptop`
-    justify-content: space-between;
   `}
 `;
 
@@ -45,6 +45,7 @@ const Heading = styled.h1`
   font-size: 2rem;
   text-align: left;
   margin-top: 20px;
+  letter-spacing: -3px;
   & span:nth-of-type(1) {
     /* color: ${({ theme }) => theme.colors.primary}; */
   }

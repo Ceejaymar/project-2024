@@ -1,9 +1,9 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { Sun } from '@phosphor-icons/react';
+import { motion, MotionConfig } from 'framer-motion';
+import { Sun, CloudMoon } from '@phosphor-icons/react';
 import media from '../../utils/mediaQueries';
-// import { ArrowSquareOut, Sun, CloudMoon } from '@phosphor-icons/react';
+// import { ArrowSquareOut } from '@phosphor-icons/react';
 
 const Nav = styled.nav`
   position: relative;
@@ -94,6 +94,7 @@ const Cursor = styled(motion.li)`
 const SunIcon = styled(Sun)`
   position: absolute;
   right: 10px;
+  cursor: pointer;
 
   ${media.tablet`
     position: relative;
@@ -102,27 +103,152 @@ const SunIcon = styled(Sun)`
   `}
 `;
 
+const MoonIcon = styled(CloudMoon)`
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+
+  ${media.tablet`
+    position: relative;
+    right: 0;
+    margin-left: 1rem;
+  `}
+`;
+
+const HamburgerContainer = styled.div<{ active: boolean }>`
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: ${({ theme }) => theme.colors.quaternary};
+  transform: ${({ active }) =>
+    active ? 'translateX(0%)' : 'translateX(-100%)'};
+  transition: transform 0.3s ease-in-out;
+  z-index: 5;
+`;
+
+const HamburgerButton = styled(motion.button)`
+  position: relative;
+  height: 50px;
+  width: 50px;
+  padding: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  background: transparent;
+  transition: all 0.3s ease-in-out;
+  outline: none;
+  border: none;
+  /* border: 1px solid transparent; */
+  z-index: 10;
+
+  &:focus {
+    outline: none; /* Ensure no outline on focus */
+  }
+
+  ${media.tablet`
+    display: none;
+  `}
+`;
+
+const HamburgerLine = styled(motion.span)`
+  position: absolute;
+  height: 4px;
+  width: 30px;
+  background: black;
+  border-radius: 10px;
+
+  &:last-of-type {
+    width: 15px;
+  }
+`;
+
 interface NavLinkProps {
   isFirst?: boolean;
   isLast?: boolean;
 }
 
-type NavbarProps = {
+interface NavbarProps {
+  theme: string;
   toggleTheme: () => void;
-};
+}
 
 const navbarItems = ['home', 'about', 'projects', 'contact'];
 
-const Navbar = ({ toggleTheme }: NavbarProps) => {
+const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
   const navRefs = useRef<(HTMLLIElement | null)[]>([]);
   const [position, setPosition] = React.useState({
     left: 0,
     width: 0,
     opacity: 0,
   });
+  const [active, setActive] = React.useState<boolean>(false);
 
   return (
     <Nav>
+      <MotionConfig transition={{ duration: 0.4, ease: 'easeInOut' }}>
+        <HamburgerButton
+          initial={false}
+          onClick={() => setActive((prev) => !prev)}
+          animate={active ? 'open' : 'closed'}
+        >
+          <HamburgerLine
+            variants={{
+              open: {
+                rotate: ['0deg', '0deg', '45deg'],
+                top: ['35%', '50%', '50%'],
+              },
+              closed: {
+                rotate: ['45deg', '0deg', '0deg'],
+                top: ['50%', '50%', '35%'],
+              },
+            }}
+            style={{ top: '35%', left: '50%', x: '-50%', y: '-50%' }}
+          />
+          <HamburgerLine
+            variants={{
+              open: {
+                rotate: ['0deg', '0deg', '-45deg'],
+              },
+              closed: {
+                rotate: ['-45deg', '0deg', '0deg'],
+              },
+            }}
+            style={{ top: '50%', left: '50%', x: '-50%', y: '-50%' }}
+          />
+          <HamburgerLine
+            variants={{
+              open: {
+                rotate: ['0deg', '0deg', '45deg'],
+                left: '50%',
+                bottom: ['35%', '50%', '50%'],
+              },
+              closed: {
+                rotate: ['45deg', '0deg', '0deg'],
+                bottom: ['50%', '50%', '35%'],
+              },
+            }}
+            style={{
+              bottom: '35%',
+              left: 'calc(50% + 7px)',
+              x: '-50%',
+              y: '50%',
+            }}
+          />
+        </HamburgerButton>
+        <HamburgerContainer active={active}>
+          {navbarItems.map((item) => (
+            <NavLink
+              key={item}
+              href={`#${item}`}
+              onClick={() => setActive(false)}
+            >
+              {item}
+            </NavLink>
+          ))}
+        </HamburgerContainer>
+      </MotionConfig>
       <Logo>Los.</Logo>
       <NavList
         onMouseLeave={() => {
@@ -159,10 +285,11 @@ const Navbar = ({ toggleTheme }: NavbarProps) => {
           {/* <ArrowSquareOut color="inherit" weight="regular" size="14" /> */}
         </NavItem>
       </NavList>
-      {/* <div> */}
-      <SunIcon onClick={toggleTheme} color="black" weight="fill" size="28" />
-      {/* <CloudMoon color="black" weight="fill" size="24" /> */}
-      {/* </div> */}
+      {theme === 'light' ? (
+        <MoonIcon onClick={toggleTheme} color="black" weight="fill" size="24" />
+      ) : (
+        <SunIcon onClick={toggleTheme} color="white" weight="fill" size="24" />
+      )}
     </Nav>
   );
 };
