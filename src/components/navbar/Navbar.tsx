@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { motion, MotionConfig } from 'framer-motion';
 import { Sun } from '@phosphor-icons/react';
 import media from '../../utils/mediaQueries';
 // import { ArrowSquareOut, Sun, CloudMoon } from '@phosphor-icons/react';
@@ -102,6 +102,55 @@ const SunIcon = styled(Sun)`
   `}
 `;
 
+const HamburgerContainer = styled.div<{ active: boolean }>`
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: ${({ theme }) => theme.colors.quaternary};
+  transform: ${({ active }) =>
+    active ? 'translateX(0%)' : 'translateX(-100%)'};
+  transition: transform 0.3s ease-in-out;
+  z-index: 5;
+`;
+
+const HamburgerButton = styled(motion.button)`
+  position: relative;
+  height: 50px;
+  width: 50px;
+  padding: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  background: transparent;
+  transition: all 0.3s ease-in-out;
+  outline: none;
+  border: none;
+  /* border: 1px solid transparent; */
+  z-index: 10;
+
+  &:focus {
+    outline: none; /* Ensure no outline on focus */
+  }
+
+  ${media.tablet`
+    display: none;
+  `}
+`;
+
+const HamburgerLine = styled(motion.span)`
+  position: absolute;
+  height: 4px;
+  width: 30px;
+  background: black;
+  border-radius: 10px;
+
+  &:last-of-type {
+    width: 15px;
+  }
+`;
+
 interface NavLinkProps {
   isFirst?: boolean;
   isLast?: boolean;
@@ -120,9 +169,72 @@ const Navbar = ({ toggleTheme }: NavbarProps) => {
     width: 0,
     opacity: 0,
   });
+  const [active, setActive] = React.useState<boolean>(false);
 
   return (
     <Nav>
+      <MotionConfig transition={{ duration: 0.4, ease: 'easeInOut' }}>
+        <HamburgerButton
+          initial={false}
+          onClick={() => setActive((prev) => !prev)}
+          animate={active ? 'open' : 'closed'}
+        >
+          <HamburgerLine
+            variants={{
+              open: {
+                rotate: ['0deg', '0deg', '45deg'],
+                top: ['35%', '50%', '50%'],
+              },
+              closed: {
+                rotate: ['45deg', '0deg', '0deg'],
+                top: ['50%', '50%', '35%'],
+              },
+            }}
+            style={{ top: '35%', left: '50%', x: '-50%', y: '-50%' }}
+          />
+          <HamburgerLine
+            variants={{
+              open: {
+                rotate: ['0deg', '0deg', '-45deg'],
+              },
+              closed: {
+                rotate: ['-45deg', '0deg', '0deg'],
+              },
+            }}
+            style={{ top: '50%', left: '50%', x: '-50%', y: '-50%' }}
+          />
+          <HamburgerLine
+            variants={{
+              open: {
+                rotate: ['0deg', '0deg', '45deg'],
+                left: '50%',
+                bottom: ['35%', '50%', '50%'],
+              },
+              closed: {
+                rotate: ['45deg', '0deg', '0deg'],
+                bottom: ['50%', '50%', '35%'],
+              },
+            }}
+            style={{
+              bottom: '35%',
+              left: 'calc(50% + 7px)',
+              x: '-50%',
+              y: '50%',
+            }}
+          />
+        </HamburgerButton>
+        <HamburgerContainer active={active}>
+          {navbarItems.map((item) => (
+            <NavLink
+              key={item}
+              href={`#${item}`}
+              onClick={() => setActive(false)}
+            >
+              {item}
+            </NavLink>
+          ))}
+        </HamburgerContainer>
+      </MotionConfig>
       <Logo>Los.</Logo>
       <NavList
         onMouseLeave={() => {
