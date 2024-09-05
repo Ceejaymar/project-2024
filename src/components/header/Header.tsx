@@ -22,10 +22,10 @@ const HeaderSection = styled.header`
     flex-direction: row;
     padding: 0 2rem;
     padding-top: 1.5rem;
+    justify-content: space-between;
   `}
 
   ${media.laptop`
-    justify-content: space-between;
   `}
 `;
 
