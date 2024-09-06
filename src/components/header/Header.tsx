@@ -2,10 +2,7 @@ import styled from 'styled-components';
 import lightHeadshot from '../../assets/render-headshot.jpg';
 import darkHeadshot from '../../assets/tokyo-headshot-scaled.jpg';
 import media from '../../utils/mediaQueries';
-
-interface HeaderProps {
-  theme: string;
-}
+import { HeaderProps } from '../../types';
 
 const HeaderSection = styled.header`
   display: flex;
@@ -45,7 +42,7 @@ const Heading = styled.h1`
   font-size: 2rem;
   text-align: left;
   margin-top: 20px;
-  letter-spacing: -3px;
+  letter-spacing: -2px;
   & span:nth-of-type(1) {
     /* color: ${({ theme }) => theme.colors.primary}; */
   }
@@ -64,6 +61,7 @@ const Heading = styled.h1`
   `}
 
   ${media.laptop`
+    letter-spacing: -3px;
     font-size: 3.4rem;
   `}
 
@@ -133,29 +131,31 @@ const Image = styled.img`
   `}
 `;
 
-const Header = ({ theme }: HeaderProps) => (
-  <HeaderSection>
-    <HeadingContainer>
-      <Heading>
-        Hey there, I'm <span>Carlos</span>.
-        <br />
-        <span>Front-End Web Developer</span>
-        <br />
-      </Heading>
-      <Description>
-        Blending creativity and code to build meaningful digital solutions. I
-        thrive in collaborative teams, using modern tech to create reliable
-        applications that enhance user experiences and solve real-world
-        problems.
-      </Description>
-    </HeadingContainer>
-    <ImageContainer>
-      <Image
-        src={theme === 'light' ? lightHeadshot : darkHeadshot}
-        alt="Carlos"
-      />
-    </ImageContainer>
-  </HeaderSection>
-);
+const Header = ({ theme }: HeaderProps) => {
+  return (
+    <HeaderSection>
+      <HeadingContainer>
+        <Heading>
+          Hey there, I'm <span>Carlos</span>.
+          <br />
+          <span>Front-End Web Developer</span>
+          <br />
+        </Heading>
+        <Description>
+          Blending creativity and code to build meaningful digital solutions. I
+          thrive in collaborative teams, using modern tech to create reliable
+          applications that enhance user experiences and solve real-world
+          problems.
+        </Description>
+      </HeadingContainer>
+      <ImageContainer>
+        <Image
+          src={theme === 'light' ? lightHeadshot : darkHeadshot}
+          alt="Carlos"
+        />
+      </ImageContainer>
+    </HeaderSection>
+  );
+};
 
 export default Header;
