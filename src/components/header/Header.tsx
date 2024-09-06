@@ -45,7 +45,7 @@ const Heading = styled.h1`
   font-size: 2rem;
   text-align: left;
   margin-top: 20px;
-  letter-spacing: -3px;
+  letter-spacing: -2px;
   & span:nth-of-type(1) {
     /* color: ${({ theme }) => theme.colors.primary}; */
   }
@@ -64,6 +64,7 @@ const Heading = styled.h1`
   `}
 
   ${media.laptop`
+    letter-spacing: -3px;
     font-size: 3.4rem;
   `}
 

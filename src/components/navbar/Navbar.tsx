@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { motion, MotionConfig } from 'framer-motion';
+import { AnimatePresence, motion, MotionConfig } from 'framer-motion';
 import { Sun, CloudMoon } from '@phosphor-icons/react';
 import media from '../../utils/mediaQueries';
 // import { ArrowSquareOut } from '@phosphor-icons/react';
@@ -41,7 +41,6 @@ const NavList = styled.ul`
   display: none;
   /* display: flex; */
   position: relative;
-  list-style: none;
   justify-content: center;
   align-items: center;
 
@@ -53,14 +52,10 @@ const NavList = styled.ul`
   } */
 `;
 
-const NavItem = styled.li`
-  /* display: flex; */
+const NavItem = styled(motion.li)`
   position: relative;
   margin: 0 0.5rem;
-
-  /* color: ${({ theme }) => theme.colors['default-text']}; */
-  /* z-index: 10; */
-  /* mix-blend-mode: difference; */
+  list-style: none;
 `;
 
 const NavLink = styled.a<NavLinkProps>`
@@ -88,12 +83,11 @@ const Cursor = styled(motion.li)`
   background-color: ${({ theme }) => theme.colors['default-text']};
   height: 3px;
   border-radius: 25px;
-  /* z-index: 0; */
 `;
 
 const SunIcon = styled(Sun)`
   position: absolute;
-  right: 10px;
+  right: 20px;
   cursor: pointer;
 
   ${media.tablet`
@@ -105,7 +99,7 @@ const SunIcon = styled(Sun)`
 
 const MoonIcon = styled(CloudMoon)`
   position: absolute;
-  right: 10px;
+  right: 20px;
   cursor: pointer;
 
   ${media.tablet`
@@ -115,22 +109,34 @@ const MoonIcon = styled(CloudMoon)`
   `}
 `;
 
-const HamburgerContainer = styled.div<{ active: boolean }>`
+const SideNavigation = styled(motion.div)<{ active: boolean }>`
   position: fixed;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   top: 0;
   left: 0;
+  width: 100%;
   height: 100vh;
-  width: 100vw;
   background: ${({ theme }) => theme.colors.quaternary};
-  transform: ${({ active }) =>
-    active ? 'translateX(0%)' : 'translateX(-100%)'};
-  transition: transform 0.3s ease-in-out;
+  /* transform: ${({ active }) =>
+    active ? 'translateX(0%)' : 'translateX(-100%)'}; */
+  /* transition: transform 0.3s ease-in-out; */
   z-index: 5;
+  transform-origin: top;
+
+  & ${NavLink} {
+    font-size: 2rem;
+    line-height: 2.5rem;
+    /* margin: 1rem 0; */
+    color: ${({ theme }) => theme.colors['default-text']};
+  }
 `;
 
 const HamburgerButton = styled(motion.button)`
-  position: relative;
+  position: absolute;
+  left: 10px;
   height: 50px;
   width: 50px;
   padding: 0;
@@ -140,11 +146,10 @@ const HamburgerButton = styled(motion.button)`
   transition: all 0.3s ease-in-out;
   outline: none;
   border: none;
-  /* border: 1px solid transparent; */
   z-index: 10;
 
   &:focus {
-    outline: none; /* Ensure no outline on focus */
+    outline: none;
   }
 
   ${media.tablet`
@@ -156,7 +161,7 @@ const HamburgerLine = styled(motion.span)`
   position: absolute;
   height: 4px;
   width: 30px;
-  background: black;
+  background: ${({ theme }) => theme.colors['default-text']};
   border-radius: 10px;
 
   &:last-of-type {
@@ -174,7 +179,7 @@ interface NavbarProps {
   toggleTheme: () => void;
 }
 
-const navbarItems = ['home', 'about', 'projects', 'contact'];
+const navbarItems = ['home', 'about', 'projects', 'contact', 'resume'];
 
 const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
   const navRefs = useRef<(HTMLLIElement | null)[]>([]);
@@ -237,17 +242,100 @@ const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
             }}
           />
         </HamburgerButton>
-        <HamburgerContainer active={active}>
-          {navbarItems.map((item) => (
-            <NavLink
-              key={item}
-              href={`#${item}`}
+        <AnimatePresence>
+          {active && (
+            <SideNavigation
+              active={active}
               onClick={() => setActive(false)}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              variants={{
+                initial: {
+                  scaleY: 0,
+                },
+                animate: {
+                  scaleY: 1,
+                  transition: {
+                    duration: 0.4,
+                    ease: [0.12, 0, 0.39, 0],
+                  },
+                },
+                exit: {
+                  scaleY: 0,
+                  transition: {
+                    delay: 0.4,
+                    duration: 0.5,
+                    ease: [0.22, 1, 0.36, 1],
+                  },
+                },
+              }}
             >
-              {item}
-            </NavLink>
-          ))}
-        </HamburgerContainer>
+              <motion.div
+                initial="initial"
+                animate="open"
+                exit="initial"
+                variants={{
+                  initial: {
+                    transition: {
+                      staggerChildren: 0.09,
+                      staggerDirection: -1,
+                      ease: [0.37, 0, 0.63, 0],
+                    },
+                  },
+                  open: {
+                    transition: {
+                      delayChildren: 0.1,
+                      staggerChildren: 0.09,
+                      staggerDirection: 1,
+                      ease: [0.55, 0, 0.45, 0],
+                    },
+                  },
+                }}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '100%',
+                }}
+              >
+                {navbarItems.map((item) => (
+                  <div style={{ overflow: 'hidden' }}>
+                    <NavItem
+                      // initial="initial"
+                      // animate="open"
+                      variants={{
+                        initial: {
+                          y: '30vh',
+                          transition: {
+                            duration: 0.5,
+                            ease: [0.37, 0, 0.63, 1],
+                          },
+                        },
+                        open: {
+                          y: 0,
+                          transition: {
+                            duration: 0.7,
+                            ease: [0.55, 0, 0.45, 1],
+                          },
+                        },
+                      }}
+                    >
+                      <NavLink
+                        key={item}
+                        href={`#${item}`}
+                        onClick={() => setActive(false)}
+                      >
+                        {item}
+                      </NavLink>
+                    </NavItem>
+                  </div>
+                ))}
+              </motion.div>
+            </SideNavigation>
+          )}
+        </AnimatePresence>
       </MotionConfig>
       <Logo>Los.</Logo>
       <NavList
@@ -271,9 +359,7 @@ const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
                 });
               }}
             >
-              <NavLink isFirst href={`#${item}`}>
-                {item}
-              </NavLink>
+              <NavLink href={`#${item}`}>{item}</NavLink>
             </NavItem>
           );
         })}
