@@ -1,8 +1,9 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { AnimatePresence, motion, MotionConfig } from 'framer-motion';
-import { Sun, CloudMoon } from '@phosphor-icons/react';
+import ThemeToggle from '../themeToggle/ThemeToggle';
 import media from '../../utils/mediaQueries';
+import { NavLinkProps, ThemeProps } from '../../types';
 // import { ArrowSquareOut } from '@phosphor-icons/react';
 
 const Nav = styled.nav`
@@ -46,10 +47,7 @@ const NavList = styled.ul`
 
   ${media.tablet`
     display: flex;
-  `}/* @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-  } */
+  `}
 `;
 
 const NavItem = styled(motion.li)`
@@ -77,36 +75,13 @@ const NavLink = styled.a<NavLinkProps>`
   }
 `;
 
-const Cursor = styled(motion.li)`
+const Underline = styled(motion.li)`
   position: absolute;
   bottom: 0;
   background-color: ${({ theme }) => theme.colors['default-text']};
   height: 3px;
   border-radius: 25px;
-`;
-
-const SunIcon = styled(Sun)`
-  position: absolute;
-  right: 20px;
-  cursor: pointer;
-
-  ${media.tablet`
-    position: relative;
-    right: 0;
-    margin-left: 1rem;
-  `}
-`;
-
-const MoonIcon = styled(CloudMoon)`
-  position: absolute;
-  right: 20px;
-  cursor: pointer;
-
-  ${media.tablet`
-    position: relative;
-    right: 0;
-    margin-left: 1rem;
-  `}
+  list-style: none;
 `;
 
 const SideNavigation = styled(motion.div)<{ active: boolean }>`
@@ -120,16 +95,12 @@ const SideNavigation = styled(motion.div)<{ active: boolean }>`
   width: 100%;
   height: 100vh;
   background: ${({ theme }) => theme.colors.quaternary};
-  /* transform: ${({ active }) =>
-    active ? 'translateX(0%)' : 'translateX(-100%)'}; */
-  /* transition: transform 0.3s ease-in-out; */
   z-index: 5;
   transform-origin: top;
 
   & ${NavLink} {
     font-size: 2rem;
     line-height: 2.5rem;
-    /* margin: 1rem 0; */
     color: ${({ theme }) => theme.colors['default-text']};
   }
 `;
@@ -169,19 +140,9 @@ const HamburgerLine = styled(motion.span)`
   }
 `;
 
-interface NavLinkProps {
-  isFirst?: boolean;
-  isLast?: boolean;
-}
-
-interface NavbarProps {
-  theme: string;
-  toggleTheme: () => void;
-}
-
 const navbarItems = ['home', 'about', 'projects', 'contact', 'resume'];
 
-const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
+const Navbar = ({ theme, toggleTheme }: ThemeProps) => {
   const navRefs = useRef<(HTMLLIElement | null)[]>([]);
   const [position, setPosition] = React.useState({
     left: 0,
@@ -363,19 +324,13 @@ const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
             </NavItem>
           );
         })}
-        <Cursor animate={position} />
-        <NavItem>
-          <NavLink isLast href="#resume">
-            resume
-          </NavLink>
-          {/* <ArrowSquareOut color="inherit" weight="regular" size="14" /> */}
-        </NavItem>
+        <Underline animate={position} />
+        {/* <NavItem> */}
+        {/* <ArrowSquareOut color="inherit" weight="regular" size="14" /> */}
+
+        {/* </NavItem> */}
       </NavList>
-      {theme === 'light' ? (
-        <MoonIcon onClick={toggleTheme} color="black" weight="fill" size="24" />
-      ) : (
-        <SunIcon onClick={toggleTheme} color="white" weight="fill" size="24" />
-      )}
+      <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
     </Nav>
   );
 };
