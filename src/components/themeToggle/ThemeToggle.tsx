@@ -4,7 +4,7 @@ import { ThemeProps } from '../../types';
 import media from '../../utils/mediaQueries';
 
 const IconWrapper = styled.div`
-  position: relative;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,10 +18,10 @@ const IconWrapper = styled.div`
   `}
 `;
 
-const ThemeToggle = ({ theme, toggleTheme }: ThemeProps) => {
+const ThemeToggle = ({ themeName, toggleTheme }: ThemeProps) => {
   return (
     <IconWrapper onClick={toggleTheme}>
-      {theme === 'light' ? (
+      {themeName === 'light' ? (
         <Sun color="black" weight="fill" size="24" />
       ) : (
         <Moon color="white" weight="fill" size="24" />

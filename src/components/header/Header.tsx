@@ -1,18 +1,19 @@
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import lightHeadshot from '../../assets/render-headshot.jpg';
 import darkHeadshot from '../../assets/tokyo-headshot-scaled.jpg';
 import media from '../../utils/mediaQueries';
 import { HeaderProps } from '../../types';
+import { getThemeTransition } from '../../utils/themeTransition';
 
-const HeaderSection = styled.header`
+const HeaderSection = styled(motion.header)`
   display: flex;
   flex-direction: column-reverse;
   padding: 0 20px;
+  padding-top: 1.3rem;
   padding-bottom: 50px;
   max-width: 1280px;
   width: 100%;
-  background: ${({ theme }) => theme.colors.background};
-  color: ${({ theme }) => theme.colors['default-text']};
   text-align: center;
 
   ${media.tablet`
@@ -108,7 +109,7 @@ const ImageContainer = styled.div`
   `}
 `;
 
-const Image = styled.img`
+const Image = styled(motion.img)`
   width: 175px;
   height: 175px;
   object-fit: cover;
@@ -131,9 +132,9 @@ const Image = styled.img`
   `}
 `;
 
-const Header = ({ theme }: HeaderProps) => {
+const Header = ({ themeName }: HeaderProps) => {
   return (
-    <HeaderSection>
+    <HeaderSection key={themeName} {...getThemeTransition(themeName)}>
       <HeadingContainer>
         <Heading>
           Hey there, I'm <span>Carlos</span>.
@@ -150,8 +151,13 @@ const Header = ({ theme }: HeaderProps) => {
       </HeadingContainer>
       <ImageContainer>
         <Image
-          src={theme === 'light' ? lightHeadshot : darkHeadshot}
+          key={themeName}
+          src={themeName === 'light' ? lightHeadshot : darkHeadshot}
           alt="Carlos"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.8 }}
         />
       </ImageContainer>
     </HeaderSection>

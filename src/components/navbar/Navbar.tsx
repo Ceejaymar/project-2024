@@ -5,35 +5,39 @@ import ThemeToggle from '../themeToggle/ThemeToggle';
 import media from '../../utils/mediaQueries';
 import { NavLinkProps, ThemeProps } from '../../types';
 // import { ArrowSquareOut } from '@phosphor-icons/react';
+import { getThemeTransition } from '../../utils/themeTransition';
+import LogoGradient from '../logoGradient';
 
-const Nav = styled.nav`
+const Nav = styled(motion.nav)`
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   max-width: 1280px;
   padding: 1rem 0;
   background-color: ${({ theme }) => theme.colors.background};
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
   ${media.tablet`
     padding: 1rem 2rem;
     justify-content: space-between;
   `}
-
-  ${media.desktop`
-    /* padding: 1rem 1rem; */
-  `}
 `;
 
 const Logo = styled.div`
+  display: flex;
   flex: 1;
-  font-size: 2rem;
+  justify-content: center;
+  /* align-items: center; */
+  /* font-size: 2rem;
   font-weight: bold;
   text-align: center;
-  color: ${({ theme }) => theme.colors['default-text']};
+  color: ${({ theme }) => theme.colors['default-text']}; */
+  height: 50px;
+  width: 10px;
 
   ${media.tablet`
+    justify-content: flex-start;
     text-align: left;
   `}
 `;
@@ -142,7 +146,7 @@ const HamburgerLine = styled(motion.span)`
 
 const navbarItems = ['home', 'about', 'projects', 'contact', 'resume'];
 
-const Navbar = ({ theme, toggleTheme }: ThemeProps) => {
+const Navbar = ({ themeName, toggleTheme }: ThemeProps) => {
   const navRefs = useRef<(HTMLLIElement | null)[]>([]);
   const [position, setPosition] = React.useState({
     left: 0,
@@ -152,7 +156,7 @@ const Navbar = ({ theme, toggleTheme }: ThemeProps) => {
   const [active, setActive] = React.useState<boolean>(false);
 
   return (
-    <Nav>
+    <Nav key={themeName} {...getThemeTransition(themeName)}>
       <MotionConfig transition={{ duration: 0.4, ease: 'easeInOut' }}>
         <HamburgerButton
           initial={false}
@@ -264,8 +268,6 @@ const Navbar = ({ theme, toggleTheme }: ThemeProps) => {
                 {navbarItems.map((item) => (
                   <div style={{ overflow: 'hidden' }}>
                     <NavItem
-                      // initial="initial"
-                      // animate="open"
                       variants={{
                         initial: {
                           y: '30vh',
@@ -298,7 +300,9 @@ const Navbar = ({ theme, toggleTheme }: ThemeProps) => {
           )}
         </AnimatePresence>
       </MotionConfig>
-      <Logo>Los.</Logo>
+      <Logo>
+        <LogoGradient width={100} height="100%" />
+      </Logo>
       <NavList
         onMouseLeave={() => {
           setPosition((prev) => ({ ...prev, opacity: 0 }));
@@ -330,7 +334,7 @@ const Navbar = ({ theme, toggleTheme }: ThemeProps) => {
 
         {/* </NavItem> */}
       </NavList>
-      <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+      <ThemeToggle themeName={themeName} toggleTheme={toggleTheme} />
     </Nav>
   );
 };
