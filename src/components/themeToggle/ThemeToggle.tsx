@@ -4,7 +4,7 @@ import { ThemeProps } from '../../types';
 import media from '../../utils/mediaQueries';
 
 const IconWrapper = styled.div`
-  position: relative;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -10,6 +10,7 @@ const HeaderSection = styled(motion.header)`
   display: flex;
   flex-direction: column-reverse;
   padding: 0 20px;
+  padding-top: 1.3rem;
   padding-bottom: 50px;
   max-width: 1280px;
   width: 100%;
