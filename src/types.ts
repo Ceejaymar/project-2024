@@ -1,5 +1,5 @@
 export interface ThemeProps {
-  theme: string;
+  themeName: 'light' | 'dark';
   toggleTheme: () => void;
 }
 
@@ -9,5 +9,5 @@ export interface NavLinkProps {
 }
 
 export interface HeaderProps {
-  theme: string;
+  themeName: 'light' | 'dark';
 }
