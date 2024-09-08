@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import lightHeadshot from '../../assets/render-headshot.jpg';
-import darkHeadshot from '../../assets/tokyo-headshot-scaled.jpg';
+import shibuyaHeadshot from '../../assets/shibuya-headshot.jpg';
 import media from '../../utils/mediaQueries';
 import { HeaderProps } from '../../types';
 import { getThemeTransition } from '../../utils/themeTransition';
@@ -23,7 +23,9 @@ const HeaderSection = styled(motion.header)`
     justify-content: space-between;
   `}
 
-  ${media.laptop`
+  ${media.desktop`
+    padding: 1.5rem 0;
+    margin-top: 3rem;
   `}
 `;
 
@@ -152,7 +154,7 @@ const Header = ({ themeName }: HeaderProps) => {
       <ImageContainer>
         <Image
           key={themeName}
-          src={themeName === 'light' ? lightHeadshot : darkHeadshot}
+          src={themeName === 'light' ? lightHeadshot : shibuyaHeadshot}
           alt="Carlos"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
