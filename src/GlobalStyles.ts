@@ -15,6 +15,11 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  html,
+body {
+  overflow: hidden;
+}
+
   body {
     font-family: 'Roboto', sans-serif;
     background-color: ${({ theme }) => theme.colors.background};
