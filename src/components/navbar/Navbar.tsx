@@ -306,7 +306,7 @@ const Navbar = ({ themeName, toggleTheme }: ThemeProps) => {
         </AnimatePresence>
       </MotionConfig>
       <Logo>
-        <LogoGradient width={100} height="100%" />
+        <LogoGradient width={65} height="100%" />
       </Logo>
       <NavList
         onMouseLeave={() => {
