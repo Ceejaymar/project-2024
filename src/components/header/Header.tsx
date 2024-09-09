@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import lightHeadshot from '../../assets/render-headshot.jpg';
-import shibuyaHeadshot from '../../assets/shibuya-headshot.jpg';
+import lightHeadshot from '../../assets/render-headshot-reduced.webp';
+import shibuyaHeadshot from '../../assets/tokyo-headshot-reduced.webp';
 import media from '../../utils/mediaQueries';
 import { HeaderProps } from '../../types';
 import { getThemeTransition } from '../../utils/themeTransition';
