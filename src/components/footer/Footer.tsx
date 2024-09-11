@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import LogoGradient from '../logoGradient/LogoGradient';
+import GradientLogo from '../logoGradient/GradientLogo';
 
 const FooterContainer = styled.footer`
   display: flex;
@@ -59,7 +59,7 @@ const Footer: React.FC = () => {
     <FooterContainer>
       <Copyright>
         built by
-        <LogoGradient width={65} height="100%" />
+        <GradientLogo width={65} height="100%" />
       </Copyright>
       <SocialLinks aria-label="Social media links">
         {socialLinks.map((link) => (

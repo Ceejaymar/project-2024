@@ -6,7 +6,7 @@ import media from '../../utils/mediaQueries';
 import { NavLinkProps, ThemeProps } from '../../types';
 // import { ArrowSquareOut } from '@phosphor-icons/react';
 import { getThemeTransition } from '../../utils/themeTransition';
-import LogoGradient from '../logoGradient/LogoGradient';
+import GradientLogo from '../logoGradient/GradientLogo';
 
 const Nav = styled(motion.nav)`
   position: relative;
@@ -306,7 +306,7 @@ const Navbar = ({ themeName, toggleTheme }: ThemeProps) => {
         </AnimatePresence>
       </MotionConfig>
       <Logo>
-        <LogoGradient width={65} height="100%" />
+        <GradientLogo width={65} height="100%" />
       </Logo>
       <NavList
         onMouseLeave={() => {
