@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { AnimatePresence, motion, MotionConfig } from 'framer-motion';
 import ThemeToggle from '../themeToggle/ThemeToggle';
@@ -6,7 +6,7 @@ import media from '../../utils/mediaQueries';
 import { NavLinkProps, ThemeProps } from '../../types';
 // import { ArrowSquareOut } from '@phosphor-icons/react';
 import { getThemeTransition } from '../../utils/themeTransition';
-import LogoGradient from '../LogoGradient';
+import LogoGradient from '../logoGradient/LogoGradient';
 
 const Nav = styled(motion.nav)`
   position: relative;
@@ -153,12 +153,12 @@ const navbarItems = ['home', 'experience', 'projects', 'contact'];
 
 const Navbar = ({ themeName, toggleTheme }: ThemeProps) => {
   const navRefs = useRef<(HTMLLIElement | null)[]>([]);
-  const [position, setPosition] = React.useState({
+  const [position, setPosition] = useState({
     left: 0,
     width: 0,
     opacity: 0,
   });
-  const [active, setActive] = React.useState<boolean>(false);
+  const [active, setActive] = useState<boolean>(false);
 
   return (
     <Nav key={themeName} {...getThemeTransition(themeName)}>
@@ -317,7 +317,7 @@ const Navbar = ({ themeName, toggleTheme }: ThemeProps) => {
           return (
             <NavItem
               key={item}
-              ref={(el) => (navRefs.current[index] = el)}
+              ref={(el: HTMLLIElement | null) => (navRefs.current[index] = el)}
               onMouseEnter={() => {
                 const currentRef = navRefs.current[index];
                 if (!currentRef) return;
