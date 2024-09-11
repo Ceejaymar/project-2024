@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { ArrowSquareOut, ArrowDown } from '@phosphor-icons/react';
 import lightHeadshot from '../../assets/render-headshot-reduced.webp';
 import shibuyaHeadshot from '../../assets/tokyo-headshot-reduced.webp';
 import media from '../../utils/mediaQueries';
@@ -19,13 +20,12 @@ const HeaderSection = styled(motion.header)`
   ${media.tablet`
     flex-direction: row;
     padding: 0 2rem;
-    padding-top: 1.5rem;
+    padding-top: 3rem;
     justify-content: space-between;
   `}
 
   ${media.desktop`
-    padding: 1.5rem 0;
-    margin-top: 3rem;
+    padding: 4rem 0;
   `}
 `;
 
@@ -44,8 +44,9 @@ const HeadingContainer = styled.div`
 const Heading = styled.h1`
   font-size: 2rem;
   text-align: left;
-  margin-top: 20px;
+  margin-top: 1.5rem;
   letter-spacing: -2px;
+  font-weight: 600;
   & span:nth-of-type(1) {
     /* color: ${({ theme }) => theme.colors.primary}; */
   }
@@ -64,7 +65,7 @@ const Heading = styled.h1`
   `}
 
   ${media.laptop`
-    letter-spacing: -3px;
+    letter-spacing: -4px;
     font-size: 3.4rem;
   `}
 
@@ -104,9 +105,7 @@ const Description = styled.span`
 
 const ImageContainer = styled.div`
   ${media.laptop`
-    /* display: flex; */
     flex-basis: 35%;
-    /* padding-right: 20px; */
     justify-content: end;
   `}
 `;
@@ -117,6 +116,7 @@ const Image = styled(motion.img)`
   object-fit: cover;
   object-position: center 20%;
   border-radius: 50%;
+  box-shadow: 0px 5px 25px ${({ theme }) => theme.colors['secondary-text']};
 
   ${media.tablet`
     width: 250px;
@@ -134,6 +134,45 @@ const Image = styled(motion.img)`
   `}
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 2rem;
+  margin-top: 2.5rem;
+  font-size: 1.1rem;
+`;
+
+const Button = styled.button`
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  background-color: ${({ theme }) => theme.colors.primary}15;
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: 1.1rem;
+  border-radius: 10px;
+  border: 1px solid ${({ theme }) => theme.colors.primary};
+  padding: 10px 20px;
+  padding-right: 15px;
+  cursor: pointer;
+`;
+
+const ButtonSecondary = styled(motion.a)`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: transparent;
+  color: ${({ theme }) => theme.colors['default-text']}95;
+  border: none;
+  text-decoration: underline;
+`;
+
+const MotionArrowSquareOut = styled(motion.div)`
+  display: flex;
+  align-items: center;
+`;
+
+const resume =
+  'https://drive.google.com/file/d/1MgFbvhWgNVoTxVtUGkiwP9eR_BLElxkF/view?usp=drive_link';
+
 const Header = ({ themeName }: HeaderProps) => {
   return (
     <HeaderSection key={themeName} {...getThemeTransition(themeName)}>
@@ -150,6 +189,29 @@ const Header = ({ themeName }: HeaderProps) => {
           applications that enhance user experiences and solve real-world
           problems.
         </Description>
+        <ButtonContainer>
+          <Button>
+            Explore my projects <ArrowDown size={18} weight="bold" />
+          </Button>
+          <ButtonSecondary
+            href={resume}
+            target="_blank"
+            rel="noopener noreferrer"
+            initial="hidden"
+            whileHover="visible"
+          >
+            Download resume
+            <MotionArrowSquareOut
+              variants={{
+                hidden: { x: -10, opacity: 0 },
+                visible: { x: 0, opacity: 1 },
+              }}
+              transition={{ ease: 'easeIn', duration: 0.2 }}
+            >
+              <ArrowSquareOut size={18} weight="bold" />
+            </MotionArrowSquareOut>
+          </ButtonSecondary>
+        </ButtonContainer>
       </HeadingContainer>
       <ImageContainer>
         <Image

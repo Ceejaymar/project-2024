@@ -5,11 +5,10 @@ import { GlobalStyles } from './GlobalStyles';
 import { lightTheme, darkTheme } from './themes';
 import Navbar from './components/navbar/Navbar';
 import Header from './components/header/Header';
-// import About from './components/about/About';
+import Experience from './components/experience/Experience';
 // import Projects from './components/projects/Projects';
-// import Contact from './components/contact/Contact';
-// import Footer from './components/footer/Footer';
-import './App.css';
+import Contact from './components/contact/Contact';
+import Footer from './components/footer/Footer';
 
 const updateThemeColor = (color: string) => {
   let metaThemeColor = document.querySelector('meta[name=theme-color]');
@@ -60,10 +59,10 @@ function App() {
       >
         <Navbar themeName={theme} toggleTheme={toggleTheme} />
         <Header themeName={theme} />
-        {/* <About />
-      <Projects />
-      <Contact />
-      <Footer /> */}
+        <Experience />
+        {/* <Projects /> */}
+        <Contact />
+        <Footer />
       </motion.div>
     </ThemeProvider>
   );

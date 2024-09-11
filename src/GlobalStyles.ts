@@ -1,6 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
+  /* @import url('https://fonts.googleapis.com/css2?family=Protest+Guerrilla&display=swap'); */
+
   #root {
     width: 100%;
     height: 100%;
@@ -16,13 +18,13 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   html,
-body {
-  overflow: hidden;
-}
+  body {
+    /* overflow: hidden; */
+  }
 
   body {
-    font-family: 'Roboto', sans-serif;
     background-color: ${({ theme }) => theme.colors.background};
+    font-family: "Inter", sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {

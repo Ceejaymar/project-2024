@@ -6,7 +6,7 @@ import media from '../../utils/mediaQueries';
 import { NavLinkProps, ThemeProps } from '../../types';
 // import { ArrowSquareOut } from '@phosphor-icons/react';
 import { getThemeTransition } from '../../utils/themeTransition';
-import LogoGradient from '../logoGradient';
+import LogoGradient from '../LogoGradient';
 
 const Nav = styled(motion.nav)`
   position: relative;
@@ -74,7 +74,7 @@ const NavLink = styled.a<NavLinkProps>`
   color: ${({ theme }) => theme.colors['default-text']};
   text-decoration: none;
   font-size: 0.9rem;
-  font-weight: 700;
+  font-weight: 500;
   text-transform: uppercase;
 
   &:hover,
@@ -86,7 +86,7 @@ const NavLink = styled.a<NavLinkProps>`
 
 const Underline = styled(motion.li)`
   position: absolute;
-  bottom: 0;
+  bottom: -2.5px;
   background-color: ${({ theme }) => theme.colors['default-text']};
   height: 3px;
   border-radius: 25px;
@@ -149,7 +149,7 @@ const HamburgerLine = styled(motion.span)`
   }
 `;
 
-const navbarItems = ['home', 'about', 'projects', 'contact', 'resume'];
+const navbarItems = ['home', 'experience', 'projects', 'contact'];
 
 const Navbar = ({ themeName, toggleTheme }: ThemeProps) => {
   const navRefs = useRef<(HTMLLIElement | null)[]>([]);
@@ -334,10 +334,6 @@ const Navbar = ({ themeName, toggleTheme }: ThemeProps) => {
           );
         })}
         <Underline animate={position} />
-        {/* <NavItem> */}
-        {/* <ArrowSquareOut color="inherit" weight="regular" size="14" /> */}
-
-        {/* </NavItem> */}
       </NavList>
       <ThemeToggle themeName={themeName} toggleTheme={toggleTheme} />
     </Nav>
