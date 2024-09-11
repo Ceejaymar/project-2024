@@ -79,4 +79,5 @@ const LogoGradient = ({ width, height }: { width: number; height: string }) => (
     </g>
   </svg>
 );
+
 export default LogoGradient;
