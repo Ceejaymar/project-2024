@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import ProjectCard from '../projectCard/ProjectCard';
 import media from '../../utils/mediaQueries';

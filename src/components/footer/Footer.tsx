@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import GradientLogo from '../logoGradient/GradientLogo';
 import media from '../../utils/mediaQueries';
@@ -61,7 +60,7 @@ const socialLinks = [
   },
 ];
 
-const Footer: React.FC = () => {
+const Footer = () => {
   return (
     <FooterContainer>
       <Copyright>
