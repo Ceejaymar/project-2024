@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import GradientLogo from '../logoGradient/GradientLogo';
 import media from '../../utils/mediaQueries';
