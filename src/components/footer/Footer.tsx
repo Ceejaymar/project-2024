@@ -9,6 +9,7 @@ const FooterContainer = styled.footer`
   align-items: center;
   gap: 2rem;
   width: 100%;
+  max-width: 1280px;
   background-color: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.colors['default-text']};
   font-weight: 500;

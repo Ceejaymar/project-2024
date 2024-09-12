@@ -1,17 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import ProjectCard from '../projectCard/ProjectCard';
+import { getThemeTransition } from '../../utils/themeTransition';
 import media from '../../utils/mediaQueries';
+import { HeaderProps } from '../../types';
 
-const Section = styled.section`
+const Section = styled(motion.section)`
   width: 100%;
   max-width: 1280px;
   padding: 4rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: ${({ theme }) => theme.colors.background};
-  color: ${({ theme }) => theme.colors['default-text']};
+  /* background-color: ${({ theme }) => theme.colors.background}; */
+  /* color: ${({ theme }) => theme.colors['default-text']}; */
 
   ${media.laptop`
     padding: 4rem 2rem 7rem;
@@ -74,8 +77,8 @@ const projects = [
   // },
 ];
 
-const Projects = () => (
-  <Section id="projects">
+const Projects = ({ themeName }: HeaderProps) => (
+  <Section id="projects" key={themeName} {...getThemeTransition(themeName)}>
     <SectionTitle>Projects</SectionTitle>
     <ProjectList>
       {projects.map((project) => (

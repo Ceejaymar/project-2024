@@ -1,8 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
+import { getThemeTransition } from '../../utils/themeTransition';
 import media from '../../utils/mediaQueries';
+import { HeaderProps } from '../../types';
 
-const Section = styled.section`
+const Section = styled(motion.section)`
   width: 100%;
   max-width: 1280px;
   display: flex;
@@ -10,11 +13,7 @@ const Section = styled.section`
   align-items: center;
   padding: 4rem 1rem;
 
-  background-color: ${({ theme }) => theme.colors.background};
-  color: ${({ theme }) => theme.colors['default-text']};
-
   ${media.laptop`
-    /* align-items: flex-start; */
     padding: 4rem 2rem;
   `}
 
@@ -78,7 +77,6 @@ const ExperienceItem = styled.div`
   flex-basis: calc(50% - 1rem);
 
   ${media.laptop`
-    /* align-items: flex-start; */
     max-width: 200px;
   `}
 
@@ -132,8 +130,8 @@ const experienceList = [
   },
 ];
 
-const About = () => (
-  <Section id="experience">
+const About = ({ themeName }: HeaderProps) => (
+  <Section id="experience" key={themeName} {...getThemeTransition(themeName)}>
     <SectionTitle>Experience</SectionTitle>
     {/* <SectionText>
       I am a passionate developer with experience in building dynamic and

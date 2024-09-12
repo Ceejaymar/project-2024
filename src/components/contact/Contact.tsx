@@ -4,13 +4,18 @@ import { motion } from 'framer-motion';
 import media from '../../utils/mediaQueries';
 
 const Section = styled.section`
-  width: 100%;
+  width: 1280px;
   padding: 5rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors['default-text']};
+  background-color: ${({ theme }) => theme.colors.primary};
+  border-radius: 15px;
+
+  ${media.desktop`
+    padding: 7rem 2rem;
+  `}
 `;
 
 const SectionTitle = styled.h2`

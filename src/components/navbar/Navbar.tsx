@@ -94,7 +94,7 @@ const Underline = styled(motion.li)`
   list-style: none;
 `;
 
-const navbarItems = ['home', 'experience', 'projects', 'contact'];
+const navbarItems = ['experience', 'projects', 'contact'];
 
 const Navbar = ({ themeName, toggleTheme }: ThemeProps) => {
   const navRefs = useRef<(HTMLLIElement | null)[]>([]);

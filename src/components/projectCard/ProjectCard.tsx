@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
+import { ArrowUpRight } from '@phosphor-icons/react';
 import media from '../../utils/mediaQueries';
 
 const ProjectCardContainer = styled.div`
@@ -119,28 +121,20 @@ const ButtonContainer = styled.div`
   `}
 `;
 
-const ProjectRepo = styled.a`
+const CardLink = styled(motion.a)`
+  display: flex;
+  gap: 0.2rem;
   font-size: 1rem;
   font-weight: 500;
   text-decoration: none;
   color: ${({ theme }) => theme.colors['default-text']};
   transition: all 0.3s ease;
-
-  &:hover {
-    color: ${({ theme }) => theme.colors['secondary-text']};
-  }
 `;
 
-const ProjectLive = styled.a`
-  font-size: 1rem;
-  font-weight: 500;
-  text-decoration: none;
-  color: ${({ theme }) => theme.colors['default-text']};
-  transition: all 0.3s ease;
-
-  &:hover {
-    color: ${({ theme }) => theme.colors['secondary-text']};
-  }
+const MotionArrowUpRight = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  margin-top: 2px;
 `;
 
 interface ProjectCardProps {
@@ -170,12 +164,42 @@ const ProjectCard = ({
         <ProjectTech>{tech}</ProjectTech>
         <ProjectDescription>{description}</ProjectDescription>
         <ButtonContainer>
-          <ProjectRepo href={repo} target="_blank" rel="noopener noreferrer">
+          <CardLink
+            href={repo}
+            target="_blank"
+            rel="noopener noreferrer"
+            initial="hidden"
+            whileHover="visible"
+          >
             Github
-          </ProjectRepo>
-          <ProjectLive href={live} target="_blank" rel="noopener noreferrer">
+            <MotionArrowUpRight
+              variants={{
+                hidden: { x: -10, opacity: 0 },
+                visible: { x: 0, opacity: 1 },
+              }}
+              transition={{ ease: 'easeIn', duration: 0.1 }}
+            >
+              <ArrowUpRight size={16} weight="bold" />
+            </MotionArrowUpRight>
+          </CardLink>
+          <CardLink
+            href={live}
+            target="_blank"
+            rel="noopener noreferrer"
+            initial="hidden"
+            whileHover="visible"
+          >
             Live site
-          </ProjectLive>
+            <MotionArrowUpRight
+              variants={{
+                hidden: { x: -10, opacity: 0 },
+                visible: { x: 0, opacity: 1 },
+              }}
+              transition={{ ease: 'easeIn', duration: 0.1 }}
+            >
+              <ArrowUpRight size={16} weight="bold" />
+            </MotionArrowUpRight>
+          </CardLink>
         </ButtonContainer>
       </ProjectInfo>
     </ProjectCardContainer>

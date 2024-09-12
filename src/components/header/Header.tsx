@@ -157,7 +157,7 @@ const ButtonContainer = styled.div`
 const Button = styled(motion.a)`
   display: none;
   width: fit-content;
-  gap: 10px;
+  gap: 7px;
   background-color: ${({ theme }) => theme.colors.primary}15;
   color: ${({ theme }) => theme.colors.primary};
   font-size: 1rem;
@@ -166,7 +166,7 @@ const Button = styled(motion.a)`
   padding: 10px 20px;
   padding-right: 15px;
   cursor: pointer;
-
+  text-decoration: none;
   ${media.tablet`
     display: flex;
   `}
@@ -218,14 +218,14 @@ const Header = ({ themeName }: HeaderProps) => {
           problems.
         </Description>
         <ButtonContainer>
-          <Button initial="hidden" whileHover="visible">
+          <Button whileHover="bounce" href="#projects">
             Explore my projects{' '}
             <MotionArrowUpRight
               variants={{
-                hidden: { x: -10, opacity: 0 },
-                visible: { x: 0, opacity: 1 },
+                // hidden: { x: -10, opacity: 0 },
+                bounce: { y: [0, -5, 0, -2, 0] },
               }}
-              transition={{ ease: 'easeIn', duration: 0.2 }}
+              transition={{ ease: 'easeInOut', duration: 0.3 }}
             >
               <ArrowDown size={18} weight="bold" />
             </MotionArrowUpRight>

@@ -59,8 +59,8 @@ function App() {
       >
         <Navbar themeName={theme} toggleTheme={toggleTheme} />
         <Header themeName={theme} />
-        <Experience />
-        <Projects />
+        <Experience themeName={theme} />
+        <Projects themeName={theme} />
         <Contact />
         <Footer />
       </motion.div>
