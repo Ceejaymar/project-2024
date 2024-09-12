@@ -8,6 +8,6 @@ export interface NavLinkProps {
   isLast?: boolean;
 }
 
-export interface HeaderProps {
+export interface HeaderProps extends Pick<ThemeProps, 'themeName'> {
   themeName: 'light' | 'dark';
 }

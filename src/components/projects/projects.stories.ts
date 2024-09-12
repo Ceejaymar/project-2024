@@ -12,8 +12,6 @@ type Story = StoryObj<typeof Projects>;
 
 export const Default: Story = {
   args: {
-    toggleTheme: () => {},
-    theme: 0,
-    themeNames: ['light', 'dark'],
+    themeName: 'light',
   },
 };
