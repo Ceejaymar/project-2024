@@ -1,40 +1,43 @@
+import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import media from '../../utils/mediaQueries';
 
 const Section = styled.section`
   width: 100%;
-  padding: 7rem 2rem;
+  padding: 5rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: ${({ theme }) => theme.colors.tertiary};
+  background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors['default-text']};
-
-  @media (max-width: 768px) {
-    padding: 2rem 1rem;
-  }
 `;
 
 const SectionTitle = styled.h2`
-  font-size: 4rem;
+  font-size: 2rem;
   font-weight: 600;
   margin-bottom: 1rem;
   color: ${({ theme }) => theme.colors.text};
   text-transform: capitalize;
-  letter-spacing: -4px;
-  @media (max-width: 768px) {
-    font-size: 1.5rem;
-  }
+  text-align: center;
+  /* @media (max-width: 768px) { */
+  /* letter-spacing: -1px; */
+  /* font-size: 1.5rem; */
+  /* } */
 `;
 
 const EmailLink = styled(motion.a)`
   position: relative;
   flex-direction: column;
-  font-size: 2.5rem;
-  letter-spacing: -3px;
+  font-size: 1.5rem;
   text-decoration: none;
   color: ${({ theme }) => theme.colors.text};
   margin-top: 2rem;
+
+  ${media.tablet`
+    /* letter-spacing: -3px; */
+    /* font-size: 1.5rem; */
+  `}
 `;
 
 const Underline = styled(motion.div)`

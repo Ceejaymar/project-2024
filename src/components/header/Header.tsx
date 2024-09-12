@@ -1,6 +1,7 @@
+import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { ArrowSquareOut, ArrowDown } from '@phosphor-icons/react';
+import { ArrowUpRight, ArrowDown } from '@phosphor-icons/react';
 import lightHeadshot from '../../assets/render-headshot-reduced.webp';
 import shibuyaHeadshot from '../../assets/tokyo-headshot-reduced.webp';
 import media from '../../utils/mediaQueries';
@@ -34,6 +35,7 @@ const HeadingContainer = styled.div`
 
   ${media.laptop`
     flex-basis: 60%;
+    padding-bottom: 1.5rem;
   `}
 
   ${media.desktop`
@@ -45,12 +47,11 @@ const Heading = styled.h1`
   font-size: 2rem;
   text-align: left;
   margin-top: 1.5rem;
-  letter-spacing: -2px;
+  letter-spacing: -1px;
   font-weight: 600;
-  & span:nth-of-type(1) {
-    /* color: ${({ theme }) => theme.colors.primary}; */
-  }
+
   & span:nth-of-type(2) {
+    font-size: 2.5rem;
     color: ${({ theme }) => theme.colors.quaternary};
   }
 
@@ -65,28 +66,33 @@ const Heading = styled.h1`
   `}
 
   ${media.laptop`
-    letter-spacing: -4px;
-    font-size: 3.4rem;
+    letter-spacing: -2.px;
+    font-size: 3.5rem;
+
+    & span:nth-of-type(2) {
+      letter-spacing: -4px;
+      font-size: 4rem;
+      line-height: 1;
+    }
   `}
 
   ${media.desktop`
-    font-size: 4rem;
+    & span:nth-of-type(2) {
+      font-size: 5rem;
+    }
   `}
 `;
 
 const Description = styled.span`
   display: block;
-  padding-top: 20px;
-  font-size: 1.3rem;
+  padding-top: 1rem;
+  font-size: 1rem;
   font-weight: 400;
   text-align: left;
   color: ${({ theme }) => theme.colors['secondary-text']};
 
-  ${media.mobile`
-    font-size: 1.2rem;
-  `}
-
   ${media.tablet`
+    font-size: 1rem;
     max-width: 40ch;
     flex-direction: row;
     padding-top: 0.8rem;
@@ -94,7 +100,8 @@ const Description = styled.span`
 
   ${media.laptop`
     max-width: 50ch;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
   `}
 
   ${media.desktop`
@@ -116,7 +123,7 @@ const Image = styled(motion.img)`
   object-fit: cover;
   object-position: center 20%;
   border-radius: 50%;
-  box-shadow: 0px 5px 25px ${({ theme }) => theme.colors['secondary-text']};
+  box-shadow: 10px 10px 25px -5px ${({ theme }) => theme.colors.boxShadow}65;
 
   ${media.tablet`
     width: 250px;
@@ -136,38 +143,59 @@ const Image = styled(motion.img)`
 
 const ButtonContainer = styled.div`
   display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   gap: 2rem;
   margin-top: 2.5rem;
   font-size: 1.1rem;
+
+  ${media.tablet`
+    flex-direction: row;
+  `}
 `;
 
-const Button = styled.button`
-  align-items: center;
-  display: flex;
+const Button = styled(motion.a)`
+  display: none;
+  width: fit-content;
   gap: 10px;
   background-color: ${({ theme }) => theme.colors.primary}15;
   color: ${({ theme }) => theme.colors.primary};
-  font-size: 1.1rem;
+  font-size: 1rem;
   border-radius: 10px;
   border: 1px solid ${({ theme }) => theme.colors.primary};
   padding: 10px 20px;
   padding-right: 15px;
   cursor: pointer;
+
+  ${media.tablet`
+    display: flex;
+  `}
 `;
 
 const ButtonSecondary = styled(motion.a)`
-  display: flex;
+  display: none;
   align-items: center;
   gap: 5px;
   background-color: transparent;
   color: ${({ theme }) => theme.colors['default-text']}95;
   border: none;
   text-decoration: underline;
+
+  ${media.tablet`
+    display: flex;
+  `}
+`;
+
+const MotionArrowUpRight = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  margin-top: 2px;
 `;
 
 const MotionArrowSquareOut = styled(motion.div)`
   display: flex;
   align-items: center;
+  margin-top: 2px;
 `;
 
 const resume =
@@ -190,9 +218,19 @@ const Header = ({ themeName }: HeaderProps) => {
           problems.
         </Description>
         <ButtonContainer>
-          <Button>
-            Explore my projects <ArrowDown size={18} weight="bold" />
+          <Button initial="hidden" whileHover="visible">
+            Explore my projects{' '}
+            <MotionArrowUpRight
+              variants={{
+                hidden: { x: -10, opacity: 0 },
+                visible: { x: 0, opacity: 1 },
+              }}
+              transition={{ ease: 'easeIn', duration: 0.2 }}
+            >
+              <ArrowDown size={18} weight="bold" />
+            </MotionArrowUpRight>
           </Button>
+
           <ButtonSecondary
             href={resume}
             target="_blank"
@@ -200,7 +238,7 @@ const Header = ({ themeName }: HeaderProps) => {
             initial="hidden"
             whileHover="visible"
           >
-            Download resume
+            Get my resume
             <MotionArrowSquareOut
               variants={{
                 hidden: { x: -10, opacity: 0 },
@@ -208,7 +246,7 @@ const Header = ({ themeName }: HeaderProps) => {
               }}
               transition={{ ease: 'easeIn', duration: 0.2 }}
             >
-              <ArrowSquareOut size={18} weight="bold" />
+              <ArrowUpRight size={18} weight="bold" />
             </MotionArrowSquareOut>
           </ButtonSecondary>
         </ButtonContainer>

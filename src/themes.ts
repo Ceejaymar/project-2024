@@ -1,8 +1,7 @@
 export const lightTheme = {
   colors: {
     background: '#f7f5f2',
-    // navbarBackground: '#212427',
-    // 'default-text': '#212427',
+    boxShadow: '#212427',
     'default-text': '#1c2528',
     'secondary-text': '#919191',
     // 'tertiary-text': '#dddddd',
@@ -19,8 +18,8 @@ export const lightTheme = {
 export const darkTheme = {
   colors: {
     background: '#212427',
+    boxShadow: '#000000',
     navbarBackground: '#212427',
-    // 'default-text': '#212427',
     // 'default-text': '#313131',
     'default-text': '#f7f5f2',
     'secondary-text': '#919191',

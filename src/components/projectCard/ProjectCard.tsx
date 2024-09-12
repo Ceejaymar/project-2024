@@ -1,0 +1,185 @@
+import React from 'react';
+import styled from 'styled-components';
+import media from '../../utils/mediaQueries';
+
+const ProjectCardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: ${({ theme }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors['default-text']};
+  border-radius: 15px;
+  margin-top: 2.5rem;
+  box-shadow: 10px 10px 25px -5px ${({ theme }) => theme.colors.boxShadow}40;
+  overflow: hidden;
+
+  ${media.tablet`
+    height: auto;
+    width: calc(50% - 0.5rem);
+  `}
+
+  ${media.laptop`
+    height: auto;
+    width: 100%;
+    flex-direction: row;
+    padding: 0 1.5rem;
+  `} /* padding: 0 1.5rem; */
+  /* overflow: hidden; */
+
+  /* width: 100%;
+  height: 100%;
+  background-color: ${({ theme }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors['default-text']};
+  
+  margin: 3rem;
+  overflow: hidden; */
+`;
+
+const ImageContainer = styled.div`
+  ${media.laptop`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 40%;
+  `}
+`;
+
+const ProjectImage = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 15px 15px 0 0;
+  margin-bottom: -2.1rem;
+  /* box-shadow: -2px -2px 0px 2px ${({ theme }) => theme.colors.quaternary}; */
+
+  ${media.tablet`
+    max-height: 195px;
+    object-fit: cover;
+    object-position: top;
+  `}
+
+  ${media.laptop`
+    max-height: unset;
+    width: 90%;
+    height: 90%;
+    margin-bottom: -3.1rem;
+  `}
+`;
+
+const ProjectInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 2rem;
+
+  ${media.tablet`
+    justify-content: space-between;
+    `}
+
+  ${media.laptop`
+    flex-basis: 60%;
+  `}
+
+  ${media.desktop`
+    padding: 3rem 2rem;
+  `}
+`;
+
+const ProjectTitle = styled.h4`
+  font-size: 1.5rem;
+  line-height: 1.2;
+  font-weight: 500;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+  color: ${({ theme }) => theme.colors['default-text']};
+`;
+
+const ProjectTech = styled.p`
+  font-size: 0.7rem;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+  font-weight: 600;
+`;
+
+const ProjectDescription = styled.p`
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  color: ${({ theme }) => theme.colors['secondary-text']};
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  margin-top: 1rem;
+  width: 100%;
+  justify-content: space-between;
+
+  ${media.laptop`
+    justify-content: flex-start;
+    gap: 15rem;
+  `}
+`;
+
+const ProjectRepo = styled.a`
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: ${({ theme }) => theme.colors['default-text']};
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors['secondary-text']};
+  }
+`;
+
+const ProjectLive = styled.a`
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: ${({ theme }) => theme.colors['default-text']};
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors['secondary-text']};
+  }
+`;
+
+interface ProjectCardProps {
+  title: string;
+  image: string;
+  description: string;
+  tech: string;
+  repo: string;
+  live: string;
+}
+
+const ProjectCard = ({
+  title,
+  image,
+  description,
+  tech,
+  repo,
+  live,
+}: ProjectCardProps) => {
+  return (
+    <ProjectCardContainer>
+      <ImageContainer>
+        <ProjectImage src={image} />
+      </ImageContainer>
+      <ProjectInfo>
+        <ProjectTitle>{title}</ProjectTitle>
+        <ProjectTech>{tech}</ProjectTech>
+        <ProjectDescription>{description}</ProjectDescription>
+        <ButtonContainer>
+          <ProjectRepo href={repo} target="_blank" rel="noopener noreferrer">
+            Github
+          </ProjectRepo>
+          <ProjectLive href={live} target="_blank" rel="noopener noreferrer">
+            Live site
+          </ProjectLive>
+        </ButtonContainer>
+      </ProjectInfo>
+    </ProjectCardContainer>
+  );
+};
+
+export default ProjectCard;

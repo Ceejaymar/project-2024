@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import media from '../../utils/mediaQueries';
 
@@ -13,14 +14,12 @@ const Section = styled.section`
   color: ${({ theme }) => theme.colors['default-text']};
 
   ${media.laptop`
-    align-items: flex-start;
+    /* align-items: flex-start; */
     padding: 4rem 2rem;
   `}
 
   ${media.desktop`
-    padding: 0 2rem;
-    padding-top: 7rem;
-    padding-bottom: 5rem;
+    padding: 7rem 0 5rem;
   `}
 `;
 
@@ -33,22 +32,24 @@ const SectionTitle = styled.h2`
   text-align: center;
 `;
 
-const SectionText = styled.p`
-  font-size: 1rem;
-  max-width: 600px;
-  line-height: 1.5;
-  color: ${({ theme }) => theme.colors['secondary-text']};
-  text-align: center;
+// const SectionText = styled.p`
+//   font-size: 1rem;
+//   max-width: 600px;
+//   line-height: 1.5;
+//   color: ${({ theme }) => theme.colors['secondary-text']};
+//   text-align: center;
+//   margin-top: 2rem;
 
-  ${media.laptop`
-    text-align: left;
-  `}
-`;
+//   ${media.laptop`
+//     /* text-align: left; */
+//   `}
+// `;
 
 const ExperienceSection = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  max-width: 1024px;
   margin: 2.5rem 0;
   column-gap: 0.8rem;
   row-gap: 2rem;
@@ -77,7 +78,7 @@ const ExperienceItem = styled.div`
   flex-basis: calc(50% - 1rem);
 
   ${media.laptop`
-    align-items: flex-start;
+    /* align-items: flex-start; */
     max-width: 200px;
   `}
 
@@ -133,11 +134,11 @@ const experienceList = [
 
 const About = () => (
   <Section id="experience">
-    <SectionTitle>My experience</SectionTitle>
-    <SectionText>
+    <SectionTitle>Experience</SectionTitle>
+    {/* <SectionText>
       I am a passionate developer with experience in building dynamic and
       responsive web applications.
-    </SectionText>
+    </SectionText> */}
     <ExperienceSection>
       {experienceList.map((experience) => {
         const { company, date, title } = experience;

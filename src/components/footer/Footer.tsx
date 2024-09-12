@@ -1,16 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 import GradientLogo from '../logoGradient/GradientLogo';
+import media from '../../utils/mediaQueries';
 
 const FooterContainer = styled.footer`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column-reverse;
   align-items: center;
+  gap: 2rem;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.colors['default-text']};
   font-weight: 500;
-  padding: 1.2rem 1rem;
+  padding: 2rem 1rem;
+
+  ${media.laptop`
+    flex-direction: row;
+    justify-content: space-between;
+  `}
 `;
 
 const SocialLinks = styled.div`

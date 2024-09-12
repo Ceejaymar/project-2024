@@ -6,7 +6,7 @@ import { lightTheme, darkTheme } from './themes';
 import Navbar from './components/navbar/Navbar';
 import Header from './components/header/Header';
 import Experience from './components/experience/Experience';
-// import Projects from './components/projects/Projects';
+import Projects from './components/projects/Projects';
 import Contact from './components/contact/Contact';
 import Footer from './components/footer/Footer';
 
@@ -60,7 +60,7 @@ function App() {
         <Navbar themeName={theme} toggleTheme={toggleTheme} />
         <Header themeName={theme} />
         <Experience />
-        {/* <Projects /> */}
+        <Projects />
         <Contact />
         <Footer />
       </motion.div>
