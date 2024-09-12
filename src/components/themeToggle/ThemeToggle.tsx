@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import { Sun, Moon } from '@phosphor-icons/react';
 import { ThemeProps } from '../../types';
