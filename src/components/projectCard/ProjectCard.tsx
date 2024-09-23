@@ -13,8 +13,37 @@ const ProjectCardContainer = styled.div`
   color: ${({ theme }) => theme.colors['default-text']};
   border-radius: 15px;
   margin-top: 2.5rem;
-  box-shadow: 10px 10px 25px -5px ${({ theme }) => theme.colors.boxShadow}40;
+  box-shadow: 10px 10px 25px -5px ${({ theme }) => theme.colors.boxShadow}20;
   overflow: hidden;
+
+  /* background-clip: padding-box;
+  border-style: solid;
+  border-width: 2px;
+
+  border-image: linear-gradient(
+      45deg,
+      ${({ theme }) => theme.colors.primary},
+      ${({ theme }) => theme.colors.secondary},
+      ${({ theme }) => theme.colors.tertiary},
+      ${({ theme }) => theme.colors.quaternary}
+    )
+    1; */
+
+  border: double 1.5px transparent;
+  border-radius: 15px;
+  background-image: linear-gradient(
+      ${({ theme }) => theme.colors.background},
+      ${({ theme }) => theme.colors.background}
+    ),
+    linear-gradient(
+      to right,
+      ${({ theme }) => theme.colors.primary},
+      ${({ theme }) => theme.colors.secondary},
+      ${({ theme }) => theme.colors.tertiary},
+      ${({ theme }) => theme.colors.quaternary}
+    );
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
 
   ${media.tablet`
     height: auto;
@@ -26,16 +55,7 @@ const ProjectCardContainer = styled.div`
     width: 100%;
     flex-direction: row;
     padding: 0 1.5rem;
-  `} /* padding: 0 1.5rem; */
-  /* overflow: hidden; */
-
-  /* width: 100%;
-  height: 100%;
-  background-color: ${({ theme }) => theme.colors.background};
-  color: ${({ theme }) => theme.colors['default-text']};
-  
-  margin: 3rem;
-  overflow: hidden; */
+  `}
 `;
 
 const ImageContainer = styled.div`
@@ -53,7 +73,6 @@ const ProjectImage = styled.img`
   height: 100%;
   border-radius: 15px 15px 0 0;
   margin-bottom: -2.1rem;
-  /* box-shadow: -2px -2px 0px 2px ${({ theme }) => theme.colors.quaternary}; */
 
   ${media.tablet`
     max-height: 195px;
@@ -72,11 +91,12 @@ const ProjectImage = styled.img`
 const ProjectInfo = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 2rem 2rem;
+  padding: 4rem 2rem 2rem;
 
   ${media.tablet`
+    padding : 2rem 2rem;
     justify-content: space-between;
-    `}
+  `}
 
   ${media.laptop`
     flex-basis: 60%;
@@ -117,7 +137,7 @@ const ButtonContainer = styled.div`
 
   ${media.laptop`
     justify-content: flex-start;
-    gap: 15rem;
+    gap: 3rem;
   `}
 `;
 

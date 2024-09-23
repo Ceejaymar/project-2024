@@ -24,7 +24,7 @@ const Nav = styled(motion.nav)`
   `}
 
   ${media.desktop`
-    padding: 1rem 0;
+    padding: 1rem 1.5rem;
     margin-top: .5rem;
   `}
 `;
@@ -33,13 +33,7 @@ const Logo = styled.div`
   display: flex;
   flex: 1;
   justify-content: center;
-  /* align-items: center; */
-  /* font-size: 2rem;
-  font-weight: bold;
-  text-align: center;
-  color: ${({ theme }) => theme.colors['default-text']}; */
   height: 1.3rem;
-  /* width: 10px; */
 
   ${media.tablet`
     justify-content: flex-start;
@@ -65,17 +59,11 @@ const NavItem = styled(motion.li)`
 `;
 
 const NavLink = styled.a<NavLinkProps>`
-  /* color: ${({ isFirst, isLast, theme }) =>
-    isFirst
-      ? theme.colors['default-text']
-      : isLast
-        ? theme.colors.quaternary
-        : theme.colors['secondary-text']}; */
   color: ${({ theme }) => theme.colors['default-text']}90;
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
-  /* text-transform: uppercase; */
+  text-transform: capitalize;
 
   &:hover,
   &:focus {
@@ -87,8 +75,7 @@ const NavLink = styled.a<NavLinkProps>`
 const Underline = styled(motion.li)`
   position: absolute;
   bottom: -2.5px;
-  /* background-color: ${({ theme }) => theme.colors['default-text']}; */
-  background-color: ${({ theme }) => theme.colors['default-text']};
+  background-color: ${({ theme }) => theme.colors.secondary};
   height: 3px;
   border-radius: 25px;
   list-style: none;

@@ -26,7 +26,7 @@ const HeaderSection = styled(motion.header)`
   `}
 
   ${media.desktop`
-    padding: 4rem 0;
+    padding: 4rem 1.5rem;
   `}
 `;
 
@@ -167,19 +167,21 @@ const Button = styled(motion.a)`
   padding-right: 15px;
   cursor: pointer;
   text-decoration: none;
+
   ${media.tablet`
     display: flex;
   `}
 `;
 
 const ButtonSecondary = styled(motion.a)`
+  position: relative;
   display: none;
   align-items: center;
   gap: 5px;
   background-color: transparent;
   color: ${({ theme }) => theme.colors['default-text']}95;
   border: none;
-  text-decoration: underline;
+  text-decoration: none;
 
   ${media.tablet`
     display: flex;
@@ -196,6 +198,16 @@ const MotionArrowSquareOut = styled(motion.div)`
   display: flex;
   align-items: center;
   margin-top: 2px;
+`;
+
+const Underline = styled(motion.li)`
+  position: absolute;
+  left: 0;
+  bottom: 5px;
+  background-color: ${({ theme }) => theme.colors.secondary};
+  height: 3px;
+  border-radius: 25px;
+  list-style: none;
 `;
 
 const resume =
@@ -225,7 +237,11 @@ const Header = ({ themeName }: HeaderProps) => {
                 // hidden: { x: -10, opacity: 0 },
                 bounce: { y: [0, -5, 0, -2, 0] },
               }}
-              transition={{ ease: 'easeInOut', duration: 0.3 }}
+              transition={{
+                ease: 'easeInOut',
+                duration: 0.9,
+                repeat: Infinity,
+              }}
             >
               <ArrowDown size={18} weight="bold" />
             </MotionArrowUpRight>
@@ -238,13 +254,27 @@ const Header = ({ themeName }: HeaderProps) => {
             initial="hidden"
             whileHover="visible"
           >
+            <Underline
+              variants={{
+                hidden: { width: '0%' },
+                visible: { width: '85%' },
+              }}
+              transition={{
+                duration: 0.3,
+                ease: 'easeIn',
+              }}
+            />
             Get my resume
             <MotionArrowSquareOut
               variants={{
                 hidden: { x: -10, opacity: 0 },
                 visible: { x: 0, opacity: 1 },
               }}
-              transition={{ ease: 'easeIn', duration: 0.2 }}
+              transition={{
+                ease: 'easeIn',
+                duration: 0.2,
+                delay: 0.2,
+              }}
             >
               <ArrowUpRight size={18} weight="bold" />
             </MotionArrowSquareOut>
