@@ -13,8 +13,6 @@ const Section = styled(motion.section)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* background-color: ${({ theme }) => theme.colors.background}; */
-  /* color: ${({ theme }) => theme.colors['default-text']}; */
 
   ${media.laptop`
     padding: 4rem 2rem 7rem;

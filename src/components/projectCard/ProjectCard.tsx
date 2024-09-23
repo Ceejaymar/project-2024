@@ -36,7 +36,7 @@ const ProjectCardContainer = styled.div`
       ${({ theme }) => theme.colors.background}
     ),
     linear-gradient(
-      to right,
+      135deg,
       ${({ theme }) => theme.colors.primary},
       ${({ theme }) => theme.colors.secondary},
       ${({ theme }) => theme.colors.tertiary},
