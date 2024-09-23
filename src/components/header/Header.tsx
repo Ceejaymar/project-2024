@@ -211,7 +211,7 @@ const Underline = styled(motion.li)`
 `;
 
 const resume =
-  'https://drive.google.com/file/d/1MgFbvhWgNVoTxVtUGkiwP9eR_BLElxkF/view?usp=drive_link';
+  'https://drive.google.com/file/d/1rqdVrXyzSiGWDqafW1lBf0EuWhRoaEfr/view?usp=sharing';
 
 const Header = ({ themeName }: HeaderProps) => {
   return (
