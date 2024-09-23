@@ -51,7 +51,7 @@ const projects = [
     image:
       'https://firebasestorage.googleapis.com/v0/b/portfolio-cm.appspot.com/o/weather.png?alt=media&token=c202741a-ff4c-4540-870e-3da62d3c87b9',
     description:
-      'lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, quisquam. lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, quisquam.',
+      "A simple React weather app that uses the OpenWeather API to fetch and display current weather data based on the user's location or a searched city. The app features a clean interface, showing temperature, weather conditions, and other key details.",
     tech: 'React, Styled-components, Storybook, Axios',
     repo: 'https://github.com/Ceejaymar/weather',
     live: 'https://starlit-queijadas-1645a0.netlify.app/',
@@ -61,20 +61,11 @@ const projects = [
     image:
       'https://firebasestorage.googleapis.com/v0/b/portfolio-cm.appspot.com/o/TheEnds.jpg?alt=media&token=158a2289-3f03-4682-b51d-d56ea7d468e9',
     description:
-      'lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, quisquam. lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, quisquam.',
+      "The Ends is a marketplace that connects users with stores and products that evoke a sense of home and cultural belonging, no matter where they are. It's a platform where products tell a story of identity, making you feel connected to where you're from.",
     tech: 'React, SCSS, Firebase, Postgres, Express, SQL, Travis CI',
     repo: 'https://github.com/Ceejaymar/TheEnds-ecommerce-frontend',
     live: 'https://theends.web.app/',
   },
-  // {
-  //   title: 'project 3',
-  //   image: '',
-  //   description:
-  //     'lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, quisquam. lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, quisquam.',
-  //   tech: 'javascript, css, hmtl',
-  //   repo: 'https://github.com/carlos-alberto-dev/project-3',
-  //   live: 'https://project-3.com',
-  // },
 ];
 
 const Projects = ({ themeName }: HeaderProps) => (
