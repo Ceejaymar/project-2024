@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, ArrowDown } from '@phosphor-icons/react';
+import ReactGA from 'react-ga4';
+
 import lightHeadshot from '../../assets/render-headshot-reduced.webp';
 import shibuyaHeadshot from '../../assets/tokyo-headshot-reduced.webp';
 import media from '../../utils/mediaQueries';
@@ -230,7 +232,16 @@ const Header = ({ themeName }: HeaderProps) => {
           problems.
         </Description>
         <ButtonContainer>
-          <Button whileHover="bounce" href="#projects">
+          <Button
+            whileHover="bounce"
+            href="#projects"
+            onClick={() => {
+              ReactGA.event({
+                category: 'button-click',
+                action: 'project button clicked',
+              });
+            }}
+          >
             Explore my projects{' '}
             <MotionArrowUpRight
               variants={{
@@ -253,6 +264,12 @@ const Header = ({ themeName }: HeaderProps) => {
             rel="noopener noreferrer"
             initial="hidden"
             whileHover="visible"
+            onClick={() => {
+              ReactGA.event({
+                category: 'button-click',
+                action: 'resume button clicked',
+              });
+            }}
           >
             <Underline
               variants={{

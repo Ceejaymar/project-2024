@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import ReactGA from 'react-ga4';
 import { Envelope, LinkedinLogo } from '@phosphor-icons/react';
+
 import media from '../../utils/mediaQueries';
 
 const Section = styled.section`
@@ -102,6 +104,12 @@ const Contact = () => {
           target="_blank"
           rel="noopener noreferrer"
           whileHover="bounce"
+          onClick={() => {
+            ReactGA.event({
+              category: 'button-click',
+              action: `linkedin button clicked`,
+            });
+          }}
         >
           Connect on Linkedin{' '}
           <MotionLinkedinLogo
@@ -117,7 +125,16 @@ const Contact = () => {
             }}
           />
         </Button>
-        <EmailButton href="mailto:ceejaymar@gmail.com" whileHover="bounce">
+        <EmailButton
+          href="mailto:ceejaymar@gmail.com"
+          whileHover="bounce"
+          onClick={() => {
+            ReactGA.event({
+              category: 'button-click',
+              action: `email button clicked`,
+            });
+          }}
+        >
           Contact me{' '}
           <MotionEnvelope
             size="20"
