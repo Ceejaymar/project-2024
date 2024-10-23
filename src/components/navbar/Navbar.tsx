@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+
 import MobileNavigation from '../mobileNavigation/MobileNavigation';
 import { NavLinkProps, ThemeProps } from '../../types';
 import { getThemeTransition } from '../../utils/themeTransition';

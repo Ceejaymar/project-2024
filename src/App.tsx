@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { motion } from 'framer-motion';
 import { GlobalStyles } from './GlobalStyles';
+import { usePostHog } from 'posthog-js/react';
+
 import { lightTheme, darkTheme } from './themes';
 import Navbar from './components/navbar/Navbar';
 import Header from './components/header/Header';
@@ -21,10 +23,12 @@ const updateThemeColor = (color: string) => {
 };
 
 function App() {
+  const posthog = usePostHog();
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+    posthog?.capture('theme_toggled');
   };
 
   const themes = {
