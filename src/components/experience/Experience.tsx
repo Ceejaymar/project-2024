@@ -181,34 +181,7 @@ const experienceList = [
   },
 ];
 
-// const fadeInAnimation = {
-//   hidden: { opacity: 0, y: 24 },
-//   show: {
-//     opacity: 1,
-//     y: 0,
-//     transition: {
-//       delay: 0.9,
-//       duration: 1,
-//       staggerChildren: 0.4,
-//       ease: [0.25, 0.46, 0.45, 0.94],
-//     },
-//   },
-// };
-
-// const fadeInAnimationChildren = {
-//   hidden: { opacity: 0, y: 24 },
-//   show: {
-//     opacity: 1,
-//     y: 0,
-//     transition: {
-//       delay: 1.5,
-//       duration: 0.8,
-//       ease: [0.25, 0.46, 0.45, 0.94],
-//     },
-//   },
-// };
-
-const containerVariants = {
+const fadeInUpParent = {
   hidden: { opacity: 0, y: 24 },
   show: {
     opacity: 1,
@@ -222,7 +195,7 @@ const containerVariants = {
   },
 };
 
-const childVariants = {
+const fadeInUpChildren = {
   hidden: { opacity: 0, y: 24 },
   show: {
     opacity: 1,
@@ -238,13 +211,13 @@ const About = ({ themeName }: HeaderProps) => (
   <Section
     id="experience"
     key={themeName}
-    {...getThemeTransition(themeName)}
     initial="hidden"
     animate="show"
-    variants={containerVariants}
+    variants={fadeInUpParent}
+    {...getThemeTransition(themeName)}
   >
-    <SectionTitle variants={childVariants}>Experience</SectionTitle>
-    <ExperienceSection variants={childVariants}>
+    <SectionTitle variants={fadeInUpChildren}>Experience</SectionTitle>
+    <ExperienceSection variants={fadeInUpChildren}>
       {experienceList.map((experience) => {
         const { company, date, title, description } = experience;
 
