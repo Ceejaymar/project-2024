@@ -32,7 +32,7 @@ const HeaderSection = styled(motion.header)`
   `}
 `;
 
-const HeadingContainer = styled.div`
+const HeadingContainer = styled(motion.div)`
   flex-basis: 65%;
 
   ${media.laptop`
@@ -45,7 +45,7 @@ const HeadingContainer = styled.div`
   `}
 `;
 
-const Heading = styled.h1`
+const Heading = styled(motion.h1)`
   font-size: 2rem;
   text-align: left;
   margin-top: 1.5rem;
@@ -85,7 +85,7 @@ const Heading = styled.h1`
   `}
 `;
 
-const Description = styled.span`
+const Description = styled(motion.span)`
   display: block;
   padding-top: 1rem;
   font-size: 1rem;
@@ -112,7 +112,7 @@ const Description = styled.span`
   `}
 `;
 
-const ImageContainer = styled.div`
+const ImageContainer = styled(motion.div)`
   ${media.laptop`
     flex-basis: 35%;
     justify-content: end;
@@ -143,7 +143,7 @@ const Image = styled(motion.img)`
   `}
 `;
 
-const ButtonContainer = styled.div`
+const ButtonContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -215,23 +215,45 @@ const Underline = styled(motion.li)`
 const resume =
   'https://drive.google.com/file/d/1rqdVrXyzSiGWDqafW1lBf0EuWhRoaEfr/view?usp=sharing';
 
+const fadeInUpAnimation = {
+  hidden: { opacity: 0, y: 24 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1,
+      staggerChildren: 0.4,
+      ease: 'easeInOut',
+    },
+  },
+};
+
 const Header = ({ themeName }: HeaderProps) => {
   return (
     <HeaderSection key={themeName} {...getThemeTransition(themeName)}>
-      <HeadingContainer>
-        <Heading>
+      <HeadingContainer
+        initial="hidden"
+        animate="show"
+        variants={fadeInUpAnimation}
+      >
+        <Heading
+          // initial={{ opacity: 0, y: 50 }}
+          // animate={{ opacity: 1, y: 0 }}
+          // transition={{ delay: 0.3, duration: 0.6 }}
+          variants={fadeInUpAnimation}
+        >
           Hey there, I'm <span>Carlos</span>.
           <br />
           <span>Front-End Web Developer</span>
           <br />
         </Heading>
-        <Description>
+        <Description variants={fadeInUpAnimation}>
           Blending creativity and code to build meaningful digital solutions. I
           thrive in collaborative teams, using modern tech to create reliable
           applications that enhance user experiences and solve real-world
           problems.
         </Description>
-        <ButtonContainer>
+        <ButtonContainer variants={fadeInUpAnimation}>
           <Button
             whileHover="bounce"
             href="#projects"
@@ -298,7 +320,11 @@ const Header = ({ themeName }: HeaderProps) => {
           </ButtonSecondary>
         </ButtonContainer>
       </HeadingContainer>
-      <ImageContainer>
+      <ImageContainer
+        initial="hidden"
+        animate="show"
+        variants={fadeInUpAnimation}
+      >
         <Image
           key={themeName}
           src={themeName === 'light' ? lightHeadshot : shibuyaHeadshot}
