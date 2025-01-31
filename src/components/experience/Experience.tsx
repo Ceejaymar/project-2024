@@ -22,7 +22,7 @@ const Section = styled(motion.section)`
   `}
 `;
 
-const SectionTitle = styled.h2`
+const SectionTitle = styled(motion.h2)`
   font-size: 2.4rem;
   margin-bottom: 1rem;
   font-weight: 400;
@@ -31,7 +31,7 @@ const SectionTitle = styled.h2`
   text-align: center;
 `;
 
-const ExperienceSection = styled.div`
+const ExperienceSection = styled(motion.div)`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -181,14 +181,70 @@ const experienceList = [
   },
 ];
 
+// const fadeInAnimation = {
+//   hidden: { opacity: 0, y: 24 },
+//   show: {
+//     opacity: 1,
+//     y: 0,
+//     transition: {
+//       delay: 0.9,
+//       duration: 1,
+//       staggerChildren: 0.4,
+//       ease: [0.25, 0.46, 0.45, 0.94],
+//     },
+//   },
+// };
+
+// const fadeInAnimationChildren = {
+//   hidden: { opacity: 0, y: 24 },
+//   show: {
+//     opacity: 1,
+//     y: 0,
+//     transition: {
+//       delay: 1.5,
+//       duration: 0.8,
+//       ease: [0.25, 0.46, 0.45, 0.94],
+//     },
+//   },
+// };
+
+const containerVariants = {
+  hidden: { opacity: 0, y: 24 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: 1,
+      duration: 1,
+      staggerChildren: 1,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  },
+};
+
+const childVariants = {
+  hidden: { opacity: 0, y: 24 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  },
+};
+
 const About = ({ themeName }: HeaderProps) => (
-  <Section id="experience" key={themeName} {...getThemeTransition(themeName)}>
-    <SectionTitle>Experience</SectionTitle>
-    {/* <SectionText>
-      I am a passionate developer with experience in building dynamic and
-      responsive web applications.
-    </SectionText> */}
-    <ExperienceSection>
+  <Section
+    id="experience"
+    key={themeName}
+    {...getThemeTransition(themeName)}
+    initial="hidden"
+    animate="show"
+    variants={containerVariants}
+  >
+    <SectionTitle variants={childVariants}>Experience</SectionTitle>
+    <ExperienceSection variants={childVariants}>
       {experienceList.map((experience) => {
         const { company, date, title, description } = experience;
 

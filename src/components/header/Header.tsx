@@ -223,7 +223,7 @@ const fadeInUpAnimation = {
     transition: {
       duration: 1,
       staggerChildren: 0.4,
-      ease: 'easeInOut',
+      ease: [0.25, 0.46, 0.45, 0.94],
     },
   },
 };
@@ -236,12 +236,7 @@ const Header = ({ themeName }: HeaderProps) => {
         animate="show"
         variants={fadeInUpAnimation}
       >
-        <Heading
-          // initial={{ opacity: 0, y: 50 }}
-          // animate={{ opacity: 1, y: 0 }}
-          // transition={{ delay: 0.3, duration: 0.6 }}
-          variants={fadeInUpAnimation}
-        >
+        <Heading variants={fadeInUpAnimation}>
           Hey there, I'm <span>Carlos</span>.
           <br />
           <span>Front-End Web Developer</span>
@@ -329,10 +324,10 @@ const Header = ({ themeName }: HeaderProps) => {
           key={themeName}
           src={themeName === 'light' ? lightHeadshot : shibuyaHeadshot}
           alt="Carlos"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 1 }}
         />
       </ImageContainer>
     </HeaderSection>
