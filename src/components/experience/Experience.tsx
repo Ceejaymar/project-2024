@@ -181,19 +181,28 @@ const experienceList = [
   },
 ];
 
-const fadeInUpParent = {
-  hidden: { opacity: 0, y: 24 },
+const fadeInUpParent = (theme) => ({
+  hidden: {
+    opacity: 0,
+    y: 24,
+
+    backgroundColor: theme.initial.backgroundColor,
+    color: theme.initial.color,
+  },
   show: {
     opacity: 1,
     y: 0,
+
+    backgroundColor: theme.animate.backgroundColor,
+    color: theme.animate.color,
+
     transition: {
-      delay: 1,
-      duration: 1,
-      staggerChildren: 1,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      duration: theme.transition.duration,
+      ease: theme.transition.ease,
+      staggerChildren: 0.4,
     },
   },
-};
+});
 
 const fadeInUpChildren = {
   hidden: { opacity: 0, y: 24 },
@@ -207,31 +216,35 @@ const fadeInUpChildren = {
   },
 };
 
-const About = ({ themeName }: HeaderProps) => (
-  <Section
-    id="experience"
-    key={themeName}
-    initial="hidden"
-    animate="show"
-    variants={fadeInUpParent}
-    {...getThemeTransition(themeName)}
-  >
-    <SectionTitle variants={fadeInUpChildren}>Experience</SectionTitle>
-    <ExperienceSection variants={fadeInUpChildren}>
-      {experienceList.map((experience) => {
-        const { company, date, title, description } = experience;
+const About = ({ themeName }: HeaderProps) => {
+  const themeProps = getThemeTransition(themeName);
 
-        return (
-          <ExperienceItem key={company}>
-            <Company>{company}</Company>
-            <Title>{title}</Title>
-            <Date>{date}</Date>
-            <Description>{description}</Description>
-          </ExperienceItem>
-        );
-      })}
-    </ExperienceSection>
-  </Section>
-);
+  return (
+    <Section
+      id="experience"
+      key={themeName}
+      {...getThemeTransition(themeName)}
+      initial="hidden"
+      animate="show"
+      variants={fadeInUpParent(themeProps)}
+    >
+      <SectionTitle variants={fadeInUpChildren}>Experience</SectionTitle>
+      <ExperienceSection variants={fadeInUpChildren}>
+        {experienceList.map((experience) => {
+          const { company, date, title, description } = experience;
+
+          return (
+            <ExperienceItem key={company}>
+              <Company>{company}</Company>
+              <Title>{title}</Title>
+              <Date>{date}</Date>
+              <Description>{description}</Description>
+            </ExperienceItem>
+          );
+        })}
+      </ExperienceSection>
+    </Section>
+  );
+};
 
 export default About;
