@@ -174,7 +174,7 @@ const experienceList = [
   },
   {
     company: 'Yubico',
-    date: 'Aug 2022 — present',
+    date: 'Aug 2022 — Jan 2024',
     title: 'Software Engineer II',
     description:
       'Developed an interactive quiz and custom WordPress blocks to improve user engagement and content delivery. Implemented internationalization for broader accessibility, collaborated with UX teams on Figma designs, and reduced bugs through end-to-end testing.',

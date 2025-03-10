@@ -33,9 +33,9 @@ const SocialLinks = styled.div`
     color: ${({ theme }) => theme.colors['default-text']}80;
     font-size: 1rem;
     text-decoration: none;
+    transition: color 0.3s ease;
 
-    &:hover,
-    &:focus {
+    &:hover {
       color: ${({ theme }) => theme.colors['default-text']};
     }
   }
@@ -57,6 +57,10 @@ const socialLinks = [
   {
     name: 'github',
     url: 'https://github.com/ceejaymar',
+  },
+  {
+    name: 'youtube',
+    url: 'https://www.youtube.com/@Losliving',
   },
   {
     name: 'instagram',
