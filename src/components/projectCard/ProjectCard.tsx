@@ -127,6 +127,7 @@ const ProjectTech = styled.p`
 
 const ProjectDescription = styled.p`
   font-size: 0.9rem;
+  font-weight: 500;
   margin-bottom: 10px;
   color: ${({ theme }) => theme.colors['secondary-text']};
 `;

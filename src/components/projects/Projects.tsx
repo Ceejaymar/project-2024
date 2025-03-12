@@ -45,6 +45,16 @@ const ProjectList = styled.div`
 
 const projects = [
   {
+    title: 'Batey Fashion (WIP)',
+    image:
+      'https://firebasestorage.googleapis.com/v0/b/portfolio-cm.appspot.com/o/batey.png?alt=media&token=9276baaa-a8a8-468f-b935-a9e632017f5b',
+    description:
+      "I wanted to experience the feeling of creating a fashion brand, imagining it born from the culture and spirit of my home country. What would it look like? What emotions would it stir? This is the unfolding story of that exploration. This project is a WORK IN PROGRESS, and I'm excited to share what I've discovered so far.",
+    tech: 'React, TypeScript, Styled-components, Framer Motion, Storybook',
+    repo: 'https://github.com/Ceejaymar/batey',
+    live: 'https://batey.netlify.app/',
+  },
+  {
     title: 'weather app',
     image:
       'https://firebasestorage.googleapis.com/v0/b/portfolio-cm.appspot.com/o/weather.png?alt=media&token=c202741a-ff4c-4540-870e-3da62d3c87b9',
