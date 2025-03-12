@@ -45,7 +45,7 @@ const ProjectList = styled.div`
 
 const projects = [
   {
-    title: 'Batey Fashion (WIP)',
+    title: 'Batéy Fashion (WIP)',
     image:
       'https://firebasestorage.googleapis.com/v0/b/portfolio-cm.appspot.com/o/batey.png?alt=media&token=9276baaa-a8a8-468f-b935-a9e632017f5b',
     description:

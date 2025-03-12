@@ -47,7 +47,7 @@ const HeadingContainer = styled(motion.div)`
 
 const Heading = styled(motion.h1)`
   font-size: 2rem;
-  text-align: left;
+  text-align: center;
   margin-top: 1.5rem;
   letter-spacing: -1px;
   font-weight: 600;
@@ -80,7 +80,7 @@ const Heading = styled(motion.h1)`
 
   ${media.desktop`
     & span:nth-of-type(2) {
-      font-size: 5rem;
+      font-size: 5.5rem;
     }
   `}
 `;
@@ -239,7 +239,7 @@ const Header = ({ themeName }: HeaderProps) => {
         <Heading variants={fadeInUpAnimation}>
           Hey there, I'm <span>Carlos</span>.
           <br />
-          <span>Front-End Web Developer</span>
+          <span>Frontend Engineer</span>
           <br />
         </Heading>
         <Description variants={fadeInUpAnimation}>
