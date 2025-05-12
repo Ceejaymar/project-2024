@@ -10,6 +10,19 @@ import media from '../../utils/mediaQueries';
 import { HeaderProps } from '../../types';
 import { getThemeTransition } from '../../utils/themeTransition';
 
+const technologies = [
+  { name: 'React', url: 'https://react.dev/' },
+  { name: 'TypeScript', url: 'https://www.typescriptlang.org/' },
+  { name: 'Tailwind CSS', url: 'https://tailwindcss.com/' },
+  { name: 'Styled-components', url: 'https://styled-components.com/' },
+  { name: 'Motion', url: 'https://motion.dev/' },
+  // { name: 'ThreeJS', url: 'https://threejs.org/' },
+  { name: 'Storybook', url: 'https://storybook.js.org/' },
+  // { name: 'React Native', url: 'https://reactnative.dev/' },
+  // 'Storybook',
+  // 'ThreeJS',
+];
+
 const HeaderSection = styled(motion.header)`
   display: flex;
   flex-direction: column-reverse;
@@ -190,6 +203,44 @@ const ButtonSecondary = styled(motion.a)`
   `}
 `;
 
+const Bullet = styled(motion.div)`
+  width: 8px;
+  height: 8px;
+  background-color: ${({ theme }) => theme.colors.secondary};
+  /* background-color: ${({ theme }) => theme.colors.primary}; */
+  border-radius: 50%;
+  margin-right: 10px;
+`;
+
+const Technologies = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  /* justify-content: flex-start; */
+  align-items: start;
+  gap: 10px;
+  font-size: 0.9rem;
+  margin-top: 3rem;
+`;
+
+const TechCopy = styled(motion.p)`
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  margin-bottom: 0.5rem;
+`;
+
+const TechListItem = styled(motion.li)`
+  margin-right: 1.5rem;
+  list-style: none;
+`;
+
+const TechLink = styled(motion.a)`
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: ${({ theme }) => theme.colors['default-text']};
+`;
+
 const MotionArrowUpRight = styled(motion.div)`
   display: flex;
   align-items: center;
@@ -314,6 +365,30 @@ const Header = ({ themeName }: HeaderProps) => {
             </MotionArrowSquareOut>
           </ButtonSecondary>
         </ButtonContainer>
+        <Technologies variants={fadeInUpAnimation}>
+          <TechCopy>Technologies I work with</TechCopy>
+          <ul
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+            }}
+          >
+            {technologies.map((tech, index) => (
+              <TechListItem>
+                <TechLink
+                  key={index}
+                  href={tech.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Bullet />
+                  <span>{tech.name}</span>
+                </TechLink>
+              </TechListItem>
+            ))}
+          </ul>
+        </Technologies>
       </HeadingContainer>
       <ImageContainer
         initial="hidden"
