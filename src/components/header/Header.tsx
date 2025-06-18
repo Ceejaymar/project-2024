@@ -264,7 +264,7 @@ const Underline = styled(motion.li)`
 `;
 
 const resume =
-  'https://drive.google.com/file/d/1xVJ5Ntzl3tOFNWXU0RxF3NMCTXoAG7X0/view?usp=drive_link';
+  'https://drive.google.com/file/d/1PWRTktbHF7xMBw7L0SV1pthBGTSDklK5/view?usp=sharing';
 
 const fadeInUpAnimation = {
   hidden: { opacity: 0, y: 24 },
