@@ -55,6 +55,16 @@ const projects = [
     live: 'https://batey.netlify.app/',
   },
   {
+    title: 'Accessibility Drawer',
+    image:
+      'https://firebasestorage.googleapis.com/v0/b/portfolio-cm.appspot.com/o/Screenshot%202025-07-02%20at%2011.23.52%E2%80%AFPM.png?alt=media&token=fc0fca95-bfca-4f82-91d6-2d235df11b32',
+    description:
+      'The A11y Drawer is a versatile, user-friendly component designed to empower website and application users with the ability to dynamically adjust multiple accessibility settings. This project aims to create a robust and highly customizable solution that enhances inclusivity by providing immediate control over common accessibility preferences directly within the user interface.',
+    tech: 'React, TypeScript, TailwindCSS',
+    repo: 'https://github.com/Ceejaymar/a11y-drawer',
+    live: 'https://a11y-drawer.netlify.app/',
+  },
+  {
     title: 'weather app',
     image:
       'https://firebasestorage.googleapis.com/v0/b/portfolio-cm.appspot.com/o/weather.png?alt=media&token=c202741a-ff4c-4540-870e-3da62d3c87b9',
@@ -63,16 +73,6 @@ const projects = [
     tech: 'React, Styled-components, Storybook, Axios',
     repo: 'https://github.com/Ceejaymar/weather',
     live: 'https://starlit-queijadas-1645a0.netlify.app/',
-  },
-  {
-    title: 'the ends',
-    image:
-      'https://firebasestorage.googleapis.com/v0/b/portfolio-cm.appspot.com/o/TheEnds.jpg?alt=media&token=158a2289-3f03-4682-b51d-d56ea7d468e9',
-    description:
-      "The Ends is a marketplace that connects users with stores and products that evoke a sense of home and cultural belonging, no matter where they are. It's a platform where products tell a story of identity, making you feel connected to where you're from.",
-    tech: 'React, SCSS, Firebase, Postgres, Express, SQL, Travis CI',
-    repo: 'https://github.com/Ceejaymar/TheEnds-ecommerce-frontend',
-    live: 'https://theends.web.app/',
   },
 ];
 
