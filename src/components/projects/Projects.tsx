@@ -49,10 +49,10 @@ const projects = [
     image:
       'https://firebasestorage.googleapis.com/v0/b/portfolio-cm.appspot.com/o/batey.png?alt=media&token=9276baaa-a8a8-468f-b935-a9e632017f5b',
     description:
-      "I wanted to experience the feeling of creating a fashion brand, imagining it born from the culture and spirit of my home country. What would it look like? What emotions would it stir? This is the unfolding story of that exploration. This project is a WORK IN PROGRESS, and I'm excited to share what I've discovered so far.",
-    tech: 'React, TypeScript, Styled-components, Framer Motion, Storybook',
-    repo: 'https://github.com/Ceejaymar/batey',
-    live: 'https://batey.netlify.app/',
+      "I wanted to experience the feeling of creating a fashion brand, imagining it born from the culture and spirit of my home country. What would it look like? What emotions would it stir? This is the unfolding story of that exploration. While working on this project, I've also been using tools that are new to me, which has been an exciting part of the journey. This project is a WORK IN PROGRESS, and I'm excited to share what I've discovered so far.",
+    tech: 'NextJS, TypeScript, CSS Modules, Better-SQLite3, Zod',
+    repo: 'https://github.com/Ceejaymar/batey-fs',
+    live: 'https://batey.vercel.app/',
   },
   {
     title: 'Accessibility Drawer',
