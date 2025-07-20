@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import ReactGA from 'react-ga4';
 
 import GradientLogo from '../logoGradient/GradientLogo';
 import media from '../../utils/mediaQueries';
@@ -83,12 +82,6 @@ const Footer = () => {
             aria-label={link.name}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => {
-              ReactGA.event({
-                category: 'button-click',
-                action: `${link.name} social link clicked`,
-              });
-            }}
           >
             {link.name}
           </a>

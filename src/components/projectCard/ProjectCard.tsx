@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import ReactGA from 'react-ga4';
 import { ArrowUpRight } from '@phosphor-icons/react';
 
 import media from '../../utils/mediaQueries';
@@ -193,12 +192,6 @@ const ProjectCard = ({
             rel="noopener noreferrer"
             initial="hidden"
             whileHover="visible"
-            onClick={() => {
-              ReactGA.event({
-                category: 'button-click',
-                action: `${title} github button clicked`,
-              });
-            }}
           >
             Github
             <MotionArrowUpRight
@@ -217,12 +210,6 @@ const ProjectCard = ({
             rel="noopener noreferrer"
             initial="hidden"
             whileHover="visible"
-            onClick={() => {
-              ReactGA.event({
-                category: 'button-click',
-                action: `${title} live button clicked`,
-              });
-            }}
           >
             Live site
             <MotionArrowUpRight
