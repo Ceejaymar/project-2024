@@ -263,9 +263,6 @@ const Underline = styled(motion.li)`
   list-style: none;
 `;
 
-const resume =
-  'https://drive.google.com/file/d/1dtNnKSvAKPQsEJ_e-upruMDP2c4kLdEo/view?usp=sharing';
-
 const fadeInUpAnimation = {
   hidden: { opacity: 0, y: 24 },
   show: {
@@ -318,7 +315,7 @@ const Header = ({ themeName }: HeaderProps) => {
           </Button>
 
           <ButtonSecondary
-            href={resume}
+            href="/carlos-martinez-resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
             initial="hidden"
