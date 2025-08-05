@@ -23,9 +23,9 @@ const ThemeToggle = ({ themeName, toggleTheme }: ThemeProps) => {
   return (
     <IconWrapper onClick={toggleTheme}>
       {themeName === 'light' ? (
-        <Sun color="black" weight="fill" size="24" />
+        <Moon color="#333" weight="fill" size="24" />
       ) : (
-        <Moon color="white" weight="fill" size="24" />
+        <Sun color="white" weight="fill" size="24" />
       )}
     </IconWrapper>
   );
