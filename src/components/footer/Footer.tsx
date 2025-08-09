@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import GradientLogo from '../logoGradient/GradientLogo';
 import media from '../../utils/mediaQueries';
+import { socialLinks } from '../../portfolio-data';
 
 const FooterContainer = styled.footer`
   display: flex;
@@ -14,7 +15,7 @@ const FooterContainer = styled.footer`
   background-color: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.colors['default-text']};
   font-weight: 500;
-  padding: 2rem 1rem;
+  padding: 2rem 2rem;
 
   ${media.laptop`
     flex-direction: row;
@@ -23,7 +24,6 @@ const FooterContainer = styled.footer`
 `;
 
 const SocialLinks = styled.div`
-  /* margin-bottom: 1rem; */
   display: flex;
   justify-content: center;
   gap: 1.5rem;
@@ -47,25 +47,6 @@ const Copyright = styled.p`
   gap: 0.5rem;
   font-size: 1.1rem;
 `;
-
-const socialLinks = [
-  {
-    name: 'linkedin',
-    url: 'https://www.linkedin.com/in/carmart/',
-  },
-  {
-    name: 'github',
-    url: 'https://github.com/ceejaymar',
-  },
-  {
-    name: 'youtube',
-    url: 'https://www.youtube.com/@Losliving',
-  },
-  {
-    name: 'instagram',
-    url: 'https://instagram.com/steadyonthego',
-  },
-];
 
 const Footer = () => {
   return (

@@ -5,6 +5,7 @@ import ProjectCard from '../projectCard/ProjectCard';
 import { getThemeTransition } from '../../utils/themeTransition';
 import media from '../../utils/mediaQueries';
 import { HeaderProps } from '../../types';
+import { projects } from '../../portfolio-data';
 
 const Section = styled(motion.section)`
   width: 100%;
@@ -42,39 +43,6 @@ const ProjectList = styled.div`
     flex-direction: column;
   `}
 `;
-
-const projects = [
-  {
-    title: 'Batéy Fashion (WIP)',
-    image:
-      'https://firebasestorage.googleapis.com/v0/b/portfolio-cm.appspot.com/o/batey.png?alt=media&token=9276baaa-a8a8-468f-b935-a9e632017f5b',
-    description:
-      "I wanted to experience the feeling of creating a fashion brand, imagining it born from the culture and spirit of my home country. What would it look like? What emotions would it stir? This is the unfolding story of that exploration. While working on this project, I've also been using tools that are new to me, which has been an exciting part of the journey. This project is a WORK IN PROGRESS, and I'm excited to share what I've discovered so far.",
-    tech: 'NextJS, TypeScript, CSS Modules, Better-SQLite3, Zod',
-    repo: 'https://github.com/Ceejaymar/batey-fs',
-    live: 'https://batey.vercel.app/',
-  },
-  {
-    title: 'Accessibility Drawer',
-    image:
-      'https://firebasestorage.googleapis.com/v0/b/portfolio-cm.appspot.com/o/Screenshot%202025-07-02%20at%2011.23.52%E2%80%AFPM.png?alt=media&token=fc0fca95-bfca-4f82-91d6-2d235df11b32',
-    description:
-      'The A11y Drawer is a versatile, user-friendly component designed to empower website and application users with the ability to dynamically adjust multiple accessibility settings. This project aims to create a robust and highly customizable solution that enhances inclusivity by providing immediate control over common accessibility preferences directly within the user interface.',
-    tech: 'React, TypeScript, TailwindCSS',
-    repo: 'https://github.com/Ceejaymar/a11y-drawer',
-    live: 'https://a11y-drawer.netlify.app/',
-  },
-  {
-    title: 'weather app',
-    image:
-      'https://firebasestorage.googleapis.com/v0/b/portfolio-cm.appspot.com/o/weather.png?alt=media&token=c202741a-ff4c-4540-870e-3da62d3c87b9',
-    description:
-      "A simple React weather app that uses the OpenWeather API to fetch and display current weather data based on the user's location or a searched city. The app features a clean interface, showing temperature, weather conditions, and other key details.",
-    tech: 'React, Styled-components, Storybook, Axios',
-    repo: 'https://github.com/Ceejaymar/weather',
-    live: 'https://starlit-queijadas-1645a0.netlify.app/',
-  },
-];
 
 const Projects = ({ themeName }: HeaderProps) => (
   <Section id="projects" key={themeName} {...getThemeTransition(themeName)}>
