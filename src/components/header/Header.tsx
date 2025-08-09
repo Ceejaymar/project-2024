@@ -357,9 +357,8 @@ const Header = ({ themeName }: HeaderProps) => {
             }}
           >
             {technologies.map((tech, index) => (
-              <TechListItem>
+              <TechListItem key={index}>
                 <TechLink
-                  key={index}
                   href={tech.url}
                   target="_blank"
                   rel="noopener noreferrer"
