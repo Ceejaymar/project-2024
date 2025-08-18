@@ -108,7 +108,7 @@ const ProjectInfo = styled.div`
   `}
 `;
 
-const ProjectTitle = styled.h4`
+const ProjectTitle = styled.h2`
   font-size: 1.5rem;
   line-height: 1.2;
   font-weight: 500;
@@ -179,7 +179,7 @@ const ProjectCard = ({
   return (
     <ProjectCardContainer>
       <ImageContainer>
-        <ProjectImage src={image} />
+        <ProjectImage src={image} alt={`${title} screenshot`} />
       </ImageContainer>
       <ProjectInfo>
         <ProjectTitle>{title}</ProjectTitle>

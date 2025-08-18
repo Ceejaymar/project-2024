@@ -253,7 +253,7 @@ const MotionArrowSquareOut = styled(motion.div)`
   margin-top: 2px;
 `;
 
-const Underline = styled(motion.li)`
+const Underline = styled(motion.span)`
   position: absolute;
   left: 0;
   bottom: 5px;
