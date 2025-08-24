@@ -46,10 +46,12 @@ const Back = styled(Link)`
 const Title = styled.h2`
   text-align: center;
   font-size: 2.5rem;
+  color: ${({ theme }) => theme.colors['default-text']};
 `;
 
 const Subheadline = styled.p`
   text-align: center;
+  color: ${({ theme }) => theme.colors['secondary-text']};
 `;
 
 const ProjectsWrapper = styled.div`
