@@ -1,9 +1,10 @@
 import React, { useState, useRef } from 'react';
-import styled from 'styled-components';
+import { Link, useLocation } from 'react-router';
+import styled, { css } from 'styled-components';
 import { motion } from 'framer-motion';
 
 import MobileNavigation from '../mobileNavigation/MobileNavigation';
-import { NavLinkProps, ThemeProps } from '../../types';
+import { ThemeProps } from '../../types';
 import { getThemeTransition } from '../../utils/themeTransition';
 import ThemeToggle from '../themeToggle/ThemeToggle';
 import media from '../../utils/mediaQueries';
@@ -12,7 +13,6 @@ import GradientLogo from '../logoGradient/GradientLogo';
 const Nav = styled(motion.nav)`
   position: relative;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
   max-width: 1280px;
@@ -21,7 +21,6 @@ const Nav = styled(motion.nav)`
 
   ${media.tablet`
     padding: 1rem 2rem;
-    justify-content: space-between;
   `}
 
   ${media.desktop`
@@ -30,10 +29,11 @@ const Nav = styled(motion.nav)`
   `}
 `;
 
-const Logo = styled.div`
-  display: flex;
+const BrandLink = styled(Link)`
   flex: 1;
-  justify-content: center;
+`;
+
+const Logo = styled.div`
   height: 1.3rem;
 
   ${media.tablet`
@@ -59,7 +59,7 @@ const NavItem = styled(motion.li)`
   list-style: none;
 `;
 
-const NavLink = styled.a<NavLinkProps>`
+const linkStyles = css`
   color: ${({ theme }) => theme.colors['default-text']}90;
   text-decoration: none;
   font-size: 1rem;
@@ -71,6 +71,14 @@ const NavLink = styled.a<NavLinkProps>`
     outline: none;
     outline-offset: 2px;
   }
+`;
+
+const AnchorLink = styled.a`
+  ${linkStyles}
+`;
+
+const RouterLink = styled(Link)`
+  ${linkStyles}
 `;
 
 const Underline = styled(motion.li)`
@@ -85,6 +93,7 @@ const Underline = styled(motion.li)`
 const navbarItems = ['experience', 'projects', 'contact'];
 
 const Navbar = ({ themeName, toggleTheme }: ThemeProps) => {
+  const { pathname } = useLocation();
   const navRefs = useRef<(HTMLLIElement | null)[]>([]);
   const [position, setPosition] = useState({
     left: 0,
@@ -95,15 +104,18 @@ const Navbar = ({ themeName, toggleTheme }: ThemeProps) => {
   return (
     <Nav key={themeName} {...getThemeTransition(themeName)}>
       <MobileNavigation />
-      <Logo>
-        <GradientLogo width={65} height="100%" />
-      </Logo>
+      <BrandLink to="/">
+        <Logo>
+          <GradientLogo width={65} height="100%" />
+        </Logo>
+      </BrandLink>
       <NavList
         onMouseLeave={() => {
           setPosition((prev) => ({ ...prev, opacity: 0 }));
         }}
       >
         {navbarItems.map((item, index) => {
+          const to = pathname === '/' ? `#${item}` : `/#${item}`;
           return (
             <NavItem
               key={item}
@@ -119,7 +131,11 @@ const Navbar = ({ themeName, toggleTheme }: ThemeProps) => {
                 });
               }}
             >
-              <NavLink href={`#${item}`}>{item}</NavLink>
+              {pathname === '/' ? (
+                <AnchorLink href={to}>{item}</AnchorLink>
+              ) : (
+                <RouterLink to={to}>{item}</RouterLink>
+              )}
             </NavItem>
           );
         })}

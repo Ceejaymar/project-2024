@@ -3,13 +3,12 @@ import { ThemeProvider } from 'styled-components';
 import { motion } from 'framer-motion';
 import { GlobalStyles } from './GlobalStyles';
 import { usePostHog } from 'posthog-js/react';
+import { BrowserRouter, Routes, Route } from 'react-router';
 
 import { lightTheme, darkTheme } from './themes';
 import Navbar from './components/navbar/Navbar';
-import Header from './components/header/Header';
-import Experience from './components/experience/Experience';
-import Projects from './components/projects/Projects';
-import Contact from './components/contact/Contact';
+import HomePage from './pages/home/HomePage.tsx';
+import ProjectsPage from './pages/projects/ProjectsPage.tsx';
 import Footer from './components/footer/Footer';
 
 const updateThemeColor = (color: string) => {
@@ -39,36 +38,38 @@ function App() {
   const currentTheme = themes[theme];
 
   return (
-    <ThemeProvider theme={currentTheme}>
-      <GlobalStyles />
-      <motion.div
-        initial={{
-          backgroundColor:
-            theme === 'light'
-              ? darkTheme.colors.background
-              : lightTheme.colors.background,
-        }}
-        animate={{ backgroundColor: currentTheme.colors.background }}
-        onAnimationComplete={() =>
-          updateThemeColor(currentTheme.colors.background)
-        }
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
-        style={{
-          minHeight: '100vh',
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Navbar themeName={theme} toggleTheme={toggleTheme} />
-        <Header themeName={theme} />
-        <Experience themeName={theme} />
-        <Projects themeName={theme} />
-        <Contact />
-        <Footer />
-      </motion.div>
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider theme={currentTheme}>
+        <GlobalStyles />
+        <motion.div
+          initial={{
+            backgroundColor:
+              theme === 'light'
+                ? darkTheme.colors.background
+                : lightTheme.colors.background,
+          }}
+          animate={{ backgroundColor: currentTheme.colors.background }}
+          onAnimationComplete={() =>
+            updateThemeColor(currentTheme.colors.background)
+          }
+          transition={{ duration: 0.3, ease: 'easeInOut' }}
+          style={{
+            minHeight: '100vh',
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Navbar themeName={theme} toggleTheme={toggleTheme} />
+          <Routes>
+            <Route path="/" element={<HomePage theme={theme} />} />
+            <Route path="/projects" element={<ProjectsPage />} />
+          </Routes>
+          <Footer />
+        </motion.div>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 

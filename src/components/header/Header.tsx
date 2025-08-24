@@ -249,7 +249,7 @@ const MotionArrowSquareOut = styled(motion.div)`
   margin-top: 2px;
 `;
 
-const Underline = styled(motion.li)`
+const Underline = styled(motion.span)`
   position: absolute;
   left: 0;
   bottom: 5px;
@@ -352,8 +352,8 @@ const Header = ({ themeName }: HeaderProps) => {
               flexWrap: 'wrap',
             }}
           >
-            {technologies.map((tech, index) => (
-              <TechListItem key={index}>
+            {technologies.map((tech) => (
+              <TechListItem key={tech.name}>
                 <TechLink
                   href={tech.url}
                   target="_blank"
