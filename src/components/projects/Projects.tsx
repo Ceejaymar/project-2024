@@ -5,6 +5,7 @@ import ProjectCard from '../projectCard/ProjectCard';
 import { getThemeTransition } from '../../utils/themeTransition';
 import media from '../../utils/mediaQueries';
 import { HeaderProps } from '../../types';
+import { NavLink } from 'react-router';
 
 const Section = styled(motion.section)`
   width: 100%;
@@ -79,6 +80,9 @@ const projects = [
 const Projects = ({ themeName }: HeaderProps) => (
   <Section id="projects" key={themeName} {...getThemeTransition(themeName)}>
     <SectionTitle>Projects</SectionTitle>
+    <div>
+      See more projects <NavLink to="/projects">Here</NavLink>
+    </div>
     <ProjectList>
       {projects.map((project) => (
         <ProjectCard

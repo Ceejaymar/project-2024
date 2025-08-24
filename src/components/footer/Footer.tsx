@@ -23,7 +23,6 @@ const FooterContainer = styled.footer`
 `;
 
 const SocialLinks = styled.div`
-  /* margin-bottom: 1rem; */
   display: flex;
   justify-content: center;
   gap: 1.5rem;

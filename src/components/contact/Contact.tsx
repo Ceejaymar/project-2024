@@ -75,11 +75,11 @@ const Button = styled(motion.a)`
   text-decoration: none;
 `;
 
-const MotionLinkedinLogo = styled(motion(LinkedinLogo))``;
+const MotionLinkedinLogo = styled(motion.create(LinkedinLogo))``;
 
-const MotionEnvelope = styled(motion(Envelope))``;
+const MotionEnvelope = styled(motion.create(Envelope))``;
 
-const EmailButton = styled(motion(Button))`
+const EmailButton = styled(motion.create(Button))`
   background-color: ${({ theme }) => theme.colors.quaternary}15;
   border: 1px solid ${({ theme }) => theme.colors.quaternary};
   color: ${({ theme }) => theme.colors.quaternary};

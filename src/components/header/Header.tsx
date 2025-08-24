@@ -356,10 +356,9 @@ const Header = ({ themeName }: HeaderProps) => {
               flexWrap: 'wrap',
             }}
           >
-            {technologies.map((tech, index) => (
-              <TechListItem>
+            {technologies.map((tech) => (
+              <TechListItem key={tech.name}>
                 <TechLink
-                  key={index}
                   href={tech.url}
                   target="_blank"
                   rel="noopener noreferrer"

@@ -72,7 +72,7 @@ const ImageContainer = styled.div`
 const ProjectImage = styled.img`
   width: 100%;
   height: 100%;
-  border-radius: 15px 15px 0 0;
+  border-radius: 10px 10px 0 0;
   margin-bottom: -2.1rem;
 
   ${media.tablet`
@@ -193,7 +193,7 @@ const ProjectCard = ({
             initial="hidden"
             whileHover="visible"
           >
-            Github
+            View code
             <MotionArrowUpRight
               variants={{
                 hidden: { x: -10, opacity: 0 },
@@ -211,7 +211,7 @@ const ProjectCard = ({
             initial="hidden"
             whileHover="visible"
           >
-            Live site
+            View live site
             <MotionArrowUpRight
               variants={{
                 hidden: { x: -10, opacity: 0 },
