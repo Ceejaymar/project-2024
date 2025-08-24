@@ -34,7 +34,7 @@ const Subheadline = styled.p`
   font-size: 1rem;
   font-weight: 400;
   text-align: center;
-  max-width: 600px;
+  max-width: 40rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
   color: ${({ theme }) => theme.colors['secondary-text']};
@@ -101,7 +101,9 @@ const Projects = ({ themeName }: HeaderProps) => (
     <Subheadline>
       This section features a few standout projects. To see more of my side
       projects, one-off components, and frontend challenges,{' '}
-      <ProjectsLink to="/projects">check out my Projects page.</ProjectsLink>
+      <ProjectsLink to="/projects">
+        check out my full Projects page.
+      </ProjectsLink>
     </Subheadline>
     <ProjectList>
       {projects.map((project) => (
