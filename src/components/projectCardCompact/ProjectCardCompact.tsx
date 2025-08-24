@@ -38,6 +38,7 @@ const Image = styled.img`
 `;
 
 const ContentWrapper = styled.div`
+  position: relative;
   padding: 1rem 2rem;
   border-top: 1px solid ${({ theme }) => theme.colors.border};
 `;
@@ -47,6 +48,15 @@ const H2 = styled.h2`
   font-weight: 500;
   letter-spacing: -0.5px;
   color: ${({ theme }) => theme.colors['default-text']};
+`;
+
+const Year = styled.span`
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
 `;
 
 const Technologies = styled.p`
@@ -69,6 +79,7 @@ export default function ProjectCardCompact({ project }) {
       </ImgWrapper>
       <ContentWrapper>
         <H2>{project.title}</H2>
+        <Year>{project.year}</Year>
         <Technologies>{project.tech}</Technologies>
         <LinkWrapper>
           <ExternalLink href={project.repo}>View Code</ExternalLink>
