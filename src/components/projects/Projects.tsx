@@ -1,6 +1,8 @@
 import React from 'react';
+import { NavLink } from 'react-router';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+
 import ProjectCard from '../projectCard/ProjectCard';
 import { getThemeTransition } from '../../utils/themeTransition';
 import media from '../../utils/mediaQueries';
@@ -28,6 +30,23 @@ const SectionTitle = styled.h2`
   text-align: center;
 `;
 
+const Subheadline = styled.p`
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: center;
+  max-width: 40rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  color: ${({ theme }) => theme.colors['secondary-text']};
+`;
+
+const ProjectsLink = styled(NavLink)`
+  color: ${({ theme }) => theme.colors.quaternary};
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+`;
+
 const ProjectList = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -45,7 +64,7 @@ const ProjectList = styled.div`
 
 const projects = [
   {
-    title: 'Batéy Fashion (WIP)',
+    title: 'Batéy Fashion',
     image:
       'https://firebasestorage.googleapis.com/v0/b/portfolio-cm.appspot.com/o/batey.png?alt=media&token=9276baaa-a8a8-468f-b935-a9e632017f5b',
     description:
@@ -79,6 +98,13 @@ const projects = [
 const Projects = ({ themeName }: HeaderProps) => (
   <Section id="projects" key={themeName} {...getThemeTransition(themeName)}>
     <SectionTitle>Projects</SectionTitle>
+    <Subheadline>
+      This section features a few standout projects. To see more of my side
+      projects, one-off components, and frontend challenges,{' '}
+      <ProjectsLink to="/projects">
+        check out my full Projects page.
+      </ProjectsLink>
+    </Subheadline>
     <ProjectList>
       {projects.map((project) => (
         <ProjectCard

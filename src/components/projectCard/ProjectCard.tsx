@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { ArrowUpRight } from '@phosphor-icons/react';
 
 import media from '../../utils/mediaQueries';
+import ExternalLink from '../externalLink/ExternalLink';
 
 const ProjectCardContainer = styled.div`
   display: flex;
@@ -72,7 +71,7 @@ const ImageContainer = styled.div`
 const ProjectImage = styled.img`
   width: 100%;
   height: 100%;
-  border-radius: 15px 15px 0 0;
+  border-radius: 10px 10px 0 0;
   margin-bottom: -2.1rem;
 
   ${media.tablet`
@@ -143,22 +142,6 @@ const ButtonContainer = styled.div`
   `}
 `;
 
-const CardLink = styled(motion.a)`
-  display: flex;
-  gap: 0.2rem;
-  font-size: 1rem;
-  font-weight: 500;
-  text-decoration: none;
-  color: ${({ theme }) => theme.colors['default-text']};
-  transition: all 0.3s ease;
-`;
-
-const MotionArrowUpRight = styled(motion.div)`
-  display: flex;
-  align-items: center;
-  margin-top: 2px;
-`;
-
 interface ProjectCardProps {
   title: string;
   image: string;
@@ -186,42 +169,8 @@ const ProjectCard = ({
         <ProjectTech>{tech}</ProjectTech>
         <ProjectDescription>{description}</ProjectDescription>
         <ButtonContainer>
-          <CardLink
-            href={repo}
-            target="_blank"
-            rel="noopener noreferrer"
-            initial="hidden"
-            whileHover="visible"
-          >
-            Github
-            <MotionArrowUpRight
-              variants={{
-                hidden: { x: -10, opacity: 0 },
-                visible: { x: 0, opacity: 1 },
-              }}
-              transition={{ ease: 'easeIn', duration: 0.1 }}
-            >
-              <ArrowUpRight size={16} weight="bold" />
-            </MotionArrowUpRight>
-          </CardLink>
-          <CardLink
-            href={live}
-            target="_blank"
-            rel="noopener noreferrer"
-            initial="hidden"
-            whileHover="visible"
-          >
-            Live site
-            <MotionArrowUpRight
-              variants={{
-                hidden: { x: -10, opacity: 0 },
-                visible: { x: 0, opacity: 1 },
-              }}
-              transition={{ ease: 'easeIn', duration: 0.1 }}
-            >
-              <ArrowUpRight size={16} weight="bold" />
-            </MotionArrowUpRight>
-          </CardLink>
+          <ExternalLink href={repo}>View code</ExternalLink>
+          <ExternalLink href={live}>View live site</ExternalLink>
         </ButtonContainer>
       </ProjectInfo>
     </ProjectCardContainer>
