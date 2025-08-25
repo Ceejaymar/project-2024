@@ -14,6 +14,7 @@ const Nav = styled(motion.nav)`
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
   width: 100%;
   max-width: 1280px;
   padding: 1rem 0;
@@ -21,6 +22,7 @@ const Nav = styled(motion.nav)`
 
   ${media.tablet`
     padding: 1rem 2rem;
+    justify-content: unset;
   `}
 
   ${media.desktop`
@@ -30,7 +32,9 @@ const Nav = styled(motion.nav)`
 `;
 
 const BrandLink = styled(Link)`
-  flex: 1;
+  ${media.tablet` 
+    flex: 1;
+  `}
 `;
 
 const Logo = styled.div`
