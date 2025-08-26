@@ -16,11 +16,7 @@ const technologies = [
   { name: 'Styled-components', url: 'https://styled-components.com/' },
   { name: 'Next.js', url: 'https://nextjs.org/' },
   { name: 'Storybook', url: 'https://storybook.js.org/' },
-  // { name: 'Motion', url: 'https://motion.dev/' },
-  // { name: 'ThreeJS', url: 'https://threejs.org/' },
   // { name: 'React Native', url: 'https://reactnative.dev/' },
-  // 'Storybook',
-  // 'ThreeJS',
 ];
 
 const HeaderSection = styled(motion.header)`
