@@ -180,8 +180,9 @@ export default function ProjectPage() {
       </Back>
       <Title>Projects</Title>
       <Subheadline>
-        A collection of smaller projects, frontend challenges, and experiments
-        that showcase my passion for continuous learning.
+        A full collection of personal projects, frontend challenges, and
+        experiments that showcase my passion for building UIs and continuous
+        learning.
       </Subheadline>
 
       <ProjectsWrapper>
