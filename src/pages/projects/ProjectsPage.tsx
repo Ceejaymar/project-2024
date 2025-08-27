@@ -8,17 +8,6 @@ import media from '../../utils/mediaQueries';
 
 const projects = [
   {
-    title: 'Blog Card',
-    slug: 'blog-card',
-    image:
-      'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/fc-blog-card.webp',
-    description: '',
-    year: 2025,
-    tech: 'HTML, CSS',
-    repo: 'https://github.com/Ceejaymar/frontend-challenges/tree/main/apps/blog-card',
-    live: 'https://frontend-challenges-blog-card.vercel.app/',
-  },
-  {
     title: 'Pricing Section',
     slug: 'pricing-section',
     image:
@@ -28,6 +17,17 @@ const projects = [
     tech: 'React, TypeScript, TailwindCSS',
     repo: 'https://github.com/Ceejaymar/frontend-challenges/tree/main/apps/pricing-section',
     live: 'https://frontend-challenges-pricing-section.vercel.app/',
+  },
+  {
+    title: 'Blog Card',
+    slug: 'blog-card',
+    image:
+      'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/fc-blog-card.webp',
+    description: '',
+    year: 2025,
+    tech: 'HTML, CSS',
+    repo: 'https://github.com/Ceejaymar/frontend-challenges/tree/main/apps/blog-card',
+    live: 'https://frontend-challenges-blog-card.vercel.app/',
   },
   {
     title: 'Batéy Fashion',
