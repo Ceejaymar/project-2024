@@ -74,8 +74,8 @@ const Heading = styled(motion.h1)`
       ${({ theme }) => theme.colors.tertiary},
       ${({ theme }) => theme.colors.quaternary}
     );
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     color: ${({ theme }) => theme.colors.quaternary};
     -webkit-text-fill-color: transparent;
   }
