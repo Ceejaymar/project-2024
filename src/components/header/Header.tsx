@@ -64,10 +64,21 @@ const Heading = styled(motion.h1)`
   margin-top: 1.5rem;
   letter-spacing: -1px;
   font-weight: 600;
+  color: #333;
 
   & span:nth-of-type(2) {
     font-size: 2.5rem;
-    color: ${({ theme }) => theme.colors.quaternary};
+    background: linear-gradient(
+      135deg,
+      ${({ theme }) => theme.colors.primary},
+      ${({ theme }) => theme.colors.secondary},
+      ${({ theme }) => theme.colors.tertiary},
+      ${({ theme }) => theme.colors.quaternary}
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
   }
 
   ${media.mobileWide`
