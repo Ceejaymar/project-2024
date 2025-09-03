@@ -64,7 +64,6 @@ const Heading = styled(motion.h1)`
   margin-top: 1.5rem;
   letter-spacing: -1px;
   font-weight: 600;
-  color: #333;
 
   & span:nth-of-type(2) {
     font-size: 2.5rem;
