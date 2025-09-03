@@ -163,6 +163,7 @@ const ButtonContainer = styled(motion.div)`
   gap: 2rem;
   margin-top: 2.5rem;
   font-size: 1.1rem;
+  text-transform: capitalize;
 
   ${media.tablet`
     flex-direction: row;
@@ -182,6 +183,7 @@ const Button = styled(motion.a)`
   padding-right: 15px;
   cursor: pointer;
   text-decoration: none;
+  box-shadow: ${({ theme }) => theme.colors.boxShadow}30 1.95px 1.95px 2.6px;
 
   ${media.tablet`
     display: flex;

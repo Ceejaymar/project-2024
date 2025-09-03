@@ -69,9 +69,19 @@ const projects = [
       'https://firebasestorage.googleapis.com/v0/b/portfolio-cm.appspot.com/o/batey.png?alt=media&token=9276baaa-a8a8-468f-b935-a9e632017f5b',
     description:
       "I wanted to experience the feeling of creating a fashion brand, imagining it born from the culture and spirit of my home country. What would it look like? What emotions would it stir? This is the unfolding story of that exploration. While working on this project, I've also been using tools that are new to me, which has been an exciting part of the journey. This project is a WORK IN PROGRESS, and I'm excited to share what I've discovered so far.",
-    tech: 'NextJS, TypeScript, CSS Modules, Better-SQLite3, Zod',
+    tech: 'Next.js, TypeScript, CSS Modules, Better-SQLite3, Zod',
     repo: 'https://github.com/Ceejaymar/batey-fs',
     live: 'https://batey.vercel.app/',
+  },
+  {
+    title: 'Resplash',
+    image:
+      'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/resplash.webp',
+    description:
+      "I've been a huge fan of Unsplash since the days they uploaded just ten photos a week, and I wanted to see if I could recreate some of that magic myself. This project, an Unsplash clone, is built with Next.js and Tailwind CSS. It's my way of using their API to build a modern application that captures the beauty and functionality of the original.",
+    tech: 'Next.js, TypeScript, TailwindCSS',
+    repo: 'https://github.com/Ceejaymar/resplash',
+    live: 'https://fe-challenge-resplash.vercel.app/',
   },
   {
     title: 'Accessibility Drawer',
@@ -82,16 +92,6 @@ const projects = [
     tech: 'React, TypeScript, TailwindCSS',
     repo: 'https://github.com/Ceejaymar/a11y-drawer',
     live: 'https://a11y-drawer.netlify.app/',
-  },
-  {
-    title: 'weather app',
-    image:
-      'https://firebasestorage.googleapis.com/v0/b/portfolio-cm.appspot.com/o/weather.png?alt=media&token=c202741a-ff4c-4540-870e-3da62d3c87b9',
-    description:
-      "A simple React weather app that uses the OpenWeather API to fetch and display current weather data based on the user's location or a searched city. The app features a clean interface, showing temperature, weather conditions, and other key details.",
-    tech: 'React, Styled-components, Storybook, Axios',
-    repo: 'https://github.com/Ceejaymar/weather',
-    live: 'https://starlit-queijadas-1645a0.netlify.app/',
   },
 ];
 
