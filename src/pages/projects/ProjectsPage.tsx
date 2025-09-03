@@ -8,6 +8,17 @@ import media from '../../utils/mediaQueries';
 
 const projects = [
   {
+    title: 'Resplash',
+    slug: 'resplash',
+    image:
+      'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/resplash.webp',
+    description: '',
+    year: 2025,
+    tech: 'Next.js, TypeScript, TailwindCSS',
+    repo: 'https://github.com/Ceejaymar/resplash',
+    live: 'https://fe-challenge-resplash.vercel.app/',
+  },
+  {
     title: 'Pricing Section',
     slug: 'pricing-section',
     image:
@@ -36,7 +47,7 @@ const projects = [
     description:
       "I wanted to experience the feeling of creating a fashion brand, imagining it born from the culture and spirit of my home country. What would it look like? What emotions would it stir? This is the unfolding story of that exploration. While working on this project, I've also been using tools that are new to me, which has been an exciting part of the journey. This project is a WORK IN PROGRESS, and I'm excited to share what I've discovered so far.",
     year: 2025,
-    tech: 'NextJS, TypeScript, CSS Modules, Better-SQLite3, Zod',
+    tech: 'Next.js, TypeScript, CSS Modules, Better-SQLite3, Zod',
     repo: 'https://github.com/Ceejaymar/batey-fs',
     live: 'https://batey.vercel.app/',
   },
