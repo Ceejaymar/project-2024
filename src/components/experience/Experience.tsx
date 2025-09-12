@@ -15,12 +15,12 @@ const Section = styled(motion.section)`
   align-items: center;
   padding: 4rem 1rem;
 
-  ${media.laptop`
+  ${media.tablet`
     padding: 4rem 2rem;
   `}
 
   ${media.desktop`
-    padding: 7rem 0 5rem;
+    padding: 7rem 2rem 5rem;
   `}
 `;
 
@@ -35,29 +35,22 @@ const SectionTitle = styled(motion.h2)`
 
 const ExperienceSection = styled(motion.div)`
   display: flex;
-  align-items: start;
+  flex-direction: column;
   width: 100%;
   max-width: 1024px;
   margin: 2.5rem 0;
-  column-gap: 0.8rem;
-  row-gap: 2rem;
+  gap: 2rem;
 
   ${media.tablet`
-    flex-direction: row;
+    align-items: center;
   `}
 
   ${media.laptop`
+    flex-direction: row;
     justify-content: space-between;
-    column-gap: 0;
+    align-items: start;
     flex-wrap: nowrap;
     max-width: 1280px;
-  `}
-
-  ${media.desktop`
-    column-gap: 1.5rem;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    max-width: 1200px;
   `}
 `;
 
@@ -80,9 +73,9 @@ const ExperienceComponent = styled.div`
     padding: 2rem;
   `}
 
-  ${media.tablet`
+  ${media.laptop`
     max-width: 28rem;
-    padding: 2rem;
+    padding: 1.5rem;
     margin: 0;
   `}
 `;
@@ -168,15 +161,17 @@ const MotionArrowUpRight = styled(motion.div)`
 `;
 
 const AboutSection = styled.div`
-  /* flex: 1; */
-  max-width: 50%;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
+
+  ${media.laptop`
+    max-width: 50%;
+  `}
 `;
 
 const AboutCopy = styled.p`
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-weight: 400;
   text-align: left;
   color: ${({ theme }) => theme.colors['secondary-text']};
