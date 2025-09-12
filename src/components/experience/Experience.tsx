@@ -35,8 +35,7 @@ const SectionTitle = styled(motion.h2)`
 
 const ExperienceSection = styled(motion.div)`
   display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  align-items: start;
   width: 100%;
   max-width: 1024px;
   margin: 2.5rem 0;
@@ -63,16 +62,29 @@ const ExperienceSection = styled(motion.div)`
 `;
 
 const ExperienceComponent = styled.div`
+  flex: 1;
   margin-left: auto;
-  width: 425px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 2rem;
   border: 2px solid #ccc;
   border-radius: 25px;
-  padding: 2rem;
+  padding: 1rem 1rem 1.5rem;
+  margin: 0 auto;
   font-size: 0.9rem;
   box-shadow: 10px 10px 25px -5px ${({ theme }) => theme.colors.boxShadow}20;
+
+  ${media.tablet`
+    max-width: 32rem;
+    padding: 2rem;
+  `}
+
+  ${media.tablet`
+    max-width: 28rem;
+    padding: 2rem;
+    margin: 0;
+  `}
 `;
 
 const WorkTitle = styled.div`
@@ -122,7 +134,15 @@ const CompanyName = styled.span`
 const TitleDateRow = styled.div`
   display: flex;
   justify-content: space-between;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
+
+  ${media.tablet`
+   font-size: 1rem
+  `}
+
+  ${media.laptop`
+   font-size: 0.9rem
+  `}
 `;
 
 const Button = styled(motion.a)`
@@ -145,6 +165,21 @@ const MotionArrowUpRight = styled(motion.div)`
   display: flex;
   align-items: center;
   margin-top: 2px;
+`;
+
+const AboutSection = styled.div`
+  /* flex: 1; */
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+`;
+
+const AboutCopy = styled.p`
+  font-size: 1.3rem;
+  font-weight: 400;
+  text-align: left;
+  color: ${({ theme }) => theme.colors['secondary-text']};
 `;
 
 const fadeInUpParent = (theme: any) => ({
@@ -191,8 +226,35 @@ const About = ({ themeName }: HeaderProps) => {
       animate="show"
       variants={fadeInUpParent(themeProps)}
     >
-      <SectionTitle variants={fadeInUpChildren}>Experience</SectionTitle>
+      <SectionTitle variants={fadeInUpChildren}>About me</SectionTitle>
       <ExperienceSection variants={fadeInUpChildren}>
+        <AboutSection>
+          <AboutCopy>
+            I&apos;m a <span>creative engineer</span> who loves building elegant
+            applications with intuitive user experiences. My work is focused on
+            bridging the gap between <span>design and development</span>,
+            crafting solutions that are as beautiful to look at as they are
+            delightful to use.
+          </AboutCopy>
+          <AboutCopy>
+            I approach every project with a <span>user-centered</span> mindset
+            and a strong commitment to <span>accessibility</span>. I love taking
+            complex challenges and breaking them down to build elegant,
+            inclusive solutions.
+          </AboutCopy>
+          <AboutCopy>
+            I enjoy building with <span>React</span>, <span>TypeScript</span>,
+            and <span>different flavors of CSS</span>, shaping interfaces that
+            feel smooth, intuitive, and purposeful. Ultimately, I aim to deliver
+            interactions that genuinely improve the rhythm of a user&apos;s
+            daily life.
+          </AboutCopy>
+          <AboutCopy>
+            I want to continue being in spaces where I can{' '}
+            <span>nurture my creativity</span> and create products that will
+            propagate throughout our communities.
+          </AboutCopy>
+        </AboutSection>
         <ExperienceComponent>
           <WorkTitle>
             <Briefcase size={32} weight="regular" />

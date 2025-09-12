@@ -64,6 +64,20 @@ const Heading = styled(motion.h1)`
   & span:nth-of-type(2) {
     font-size: 2.5rem;
     color: ${({ theme }) => theme.colors.quaternary};
+
+    @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+      background: linear-gradient(
+        135deg,
+        ${({ theme }) => theme.colors.primary},
+        ${({ theme }) => theme.colors.secondary},
+        ${({ theme }) => theme.colors.tertiary},
+        ${({ theme }) => theme.colors.quaternary}
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
   }
 
   ${media.mobileWide`
@@ -159,6 +173,7 @@ const ButtonContainer = styled(motion.div)`
   gap: 2rem;
   margin-top: 2.5rem;
   font-size: 1.1rem;
+  text-transform: capitalize;
 
   ${media.tablet`
     flex-direction: row;
@@ -178,6 +193,7 @@ const Button = styled(motion.a)`
   padding-right: 15px;
   cursor: pointer;
   text-decoration: none;
+  box-shadow: ${({ theme }) => theme.colors.boxShadow}30 1.95px 1.95px 2.6px;
 
   ${media.tablet`
     display: flex;
