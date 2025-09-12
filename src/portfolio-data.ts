@@ -23,7 +23,7 @@ export const experienceList = [
   {
     company: 'Pursuit',
     date: '2018 — 2020',
-    title: 'Fullstack Assistant Instructor ',
+    title: 'Fullstack Assistant Instructor',
     image: pImage,
     description:
       'Reviewed JavaScript code and led pair programming for 32+ students, while creating workshops on key development topics. Offered personalized feedback and mock interview prep to improve technical skills in Data Structures & Algorithms.',
