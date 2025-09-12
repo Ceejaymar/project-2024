@@ -175,6 +175,14 @@ const AboutCopy = styled.p`
   font-weight: 400;
   text-align: left;
   color: ${({ theme }) => theme.colors['secondary-text']};
+
+  ${media.tablet`
+    font-size: 1.1rem;
+  `}
+
+  ${media.laptop`
+    font-size: 1.2rem;
+  `}
 `;
 
 const fadeInUpParent = (theme: any) => ({
