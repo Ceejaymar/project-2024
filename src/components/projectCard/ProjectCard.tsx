@@ -16,19 +16,6 @@ const ProjectCardContainer = styled.div`
   box-shadow: 10px 10px 25px -5px ${({ theme }) => theme.colors.boxShadow}20;
   overflow: hidden;
 
-  /* background-clip: padding-box;
-  border-style: solid;
-  border-width: 2px;
-
-  border-image: linear-gradient(
-      45deg,
-      ${({ theme }) => theme.colors.primary},
-      ${({ theme }) => theme.colors.secondary},
-      ${({ theme }) => theme.colors.tertiary},
-      ${({ theme }) => theme.colors.quaternary}
-    )
-    1; */
-
   border: double 1.5px transparent;
   border-radius: 15px;
   background-image: linear-gradient(
