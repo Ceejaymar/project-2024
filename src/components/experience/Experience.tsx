@@ -225,7 +225,7 @@ const TextTitle = styled.span`
 
 const TextTool = styled.span`
   font-weight: 600;
-  background-color: rgb(159, 140, 255);
+  background-color: ${({ theme }) => theme.colors.primary};
   background-image: linear-gradient(
     190deg,
     ${({ theme }) => theme.colors.senary} 10%,
