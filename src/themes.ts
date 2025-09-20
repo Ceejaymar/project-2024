@@ -13,6 +13,7 @@ export const lightTheme = {
     tertiary: '#B19FF9',
     quaternary: '#FEA303',
     quinary: '#0E3506',
+    senary: '#fed280ff',
   },
 };
 
@@ -25,13 +26,14 @@ export const darkTheme = {
     'default-text': '#fafafa',
     'secondary-text': '#bbbbbb',
     'tertiary-text': '#313131',
-    border: '#e5e5e5',
+    border: '#e5e5e520',
     text: '#212427',
     primary: '#A16AE8',
     secondary: '#03dac6',
     tertiary: '#B19FF9',
     quaternary: '#FEA303',
     quinary: '#0E3506',
+    senary: '#fed280ff',
   },
 };
 

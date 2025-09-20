@@ -61,7 +61,7 @@ const ExperienceComponent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  border: 2px solid #ccc;
+  border: 2px solid ${({ theme }) => theme.colors.border};
   border-radius: 25px;
   padding: 1rem 1rem 1.5rem;
   margin: 0 auto;
@@ -141,6 +141,7 @@ const TitleDateRow = styled.div`
 const Button = styled(motion.a)`
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 0.5rem;
   background-color: ${({ theme }) => theme.colors.primary}15;
   color: ${({ theme }) => theme.colors.primary};
@@ -183,6 +184,89 @@ const AboutCopy = styled.p`
   ${media.laptop`
     font-size: 1.2rem;
   `}
+`;
+
+const TextCSS = styled.span`
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.quaternary};
+
+  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    background: linear-gradient(
+      135deg,
+      ${({ theme }) => theme.colors.primary},
+      ${({ theme }) => theme.colors.secondary},
+      ${({ theme }) => theme.colors.tertiary},
+      ${({ theme }) => theme.colors.quaternary},
+      ${({ theme }) => theme.colors.senary} 120%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+`;
+
+const TextTitle = styled.span`
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.quaternary};
+
+  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    background: linear-gradient(
+      190deg,
+      ${({ theme }) => theme.colors.primary} 20%,
+      ${({ theme }) => theme.colors.secondary}
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+`;
+
+const TextTool = styled.span`
+  font-weight: 600;
+  background-color: rgb(159, 140, 255);
+  background-image: linear-gradient(
+    190deg,
+    ${({ theme }) => theme.colors.senary} 10%,
+    ${({ theme }) => theme.colors.quaternary} 80%
+  );
+  background-size: 100%;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+`;
+
+const TextUserCentered = styled.span`
+  font-weight: 600;
+  padding-bottom: 12px;
+  background-image: ${({ theme }) =>
+    `url("data:image/svg+xml;utf8,${encodeURIComponent(`
+      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12' preserveAspectRatio='none'>
+        <!-- top line: baseline y=7, slight arch up to y~5 -->
+        <path d='M0 7 Q50 5 100 7'
+              fill='none' stroke='${theme.colors.secondary}' stroke-width='2'
+              stroke-linecap='round' stroke-linejoin='round'/>
+        <!-- bottom line: baseline y=10, slight arch up to y~8.5 -->
+        <path d='M0 10 Q50 8.5 100 10'
+              fill='none' stroke='${theme.colors.secondary}' stroke-width='2'
+              stroke-linecap='round' stroke-linejoin='round'/>
+      </svg>
+    `)}")`};
+  background-repeat: no-repeat;
+  background-position: left calc(100% - 6px);
+  background-size: 100% 12px;
+`;
+
+const TextA11y = styled.span`
+  font-weight: 600;
+  padding-bottom: 6px;
+  background-image: ${({ theme }) =>
+    `url("data:image/svg+xml;utf8,${encodeURIComponent(
+      `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 8'><path d='M0 4 C2 4, 4 2.5, 6 4 S10 5.5, 12 4 S16 2.5, 18 4 S22 5.5, 24 4 S28 2.5, 30 4 S34 5.5, 36 4 S40 2.5, 42 4 S46 5.5, 48 4' fill='none' stroke='${theme.colors.primary}' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/></svg>`,
+    )}")`};
+  background-repeat: repeat-x;
+  background-position: left 100%;
+  background-size: 45px 8px;
 `;
 
 const fadeInUpParent = (theme: any) => ({
@@ -233,22 +317,24 @@ const About = ({ themeName }: HeaderProps) => {
       <ExperienceSection variants={fadeInUpChildren}>
         <AboutSection>
           <AboutCopy>
-            I&apos;m a <span>creative engineer</span> who loves building elegant
-            applications with intuitive user experiences. My work is focused on
-            bridging the gap between <span>design and development</span>,
-            crafting solutions that are as beautiful to look at as they are
-            delightful to use.
+            I&apos;m a <TextTitle>Creative Engineer</TextTitle> who loves
+            building elegant applications with intuitive user experiences. My
+            work is focused on bridging the gap between{' '}
+            <span>design and development</span>, crafting solutions that are as
+            beautiful to look at as they are delightful to use.
           </AboutCopy>
           <AboutCopy>
-            I approach every project with a <span>user-centered</span> mindset
-            and a strong commitment to <span>accessibility</span>. I love taking
-            complex challenges and breaking them down to build elegant,
+            I approach every project with a{' '}
+            <TextUserCentered>user-centered</TextUserCentered> mindset and a
+            strong commitment to <TextA11y>accessibility</TextA11y>. I love
+            taking complex challenges and breaking them down to build elegant,
             inclusive solutions.
           </AboutCopy>
           <AboutCopy>
-            I enjoy building with <span>React</span>, <span>TypeScript</span>,
-            and <span>different flavors of CSS</span>, shaping interfaces that
-            feel smooth, intuitive, and purposeful. Ultimately, I aim to deliver
+            I mostly find myself building with <TextTool>React</TextTool>,{' '}
+            <TextTool>TypeScript</TextTool>, and different{' '}
+            <TextCSS>flavors of CSS</TextCSS>, shaping interfaces that feel
+            smooth, intuitive, and purposeful. Ultimately, I aim to deliver
             interactions that genuinely improve the rhythm of a user&apos;s
             daily life.
           </AboutCopy>
@@ -257,6 +343,7 @@ const About = ({ themeName }: HeaderProps) => {
             <span>nurture my creativity</span> and create products that will
             propagate throughout our communities.
           </AboutCopy>
+          <AboutCopy>✨Let&apos;s build cool stuff together✨</AboutCopy>
         </AboutSection>
         <ExperienceComponent>
           <WorkTitle>
