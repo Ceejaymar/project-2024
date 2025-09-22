@@ -134,7 +134,7 @@ export const fullProjects = [
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/portfolio-website.webp',
     description: '',
     year: 2024,
-    tech: 'React, TypeScript, Styled-Components',
+    tech: 'React, TypeScript, Styled-Components, Framer Motion',
     repo: 'https://github.com/Ceejaymar/project-2024',
     live: 'https://los.codes',
   },
