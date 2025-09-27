@@ -84,6 +84,17 @@ export const fullProjects = [
     live: 'https://fe-challenge-resplash.vercel.app/',
   },
   {
+    title: 'Kanban',
+    slug: 'kanban',
+    image:
+      'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/resplash.webp',
+    description: '',
+    year: 2025,
+    tech: 'Next.js, TypeScript, TailwindCSS',
+    repo: 'https://github.com/Ceejaymar/beyou-kanban',
+    live: 'https://beyou-kanban.vercel.app/',
+  },
+  {
     title: 'Pricing Section',
     slug: 'pricing-section',
     image:
