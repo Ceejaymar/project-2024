@@ -123,7 +123,7 @@ const Button = styled(motion.a)`
   `}
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors['default-text']}15;
+    background-color: ${({ theme }) => theme.colors.white}15;
   }
 `;
 
