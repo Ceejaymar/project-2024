@@ -1,5 +1,6 @@
 export const lightTheme = {
   colors: {
+    white: '#ffffff',
     background: '#fafafa',
     boxShadow: '#212427',
     'default-text': '#1c2528',
@@ -19,6 +20,7 @@ export const lightTheme = {
 
 export const darkTheme = {
   colors: {
+    white: '#ffffff',
     background: '#212427',
     boxShadow: '#000000',
     navbarBackground: '#212427',

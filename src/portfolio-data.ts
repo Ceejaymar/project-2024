@@ -73,6 +73,17 @@ export const projects = [
 
 export const fullProjects = [
   {
+    title: 'Kanban',
+    slug: 'kanban',
+    image:
+      'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/kanban.png',
+    description: '',
+    year: 2025,
+    tech: 'Next.js, TypeScript, TailwindCSS',
+    repo: 'https://github.com/Ceejaymar/beyou-kanban',
+    live: 'https://beyou-kanban.vercel.app/',
+  },
+  {
     title: 'Resplash',
     slug: 'resplash',
     image:
