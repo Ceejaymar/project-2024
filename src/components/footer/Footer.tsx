@@ -1,9 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 
 import GradientLogo from '../logoGradient/GradientLogo';
 import media from '../../utils/mediaQueries';
 import { socialLinks } from '../../portfolio-data';
+
+const GRADIENT_MAP = {
+  'grad-1': { start: 'primary-pastel', end: 'secondary-pastel' },
+  'grad-2': { start: 'quinary-pastel', end: 'quaternary-pastel' },
+  'grad-3': { start: 'senary-pastel', end: 'tertiary-pastel' },
+};
 
 const FooterContainer = styled.footer`
   display: flex;
@@ -61,27 +67,6 @@ const ExternalLink = styled.a`
     color: ${({ theme }) => theme.colors['default-text']};
   }
 
-  &:nth-child(1) div::before {
-    background: conic-gradient(
-      ${({ theme }) => theme.colors['primary-pastel']} 90deg,
-      ${({ theme }) => theme.colors['secondary-pastel']}
-    );
-  }
-
-  &:nth-child(2) div::before {
-    background: conic-gradient(
-      ${({ theme }) => theme.colors['quinary-pastel']} 180deg,
-      ${({ theme }) => theme.colors['quaternary-pastel']}
-    );
-  }
-
-  &:nth-child(3) div::before {
-    background: conic-gradient(
-      ${({ theme }) => theme.colors['senary-pastel']},
-      ${({ theme }) => theme.colors['tertiary-pastel']} 180deg
-    );
-  }
-
   & div {
     position: relative;
     display: flex;
@@ -103,6 +88,9 @@ const ExternalLink = styled.a`
       position: absolute;
       inset: 0;
       border-radius: inherit;
+
+      background: conic-gradient(var(--start-color) 45deg, var(--end-color));
+
       filter: blur(5px);
       z-index: -1;
     }
@@ -123,6 +111,8 @@ const Copyright = styled.p`
 `;
 
 const Footer = () => {
+  const theme = useTheme();
+
   return (
     <FooterContainer>
       <Copyright>
@@ -132,20 +122,31 @@ const Footer = () => {
       <SocialLinksContainer>
         <p>Where else you can find me:</p>
         <SocialLinks aria-label="Social media links">
-          {socialLinks.map((link) => (
-            <ExternalLink
-              key={link.name}
-              href={link.url}
-              aria-label={link.name}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div>
-                <link.icon size={28} weight="bold" color="white" />
-              </div>
-              {link.name}
-            </ExternalLink>
-          ))}
+          {socialLinks.map((link, index) => {
+            const gradientKey = `grad-${(index % 3) + 1}`; // Ensures safe wrapping if there are more than 3 links
+            const gradient = GRADIENT_MAP[gradientKey];
+
+            return (
+              <ExternalLink
+                key={link.name}
+                href={link.url}
+                aria-label={link.name}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={
+                  {
+                    '--start-color': theme.colors[gradient.start],
+                    '--end-color': theme.colors[gradient.end],
+                  } as React.CSSProperties
+                }
+              >
+                <div>
+                  <link.icon size={28} weight="bold" color="white" />
+                </div>
+                {link.name}
+              </ExternalLink>
+            );
+          })}
         </SocialLinks>
       </SocialLinksContainer>
     </FooterContainer>
