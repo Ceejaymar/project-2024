@@ -34,7 +34,7 @@ const SocialLinksContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  font-weight: 600;
+  font-weight: 500;
   color: ${({ theme }) => theme.colors['secondary-text']};
 
   ${media.laptop`
@@ -60,6 +60,7 @@ const ExternalLink = styled.a`
   border-radius: 16px;
   color: ${({ theme }) => theme.colors['default-text']}80;
   font-size: 1rem;
+  font-weight: 500;
   text-decoration: none;
   transition: color 0.3s ease;
 
