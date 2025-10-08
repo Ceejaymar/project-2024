@@ -77,6 +77,7 @@ const ExternalLink = styled.a`
     z-index: 1;
     isolation: isolate;
     overflow: hidden;
+    box-shadow: ${({ theme }) => theme.colors.boxShadow}40 1.95px 1.95px 5px;
 
     & svg {
       filter: drop-shadow(
