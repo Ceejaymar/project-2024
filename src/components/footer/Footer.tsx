@@ -9,33 +9,41 @@ const FooterContainer = styled.footer`
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
-  gap: 2rem;
   width: 100%;
   max-width: 1280px;
   background-color: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.colors['default-text']};
   font-weight: 500;
-  padding: 2rem 2rem;
+  padding: 2rem 1rem;
 
   ${media.laptop`
     flex-direction: row;
     justify-content: space-between;
+    padding: 2rem 2rem;
   `}
 `;
 
 const SocialLinksContainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 1rem;
   font-weight: 600;
   color: ${({ theme }) => theme.colors['secondary-text']};
+
+  ${media.laptop`
+    flex-direction: row;
+  `}
 `;
 
 const SocialLinks = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   text-transform: capitalize;
+
+  ${media.tablet`
+    display: flex;
+  `}
 `;
 
 const ExternalLink = styled.a`
@@ -104,9 +112,14 @@ const ExternalLink = styled.a`
 const Copyright = styled.p`
   display: flex;
   align-items: center;
-  margin: 0;
+  margin-top: 2rem;
   gap: 0.5rem;
   font-size: 1.1rem;
+  min-width: max-content;
+
+  ${media.laptop`
+    margin-top: 0;
+  `}
 `;
 
 const Footer = () => {

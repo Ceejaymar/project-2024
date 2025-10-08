@@ -12,7 +12,7 @@ import { projects } from '../../portfolio-data';
 const Section = styled(motion.section)`
   width: 100%;
   max-width: 1280px;
-  padding: 4rem 2rem;
+  padding: 4rem 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
