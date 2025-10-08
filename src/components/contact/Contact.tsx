@@ -25,10 +25,12 @@ const ContactContainer = styled.div`
   max-width: 1280px;
   padding: 2rem;
   gap: 3rem;
-  border-radius: 15px;
+  border-radius: 16px;
   z-index: 1;
   isolation: isolate;
   overflow: hidden;
+  border: 1px solid ${({ theme }) => theme.colors['default-text']}20;
+  box-shadow: 10px 10px 25px -5px ${({ theme }) => theme.colors.boxShadow}20;
 
   ${media.tablet`
     padding: 3rem 3rem; 
@@ -51,7 +53,7 @@ const ContactContainer = styled.div`
       ${({ theme }) => theme.colors.primary} 225deg 315deg,
       ${({ theme }) => theme.colors.secondary} 315deg 360deg
     );
-    filter: blur(60px);
+    filter: blur(40px);
     z-index: -1;
   }
 `;
@@ -67,7 +69,7 @@ const Title = styled.h2`
   font-weight: 600;
   letter-spacing: 0.02em;
   line-height: 1;
-  text-shadow: ${({ theme }) => theme.colors.boxShadow}30 1.95px 1.95px 2.6px;
+  text-shadow: ${({ theme }) => theme.colors.boxShadow}40 1.95px 1.95px 2.6px;
 `;
 
 const Subtitle = styled.h3`
@@ -75,7 +77,7 @@ const Subtitle = styled.h3`
   font-weight: 500;
   margin-top: 1.5rem;
   color: ${({ theme }) => theme.colors.white};
-  text-shadow: ${({ theme }) => theme.colors.boxShadow}30 1.95px 1.95px 2.6px;
+  text-shadow: ${({ theme }) => theme.colors.boxShadow}40 1.95px 1.95px 2.6px;
 
   ${media.tablet`
     max-width: 80%;
@@ -109,9 +111,9 @@ const Button = styled(motion.a)`
   color: ${({ theme }) => theme.colors.white};
   font-weight: 600;
   font-size: 1.1rem;
-  text-shadow: ${({ theme }) => theme.colors.boxShadow}30 1.95px 1.95px 2.6px;
+  text-shadow: ${({ theme }) => theme.colors.boxShadow}40 1.95px 1.95px 2.6px;
   border-radius: 10px;
-  border: 1px solid ${({ theme }) => theme.colors.white};
+  border: 2px solid ${({ theme }) => theme.colors.white};
   padding: 10px 20px;
   padding-right: 15px;
   cursor: pointer;
@@ -124,6 +126,10 @@ const Button = styled(motion.a)`
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.white}15;
+  }
+
+  & svg {
+    filter: drop-shadow(2px 2px 1px ${({ theme }) => theme.colors.boxShadow}40);
   }
 `;
 
@@ -142,7 +148,7 @@ const Contact = () => {
     <Section id="contact">
       <ContactContainer>
         <ContactCopy>
-          <Title>Let's create together</Title>
+          <Title>✨Let's create together✨</Title>
           <Subtitle>
             Feel free to reach out if you have any questions, want to discuss
             hiring opportunities, or just want to connect.
