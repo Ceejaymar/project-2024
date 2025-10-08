@@ -1,3 +1,5 @@
+import { GithubLogo, YoutubeLogo, InstagramLogo } from '@phosphor-icons/react';
+
 import yImage from './assets/yImage.png';
 import oImage from './assets/oImage.jpg';
 import mImage from './assets/mImage.png';
@@ -208,19 +210,18 @@ export const fullProjects = [
 
 export const socialLinks = [
   {
-    name: 'linkedin',
-    url: 'https://www.linkedin.com/in/carmart/',
-  },
-  {
-    name: 'github',
-    url: 'https://github.com/ceejaymar',
-  },
-  {
     name: 'youtube',
     url: 'https://www.youtube.com/@Losliving',
+    icon: YoutubeLogo,
   },
   {
     name: 'instagram',
     url: 'https://instagram.com/steadyonthego',
+    icon: InstagramLogo,
+  },
+  {
+    name: 'github',
+    url: 'https://github.com/ceejaymar',
+    icon: GithubLogo,
   },
 ];

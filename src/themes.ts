@@ -15,6 +15,13 @@ export const lightTheme = {
     quaternary: '#FEA303',
     quinary: '#0E3506',
     senary: '#fed280ff',
+
+    'primary-pastel': '#C7B5F5',
+    'secondary-pastel': '#A8EADF',
+    'tertiary-pastel': '#D4CEF9',
+    'quaternary-pastel': '#FFC973',
+    'quinary-pastel': '#BBD8B4',
+    'senary-pastel': '#FFF0C4',
   },
 };
 
@@ -36,6 +43,13 @@ export const darkTheme = {
     quaternary: '#FEA303',
     quinary: '#0E3506',
     senary: '#fed280ff',
+
+    'primary-pastel': '#C7B5F5',
+    'secondary-pastel': '#A8EADF',
+    'tertiary-pastel': '#D4CEF9',
+    'quaternary-pastel': '#FFC973',
+    'quinary-pastel': '#BBD8B4',
+    'senary-pastel': '#FFF0C4',
   },
 };
 
