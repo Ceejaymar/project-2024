@@ -57,7 +57,7 @@ export const projects = [
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/resplash.webp',
     description:
       "I've been a huge fan of Unsplash since the days they uploaded just ten photos a week, and I wanted to see if I could recreate some of that magic myself. This project, an Unsplash clone, is built with Next.js and Tailwind CSS. It's my way of using their API to build a modern application that captures the beauty and functionality of the original.",
-    tech: 'Next.js, TypeScript, TailwindCSS',
+    tech: 'Next.js, TypeScript, TailwindCSS, Unsplash API',
     repo: 'https://github.com/Ceejaymar/resplash',
     live: 'https://fe-challenge-resplash.vercel.app/',
   },
@@ -74,6 +74,17 @@ export const projects = [
 ];
 
 export const fullProjects = [
+  {
+    title: 'Values Page challenge',
+    slug: 'values-page-challenge',
+    image:
+      'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/values-page.png',
+    description: '',
+    year: 2026,
+    tech: 'Next.js, TypeScript, TailwindCSS',
+    repo: 'https://github.com/Ceejaymar/byl-eng-eval',
+    live: 'https://values-page.vercel.app/discover/breakdown',
+  },
   {
     title: 'Kanban',
     slug: 'kanban',
@@ -92,7 +103,7 @@ export const fullProjects = [
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/resplash.webp',
     description: '',
     year: 2025,
-    tech: 'Next.js, TypeScript, TailwindCSS',
+    tech: 'Next.js, TypeScript, TailwindCSS, Unsplash API',
     repo: 'https://github.com/Ceejaymar/resplash',
     live: 'https://fe-challenge-resplash.vercel.app/',
   },
