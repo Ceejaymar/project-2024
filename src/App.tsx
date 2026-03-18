@@ -6,6 +6,8 @@ import { usePostHog } from 'posthog-js/react';
 import { BrowserRouter, Routes, Route } from 'react-router';
 
 import { lightTheme, darkTheme } from './themes';
+
+const themes = { light: lightTheme, dark: darkTheme };
 import Navbar from './components/navbar/Navbar';
 import HomePage from './pages/home/HomePage.tsx';
 import ProjectsPage from './pages/projects/ProjectsPage.tsx';
@@ -28,11 +30,6 @@ function App() {
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
     posthog?.capture('theme_toggled');
-  };
-
-  const themes = {
-    light: lightTheme,
-    dark: darkTheme,
   };
 
   const currentTheme = themes[theme];

@@ -133,6 +133,14 @@ const Button = styled(motion.a)`
   }
 `;
 
+const bounceVariants = { bounce: { y: [0, -5, 0, -2, 0] } };
+const bounceTransition = {
+  ease: 'easeInOut',
+  duration: 0.9,
+  repeat: Infinity,
+  repeatType: 'loop' as const,
+};
+
 const MotionLinkedinLogo = styled(motion.create(LinkedinLogo))``;
 
 const MotionEnvelope = styled(motion.create(Envelope))``;
@@ -164,30 +172,16 @@ const Contact = () => {
             Connect on Linkedin{' '}
             <MotionLinkedinLogo
               size="20"
-              variants={{
-                bounce: { y: [0, -5, 0, -2, 0] },
-              }}
-              transition={{
-                ease: 'easeInOut',
-                duration: 0.9,
-                repeat: Infinity,
-                repeatType: 'loop',
-              }}
+              variants={bounceVariants}
+              transition={bounceTransition}
             />
           </Button>
           <EmailButton href="mailto:ceejaymar@gmail.com" whileHover="bounce">
             Send an email{' '}
             <MotionEnvelope
               size="20"
-              variants={{
-                bounce: { y: [0, -5, 0, -2, 0] },
-              }}
-              transition={{
-                ease: 'easeInOut',
-                duration: 0.9,
-                repeat: Infinity,
-                repeatType: 'loop',
-              }}
+              variants={bounceVariants}
+              transition={bounceTransition}
             />{' '}
           </EmailButton>
         </ButtonContainer>

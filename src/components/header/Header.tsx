@@ -347,6 +347,21 @@ const fadeInUpAnimation = {
   },
 };
 
+const bounceVariants = { bounce: { y: [0, -5, 0, -2, 0] } };
+const bounceTransition = { ease: 'easeInOut', duration: 0.9, repeat: Infinity };
+
+const underlineVariants = {
+  hidden: { width: '0%' },
+  visible: { width: '85%' },
+};
+const underlineTransition = { duration: 0.3, ease: 'easeIn' };
+
+const arrowVariants = {
+  hidden: { x: -10, opacity: 0 },
+  visible: { x: 0, opacity: 1 },
+};
+const arrowTransition = { ease: 'easeIn', duration: 0.2, delay: 0.2 };
+
 const Header = ({ themeName }: HeaderProps) => {
   return (
     <HeaderSection key={themeName} {...getThemeTransition(themeName)}>
@@ -371,15 +386,8 @@ const Header = ({ themeName }: HeaderProps) => {
           <Button whileHover="bounce" href="#projects">
             Explore my projects{' '}
             <MotionArrowUpRight
-              variants={{
-                // hidden: { x: -10, opacity: 0 },
-                bounce: { y: [0, -5, 0, -2, 0] },
-              }}
-              transition={{
-                ease: 'easeInOut',
-                duration: 0.9,
-                repeat: Infinity,
-              }}
+              variants={bounceVariants}
+              transition={bounceTransition}
             >
               <ArrowDown size={18} weight="bold" />
             </MotionArrowUpRight>
@@ -393,26 +401,13 @@ const Header = ({ themeName }: HeaderProps) => {
             whileHover="visible"
           >
             <Underline
-              variants={{
-                hidden: { width: '0%' },
-                visible: { width: '85%' },
-              }}
-              transition={{
-                duration: 0.3,
-                ease: 'easeIn',
-              }}
+              variants={underlineVariants}
+              transition={underlineTransition}
             />
             Get my resume
             <MotionArrowSquareOut
-              variants={{
-                hidden: { x: -10, opacity: 0 },
-                visible: { x: 0, opacity: 1 },
-              }}
-              transition={{
-                ease: 'easeIn',
-                duration: 0.2,
-                delay: 0.2,
-              }}
+              variants={arrowVariants}
+              transition={arrowTransition}
             >
               <ArrowUpRight size={18} weight="bold" />
             </MotionArrowSquareOut>
