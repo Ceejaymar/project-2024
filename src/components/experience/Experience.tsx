@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Briefcase, FileArrowDown } from '@phosphor-icons/react';
-import { getThemeTransition } from '../../utils/themeTransition';
 import media from '../../utils/mediaQueries';
 import { HeaderProps } from '../../types';
 import { experienceList } from '../../portfolio-data';
@@ -313,7 +312,6 @@ const About = ({ themeName }: HeaderProps) => {
     <Section
       id="experience"
       key={themeName}
-      {...getThemeTransition(themeName)}
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.2 }}
