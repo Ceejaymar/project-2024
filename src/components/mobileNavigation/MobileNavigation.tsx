@@ -55,7 +55,7 @@ const HamburgerButton = styled(motion.button)`
   border-radius: 50%;
   cursor: pointer;
   background: transparent;
-  transition: all 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
   outline: none;
   border: none;
   z-index: 10;
@@ -70,6 +70,63 @@ const HamburgerButton = styled(motion.button)`
 `;
 
 const navbarItems = ['experience', 'projects', 'contact'];
+
+const hamburgerTopVariants = {
+  open: { rotate: ['0deg', '0deg', '45deg'], top: ['35%', '50%', '50%'] },
+  closed: { rotate: ['45deg', '0deg', '0deg'], top: ['50%', '50%', '35%'] },
+};
+
+const hamburgerMidVariants = {
+  open: { rotate: ['0deg', '0deg', '-45deg'] },
+  closed: { rotate: ['-45deg', '0deg', '0deg'] },
+};
+
+const hamburgerBotVariants = {
+  open: {
+    rotate: ['0deg', '0deg', '45deg'],
+    left: '50%',
+    bottom: ['35%', '50%', '50%'],
+  },
+  closed: { rotate: ['45deg', '0deg', '0deg'], bottom: ['50%', '50%', '35%'] },
+};
+
+const sideNavVariants = {
+  initial: { scaleY: 0 },
+  animate: {
+    scaleY: 1,
+    transition: { duration: 0.4, ease: [0.12, 0, 0.39, 0] },
+  },
+  exit: {
+    scaleY: 0,
+    transition: { delay: 0.4, duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const navListVariants = {
+  initial: {
+    transition: {
+      staggerChildren: 0.09,
+      staggerDirection: -1 as const,
+      ease: [0.37, 0, 0.63, 0],
+    },
+  },
+  open: {
+    transition: {
+      delayChildren: 0.1,
+      staggerChildren: 0.09,
+      staggerDirection: 1 as const,
+      ease: [0.55, 0, 0.45, 0],
+    },
+  },
+};
+
+const navItemVariants = {
+  initial: {
+    y: '30vh',
+    transition: { duration: 0.5, ease: [0.37, 0, 0.63, 1] },
+  },
+  open: { y: 0, transition: { duration: 0.7, ease: [0.55, 0, 0.45, 1] } },
+};
 
 const HamburgerLine = styled(motion.span)`
   position: absolute;
@@ -93,41 +150,15 @@ const MobileNavigation = () => {
         animate={active ? 'open' : 'closed'}
       >
         <HamburgerLine
-          variants={{
-            open: {
-              rotate: ['0deg', '0deg', '45deg'],
-              top: ['35%', '50%', '50%'],
-            },
-            closed: {
-              rotate: ['45deg', '0deg', '0deg'],
-              top: ['50%', '50%', '35%'],
-            },
-          }}
+          variants={hamburgerTopVariants}
           style={{ top: '35%', left: '50%', x: '-50%', y: '-50%' }}
         />
         <HamburgerLine
-          variants={{
-            open: {
-              rotate: ['0deg', '0deg', '-45deg'],
-            },
-            closed: {
-              rotate: ['-45deg', '0deg', '0deg'],
-            },
-          }}
+          variants={hamburgerMidVariants}
           style={{ top: '50%', left: '50%', x: '-50%', y: '-50%' }}
         />
         <HamburgerLine
-          variants={{
-            open: {
-              rotate: ['0deg', '0deg', '45deg'],
-              left: '50%',
-              bottom: ['35%', '50%', '50%'],
-            },
-            closed: {
-              rotate: ['45deg', '0deg', '0deg'],
-              bottom: ['50%', '50%', '35%'],
-            },
-          }}
+          variants={hamburgerBotVariants}
           style={{
             bottom: '35%',
             left: 'calc(50% + 7px)',
@@ -144,49 +175,14 @@ const MobileNavigation = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            variants={{
-              initial: {
-                scaleY: 0,
-              },
-              animate: {
-                scaleY: 1,
-                transition: {
-                  duration: 0.4,
-                  ease: [0.12, 0, 0.39, 0],
-                },
-              },
-              exit: {
-                scaleY: 0,
-                transition: {
-                  delay: 0.4,
-                  duration: 0.5,
-                  ease: [0.22, 1, 0.36, 1],
-                },
-              },
-            }}
+            variants={sideNavVariants}
           >
             <GradientLogo width={65} height={'60'} />
             <motion.div
               initial="initial"
               animate="open"
               exit="initial"
-              variants={{
-                initial: {
-                  transition: {
-                    staggerChildren: 0.09,
-                    staggerDirection: -1,
-                    ease: [0.37, 0, 0.63, 0],
-                  },
-                },
-                open: {
-                  transition: {
-                    delayChildren: 0.1,
-                    staggerChildren: 0.09,
-                    staggerDirection: 1,
-                    ease: [0.55, 0, 0.45, 0],
-                  },
-                },
-              }}
+              variants={navListVariants}
               style={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -197,24 +193,7 @@ const MobileNavigation = () => {
             >
               {navbarItems.map((item) => (
                 <div key={item} style={{ overflow: 'hidden' }}>
-                  <NavItem
-                    variants={{
-                      initial: {
-                        y: '30vh',
-                        transition: {
-                          duration: 0.5,
-                          ease: [0.37, 0, 0.63, 1],
-                        },
-                      },
-                      open: {
-                        y: 0,
-                        transition: {
-                          duration: 0.7,
-                          ease: [0.55, 0, 0.45, 1],
-                        },
-                      },
-                    }}
-                  >
+                  <NavItem variants={navItemVariants}>
                     <NavLink
                       key={item}
                       href={`#${item}`}

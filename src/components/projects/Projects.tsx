@@ -29,6 +29,21 @@ const SectionTitle = styled.h2`
   letter-spacing: 0.02em;
   line-height: 1;
   text-align: center;
+  color: ${({ theme }) => theme.colors['default-text']};
+
+  &::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      ${({ theme }) => theme.colors.primary},
+      ${({ theme }) => theme.colors.secondary}
+    );
+    border-radius: 2px;
+    margin: 0 auto 1rem;
+  }
 `;
 
 const Subheadline = styled.p`
@@ -46,6 +61,21 @@ const ProjectsLink = styled(NavLink)`
   font-weight: 600;
   text-decoration: none;
   border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-bottom-color: ${({ theme }) => theme.colors.quaternary};
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.quaternary};
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
 `;
 
 const ProjectList = styled.div`

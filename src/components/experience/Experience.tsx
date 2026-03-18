@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Briefcase, FileArrowDown } from '@phosphor-icons/react';
-import { getThemeTransition } from '../../utils/themeTransition';
 import media from '../../utils/mediaQueries';
 import { HeaderProps } from '../../types';
 import { experienceList } from '../../portfolio-data';
@@ -31,6 +30,21 @@ const SectionTitle = styled(motion.h2)`
   letter-spacing: 0.02em;
   line-height: 1;
   text-align: center;
+  color: ${({ theme }) => theme.colors['default-text']};
+
+  &::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      ${({ theme }) => theme.colors.primary},
+      ${({ theme }) => theme.colors.secondary}
+    );
+    border-radius: 2px;
+    margin: 0 auto 1rem;
+  }
 `;
 
 const ExperienceSection = styled(motion.div)`
@@ -67,6 +81,14 @@ const ExperienceComponent = styled.div`
   margin: 0 auto;
   font-size: 0.9rem;
   box-shadow: 10px 10px 25px -5px ${({ theme }) => theme.colors.boxShadow}20;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.primary}50;
+    box-shadow: 0 8px 32px -8px ${({ theme }) => theme.colors.primary}25;
+  }
 
   ${media.tablet`
     max-width: 32rem;
@@ -269,25 +291,19 @@ const TextA11y = styled.span`
   background-size: 45px 8px;
 `;
 
-const fadeInUpParent = (theme: any) => ({
-  hidden: {
-    opacity: 0,
-    y: 24,
-    backgroundColor: theme.initial.backgroundColor,
-    color: theme.initial.color,
-  },
+const fadeInUpParent = {
+  hidden: { opacity: 0, y: 24 },
   show: {
     opacity: 1,
     y: 0,
-    backgroundColor: theme.animate.backgroundColor,
-    color: theme.animate.color,
     transition: {
-      duration: theme.transition.duration,
-      ease: theme.transition.ease,
+      duration: 0.6,
+      ease: [0.25, 0.46, 0.45, 0.94],
+      delayChildren: 0.2,
       staggerChildren: 0.4,
     },
   },
-});
+};
 
 const fadeInUpChildren = {
   hidden: { opacity: 0, y: 24 },
@@ -301,19 +317,30 @@ const fadeInUpChildren = {
   },
 };
 
-const About = ({ themeName }: HeaderProps) => {
-  const themeProps = getThemeTransition(themeName);
+const fadeInUpTitle = {
+  hidden: { opacity: 0, y: 24 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1.8,
+      delay: 0.4,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  },
+};
 
+const About = ({ themeName }: HeaderProps) => {
   return (
     <Section
       id="experience"
       key={themeName}
-      {...getThemeTransition(themeName)}
       initial="hidden"
-      animate="show"
-      variants={fadeInUpParent(themeProps)}
+      whileInView="show"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={fadeInUpParent}
     >
-      <SectionTitle variants={fadeInUpChildren}>About me</SectionTitle>
+      <SectionTitle variants={fadeInUpTitle}>About me</SectionTitle>
       <ExperienceSection variants={fadeInUpChildren}>
         <AboutSection>
           <AboutCopy>

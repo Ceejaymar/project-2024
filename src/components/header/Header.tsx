@@ -237,6 +237,16 @@ const Button = styled(motion.a)`
   cursor: pointer;
   text-decoration: none;
   box-shadow: ${({ theme }) => theme.colors.boxShadow}30 1.95px 1.95px 2.6px;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primary}25;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px -4px ${({ theme }) => theme.colors.primary}40;
+  }
 
   ${media.tablet`
     display: flex;
@@ -310,6 +320,14 @@ const TechLink = styled(motion.a)`
   align-items: center;
   text-decoration: none;
   color: ${({ theme }) => theme.colors['default-text']};
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary};
+    transform: translateX(3px);
+  }
 `;
 
 const MotionArrowUpRight = styled(motion.div)`
@@ -341,11 +359,26 @@ const fadeInUpAnimation = {
     y: 0,
     transition: {
       duration: 1,
-      staggerChildren: 0.4,
+      staggerChildren: 0.25,
       ease: [0.25, 0.46, 0.45, 0.94],
     },
   },
 };
+
+const bounceVariants = { bounce: { y: [0, -5, 0, -2, 0] } };
+const bounceTransition = { ease: 'easeInOut', duration: 0.9, repeat: Infinity };
+
+const underlineVariants = {
+  hidden: { width: '0%' },
+  visible: { width: '85%' },
+};
+const underlineTransition = { duration: 0.3, ease: 'easeIn' };
+
+const arrowVariants = {
+  hidden: { x: -10, opacity: 0 },
+  visible: { x: 0, opacity: 1 },
+};
+const arrowTransition = { ease: 'easeIn', duration: 0.2, delay: 0.2 };
 
 const Header = ({ themeName }: HeaderProps) => {
   return (
@@ -371,15 +404,8 @@ const Header = ({ themeName }: HeaderProps) => {
           <Button whileHover="bounce" href="#projects">
             Explore my projects{' '}
             <MotionArrowUpRight
-              variants={{
-                // hidden: { x: -10, opacity: 0 },
-                bounce: { y: [0, -5, 0, -2, 0] },
-              }}
-              transition={{
-                ease: 'easeInOut',
-                duration: 0.9,
-                repeat: Infinity,
-              }}
+              variants={bounceVariants}
+              transition={bounceTransition}
             >
               <ArrowDown size={18} weight="bold" />
             </MotionArrowUpRight>
@@ -393,26 +419,13 @@ const Header = ({ themeName }: HeaderProps) => {
             whileHover="visible"
           >
             <Underline
-              variants={{
-                hidden: { width: '0%' },
-                visible: { width: '85%' },
-              }}
-              transition={{
-                duration: 0.3,
-                ease: 'easeIn',
-              }}
+              variants={underlineVariants}
+              transition={underlineTransition}
             />
             Get my resume
             <MotionArrowSquareOut
-              variants={{
-                hidden: { x: -10, opacity: 0 },
-                visible: { x: 0, opacity: 1 },
-              }}
-              transition={{
-                ease: 'easeIn',
-                duration: 0.2,
-                delay: 0.2,
-              }}
+              variants={arrowVariants}
+              transition={arrowTransition}
             >
               <ArrowUpRight size={18} weight="bold" />
             </MotionArrowSquareOut>
