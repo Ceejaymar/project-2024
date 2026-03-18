@@ -237,6 +237,16 @@ const Button = styled(motion.a)`
   cursor: pointer;
   text-decoration: none;
   box-shadow: ${({ theme }) => theme.colors.boxShadow}30 1.95px 1.95px 2.6px;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primary}25;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px -4px ${({ theme }) => theme.colors.primary}40;
+  }
 
   ${media.tablet`
     display: flex;
@@ -310,6 +320,14 @@ const TechLink = styled(motion.a)`
   align-items: center;
   text-decoration: none;
   color: ${({ theme }) => theme.colors['default-text']};
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary};
+    transform: translateX(3px);
+  }
 `;
 
 const MotionArrowUpRight = styled(motion.div)`

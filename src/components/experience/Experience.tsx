@@ -30,6 +30,21 @@ const SectionTitle = styled(motion.h2)`
   letter-spacing: 0.02em;
   line-height: 1;
   text-align: center;
+  color: ${({ theme }) => theme.colors['default-text']};
+
+  &::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      ${({ theme }) => theme.colors.primary},
+      ${({ theme }) => theme.colors.secondary}
+    );
+    border-radius: 2px;
+    margin: 0 auto 1rem;
+  }
 `;
 
 const ExperienceSection = styled(motion.div)`
@@ -66,6 +81,14 @@ const ExperienceComponent = styled.div`
   margin: 0 auto;
   font-size: 0.9rem;
   box-shadow: 10px 10px 25px -5px ${({ theme }) => theme.colors.boxShadow}20;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.primary}50;
+    box-shadow: 0 8px 32px -8px ${({ theme }) => theme.colors.primary}25;
+  }
 
   ${media.tablet`
     max-width: 32rem;

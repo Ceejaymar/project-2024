@@ -8,6 +8,10 @@ import media from '../../utils/mediaQueries';
 const Section = styled.section`
   max-width: 1280px;
   padding: 5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
 
   ${media.tablet`
     padding: 5rem 2rem;
@@ -16,6 +20,29 @@ const Section = styled.section`
   ${media.desktop`
     padding: 7rem 2rem;
   `}
+`;
+
+const SectionTitle = styled.h2`
+  font-size: 2.4rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-align: center;
+  color: ${({ theme }) => theme.colors['default-text']};
+
+  &::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      ${({ theme }) => theme.colors.primary},
+      ${({ theme }) => theme.colors.secondary}
+    );
+    border-radius: 2px;
+    margin: 0 auto 1rem;
+  }
 `;
 
 const ContactContainer = styled.div`
@@ -154,6 +181,7 @@ const EmailButton = styled(motion.create(Button))`
 const Contact = () => {
   return (
     <Section id="contact">
+      <SectionTitle>Contact</SectionTitle>
       <ContactContainer>
         <ContactCopy>
           <Title>✨Let's create together✨</Title>

@@ -15,6 +15,14 @@ const ProjectCardContainer = styled.div`
   margin-top: 2.5rem;
   box-shadow: 10px 10px 25px -5px ${({ theme }) => theme.colors.boxShadow}20;
   overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 48px -10px ${({ theme }) => theme.colors.boxShadow}35;
+  }
 
   border: double 1.5px transparent;
   border-radius: 15px;

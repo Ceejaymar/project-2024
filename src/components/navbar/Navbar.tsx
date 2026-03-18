@@ -92,7 +92,11 @@ const RouterLink = styled(Link)`
 const Underline = styled(motion.li)`
   position: absolute;
   bottom: -2.5px;
-  background-color: ${({ theme }) => theme.colors.secondary};
+  background: linear-gradient(
+    90deg,
+    ${({ theme }) => theme.colors.primary},
+    ${({ theme }) => theme.colors.secondary}
+  );
   height: 3px;
   border-radius: 25px;
   list-style: none;

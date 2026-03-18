@@ -26,6 +26,14 @@ const Card = styled.div`
   overflow: hidden;
   background-color: ${({ theme }) => theme.colors.background};
   box-shadow: 10px 10px 15px -5px ${({ theme }) => theme.colors.boxShadow}20;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px -8px ${({ theme }) => theme.colors.boxShadow}35;
+  }
 `;
 
 const ImgWrapper = styled.div`
