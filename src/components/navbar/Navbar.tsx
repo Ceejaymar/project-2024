@@ -70,10 +70,14 @@ const linkStyles = css`
   font-weight: 500;
   text-transform: capitalize;
 
-  &:hover,
   &:focus {
     outline: none;
-    outline-offset: 2px;
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.primary};
+    outline-offset: 4px;
+    border-radius: 4px;
   }
 `;
 

@@ -55,7 +55,7 @@ const HamburgerButton = styled(motion.button)`
   border-radius: 50%;
   cursor: pointer;
   background: transparent;
-  transition: all 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
   outline: none;
   border: none;
   z-index: 10;

@@ -32,9 +32,20 @@ export const GlobalStyles = createGlobalStyle`
 
   h1, h2, h3, h4, h5, h6 {
     margin: 0;
+    text-wrap: balance;
   }
 
   p {
     margin: 0;
+    text-wrap: pretty;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 `;

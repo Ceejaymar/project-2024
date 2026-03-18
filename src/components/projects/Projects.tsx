@@ -46,6 +46,21 @@ const ProjectsLink = styled(NavLink)`
   font-weight: 600;
   text-decoration: none;
   border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-bottom-color: ${({ theme }) => theme.colors.quaternary};
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.quaternary};
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
 `;
 
 const ProjectList = styled.div`

@@ -16,7 +16,9 @@ const CardLink = styled(motion.a)`
   font-weight: 500;
   text-decoration: none;
   color: ${({ theme }) => theme.colors['default-text']};
-  transition: all 0.3s ease;
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
 `;
 
 const MotionArrowUpRight = styled(motion.div)`

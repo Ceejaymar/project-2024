@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import ExternalLink from '../externalLink/ExternalLink';
 
 const Card = styled.div`
+  display: flex;
+  flex-direction: column;
   border: double 1.5px transparent;
   border-radius: 15px;
   background-image: linear-gradient(
@@ -39,6 +41,9 @@ const Image = styled.img`
 
 const ContentWrapper = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   padding: 1rem 2rem;
   border-top: 1px solid ${({ theme }) => theme.colors.border};
 `;
@@ -68,7 +73,8 @@ const Technologies = styled.p`
 const LinkWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 2rem;
+  margin-top: auto;
+  padding-top: 1.5rem;
 `;
 
 export default function ProjectCardCompact({ project }) {

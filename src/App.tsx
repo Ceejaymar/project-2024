@@ -25,10 +25,17 @@ const updateThemeColor = (color: string) => {
 
 function App() {
   const posthog = usePostHog();
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    document.documentElement.style.colorScheme = 'light';
+    return 'light';
+  });
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+    setTheme((prevTheme) => {
+      const next = prevTheme === 'light' ? 'dark' : 'light';
+      document.documentElement.style.colorScheme = next;
+      return next;
+    });
     posthog?.capture('theme_toggled');
   };
 
