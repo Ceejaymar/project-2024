@@ -269,25 +269,19 @@ const TextA11y = styled.span`
   background-size: 45px 8px;
 `;
 
-const fadeInUpParent = (theme: any) => ({
-  hidden: {
-    opacity: 0,
-    y: 24,
-    backgroundColor: theme.initial.backgroundColor,
-    color: theme.initial.color,
-  },
+const fadeInUpParent = {
+  hidden: { opacity: 0, y: 24 },
   show: {
     opacity: 1,
     y: 0,
-    backgroundColor: theme.animate.backgroundColor,
-    color: theme.animate.color,
     transition: {
-      duration: theme.transition.duration,
-      ease: theme.transition.ease,
+      duration: 0.6,
+      ease: [0.25, 0.46, 0.45, 0.94],
+      delayChildren: 0.2,
       staggerChildren: 0.4,
     },
   },
-});
+};
 
 const fadeInUpChildren = {
   hidden: { opacity: 0, y: 24 },
@@ -301,19 +295,31 @@ const fadeInUpChildren = {
   },
 };
 
-const About = ({ themeName }: HeaderProps) => {
-  const themeProps = getThemeTransition(themeName);
+const fadeInUpTitle = {
+  hidden: { opacity: 0, y: 24 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1.8,
+      delay: 0.4,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  },
+};
 
+const About = ({ themeName }: HeaderProps) => {
   return (
     <Section
       id="experience"
       key={themeName}
       {...getThemeTransition(themeName)}
       initial="hidden"
-      animate="show"
-      variants={fadeInUpParent(themeProps)}
+      whileInView="show"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={fadeInUpParent}
     >
-      <SectionTitle variants={fadeInUpChildren}>About me</SectionTitle>
+      <SectionTitle variants={fadeInUpTitle}>About me</SectionTitle>
       <ExperienceSection variants={fadeInUpChildren}>
         <AboutSection>
           <AboutCopy>

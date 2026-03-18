@@ -341,7 +341,7 @@ const fadeInUpAnimation = {
     y: 0,
     transition: {
       duration: 1,
-      staggerChildren: 0.4,
+      staggerChildren: 0.25,
       ease: [0.25, 0.46, 0.45, 0.94],
     },
   },
