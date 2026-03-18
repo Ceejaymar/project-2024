@@ -10,13 +10,56 @@ import { HeaderProps } from '../../types';
 import { getThemeTransition } from '../../utils/themeTransition';
 
 const technologies = [
-  { name: 'React', url: 'https://react.dev/' },
-  { name: 'TypeScript', url: 'https://www.typescriptlang.org/' },
-  { name: 'Tailwind CSS', url: 'https://tailwindcss.com/' },
-  { name: 'Styled-components', url: 'https://styled-components.com/' },
-  { name: 'Next.js', url: 'https://nextjs.org/' },
-  { name: 'Storybook', url: 'https://storybook.js.org/' },
-  // { name: 'React Native', url: 'https://reactnative.dev/' },
+  {
+    name: 'React',
+    url: 'https://react.dev/',
+    icon: 'devicon-react-original colored',
+  },
+  {
+    name: 'React Native',
+    url: 'https://react.dev/',
+    icon: 'devicon-reactnative-original colored',
+  },
+  {
+    name: 'TypeScript',
+    url: 'https://www.typescriptlang.org/',
+    icon: 'devicon-typescript-plain colored',
+  },
+  {
+    name: 'JavaScript',
+    url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript',
+    icon: 'devicon-javascript-plain colored',
+  },
+  {
+    name: 'Node.js',
+    url: 'https://nodejs.org/',
+    icon: 'devicon-nodejs-plain colored',
+  },
+  {
+    name: 'Next.js',
+    url: 'https://nextjs.org/',
+    icon: 'devicon-nextjs-plain colored',
+  },
+  {
+    name: 'Tailwind CSS',
+    url: 'https://tailwindcss.com/',
+    icon: 'devicon-tailwindcss-original colored',
+  },
+  {
+    name: 'Styled-components',
+    url: 'https://styled-components.com/',
+    icon: 'devicon-styledcomponents-plain colored',
+  },
+  {
+    name: 'Storybook',
+    url: 'https://storybook.js.org/',
+    icon: 'devicon-storybook-plain colored',
+  },
+  {
+    name: 'GitHub Actions',
+    url: 'https://github.com/features/actions',
+    icon: 'devicon-githubactions-plain colored',
+  },
 ];
 
 const HeaderSection = styled(motion.header)`
@@ -215,13 +258,9 @@ const ButtonSecondary = styled(motion.a)`
   `}
 `;
 
-const Bullet = styled(motion.div)`
-  width: 8px;
-  height: 8px;
-  background-color: ${({ theme }) => theme.colors.secondary};
-  /* background-color: ${({ theme }) => theme.colors.primary}; */
-  border-radius: 50%;
-  margin-right: 10px;
+const TechIcon = styled.i`
+  font-size: 1.2rem;
+  margin-right: 8px;
 `;
 
 const Technologies = styled(motion.div)`
@@ -241,8 +280,28 @@ const TechCopy = styled(motion.p)`
   margin-bottom: 0.5rem;
 `;
 
+const TechList = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  gap: 0.6rem 1.5rem;
+  padding: 0;
+  margin: 0;
+
+  ${media.mobileWide`
+    grid-template-columns: repeat(3, max-content);
+  `}
+
+  ${media.tablet`
+    grid-template-columns: repeat(3, max-content);
+    gap: 0.6rem 2rem;
+  `}
+
+  ${media.laptop`
+    grid-template-columns: repeat(5, max-content);
+  `}
+`;
+
 const TechListItem = styled(motion.li)`
-  margin-right: 1.5rem;
   list-style: none;
 `;
 
@@ -361,13 +420,7 @@ const Header = ({ themeName }: HeaderProps) => {
         </ButtonContainer>
         <Technologies variants={fadeInUpAnimation}>
           <TechCopy>Technologies I work with</TechCopy>
-          <ul
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              flexWrap: 'wrap',
-            }}
-          >
+          <TechList>
             {technologies.map((tech) => (
               <TechListItem key={tech.name}>
                 <TechLink
@@ -375,12 +428,12 @@ const Header = ({ themeName }: HeaderProps) => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Bullet />
+                  <TechIcon className={tech.icon} />
                   <span>{tech.name}</span>
                 </TechLink>
               </TechListItem>
             ))}
-          </ul>
+          </TechList>
         </Technologies>
       </HeadingContainer>
       <ImageContainer
