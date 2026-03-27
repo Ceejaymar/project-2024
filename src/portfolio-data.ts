@@ -42,6 +42,14 @@ export const experienceList = [
 
 export const projects = [
   {
+    title: 'Mosiac emotion tracking',
+    image: '',
+    description: '',
+    tech: 'React Native, Expo, TypeScript, Unistyles',
+    repo: 'https://github.com/Ceejaymar/mosaic',
+    live: '',
+  },
+  {
     title: 'Los Zine',
     image:
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/los-zine.webp',
@@ -70,16 +78,6 @@ export const projects = [
     tech: 'Next.js, TypeScript, TailwindCSS, Unsplash API',
     repo: 'https://github.com/Ceejaymar/resplash',
     live: 'https://fe-challenge-resplash.vercel.app/',
-  },
-  {
-    title: 'Accessibility Drawer',
-    image:
-      'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/a11y-drawer.webp',
-    description:
-      'The A11y Drawer is a versatile, user-friendly component designed to empower website and application users with the ability to dynamically adjust multiple accessibility settings. This project aims to create a robust and highly customizable solution that enhances inclusivity by providing immediate control over common accessibility preferences directly within the user interface.',
-    tech: 'React, TypeScript, TailwindCSS',
-    repo: 'https://github.com/Ceejaymar/a11y-drawer',
-    live: 'https://a11y-drawer.netlify.app/',
   },
 ];
 
