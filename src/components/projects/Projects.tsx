@@ -111,8 +111,8 @@ const Projects = ({ themeName }: HeaderProps) => (
           image={project.image}
           description={project.description}
           tech={project.tech}
-          repo={project.repo}
-          live={project.live}
+          links={project.links}
+          caseStudySlug={project.caseStudySlug}
         />
       ))}
     </ProjectList>

@@ -11,6 +11,7 @@ const arrowTransition = { ease: 'easeIn', duration: 0.1 };
 
 const CardLink = styled(motion.a)`
   display: flex;
+  align-items: center;
   gap: 0.2rem;
   font-size: 1rem;
   font-weight: 500;
@@ -24,7 +25,6 @@ const CardLink = styled(motion.a)`
 const MotionArrowUpRight = styled(motion.div)`
   display: flex;
   align-items: center;
-  margin-top: 2px;
 `;
 
 export default function ExternalLink({ href, children }) {

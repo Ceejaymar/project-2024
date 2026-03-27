@@ -41,14 +41,17 @@ export const experienceList = [
 ];
 
 export const projects = [
-  {
-    title: 'Mosiac emotion tracking',
-    image: '',
-    description: '',
-    tech: 'React Native, Expo, TypeScript, Unistyles',
-    repo: 'https://github.com/Ceejaymar/mosaic',
-    live: '',
-  },
+  // {
+  //   title: 'Mosaic emotion tracking',
+  //   image: '',
+  //   description: '',
+  //   tech: 'React Native, Expo, TypeScript, Unistyles',
+  //   caseStudySlug: 'mosaic',
+  //   links: [
+  //     { label: 'App Store', url: '', type: 'apple' },
+  //     { label: 'Learn more', url: '', type: 'marketing' },
+  //   ],
+  // },
   {
     title: 'Los Zine',
     image:
@@ -56,18 +59,30 @@ export const projects = [
     description:
       'A zine about me, my interests, my work,and my experiences. I hope you enjoy flipping through the pages.',
     tech: 'React, TypeScript, Tailwind, Three.js',
-    repo: 'https://github.com/Ceejaymar/los-zine',
-    live: 'https://los-zine.vercel.app/',
+    links: [
+      {
+        label: 'GitHub',
+        url: 'https://github.com/Ceejaymar/los-zine',
+        type: 'github',
+      },
+      { label: 'Live Site', url: 'https://los-zine.vercel.app/', type: 'web' },
+    ],
   },
   {
     title: 'Batéy Fashion',
     image:
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/batey.webp',
     description:
-      "I wanted to experience the feeling of creating a fashion brand, imagining it born from the culture and spirit of my home country. What would it look like? What emotions would it stir? This is the unfolding story of that exploration. While working on this project, I've also been using tools that are new to me, which has been an exciting part of the journey. This project is a WORK IN PROGRESS, and I'm excited to share what I've discovered so far.",
+      "I wanted to experience the feeling of creating a fashion brand, imagining it born from the culture and spirit of my home country. What would it look like? What emotions would it stir? This is the unfolding story of that exploration. This project is a WORK IN PROGRESS, and I'm excited to share what I've discovered so far.",
     tech: 'Next.js, TypeScript, CSS Modules, Better-SQLite3, Zod',
-    repo: 'https://github.com/Ceejaymar/batey-fs',
-    live: 'https://batey.vercel.app/',
+    links: [
+      {
+        label: 'GitHub',
+        url: 'https://github.com/Ceejaymar/batey-fs',
+        type: 'github',
+      },
+      { label: 'Live Site', url: 'https://batey.vercel.app/', type: 'web' },
+    ],
   },
   {
     title: 'Resplash',
@@ -76,12 +91,35 @@ export const projects = [
     description:
       "I've been a huge fan of Unsplash since the days they uploaded just ten photos a week, and I wanted to see if I could recreate some of that magic myself. This project, an Unsplash clone, is built with Next.js and Tailwind CSS. It's my way of using their API to build a modern application that captures the beauty and functionality of the original.",
     tech: 'Next.js, TypeScript, TailwindCSS, Unsplash API',
-    repo: 'https://github.com/Ceejaymar/resplash',
-    live: 'https://fe-challenge-resplash.vercel.app/',
+    links: [
+      {
+        label: 'GitHub',
+        url: 'https://github.com/Ceejaymar/resplash',
+        type: 'github',
+      },
+      {
+        label: 'Live Site',
+        url: 'https://fe-challenge-resplash.vercel.app/',
+        type: 'web',
+      },
+    ],
   },
 ];
 
 export const fullProjects = [
+  // {
+  //   title: 'Mosaic emotion tracking',
+  //   slug: 'mosaic',
+  //   image: '',
+  //   description: '',
+  //   year: 2026,
+  //   tech: 'React Native, Expo, TypeScript, Unistyles',
+  //   caseStudySlug: 'mosaic',
+  //   links: [
+  //     { label: 'App Store', url: '', type: 'apple' },
+  //     { label: 'Learn more', url: '', type: 'marketing' },
+  //   ],
+  // },
   {
     title: 'Values Page challenge',
     slug: 'values-page-challenge',
@@ -90,8 +128,18 @@ export const fullProjects = [
     description: '',
     year: 2026,
     tech: 'Next.js, TypeScript, TailwindCSS',
-    repo: 'https://github.com/Ceejaymar/byl-eng-eval',
-    live: 'https://values-page.vercel.app/discover/breakdown',
+    links: [
+      {
+        label: 'GitHub',
+        url: 'https://github.com/Ceejaymar/byl-eng-eval',
+        type: 'github',
+      },
+      {
+        label: 'Live Site',
+        url: 'https://values-page.vercel.app/discover/breakdown',
+        type: 'web',
+      },
+    ],
   },
   {
     title: 'Kanban',
@@ -101,8 +149,18 @@ export const fullProjects = [
     description: '',
     year: 2025,
     tech: 'Next.js, TypeScript, TailwindCSS',
-    repo: 'https://github.com/Ceejaymar/beyou-kanban',
-    live: 'https://beyou-kanban.vercel.app/',
+    links: [
+      {
+        label: 'GitHub',
+        url: 'https://github.com/Ceejaymar/beyou-kanban',
+        type: 'github',
+      },
+      {
+        label: 'Live Site',
+        url: 'https://beyou-kanban.vercel.app/',
+        type: 'web',
+      },
+    ],
   },
   {
     title: 'Resplash',
@@ -112,8 +170,18 @@ export const fullProjects = [
     description: '',
     year: 2025,
     tech: 'Next.js, TypeScript, TailwindCSS, Unsplash API',
-    repo: 'https://github.com/Ceejaymar/resplash',
-    live: 'https://fe-challenge-resplash.vercel.app/',
+    links: [
+      {
+        label: 'GitHub',
+        url: 'https://github.com/Ceejaymar/resplash',
+        type: 'github',
+      },
+      {
+        label: 'Live Site',
+        url: 'https://fe-challenge-resplash.vercel.app/',
+        type: 'web',
+      },
+    ],
   },
   {
     title: 'Pricing Section',
@@ -123,8 +191,18 @@ export const fullProjects = [
     description: '',
     year: 2025,
     tech: 'React, TypeScript, TailwindCSS',
-    repo: 'https://github.com/Ceejaymar/frontend-challenges/tree/main/apps/pricing-section',
-    live: 'https://frontend-challenges-pricing-section.vercel.app/',
+    links: [
+      {
+        label: 'GitHub',
+        url: 'https://github.com/Ceejaymar/frontend-challenges/tree/main/apps/pricing-section',
+        type: 'github',
+      },
+      {
+        label: 'Live Site',
+        url: 'https://frontend-challenges-pricing-section.vercel.app/',
+        type: 'web',
+      },
+    ],
   },
   {
     title: 'Blog Card',
@@ -134,8 +212,18 @@ export const fullProjects = [
     description: '',
     year: 2025,
     tech: 'HTML, CSS',
-    repo: 'https://github.com/Ceejaymar/frontend-challenges/tree/main/apps/blog-card',
-    live: 'https://frontend-challenges-blog-card.vercel.app/',
+    links: [
+      {
+        label: 'GitHub',
+        url: 'https://github.com/Ceejaymar/frontend-challenges/tree/main/apps/blog-card',
+        type: 'github',
+      },
+      {
+        label: 'Live Site',
+        url: 'https://frontend-challenges-blog-card.vercel.app/',
+        type: 'web',
+      },
+    ],
   },
   {
     title: 'Batéy Fashion',
@@ -145,8 +233,14 @@ export const fullProjects = [
       "I wanted to experience the feeling of creating a fashion brand, imagining it born from the culture and spirit of my home country. What would it look like? What emotions would it stir? This is the unfolding story of that exploration. While working on this project, I've also been using tools that are new to me, which has been an exciting part of the journey. This project is a WORK IN PROGRESS, and I'm excited to share what I've discovered so far.",
     year: 2025,
     tech: 'Next.js, TypeScript, CSS Modules, Better-SQLite3, Zod',
-    repo: 'https://github.com/Ceejaymar/batey-fs',
-    live: 'https://batey.vercel.app/',
+    links: [
+      {
+        label: 'GitHub',
+        url: 'https://github.com/Ceejaymar/batey-fs',
+        type: 'github',
+      },
+      { label: 'Live Site', url: 'https://batey.vercel.app/', type: 'web' },
+    ],
   },
   {
     title: 'Accessibility Drawer',
@@ -156,8 +250,18 @@ export const fullProjects = [
       'The A11y Drawer is a versatile, user-friendly component designed to empower website and application users with the ability to dynamically adjust multiple accessibility settings. This project aims to create a robust and highly customizable solution that enhances inclusivity by providing immediate control over common accessibility preferences directly within the user interface.',
     year: 2025,
     tech: 'React, TypeScript, TailwindCSS',
-    repo: 'https://github.com/Ceejaymar/a11y-drawer',
-    live: 'https://a11y-drawer.netlify.app/',
+    links: [
+      {
+        label: 'GitHub',
+        url: 'https://github.com/Ceejaymar/a11y-drawer',
+        type: 'github',
+      },
+      {
+        label: 'Live Site',
+        url: 'https://a11y-drawer.netlify.app/',
+        type: 'web',
+      },
+    ],
   },
   {
     title: 'Portfolio Website',
@@ -167,8 +271,14 @@ export const fullProjects = [
     description: '',
     year: 2024,
     tech: 'React, TypeScript, Styled-Components, Framer Motion',
-    repo: 'https://github.com/Ceejaymar/project-2024',
-    live: 'https://los.codes',
+    links: [
+      {
+        label: 'GitHub',
+        url: 'https://github.com/Ceejaymar/project-2024',
+        type: 'github',
+      },
+      { label: 'Live Site', url: 'https://los.codes', type: 'web' },
+    ],
   },
   {
     title: 'Weather app',
@@ -178,8 +288,18 @@ export const fullProjects = [
       "A simple React weather app that uses the OpenWeather API to fetch and display current weather data based on the user's location or a searched city. The app features a clean interface, showing temperature, weather conditions, and other key details.",
     year: 2022,
     tech: 'React, Styled-components, Storybook, Axios',
-    repo: 'https://github.com/Ceejaymar/weather',
-    live: 'https://starlit-queijadas-1645a0.netlify.app/',
+    links: [
+      {
+        label: 'GitHub',
+        url: 'https://github.com/Ceejaymar/weather',
+        type: 'github',
+      },
+      {
+        label: 'Live Site',
+        url: 'https://starlit-queijadas-1645a0.netlify.app/',
+        type: 'web',
+      },
+    ],
   },
   {
     title: 'The Ends ecommerce',
@@ -189,8 +309,14 @@ export const fullProjects = [
     description: '',
     year: 2019,
     tech: 'React, SASS, Node, Postgres, Express, SQL, Firebase, Travis CI',
-    repo: 'https://github.com/Ceejaymar/TheEnds-ecommerce-frontend',
-    live: 'https://theends.web.app/',
+    links: [
+      {
+        label: 'GitHub',
+        url: 'https://github.com/Ceejaymar/TheEnds-ecommerce-frontend',
+        type: 'github',
+      },
+      { label: 'Live Site', url: 'https://theends.web.app/', type: 'web' },
+    ],
   },
   {
     title: 'Portfolio Website - Old',
@@ -200,8 +326,14 @@ export const fullProjects = [
     description: '',
     year: 2019,
     tech: 'React, Mui',
-    repo: 'https://github.com/Ceejaymar/portfolio-2019',
-    live: 'https://carlosmartinez.dev/',
+    links: [
+      {
+        label: 'GitHub',
+        url: 'https://github.com/Ceejaymar/portfolio-2019',
+        type: 'github',
+      },
+      { label: 'Live Site', url: 'https://carlosmartinez.dev/', type: 'web' },
+    ],
   },
   {
     title: 'Dreamshare clone',
@@ -211,8 +343,18 @@ export const fullProjects = [
     description: '',
     year: 2018,
     tech: 'React, SASS',
-    repo: 'https://github.com/Ceejaymar/Dreamshare-morty',
-    live: 'https://dreamshare-cm.surge.sh/',
+    links: [
+      {
+        label: 'GitHub',
+        url: 'https://github.com/Ceejaymar/Dreamshare-morty',
+        type: 'github',
+      },
+      {
+        label: 'Live Site',
+        url: 'https://dreamshare-cm.surge.sh/',
+        type: 'web',
+      },
+    ],
   },
   {
     title: 'Knobcreek clone',
@@ -222,8 +364,18 @@ export const fullProjects = [
     description: '',
     year: 2018,
     tech: 'React, SASS',
-    repo: 'https://github.com/Ceejaymar/knobcreek-barrel',
-    live: 'https://knobcreek-cm.surge.sh/',
+    links: [
+      {
+        label: 'GitHub',
+        url: 'https://github.com/Ceejaymar/knobcreek-barrel',
+        type: 'github',
+      },
+      {
+        label: 'Live Site',
+        url: 'https://knobcreek-cm.surge.sh/',
+        type: 'web',
+      },
+    ],
   },
 ];
 
