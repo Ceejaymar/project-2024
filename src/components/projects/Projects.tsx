@@ -84,8 +84,8 @@ const ProjectList = styled.div`
   gap: 1rem;
   list-style: none;
   padding: 0;
-  max-width: 1024px;
   width: 100%;
+  max-width: 1024px;
 
   ${media.laptop`
     flex-wrap: nowrap;
