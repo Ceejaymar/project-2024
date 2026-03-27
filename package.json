@@ -15,7 +15,7 @@
     "chromatic": "chromatic --project-token=project=<project-token>",
     "pre-commit": "npm run lint",
     "prepare": "husky",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit -p tsconfig.node.json"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

@@ -1,4 +1,5 @@
 import { GithubLogo, YoutubeLogo, InstagramLogo } from '@phosphor-icons/react';
+import { Project, FullProject } from './types';
 
 import yImage from './assets/yImage.png';
 import oImage from './assets/oImage.jpg';
@@ -40,7 +41,7 @@ export const experienceList = [
   },
 ];
 
-export const projects = [
+export const projects: Project[] = [
   // {
   //   title: 'Mosaic emotion tracking',
   //   image: '',
@@ -106,7 +107,7 @@ export const projects = [
   },
 ];
 
-export const fullProjects = [
+export const fullProjects: FullProject[] = [
   // {
   //   title: 'Mosaic emotion tracking',
   //   slug: 'mosaic',

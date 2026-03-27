@@ -13,6 +13,11 @@ export interface Project {
   links: ProjectLink[];
 }
 
+export interface FullProject extends Project {
+  slug?: string;
+  year?: number;
+}
+
 export interface ThemeProps {
   themeName: 'light' | 'dark';
   toggleTheme: () => void;

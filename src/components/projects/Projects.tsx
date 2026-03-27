@@ -23,8 +23,8 @@ const Section = styled(motion.section)`
 `;
 
 const SectionTitle = styled.h2`
-  font-size: 2.4rem;
   margin-bottom: 1rem;
+  font-size: 2.4rem;
   font-weight: 400;
   letter-spacing: 0.02em;
   line-height: 1;
