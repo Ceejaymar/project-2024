@@ -57,7 +57,7 @@ export const projects = [
     image:
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/los-zine.webp',
     description:
-      'A zine about me, my interests, my work,and my experiences. I hope you enjoy flipping through the pages.',
+      'An interactive digital zine that offers a glimpse into my personality, passions, projects, and journey as a creator. Explore the pages to discover stories, inspirations, and highlights from my work and life, presented in a playful and engaging format.',
     tech: 'React, TypeScript, Tailwind, Three.js',
     links: [
       {
