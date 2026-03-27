@@ -14,7 +14,8 @@
     "build-storybook": "storybook build",
     "chromatic": "chromatic --project-token=project=<project-token>",
     "pre-commit": "npm run lint",
-    "prepare": "husky"
+    "prepare": "husky",
+    "type-check": "tsc --noEmit -p tsconfig.node.json"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -30,8 +31,8 @@
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.12",
     "@types/styled-components": "^5.1.34",
-    "@typescript-eslint/eslint-plugin": "^8.3.0",
-    "@typescript-eslint/parser": "^8.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.2",
+    "@typescript-eslint/parser": "^8.57.2",
     "chromatic": "^11.7.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-jest": "^28.8.1",
@@ -73,7 +74,7 @@
     "husky": "^9.1.5",
     "storybook": "^8.2.9",
     "typescript": "^5.5.3",
-    "typescript-eslint": "^8.0.1",
+    "typescript-eslint": "^8.57.2",
     "vite": "^5.4.1"
   },
   "eslintConfig": {

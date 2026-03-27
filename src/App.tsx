@@ -11,6 +11,7 @@ const themes = { light: lightTheme, dark: darkTheme };
 import Navbar from './components/navbar/Navbar';
 import HomePage from './pages/home/HomePage.tsx';
 import ProjectsPage from './pages/projects/ProjectsPage.tsx';
+import CaseStudy from './pages/caseStudy/CaseStudy.tsx';
 import Footer from './components/footer/Footer';
 
 const updateThemeColor = (color: string) => {
@@ -69,6 +70,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage theme={theme} />} />
             <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="/projects/:slug" element={<CaseStudy />} />
           </Routes>
           <Footer />
         </motion.div>

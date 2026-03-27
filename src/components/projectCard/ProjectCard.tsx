@@ -1,8 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import { NavLink } from 'react-router';
+import {
+  GithubLogo,
+  Globe,
+  AppleLogo,
+  AndroidLogo,
+  BookOpen,
+} from '@phosphor-icons/react';
 
 import media from '../../utils/mediaQueries';
 import ExternalLink from '../externalLink/ExternalLink';
+import { ProjectLink } from '../../types';
 
 const ProjectCardContainer = styled.div`
   display: flex;
@@ -89,7 +98,7 @@ const ProjectInfo = styled.div`
   padding: 4rem 2rem 2rem;
 
   ${media.tablet`
-    padding : 2rem 2rem;
+    padding: 2rem 2rem;
     justify-content: space-between;
   `}
 
@@ -128,23 +137,53 @@ const ProjectDescription = styled.p`
 
 const ButtonContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
   margin-top: 1rem;
   width: 100%;
-  justify-content: space-between;
-
-  ${media.laptop`
-    justify-content: flex-start;
-    gap: 3rem;
-  `}
+  align-items: center;
 `;
+
+const CaseStudyLink = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: ${({ theme }) => theme.colors.primary};
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover {
+    opacity: 0.8;
+    transform: translateY(-1px);
+  }
+`;
+
+const getLinkIcon = (type: string) => {
+  switch (type) {
+    case 'github':
+      return <GithubLogo size={16} weight="bold" />;
+    case 'apple':
+      return <AppleLogo size={16} weight="bold" />;
+    case 'android':
+      return <AndroidLogo size={16} weight="bold" />;
+    case 'web':
+    case 'marketing':
+    default:
+      return <Globe size={16} weight="bold" />;
+  }
+};
 
 interface ProjectCardProps {
   title: string;
   image: string;
   description: string;
   tech: string;
-  repo: string;
-  live: string;
+  links: ProjectLink[];
+  caseStudySlug?: string;
 }
 
 const ProjectCard = ({
@@ -152,8 +191,8 @@ const ProjectCard = ({
   image,
   description,
   tech,
-  repo,
-  live,
+  links,
+  caseStudySlug,
 }: ProjectCardProps) => {
   return (
     <ProjectCardContainer>
@@ -165,8 +204,18 @@ const ProjectCard = ({
         <ProjectTech>{tech}</ProjectTech>
         <ProjectDescription>{description}</ProjectDescription>
         <ButtonContainer>
-          <ExternalLink href={repo}>View code</ExternalLink>
-          <ExternalLink href={live}>View live site</ExternalLink>
+          {links.map((link) => (
+            <ExternalLink key={link.type} href={link.url}>
+              {getLinkIcon(link.type)}
+              {link.label}
+            </ExternalLink>
+          ))}
+          {caseStudySlug && (
+            <CaseStudyLink to={`/projects/${caseStudySlug}`}>
+              <BookOpen size={16} weight="bold" />
+              Read Case Study
+            </CaseStudyLink>
+          )}
         </ButtonContainer>
       </ProjectInfo>
     </ProjectCardContainer>

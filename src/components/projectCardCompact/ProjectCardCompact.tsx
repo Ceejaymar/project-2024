@@ -1,7 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import { NavLink } from 'react-router';
+import {
+  GithubLogo,
+  Globe,
+  AppleLogo,
+  AndroidLogo,
+  BookOpen,
+} from '@phosphor-icons/react';
 
 import ExternalLink from '../externalLink/ExternalLink';
+import { ProjectLink } from '../../types';
 
 const Card = styled.div`
   display: flex;
@@ -80,14 +89,63 @@ const Technologies = styled.p`
 
 const LinkWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
   margin-top: auto;
   padding-top: 1.5rem;
+  align-items: center;
 `;
 
-export default function ProjectCardCompact({ project }) {
+const CaseStudyLink = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: ${({ theme }) => theme.colors.primary};
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover {
+    opacity: 0.8;
+    transform: translateY(-1px);
+  }
+`;
+
+const getLinkIcon = (type: string) => {
+  switch (type) {
+    case 'github':
+      return <GithubLogo size={16} weight="bold" />;
+    case 'apple':
+      return <AppleLogo size={16} weight="bold" />;
+    case 'android':
+      return <AndroidLogo size={16} weight="bold" />;
+    case 'web':
+    case 'marketing':
+    default:
+      return <Globe size={16} weight="bold" />;
+  }
+};
+
+interface ProjectCardCompactProps {
+  project: {
+    title: string;
+    image: string;
+    tech: string;
+    year?: number;
+    slug?: string;
+    links: ProjectLink[];
+    caseStudySlug?: string;
+  };
+}
+
+export default function ProjectCardCompact({
+  project,
+}: ProjectCardCompactProps) {
   return (
-    <Card key={project.slug}>
+    <Card>
       <ImgWrapper>
         <Image src={project.image} alt={project.title} />
       </ImgWrapper>
@@ -96,8 +154,18 @@ export default function ProjectCardCompact({ project }) {
         <Year>{project.year}</Year>
         <Technologies>{project.tech}</Technologies>
         <LinkWrapper>
-          <ExternalLink href={project.repo}>View Code</ExternalLink>
-          <ExternalLink href={project.live}>View Live site</ExternalLink>
+          {project.links.map((link) => (
+            <ExternalLink key={link.type} href={link.url}>
+              {getLinkIcon(link.type)}
+              {link.label}
+            </ExternalLink>
+          ))}
+          {project.caseStudySlug && (
+            <CaseStudyLink to={`/projects/${project.caseStudySlug}`}>
+              <BookOpen size={16} weight="bold" />
+              Read Case Study
+            </CaseStudyLink>
+          )}
         </LinkWrapper>
       </ContentWrapper>
     </Card>

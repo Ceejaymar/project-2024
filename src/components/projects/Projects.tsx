@@ -23,8 +23,8 @@ const Section = styled(motion.section)`
 `;
 
 const SectionTitle = styled.h2`
-  font-size: 2.4rem;
   margin-bottom: 1rem;
+  font-size: 2.4rem;
   font-weight: 400;
   letter-spacing: 0.02em;
   line-height: 1;
@@ -84,8 +84,8 @@ const ProjectList = styled.div`
   gap: 1rem;
   list-style: none;
   padding: 0;
-  max-width: 1024px;
   width: 100%;
+  max-width: 1024px;
 
   ${media.laptop`
     flex-wrap: nowrap;
@@ -111,8 +111,8 @@ const Projects = ({ themeName }: HeaderProps) => (
           image={project.image}
           description={project.description}
           tech={project.tech}
-          repo={project.repo}
-          live={project.live}
+          links={project.links}
+          caseStudySlug={project.caseStudySlug}
         />
       ))}
     </ProjectList>
