@@ -42,6 +42,16 @@ export const experienceList = [
 
 export const projects = [
   {
+    title: 'Los Zine',
+    image:
+      'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/los-zine.webp',
+    description:
+      'A zine about me, my interests, my work,and my experiences. I hope you enjoy flipping through the pages.',
+    tech: 'React, TypeScript, Tailwind, Three.js',
+    repo: 'https://github.com/Ceejaymar/los-zine',
+    live: 'https://los-zine.vercel.app/',
+  },
+  {
     title: 'Batéy Fashion',
     image:
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/batey.webp',
