@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { NavLink } from 'react-router';
 import {
   GithubLogo,
@@ -69,10 +70,12 @@ const ImageContainer = styled.div`
     justify-content: center;
     align-items: center;
     flex-basis: 40%;
+    overflow: hidden;
+    border-radius: 10px;
   `}
 `;
 
-const ProjectImage = styled.img`
+const ProjectImage = styled(motion.img)`
   width: 100%;
   height: 100%;
   border-radius: 10px 10px 0 0;
@@ -89,6 +92,8 @@ const ProjectImage = styled.img`
     width: 90%;
     height: 90%;
     margin-bottom: -3.1rem;
+    border-radius: 10px;
+    will-change: transform;
   `}
 `;
 
@@ -125,6 +130,7 @@ const ProjectTech = styled.p`
   margin-bottom: 10px;
   text-transform: capitalize;
   font-weight: 600;
+  color: ${({ theme }) => theme.colors['secondary-text']};
 `;
 
 const ProjectDescription = styled.p`
@@ -186,6 +192,8 @@ interface ProjectCardProps {
   caseStudySlug?: string;
 }
 
+const springConfig = { stiffness: 120, damping: 22, mass: 0.5 };
+
 const ProjectCard = ({
   title,
   image,
@@ -194,10 +202,38 @@ const ProjectCard = ({
   links,
   caseStudySlug,
 }: ProjectCardProps) => {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springX = useSpring(mouseX, springConfig);
+  const springY = useSpring(mouseY, springConfig);
+
+  const imgX = useTransform(springX, [-0.5, 0.5], [-10, 10]);
+  const imgY = useTransform(springY, [-0.5, 0.5], [-6, 6]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
+    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
   return (
-    <ProjectCardContainer>
+    <ProjectCardContainer
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
       <ImageContainer>
-        <ProjectImage src={image} alt={`${title} screenshot`} />
+        <ProjectImage
+          style={{ x: imgX, y: imgY, scale: 1.05 }}
+          src={image}
+          alt={`${title} screenshot`}
+        />
       </ImageContainer>
       <ProjectInfo>
         <ProjectTitle>{title}</ProjectTitle>

@@ -13,9 +13,15 @@ export interface Project {
   links: ProjectLink[];
 }
 
+export interface CaseStudySection {
+  title: string;
+  body: string;
+}
+
 export interface FullProject extends Project {
   slug?: string;
   year?: number;
+  caseStudyContent?: CaseStudySection[];
 }
 
 export interface ThemeProps {

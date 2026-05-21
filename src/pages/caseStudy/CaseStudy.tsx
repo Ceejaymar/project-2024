@@ -287,13 +287,11 @@ const CardTitle = styled.h2`
   letter-spacing: -0.3px;
 `;
 
-const Placeholder = styled.p`
+const CardBody = styled.p`
   font-size: 1rem;
   line-height: 1.85;
   color: ${({ theme }) => theme.colors['secondary-text']};
   max-width: 70ch;
-  font-style: italic;
-  opacity: 0.6;
 `;
 
 // ─── Not found ───────────────────────────────────────────────────────────────
@@ -417,37 +415,17 @@ export default function CaseStudy() {
       <Divider variants={item} />
 
       {/* Case study content */}
-      <ContentGrid variants={container}>
-        <ContentCard variants={item}>
-          <CardNumber>01</CardNumber>
-          <CardTitle>Overview</CardTitle>
-          <Placeholder>
-            An overview of the project — the problem it solves, the goals, and
-            the outcome. Fill this section in with the story behind why this
-            project was built.
-          </Placeholder>
-        </ContentCard>
-
-        <ContentCard variants={item}>
-          <CardNumber>02</CardNumber>
-          <CardTitle>Architecture</CardTitle>
-          <Placeholder>
-            A breakdown of how the application is structured — key decisions
-            around data flow, state management, component architecture, and any
-            infrastructure choices.
-          </Placeholder>
-        </ContentCard>
-
-        <ContentCard variants={item}>
-          <CardNumber>03</CardNumber>
-          <CardTitle>Challenges & Solutions</CardTitle>
-          <Placeholder>
-            The hardest problems encountered during development and how they
-            were solved. Include any performance considerations, tricky edge
-            cases, or technical constraints worked around.
-          </Placeholder>
-        </ContentCard>
-      </ContentGrid>
+      {project.caseStudyContent && project.caseStudyContent.length > 0 && (
+        <ContentGrid variants={container}>
+          {project.caseStudyContent.map((section, index) => (
+            <ContentCard key={section.title} variants={item}>
+              <CardNumber>{String(index + 1).padStart(2, '0')}</CardNumber>
+              <CardTitle>{section.title}</CardTitle>
+              <CardBody>{section.body}</CardBody>
+            </ContentCard>
+          ))}
+        </ContentGrid>
+      )}
     </Page>
   );
 }

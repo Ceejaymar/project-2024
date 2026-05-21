@@ -81,14 +81,6 @@ const ExperienceComponent = styled.div`
   margin: 0 auto;
   font-size: 0.9rem;
   box-shadow: 10px 10px 25px -5px ${({ theme }) => theme.colors.boxShadow}20;
-  transition:
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
-
-  &:hover {
-    border-color: ${({ theme }) => theme.colors.primary}50;
-    box-shadow: 0 8px 32px -8px ${({ theme }) => theme.colors.primary}25;
-  }
 
   ${media.tablet`
     max-width: 32rem;
@@ -117,6 +109,9 @@ const ImgContainer = styled.div`
   border-radius: 50px;
   overflow: hidden;
   flex: 0 0 50px;
+  position: relative;
+  z-index: 2;
+  background-color: ${({ theme }) => theme.colors.background};
 `;
 
 const LogoImg = styled.img`
@@ -129,6 +124,22 @@ const ExperienceList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.1rem;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 24px;
+    top: 28px;
+    bottom: 28px;
+    width: 2px;
+    z-index: 0;
+    background: linear-gradient(
+      to bottom,
+      ${({ theme }) => theme.colors.primary}60,
+      ${({ theme }) => theme.colors.secondary}35
+    );
+  }
 `;
 
 const ExperienceItem = styled.div`
@@ -136,6 +147,8 @@ const ExperienceItem = styled.div`
   align-items: center;
   gap: 1rem;
   width: 100%;
+  position: relative;
+  z-index: 1;
 `;
 
 const ExperienceText = styled.div`
@@ -143,20 +156,30 @@ const ExperienceText = styled.div`
 `;
 
 const CompanyName = styled.span`
+  display: block;
   font-weight: 600;
 `;
 
-const TitleDateRow = styled.div`
-  display: flex;
-  justify-content: space-between;
+const ExperienceDate = styled.span`
+  display: block;
   font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: ${({ theme }) => theme.colors.primary};
+  margin-top: 0.1rem;
+`;
+
+const JobTitle = styled.span`
+  display: block;
+  font-size: 0.7rem;
+  color: ${({ theme }) => theme.colors['secondary-text']};
 
   ${media.tablet`
-   font-size: 1rem
+    font-size: 0.9rem;
   `}
 
   ${media.laptop`
-   font-size: 0.9rem
+    font-size: 0.8rem;
   `}
 `;
 
@@ -387,10 +410,8 @@ const About = ({ themeName }: HeaderProps) => {
 
                 <ExperienceText>
                   <CompanyName>{experience.company}</CompanyName>
-                  <TitleDateRow>
-                    <span>{experience.title}</span>
-                    <span>{experience.date}</span>
-                  </TitleDateRow>
+                  <ExperienceDate>{experience.date}</ExperienceDate>
+                  <JobTitle>{experience.title}</JobTitle>
                 </ExperienceText>
               </ExperienceItem>
             ))}
