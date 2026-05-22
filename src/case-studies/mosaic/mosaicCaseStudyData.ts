@@ -12,4 +12,11 @@ export const mosaicCaseStudyMeta: CaseStudyMeta = {
   tech: 'React Native, Expo, TypeScript, Unistyles, SQLite, Drizzle',
   heroImage:
     'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/mosaic.webp',
+  links: [
+    {
+      label: 'Learn More',
+      url: 'https://joinmosaic.app',
+      type: 'web',
+    },
+  ],
 };
