@@ -1,5 +1,5 @@
 import { GithubLogo, YoutubeLogo, InstagramLogo } from '@phosphor-icons/react';
-import { Project, CaseStudySection } from './types';
+import { Project } from './types';
 
 import yImage from './assets/yImage.png';
 import oImage from './assets/oImage.jpg';
@@ -41,23 +41,6 @@ export const experienceList = [
   },
 ];
 
-export const mosaicCaseStudy: CaseStudySection[] = [
-  {
-    title: 'Overview',
-    body: "Most mood-tracking apps feel clinical — long questionnaires, numerical scales, dashboards built for data analysts. Mosaic takes the opposite approach. The goal was to make emotional reflection feel like something you'd want to do, not something you have to. A quick check-in, a color, a moment noted. Over time, your calendar fills in: patches of amber and violet and deep blue accumulating into something you can step back and actually see. That visual canvas — your emotional year rendered in color — is the core of what Mosaic is about.",
-  },
-  {
-    title: 'Architecture',
-    body: 'Built with React Native and Expo for cross-platform reach, TypeScript throughout, and Unistyles for a typed, scalable styling layer that avoids the runtime cost of some alternatives. Check-in data is stored locally first, keeping the app fast and private by default. The insights engine runs entirely on the client — analyzing rolling windows of entries to surface day-of-week tendencies, streak patterns, and correlations between emotion types. No server round-trip required for the patterns that matter most.',
-  },
-  {
-    title: 'Challenges & Solutions',
-    body: "The hardest design problem was the check-in moment itself. Too many emotion options and friction goes up; too few and the granularity isn't useful. The solution was a curated emotion set with clear, intuitive color associations — warm tones for high-energy states, cool tones for calm or low ones — so the choice feels immediate rather than cognitive. The calendar visualization posed its own challenge: how do you render months of data without overwhelming the person looking at it? The mosaic metaphor was the answer. Small colored tiles that form a picture only visible at distance, nudging the user to zoom out and reflect on the shape of a week or month rather than fixate on any single day.",
-  },
-];
-
-// TODO: Move larger case studies into dedicated files as they grow.
-// Example: src/case-studies/mosaic.ts or src/case-studies/mosaic/MosaicCaseStudy.tsx
 export const projects: Project[] = [
   {
     title: 'Mosaic',
@@ -67,7 +50,6 @@ export const projects: Project[] = [
       "An emotion-tracking app built around a single idea: what if you could see your year in color? Check in during the day, tag how you feel, and watch your calendar fill with color over time. Each emotion maps to a hue — warm for high-energy, cool for calm — building a visual canvas of your emotional life. Mosaic also surfaces insights: patterns you wouldn't notice on your own, surfaced quietly.",
     tech: 'React Native, Expo, TypeScript, Unistyles',
     slug: 'mosaic',
-    caseStudyContent: mosaicCaseStudy,
     links: [
       {
         label: 'Learn More',
@@ -159,7 +141,6 @@ export const fullProjects: Project[] = [
         internal: true,
       },
     ],
-    caseStudyContent: mosaicCaseStudy,
   },
   {
     title: 'Values Page challenge',

@@ -20,12 +20,6 @@ export interface Project {
   year?: number;
   slug?: string;
   links: ProjectLink[];
-  caseStudyContent?: CaseStudySection[];
-}
-
-export interface CaseStudySection {
-  title: string;
-  body: string;
 }
 
 export interface ThemeProps {
