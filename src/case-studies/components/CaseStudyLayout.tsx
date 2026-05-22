@@ -23,6 +23,7 @@ interface CaseStudyLayoutProps {
   role?: string;
   tech?: string;
   heroImage?: string;
+  heroVisual?: React.ReactNode;
   links?: ProjectLink[];
   glanceItems?: GlanceMetric[];
   children: React.ReactNode;
@@ -148,10 +149,13 @@ const MetaValue = styled.dd`
   line-height: 1.5;
 `;
 
+const HeroMedia = styled.div`
+  margin: 1rem 0 4rem;
+`;
+
 const HeroImage = styled.img`
   width: 100%;
   max-height: 560px;
-  margin: 1rem 0 4rem;
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 16px;
   object-fit: cover;
@@ -302,6 +306,7 @@ export default function CaseStudyLayout({
   role,
   tech,
   heroImage,
+  heroVisual,
   links = [],
   glanceItems = [],
   children,
@@ -341,7 +346,11 @@ export default function CaseStudyLayout({
         </HeroAside>
       </Hero>
 
-      {heroImage ? <HeroImage src={heroImage} alt={`${title} cover`} /> : null}
+      {heroVisual || heroImage ? (
+        <HeroMedia>
+          {heroVisual || <HeroImage src={heroImage} alt={`${title} cover`} />}
+        </HeroMedia>
+      ) : null}
 
       {glanceItems.length ? (
         <GlanceGrid>
