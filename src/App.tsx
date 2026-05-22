@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { motion } from 'framer-motion';
 import { GlobalStyles } from './GlobalStyles';
@@ -14,6 +14,27 @@ import ProjectsPage from './pages/projects/ProjectsPage.tsx';
 import CaseStudy from './pages/caseStudy/CaseStudy.tsx';
 import Footer from './components/footer/Footer';
 
+const THEME_STORAGE_KEY = 'portfolio-theme';
+type ThemeName = 'light' | 'dark';
+
+const getSavedTheme = (): ThemeName | null => {
+  const savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+
+  return savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : null;
+};
+
+const getInitialTheme = (): ThemeName => {
+  const savedTheme = getSavedTheme();
+
+  if (savedTheme) {
+    return savedTheme;
+  }
+
+  return window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? 'dark'
+    : 'light';
+};
+
 const updateThemeColor = (color: string) => {
   let metaThemeColor = document.querySelector('meta[name=theme-color]');
   if (!metaThemeColor) {
@@ -26,21 +47,39 @@ const updateThemeColor = (color: string) => {
 
 function App() {
   const posthog = usePostHog();
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    document.documentElement.style.colorScheme = 'light';
-    return 'light';
-  });
+  const [theme, setTheme] = useState<ThemeName>(getInitialTheme);
+  const [hasSavedTheme, setHasSavedTheme] = useState(() =>
+    Boolean(getSavedTheme()),
+  );
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => {
-      const next = prevTheme === 'light' ? 'dark' : 'light';
-      document.documentElement.style.colorScheme = next;
-      return next;
-    });
+    setHasSavedTheme(true);
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
     posthog?.capture('theme_toggled');
   };
 
   const currentTheme = themes[theme];
+
+  useEffect(() => {
+    if (hasSavedTheme) return;
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const updateSystemTheme = (event: MediaQueryListEvent) => {
+      setTheme(event.matches ? 'dark' : 'light');
+    };
+
+    mediaQuery.addEventListener('change', updateSystemTheme);
+
+    return () => {
+      mediaQuery.removeEventListener('change', updateSystemTheme);
+    };
+  }, [hasSavedTheme]);
+
+  useEffect(() => {
+    document.documentElement.style.colorScheme = theme;
+    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+    updateThemeColor(themes[theme].colors.background);
+  }, [theme]);
 
   return (
     <BrowserRouter>
@@ -54,9 +93,6 @@ function App() {
                 : lightTheme.colors.background,
           }}
           animate={{ backgroundColor: currentTheme.colors.background }}
-          onAnimationComplete={() =>
-            updateThemeColor(currentTheme.colors.background)
-          }
           transition={{ duration: 0.3, ease: 'easeInOut' }}
           style={{
             minHeight: '100vh',
