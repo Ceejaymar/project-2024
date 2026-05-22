@@ -1,5 +1,5 @@
 import { GithubLogo, YoutubeLogo, InstagramLogo } from '@phosphor-icons/react';
-import { Project, FullProject, CaseStudySection } from './types';
+import { Project, CaseStudySection } from './types';
 
 import yImage from './assets/yImage.png';
 import oImage from './assets/oImage.jpg';
@@ -56,15 +56,31 @@ export const mosaicCaseStudy: CaseStudySection[] = [
   },
 ];
 
+// TODO: Move larger case studies into dedicated files as they grow.
+// Example: src/case-studies/mosaic.ts or src/case-studies/mosaic/MosaicCaseStudy.tsx
 export const projects: Project[] = [
   {
     title: 'Mosaic',
-    image: '',
+    image:
+      'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/mosaic.webp',
     description:
       "An emotion-tracking app built around a single idea: what if you could see your year in color? Check in during the day, tag how you feel, and watch your calendar fill with color over time. Each emotion maps to a hue — warm for high-energy, cool for calm — building a visual canvas of your emotional life. Mosaic also surfaces insights: patterns you wouldn't notice on your own, surfaced quietly.",
     tech: 'React Native, Expo, TypeScript, Unistyles',
-    caseStudySlug: 'mosaic',
-    links: [],
+    slug: 'mosaic',
+    caseStudyContent: mosaicCaseStudy,
+    links: [
+      {
+        label: 'Learn More',
+        url: 'https://joinmosaic.app',
+        type: 'web',
+      },
+      {
+        label: 'Read Case Study',
+        to: '/projects/mosaic',
+        type: 'case-study',
+        internal: true,
+      },
+    ],
   },
   {
     title: 'Los Zine',
@@ -120,22 +136,33 @@ export const projects: Project[] = [
   },
 ];
 
-export const fullProjects: FullProject[] = [
+export const fullProjects: Project[] = [
   {
     title: 'Mosaic',
     slug: 'mosaic',
-    image: '',
+    image:
+      'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/mosaic.webp',
     description:
       "An emotion-tracking app built around a single idea: what if you could see your year in color? Check in during the day, tag how you feel, and watch your calendar fill with color over time. Each emotion maps to a hue — warm for high-energy, cool for calm — building a visual canvas of your emotional life. Mosaic also surfaces insights: patterns you wouldn't notice on your own, surfaced quietly.",
     year: 2026,
     tech: 'React Native, Expo, TypeScript, Unistyles',
-    caseStudySlug: 'mosaic',
-    links: [],
+    links: [
+      {
+        label: 'Learn More',
+        url: 'https://joinmosaic.app',
+        type: 'web',
+      },
+      {
+        label: 'Read Case Study',
+        to: '/projects/mosaic',
+        type: 'case-study',
+        internal: true,
+      },
+    ],
     caseStudyContent: mosaicCaseStudy,
   },
   {
     title: 'Values Page challenge',
-    slug: 'values-page-challenge',
     image:
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/values-page.png',
     description: '',
@@ -156,7 +183,6 @@ export const fullProjects: FullProject[] = [
   },
   {
     title: 'Kanban',
-    slug: 'kanban',
     image:
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/kanban.png',
     description: '',
@@ -177,7 +203,6 @@ export const fullProjects: FullProject[] = [
   },
   {
     title: 'Resplash',
-    slug: 'resplash',
     image:
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/resplash.webp',
     description: '',
@@ -198,7 +223,6 @@ export const fullProjects: FullProject[] = [
   },
   {
     title: 'Pricing Section',
-    slug: 'pricing-section',
     image:
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/fc-pricing-section.webp',
     description: '',
@@ -219,7 +243,6 @@ export const fullProjects: FullProject[] = [
   },
   {
     title: 'Blog Card',
-    slug: 'blog-card',
     image:
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/fc-blog-card.webp',
     description: '',
@@ -278,7 +301,6 @@ export const fullProjects: FullProject[] = [
   },
   {
     title: 'Portfolio Website',
-    slug: 'portfolio-website',
     image:
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/portfolio-website.webp',
     description: '',
@@ -316,7 +338,6 @@ export const fullProjects: FullProject[] = [
   },
   {
     title: 'The Ends ecommerce',
-    slug: 'the-ends',
     image:
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/TheEnds.webp',
     description: '',
@@ -333,7 +354,6 @@ export const fullProjects: FullProject[] = [
   },
   {
     title: 'Portfolio Website - Old',
-    slug: 'portfolio-website-old',
     image:
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/portfolio-website-old.webp',
     description: '',
@@ -350,7 +370,6 @@ export const fullProjects: FullProject[] = [
   },
   {
     title: 'Dreamshare clone',
-    slug: 'dreamshare',
     image:
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/Dreamshare.webp',
     description: '',
@@ -371,7 +390,6 @@ export const fullProjects: FullProject[] = [
   },
   {
     title: 'Knobcreek clone',
-    slug: 'knobcreek',
     image:
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/Knobcreek.webp',
     description: '',

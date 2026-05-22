@@ -112,7 +112,6 @@ const Projects = ({ themeName }: HeaderProps) => (
           description={project.description}
           tech={project.tech}
           links={project.links}
-          caseStudySlug={project.caseStudySlug}
         />
       ))}
     </ProjectList>

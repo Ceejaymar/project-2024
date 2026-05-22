@@ -10,7 +10,7 @@ import {
 } from '@phosphor-icons/react';
 
 import ExternalLink from '../externalLink/ExternalLink';
-import { ProjectLink } from '../../types';
+import { Project, ProjectLink } from '../../types';
 
 const Card = styled.div`
   display: flex;
@@ -118,6 +118,8 @@ const getLinkIcon = (type: string) => {
   switch (type) {
     case 'github':
       return <GithubLogo size={16} weight="bold" />;
+    case 'case-study':
+      return <BookOpen size={16} weight="bold" />;
     case 'apple':
       return <AppleLogo size={16} weight="bold" />;
     case 'android':
@@ -130,15 +132,7 @@ const getLinkIcon = (type: string) => {
 };
 
 interface ProjectCardCompactProps {
-  project: {
-    title: string;
-    image: string;
-    tech: string;
-    year?: number;
-    slug?: string;
-    links: ProjectLink[];
-    caseStudySlug?: string;
-  };
+  project: Project;
 }
 
 export default function ProjectCardCompact({
@@ -154,18 +148,23 @@ export default function ProjectCardCompact({
         <Year>{project.year}</Year>
         <Technologies>{project.tech}</Technologies>
         <LinkWrapper>
-          {project.links.map((link) => (
-            <ExternalLink key={link.type} href={link.url}>
-              {getLinkIcon(link.type)}
-              {link.label}
-            </ExternalLink>
-          ))}
-          {project.caseStudySlug && (
-            <CaseStudyLink to={`/projects/${project.caseStudySlug}`}>
-              <BookOpen size={16} weight="bold" />
-              Read Case Study
-            </CaseStudyLink>
-          )}
+          {project.links.map((link: ProjectLink) => {
+            if ('to' in link) {
+              return (
+                <CaseStudyLink key={link.to} to={link.to}>
+                  {getLinkIcon(link.type)}
+                  {link.label}
+                </CaseStudyLink>
+              );
+            }
+
+            return (
+              <ExternalLink key={link.url} href={link.url}>
+                {getLinkIcon(link.type)}
+                {link.label}
+              </ExternalLink>
+            );
+          })}
         </LinkWrapper>
       </ContentWrapper>
     </Card>

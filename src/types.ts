@@ -1,27 +1,31 @@
-export interface ProjectLink {
-  label: string;
-  url: string;
-  type: 'github' | 'apple' | 'android' | 'web' | 'marketing' | string;
-}
+export type ProjectLink =
+  | {
+      label: string;
+      url: string;
+      type: 'github' | 'apple' | 'android' | 'web' | 'marketing' | string;
+      internal?: false;
+    }
+  | {
+      label: string;
+      to: string;
+      type: 'case-study';
+      internal: true;
+    };
 
 export interface Project {
   title: string;
   image: string;
   description: string;
   tech: string;
-  caseStudySlug?: string;
+  year?: number;
+  slug?: string;
   links: ProjectLink[];
+  caseStudyContent?: CaseStudySection[];
 }
 
 export interface CaseStudySection {
   title: string;
   body: string;
-}
-
-export interface FullProject extends Project {
-  slug?: string;
-  year?: number;
-  caseStudyContent?: CaseStudySection[];
 }
 
 export interface ThemeProps {

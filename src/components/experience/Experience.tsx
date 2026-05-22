@@ -155,8 +155,16 @@ const ExperienceText = styled.div`
   width: 100%;
 `;
 
+const CompanyMetaRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+`;
+
 const CompanyName = styled.span`
   display: block;
+  flex: 1;
   font-weight: 600;
 `;
 
@@ -166,7 +174,8 @@ const ExperienceDate = styled.span`
   font-weight: 600;
   letter-spacing: 0.05em;
   color: ${({ theme }) => theme.colors.primary};
-  margin-top: 0.1rem;
+  text-align: right;
+  white-space: nowrap;
 `;
 
 const JobTitle = styled.span`
@@ -409,8 +418,10 @@ const About = ({ themeName }: HeaderProps) => {
                 </ImgContainer>
 
                 <ExperienceText>
-                  <CompanyName>{experience.company}</CompanyName>
-                  <ExperienceDate>{experience.date}</ExperienceDate>
+                  <CompanyMetaRow>
+                    <CompanyName>{experience.company}</CompanyName>
+                    <ExperienceDate>{experience.date}</ExperienceDate>
+                  </CompanyMetaRow>
                   <JobTitle>{experience.title}</JobTitle>
                 </ExperienceText>
               </ExperienceItem>

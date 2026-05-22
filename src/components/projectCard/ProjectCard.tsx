@@ -172,6 +172,8 @@ const getLinkIcon = (type: string) => {
   switch (type) {
     case 'github':
       return <GithubLogo size={16} weight="bold" />;
+    case 'case-study':
+      return <BookOpen size={16} weight="bold" />;
     case 'apple':
       return <AppleLogo size={16} weight="bold" />;
     case 'android':
@@ -189,7 +191,6 @@ interface ProjectCardProps {
   description: string;
   tech: string;
   links: ProjectLink[];
-  caseStudySlug?: string;
 }
 
 const springConfig = { stiffness: 120, damping: 22, mass: 0.5 };
@@ -200,7 +201,6 @@ const ProjectCard = ({
   description,
   tech,
   links,
-  caseStudySlug,
 }: ProjectCardProps) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -240,18 +240,23 @@ const ProjectCard = ({
         <ProjectTech>{tech}</ProjectTech>
         <ProjectDescription>{description}</ProjectDescription>
         <ButtonContainer>
-          {links.map((link) => (
-            <ExternalLink key={link.type} href={link.url}>
-              {getLinkIcon(link.type)}
-              {link.label}
-            </ExternalLink>
-          ))}
-          {caseStudySlug && (
-            <CaseStudyLink to={`/projects/${caseStudySlug}`}>
-              <BookOpen size={16} weight="bold" />
-              Read Case Study
-            </CaseStudyLink>
-          )}
+          {links.map((link) => {
+            if ('to' in link) {
+              return (
+                <CaseStudyLink key={link.to} to={link.to}>
+                  {getLinkIcon(link.type)}
+                  {link.label}
+                </CaseStudyLink>
+              );
+            }
+
+            return (
+              <ExternalLink key={link.url} href={link.url}>
+                {getLinkIcon(link.type)}
+                {link.label}
+              </ExternalLink>
+            );
+          })}
         </ButtonContainer>
       </ProjectInfo>
     </ProjectCardContainer>

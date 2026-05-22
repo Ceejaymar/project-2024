@@ -333,7 +333,9 @@ export default function CaseStudy() {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, []);
 
-  const project = fullProjects.find((p) => p.caseStudySlug === slug);
+  const project = fullProjects.find(
+    (p) => p.slug === slug && p.caseStudyContent?.length,
+  );
 
   if (!project) {
     return (
@@ -385,18 +387,22 @@ export default function CaseStudy() {
 
         <LinksPanel>
           <LinksPanelTitle>Links</LinksPanelTitle>
-          {project.links.map((link: ProjectLink) => (
-            <LinkButton
-              key={link.type}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {getLinkIcon(link.type)}
-              <span>{link.label}</span>
-              <ArrowUpRight size={14} className="arrow" />
-            </LinkButton>
-          ))}
+          {project.links.map((link: ProjectLink) => {
+            if ('to' in link) return null;
+
+            return (
+              <LinkButton
+                key={link.url}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {getLinkIcon(link.type)}
+                <span>{link.label}</span>
+                <ArrowUpRight size={14} className="arrow" />
+              </LinkButton>
+            );
+          })}
         </LinksPanel>
       </TwoCol>
 
