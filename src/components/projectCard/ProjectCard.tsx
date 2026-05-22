@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { NavLink } from 'react-router';
 import {
   GithubLogo,
@@ -13,6 +14,8 @@ import media from '../../utils/mediaQueries';
 import ExternalLink from '../externalLink/ExternalLink';
 import { ProjectLink } from '../../types';
 
+const HIDE_CASE_STUDY_LINKS: boolean = true;
+
 const ProjectCardContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -24,13 +27,10 @@ const ProjectCardContainer = styled.div`
   margin-top: 2.5rem;
   box-shadow: 10px 10px 25px -5px ${({ theme }) => theme.colors.boxShadow}20;
   overflow: hidden;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease;
 
   &:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 24px 48px -10px ${({ theme }) => theme.colors.boxShadow}35;
+    box-shadow: 10px 14px 28px -12px ${({ theme }) => theme.colors.boxShadow}26;
   }
 
   border: double 1.5px transparent;
@@ -69,10 +69,12 @@ const ImageContainer = styled.div`
     justify-content: center;
     align-items: center;
     flex-basis: 40%;
+    overflow: hidden;
+    border-radius: 10px;
   `}
 `;
 
-const ProjectImage = styled.img`
+const ProjectImage = styled(motion.img)`
   width: 100%;
   height: 100%;
   border-radius: 10px 10px 0 0;
@@ -89,6 +91,8 @@ const ProjectImage = styled.img`
     width: 90%;
     height: 90%;
     margin-bottom: -3.1rem;
+    border-radius: 10px;
+    will-change: transform;
   `}
 `;
 
@@ -125,6 +129,7 @@ const ProjectTech = styled.p`
   margin-bottom: 10px;
   text-transform: capitalize;
   font-weight: 600;
+  color: ${({ theme }) => theme.colors['secondary-text']};
 `;
 
 const ProjectDescription = styled.p`
@@ -166,6 +171,8 @@ const getLinkIcon = (type: string) => {
   switch (type) {
     case 'github':
       return <GithubLogo size={16} weight="bold" />;
+    case 'case-study':
+      return <BookOpen size={16} weight="bold" />;
     case 'apple':
       return <AppleLogo size={16} weight="bold" />;
     case 'android':
@@ -183,8 +190,9 @@ interface ProjectCardProps {
   description: string;
   tech: string;
   links: ProjectLink[];
-  caseStudySlug?: string;
 }
+
+const springConfig = { stiffness: 120, damping: 22, mass: 0.5 };
 
 const ProjectCard = ({
   title,
@@ -192,30 +200,66 @@ const ProjectCard = ({
   description,
   tech,
   links,
-  caseStudySlug,
 }: ProjectCardProps) => {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springX = useSpring(mouseX, springConfig);
+  const springY = useSpring(mouseY, springConfig);
+
+  const imgX = useTransform(springX, [-0.5, 0.5], [-10, 10]);
+  const imgY = useTransform(springY, [-0.5, 0.5], [-6, 6]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
+    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
   return (
-    <ProjectCardContainer>
+    <ProjectCardContainer
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
       <ImageContainer>
-        <ProjectImage src={image} alt={`${title} screenshot`} />
+        <ProjectImage
+          style={{ x: imgX, y: imgY, scale: 1.05 }}
+          src={image}
+          alt={`${title} screenshot`}
+        />
       </ImageContainer>
       <ProjectInfo>
         <ProjectTitle>{title}</ProjectTitle>
         <ProjectTech>{tech}</ProjectTech>
         <ProjectDescription>{description}</ProjectDescription>
         <ButtonContainer>
-          {links.map((link) => (
-            <ExternalLink key={link.type} href={link.url}>
-              {getLinkIcon(link.type)}
-              {link.label}
-            </ExternalLink>
-          ))}
-          {caseStudySlug && (
-            <CaseStudyLink to={`/projects/${caseStudySlug}`}>
-              <BookOpen size={16} weight="bold" />
-              Read Case Study
-            </CaseStudyLink>
-          )}
+          {links.map((link) => {
+            if ('to' in link) {
+              if (link.type === 'case-study' && HIDE_CASE_STUDY_LINKS) {
+                return null;
+              }
+
+              return (
+                <CaseStudyLink key={link.to} to={link.to}>
+                  {getLinkIcon(link.type)}
+                  {link.label}
+                </CaseStudyLink>
+              );
+            }
+
+            return (
+              <ExternalLink key={link.url} href={link.url}>
+                {getLinkIcon(link.type)}
+                {link.label}
+              </ExternalLink>
+            );
+          })}
         </ButtonContainer>
       </ProjectInfo>
     </ProjectCardContainer>

@@ -10,7 +10,9 @@ import {
 } from '@phosphor-icons/react';
 
 import ExternalLink from '../externalLink/ExternalLink';
-import { ProjectLink } from '../../types';
+import { Project, ProjectLink } from '../../types';
+
+const HIDE_CASE_STUDY_LINKS: boolean = true;
 
 const Card = styled.div`
   display: flex;
@@ -41,7 +43,7 @@ const Card = styled.div`
 
   &:hover {
     transform: translateY(-6px);
-    box-shadow: 0 20px 40px -8px ${({ theme }) => theme.colors.boxShadow}35;
+    box-shadow: 10px 14px 24px -12px ${({ theme }) => theme.colors.boxShadow}26;
   }
 `;
 
@@ -118,6 +120,8 @@ const getLinkIcon = (type: string) => {
   switch (type) {
     case 'github':
       return <GithubLogo size={16} weight="bold" />;
+    case 'case-study':
+      return <BookOpen size={16} weight="bold" />;
     case 'apple':
       return <AppleLogo size={16} weight="bold" />;
     case 'android':
@@ -130,15 +134,7 @@ const getLinkIcon = (type: string) => {
 };
 
 interface ProjectCardCompactProps {
-  project: {
-    title: string;
-    image: string;
-    tech: string;
-    year?: number;
-    slug?: string;
-    links: ProjectLink[];
-    caseStudySlug?: string;
-  };
+  project: Project;
 }
 
 export default function ProjectCardCompact({
@@ -154,18 +150,27 @@ export default function ProjectCardCompact({
         <Year>{project.year}</Year>
         <Technologies>{project.tech}</Technologies>
         <LinkWrapper>
-          {project.links.map((link) => (
-            <ExternalLink key={link.type} href={link.url}>
-              {getLinkIcon(link.type)}
-              {link.label}
-            </ExternalLink>
-          ))}
-          {project.caseStudySlug && (
-            <CaseStudyLink to={`/projects/${project.caseStudySlug}`}>
-              <BookOpen size={16} weight="bold" />
-              Read Case Study
-            </CaseStudyLink>
-          )}
+          {project.links.map((link: ProjectLink) => {
+            if ('to' in link) {
+              if (link.type === 'case-study' && HIDE_CASE_STUDY_LINKS) {
+                return null;
+              }
+
+              return (
+                <CaseStudyLink key={link.to} to={link.to}>
+                  {getLinkIcon(link.type)}
+                  {link.label}
+                </CaseStudyLink>
+              );
+            }
+
+            return (
+              <ExternalLink key={link.url} href={link.url}>
+                {getLinkIcon(link.type)}
+                {link.label}
+              </ExternalLink>
+            );
+          })}
         </LinkWrapper>
       </ContentWrapper>
     </Card>

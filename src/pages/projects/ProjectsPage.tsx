@@ -75,7 +75,7 @@ export default function ProjectPage() {
 
       <ProjectsWrapper>
         {projects.map((project) => {
-          return <ProjectCardCompact key={project.slug} project={project} />;
+          return <ProjectCardCompact key={project.title} project={project} />;
         })}
       </ProjectsWrapper>
     </ProjectContainer>
