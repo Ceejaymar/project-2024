@@ -14,6 +14,8 @@ import media from '../../utils/mediaQueries';
 import ExternalLink from '../externalLink/ExternalLink';
 import { ProjectLink } from '../../types';
 
+const HIDE_CASE_STUDY_LINKS: boolean = true;
+
 const ProjectCardContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -25,13 +27,10 @@ const ProjectCardContainer = styled.div`
   margin-top: 2.5rem;
   box-shadow: 10px 10px 25px -5px ${({ theme }) => theme.colors.boxShadow}20;
   overflow: hidden;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease;
 
   &:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 24px 48px -10px ${({ theme }) => theme.colors.boxShadow}35;
+    box-shadow: 10px 14px 28px -12px ${({ theme }) => theme.colors.boxShadow}26;
   }
 
   border: double 1.5px transparent;
@@ -242,6 +241,10 @@ const ProjectCard = ({
         <ButtonContainer>
           {links.map((link) => {
             if ('to' in link) {
+              if (link.type === 'case-study' && HIDE_CASE_STUDY_LINKS) {
+                return null;
+              }
+
               return (
                 <CaseStudyLink key={link.to} to={link.to}>
                   {getLinkIcon(link.type)}

@@ -12,6 +12,8 @@ import {
 import ExternalLink from '../externalLink/ExternalLink';
 import { Project, ProjectLink } from '../../types';
 
+const HIDE_CASE_STUDY_LINKS: boolean = true;
+
 const Card = styled.div`
   display: flex;
   flex-direction: column;
@@ -41,7 +43,7 @@ const Card = styled.div`
 
   &:hover {
     transform: translateY(-6px);
-    box-shadow: 0 20px 40px -8px ${({ theme }) => theme.colors.boxShadow}35;
+    box-shadow: 10px 14px 24px -12px ${({ theme }) => theme.colors.boxShadow}26;
   }
 `;
 
@@ -150,6 +152,10 @@ export default function ProjectCardCompact({
         <LinkWrapper>
           {project.links.map((link: ProjectLink) => {
             if ('to' in link) {
+              if (link.type === 'case-study' && HIDE_CASE_STUDY_LINKS) {
+                return null;
+              }
+
               return (
                 <CaseStudyLink key={link.to} to={link.to}>
                   {getLinkIcon(link.type)}
