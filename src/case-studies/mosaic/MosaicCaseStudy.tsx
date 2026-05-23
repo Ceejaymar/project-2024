@@ -9,7 +9,8 @@ const HeroScene = styled.figure`
   position: relative;
   isolation: isolate;
   display: grid;
-  gap: clamp(1.5rem, 4vw, 3rem);
+  column-gap: clamp(1.5rem, 4vw, 3rem);
+  row-gap: clamp(1rem, 2vw, 1.5rem);
   overflow: hidden;
   margin: 0;
   min-height: 30rem;
@@ -75,71 +76,85 @@ const HeroScene = styled.figure`
 const SceneCopy = styled.figcaption`
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1rem;
   max-width: 34rem;
 `;
 
-const SceneKicker = styled.p`
-  color: oklch(46% 0.12 32);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-`;
-
-const SceneTitle = styled.h2`
-  max-width: 10ch;
+const SceneTitle = styled.h1`
+  max-width: 8ch;
   color: ${({ theme }) => theme.colors['default-text']};
-  font-size: clamp(2.2rem, 7vw, 5.5rem);
+  font-size: clamp(3.6rem, 10vw, 7rem);
   font-weight: 500;
   letter-spacing: 0;
-  line-height: 0.9;
+  line-height: 0.86;
+`;
+
+const SceneSubtitle = styled.p`
+  max-width: 22ch;
+  color: ${({ theme }) => theme.colors['default-text']};
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  font-weight: 600;
+  line-height: 1.08;
 `;
 
 const SceneText = styled.p`
-  max-width: 38rem;
+  max-width: 34rem;
   color: ${({ theme }) => theme.colors['secondary-text']};
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  line-height: 1.75;
+  font-size: 1rem;
+  line-height: 1.7;
 `;
 
-const MoodLegend = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem;
-  padding: 0;
-  list-style: none;
-`;
-
-const MoodPill = styled.li<{ $color: string }>`
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  min-height: 2.15rem;
-  padding: 0 0.75rem;
+const HeroMeta = styled.dl`
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  overflow: hidden;
   border: 1px solid
-    color-mix(in oklch, ${({ $color }) => $color}, transparent 54%);
-  border-radius: 999px;
-  color: ${({ theme }) => theme.colors['default-text']};
+    color-mix(in oklch, ${({ theme }) => theme.colors.border}, transparent 8%);
+  border-radius: 16px;
   background-color: color-mix(
     in oklch,
-    ${({ $color }) => $color},
-    transparent 82%
+    ${({ theme }) => theme.colors.border},
+    transparent 20%
   );
-  font-size: 0.78rem;
-  font-weight: 700;
 
-  &::before {
-    width: 0.55rem;
-    height: 0.55rem;
-    border-radius: 50%;
-    content: '';
-    background-color: ${({ $color }) => $color};
+  @media (min-width: 640px) {
+    grid-template-columns: minmax(7rem, 0.7fr) minmax(9rem, 0.9fr) minmax(
+        0,
+        2.2fr
+      );
   }
+`;
+
+const HeroMetaItem = styled.div`
+  padding: 0.95rem 1rem;
+  background-color: color-mix(
+    in oklch,
+    ${({ theme }) => theme.colors.background},
+    transparent 16%
+  );
+`;
+
+const HeroMetaLabel = styled.dt`
+  margin-bottom: 0.35rem;
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  font-size: 0.67rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+`;
+
+const HeroMetaValue = styled.dd`
+  color: ${({ theme }) => theme.colors['default-text']};
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.45;
 `;
 
 const PhoneStage = styled.div`
   position: relative;
+  isolation: isolate;
   display: grid;
   place-items: center;
   min-height: clamp(22rem, 70vw, 28rem);
@@ -151,6 +166,8 @@ const CalendarHalo = styled.div`
   display: grid;
   grid-template-columns: repeat(18, minmax(0, 1fr));
   gap: 0.35rem;
+  z-index: 0;
+  pointer-events: none;
   transform: rotate(-7deg);
   opacity: 0.42;
 `;
@@ -163,6 +180,7 @@ const HaloTile = styled.span<{ $color: string }>`
 
 const PhoneFrame = styled.div`
   position: relative;
+  z-index: 1;
   width: min(100%, 22rem);
   padding: 0.75rem;
   border: 1px solid oklch(100% 0 0 / 0.5);
@@ -238,44 +256,6 @@ const CalendarTile = styled.span<{ $color: string; $delay: string }>`
   @media (prefers-reduced-motion: reduce) {
     animation: none;
   }
-`;
-
-const CheckInPanel = styled.div`
-  display: grid;
-  gap: 0.75rem;
-  margin-top: 1rem;
-  padding: 1rem;
-  border: 1px solid oklch(84% 0.02 250);
-  border-radius: 1rem;
-  background-color: oklch(99% 0.006 95 / 0.88);
-`;
-
-const CheckInLabel = styled.p`
-  color: oklch(38% 0.04 260);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-`;
-
-const CheckInOptions = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
-`;
-
-const CheckInChip = styled.span<{ $color: string; $active?: boolean }>`
-  display: inline-flex;
-  align-items: center;
-  min-height: 2rem;
-  padding: 0 0.65rem;
-  border-radius: 999px;
-  color: ${({ $active }) =>
-    $active ? 'oklch(19% 0.035 260)' : 'oklch(42% 0.03 260)'};
-  background-color: ${({ $active, $color }) =>
-    $active ? $color : 'oklch(94% 0.01 250)'};
-  font-size: 0.75rem;
-  font-weight: 800;
 `;
 
 const ColorStory = styled.div`
@@ -446,31 +426,19 @@ const tiles = [
 
 const heroTiles = [...tiles, ...tiles];
 
-const moodLegend = [
-  { label: 'Energized', color: 'oklch(75% 0.15 63)' },
-  { label: 'Calm', color: 'oklch(67% 0.12 250)' },
-  { label: 'Grounded', color: 'oklch(72% 0.12 154)' },
-  { label: 'Mixed', color: 'oklch(63% 0.13 304)' },
-];
-
 function MosaicHeroScene() {
   return (
     <HeroScene aria-labelledby="mosaic-hero-title">
       <SceneCopy>
-        <SceneKicker>Year in color</SceneKicker>
-        <SceneTitle id="mosaic-hero-title">Reflection you can see</SceneTitle>
+        <SceneTitle id="mosaic-hero-title">
+          {mosaicCaseStudyMeta.title}
+        </SceneTitle>
+        <SceneSubtitle>See the pattern in your pieces</SceneSubtitle>
         <SceneText>
-          Mosaic turns the tiny act of naming a feeling into a visual memory.
-          One entry is a tile. A month becomes a rhythm. A year becomes a
-          personal map.
+          Mosaic is a privacy-first mood tracker that turns small emotional
+          check-ins into a color-based calendar, helping people notice patterns
+          over time without making reflection feel clinical.
         </SceneText>
-        <MoodLegend aria-label="Mosaic mood color language">
-          {moodLegend.map((mood) => (
-            <MoodPill key={mood.label} $color={mood.color}>
-              {mood.label}
-            </MoodPill>
-          ))}
-        </MoodLegend>
       </SceneCopy>
 
       <PhoneStage aria-hidden="true">
@@ -483,7 +451,7 @@ function MosaicHeroScene() {
           <PhoneScreen>
             <PhoneTop>
               <PhoneMonth>May 2026</PhoneMonth>
-              <PhoneBadge>24 check-ins</PhoneBadge>
+              <PhoneBadge>24-day streak</PhoneBadge>
             </PhoneTop>
             <CalendarGrid>
               {heroTiles.slice(0, 35).map((color, index) => (
@@ -494,19 +462,24 @@ function MosaicHeroScene() {
                 />
               ))}
             </CalendarGrid>
-            <CheckInPanel>
-              <CheckInLabel>Today feels</CheckInLabel>
-              <CheckInOptions>
-                <CheckInChip $color="oklch(75% 0.15 63)">Bright</CheckInChip>
-                <CheckInChip $color="oklch(67% 0.12 250)">Quiet</CheckInChip>
-                <CheckInChip $color="oklch(72% 0.12 154)" $active>
-                  Steady
-                </CheckInChip>
-              </CheckInOptions>
-            </CheckInPanel>
           </PhoneScreen>
         </PhoneFrame>
       </PhoneStage>
+
+      <HeroMeta aria-label="Mosaic case study details">
+        <HeroMetaItem>
+          <HeroMetaLabel>Year</HeroMetaLabel>
+          <HeroMetaValue>{mosaicCaseStudyMeta.year}</HeroMetaValue>
+        </HeroMetaItem>
+        <HeroMetaItem>
+          <HeroMetaLabel>Role</HeroMetaLabel>
+          <HeroMetaValue>{mosaicCaseStudyMeta.role}</HeroMetaValue>
+        </HeroMetaItem>
+        <HeroMetaItem>
+          <HeroMetaLabel>Stack</HeroMetaLabel>
+          <HeroMetaValue>{mosaicCaseStudyMeta.tech}</HeroMetaValue>
+        </HeroMetaItem>
+      </HeroMeta>
     </HeroScene>
   );
 }
@@ -521,6 +494,7 @@ export default function MosaicCaseStudy() {
       role={mosaicCaseStudyMeta.role}
       tech={mosaicCaseStudyMeta.tech}
       heroVisual={<MosaicHeroScene />}
+      showIntro={false}
       links={mosaicCaseStudyMeta.links}
       glanceItems={[
         {

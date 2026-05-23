@@ -14,7 +14,7 @@ import media from '../../utils/mediaQueries';
 import ExternalLink from '../externalLink/ExternalLink';
 import { ProjectLink } from '../../types';
 
-const HIDE_CASE_STUDY_LINKS: boolean = true;
+const HIDE_CASE_STUDY_LINKS: boolean = false;
 
 const ProjectCardContainer = styled.div`
   display: flex;

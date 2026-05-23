@@ -24,6 +24,7 @@ interface CaseStudyLayoutProps {
   tech?: string;
   heroImage?: string;
   heroVisual?: React.ReactNode;
+  showIntro?: boolean;
   links?: ProjectLink[];
   glanceItems?: GlanceMetric[];
   children: React.ReactNode;
@@ -86,6 +87,10 @@ const Eyebrow = styled.p`
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+`;
+
+const StandaloneEyebrow = styled(Eyebrow)`
+  margin-bottom: 1rem;
 `;
 
 const Title = styled.h1`
@@ -307,6 +312,7 @@ export default function CaseStudyLayout({
   tech,
   heroImage,
   heroVisual,
+  showIntro = true,
   links = [],
   glanceItems = [],
   children,
@@ -324,27 +330,33 @@ export default function CaseStudyLayout({
         back to projects
       </BackLink>
 
-      <Hero>
-        <div>
-          {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
-          <Title>{title}</Title>
-        </div>
+      {showIntro ? (
+        <Hero>
+          <div>
+            {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
+            <Title>{title}</Title>
+          </div>
 
-        <HeroAside>
-          <Summary>{summary}</Summary>
+          <HeroAside>
+            <Summary>{summary}</Summary>
 
-          {metaItems.length ? (
-            <MetaList>
-              {metaItems.map((item) => (
-                <MetaItem key={item.label}>
-                  <MetaLabel>{item.label}</MetaLabel>
-                  <MetaValue>{item.value}</MetaValue>
-                </MetaItem>
-              ))}
-            </MetaList>
-          ) : null}
-        </HeroAside>
-      </Hero>
+            {metaItems.length ? (
+              <MetaList>
+                {metaItems.map((item) => (
+                  <MetaItem key={item.label}>
+                    <MetaLabel>{item.label}</MetaLabel>
+                    <MetaValue>{item.value}</MetaValue>
+                  </MetaItem>
+                ))}
+              </MetaList>
+            ) : null}
+          </HeroAside>
+        </Hero>
+      ) : null}
+
+      {!showIntro && eyebrow ? (
+        <StandaloneEyebrow>{eyebrow}</StandaloneEyebrow>
+      ) : null}
 
       {heroVisual || heroImage ? (
         <HeroMedia>

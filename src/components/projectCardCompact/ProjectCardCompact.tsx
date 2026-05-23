@@ -12,7 +12,7 @@ import {
 import ExternalLink from '../externalLink/ExternalLink';
 import { Project, ProjectLink } from '../../types';
 
-const HIDE_CASE_STUDY_LINKS: boolean = true;
+const HIDE_CASE_STUDY_LINKS: boolean = false;
 
 const Card = styled.div`
   display: flex;
