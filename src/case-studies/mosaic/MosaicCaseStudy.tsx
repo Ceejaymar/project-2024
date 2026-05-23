@@ -174,13 +174,13 @@ const PhoneFrame = styled.div`
   z-index: 1;
   width: min(100%, 22rem);
   padding: 0.75rem;
-  border: 1px solid oklch(100% 0 0 / 0.5);
+  border: 1px solid oklch(98% 0.006 250 / 0.5);
   border-radius: 2rem;
   background: linear-gradient(180deg, oklch(99% 0.008 80), oklch(94% 0.012 250)),
     ${({ theme }) => theme.colors.background};
   box-shadow:
     0 28px 70px -38px ${({ theme }) => theme.colors.boxShadow},
-    inset 0 0 0 1px oklch(100% 0 0 / 0.45);
+    inset 0 0 0 1px oklch(98% 0.006 250 / 0.45);
 `;
 
 const PhoneScreen = styled.div`
@@ -226,7 +226,7 @@ const CalendarTile = styled.span<{ $color: string; $delay: string }>`
   aspect-ratio: 1;
   border-radius: 0.5rem;
   background-color: ${({ $color }) => $color};
-  box-shadow: inset 0 -1px 0 oklch(0% 0 0 / 0.12);
+  box-shadow: inset 0 -1px 0 oklch(18% 0.01 250 / 0.12);
   animation: tile-breathe 7s cubic-bezier(0.16, 1, 0.3, 1) infinite;
   animation-delay: ${({ $delay }) => $delay};
 
@@ -267,7 +267,7 @@ const ColorCard = styled.div<{ $color: string }>`
   border-radius: 14px;
   background: linear-gradient(
       180deg,
-      ${({ $color }) => $color}24,
+      color-mix(in oklch, ${({ $color }) => $color}, transparent 76%),
       transparent 78%
     ),
     ${({ theme }) => theme.colors.background};
@@ -307,22 +307,14 @@ const ResearchGrid = styled.div`
 `;
 
 const ResearchQuote = styled.article`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
   gap: 1rem;
   min-height: 100%;
   padding: 1rem;
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 16px;
-  background: linear-gradient(
-    180deg,
-    color-mix(
-      in oklch,
-      ${({ theme }) => theme.colors.background},
-      ${({ theme }) => theme.colors.primary} 6%
-    ),
-    ${({ theme }) => theme.colors.background}
-  );
+  background-color: ${({ theme }) => theme.colors.background};
 `;
 
 const ResearchLabel = styled.p`
@@ -333,17 +325,50 @@ const ResearchLabel = styled.p`
   text-transform: uppercase;
 `;
 
+const ResearchMethod = styled.p`
+  max-width: 62ch;
+  margin-top: 1rem;
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  font-size: 0.95rem;
+  line-height: 1.7;
+`;
+
 const ResearchExcerpt = styled.blockquote`
   color: ${({ theme }) => theme.colors['default-text']};
   font-size: 1.05rem;
   font-weight: 600;
   line-height: 1.45;
+
+  @media (min-width: 760px) {
+    min-height: 8.75rem;
+  }
 `;
 
-const ResearchImplication = styled.p`
-  margin-top: auto;
-  padding-top: 0.9rem;
+const ResearchRows = styled.div`
+  display: grid;
+  gap: 0.85rem;
+  padding-top: 1rem;
   border-top: 1px solid ${({ theme }) => theme.colors.border};
+
+  @media (min-width: 760px) {
+    grid-template-rows: minmax(5.75rem, auto) auto;
+  }
+`;
+
+const ResearchRow = styled.div`
+  display: grid;
+  gap: 0.25rem;
+`;
+
+const ResearchRowLabel = styled.p`
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+`;
+
+const ResearchRowText = styled.p`
   color: ${({ theme }) => theme.colors['secondary-text']};
   font-size: 0.9rem;
   line-height: 1.6;
@@ -356,17 +381,38 @@ const ThemeHeading = styled.h3`
   font-weight: 700;
 `;
 
-const ThemeList = styled.ul`
+const ThemeClusterGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.65rem 1rem;
-  margin-top: 0.85rem;
-  padding: 0;
-  list-style: none;
+  gap: 1px;
+  margin-top: 1rem;
+  overflow: hidden;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 16px;
+  background-color: ${({ theme }) => theme.colors.border};
 
   @media (min-width: 760px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+`;
+
+const ThemeCluster = styled.div`
+  padding: 1rem;
+  background-color: ${({ theme }) => theme.colors.background};
+`;
+
+const ThemeClusterTitle = styled.h4`
+  margin-bottom: 0.75rem;
+  color: ${({ theme }) => theme.colors['default-text']};
+  font-size: 0.95rem;
+  font-weight: 700;
+`;
+
+const ThemeList = styled.ul`
+  display: grid;
+  gap: 0.55rem;
+  padding: 0;
+  list-style: none;
 `;
 
 const ThemeItem = styled.li`
@@ -510,39 +556,63 @@ const tiles = [
 
 const heroTiles = [...tiles, ...tiles];
 
-const researchQuotes = [
+const emotionColors = {
+  highEnergy: 'oklch(75% 0.15 63)',
+  lowEnergy: 'oklch(67% 0.12 250)',
+  grounded: 'oklch(72% 0.12 154)',
+  complex: 'oklch(63% 0.13 304)',
+};
+
+const researchSignals = [
   {
     label: 'Friction',
     excerpt: 'multiple entry screens are redundant and nauseating',
-    implication:
-      'The check-in flow needed to stay fast, focused, and low-pressure.',
+    risk: 'Reflection can start to feel like admin work before the user saves anything.',
+    response: 'Keep the check-in flow fast, focused, and low-pressure.',
   },
   {
     label: 'Emotional nuance',
     excerpt:
       'Limiting check-ins to a single emotion… risks invalidating the complexity of what users actually feel',
-    implication:
-      'Mosaic should respect that people can feel more than one thing at once.',
+    risk: 'A rigid mood picker can flatten mixed or contradictory emotional states.',
+    response:
+      'Let the product language respect that people can feel more than one thing at once.',
   },
   {
     label: 'Trust',
     excerpt:
       'I want to track my mental health without worrying about my data being collected.',
-    implication:
-      'Privacy needed to be treated as a core product principle, not a settings-page afterthought.',
+    risk: 'A reflection tool loses its usefulness if people do not feel safe being honest.',
+    response:
+      'Treat privacy as a core product principle, not a settings-page afterthought.',
   },
 ];
 
-const recurringIssues = [
-  'Long or forced check-in flows',
-  'Too many screens before saving an entry',
-  'Limited emotion options',
-  'Missing neutral or mixed emotional states',
-  'Not enough support for multiple emotions at once',
-  'Privacy concerns around mental health and journal data',
-  'Accessibility/readability issues',
-  'Data export, backup, and sync concerns',
-  'Insights that were either too shallow or too complicated',
+const recurringIssueGroups = [
+  {
+    title: 'Flow friction',
+    items: [
+      'Long or forced check-in flows',
+      'Too many screens before saving an entry',
+      'Insights that were either too shallow or too complicated',
+    ],
+  },
+  {
+    title: 'Emotional expressiveness',
+    items: [
+      'Limited emotion options',
+      'Missing neutral or mixed emotional states',
+      'Not enough support for multiple emotions at once',
+    ],
+  },
+  {
+    title: 'Trust and data ownership',
+    items: [
+      'Privacy concerns around mental health and journal data',
+      'Data export, backup, and sync concerns',
+      'Accessibility/readability issues',
+    ],
+  },
 ];
 
 function MosaicHeroScene() {
@@ -570,7 +640,7 @@ function MosaicHeroScene() {
           <PhoneScreen>
             <PhoneTop>
               <PhoneMonth>May 2026</PhoneMonth>
-              <PhoneBadge>24-day streak</PhoneBadge>
+              <PhoneBadge>24 check-ins</PhoneBadge>
             </PhoneTop>
             <CalendarGrid>
               {heroTiles.slice(0, 35).map((color, index) => (
@@ -659,28 +729,28 @@ export default function MosaicCaseStudy() {
           something you can step back and actually see. That visual canvas, your
           emotional year rendered in color, is the core of what Mosaic is about.
         </p>
-        <ColorStory aria-label="Emotion color language">
-          <ColorCard $color="#f7a84f">
-            <ColorSwatch $color="#f7a84f" />
+        <ColorStory role="group" aria-label="Emotion color language">
+          <ColorCard $color={emotionColors.highEnergy}>
+            <ColorSwatch $color={emotionColors.highEnergy} />
             <ColorLabel>High energy</ColorLabel>
             <ColorNote>
               Warm tones for moments that feel bright or activated.
             </ColorNote>
           </ColorCard>
-          <ColorCard $color="#6f8fd8">
-            <ColorSwatch $color="#6f8fd8" />
+          <ColorCard $color={emotionColors.lowEnergy}>
+            <ColorSwatch $color={emotionColors.lowEnergy} />
             <ColorLabel>Low energy</ColorLabel>
             <ColorNote>
               Cool tones for calm, heavy, or reflective states.
             </ColorNote>
           </ColorCard>
-          <ColorCard $color="#7fbf9b">
-            <ColorSwatch $color="#7fbf9b" />
+          <ColorCard $color={emotionColors.grounded}>
+            <ColorSwatch $color={emotionColors.grounded} />
             <ColorLabel>Grounded</ColorLabel>
             <ColorNote>Greens for steady days that feel regulated.</ColorNote>
           </ColorCard>
-          <ColorCard $color="#8c68c8">
-            <ColorSwatch $color="#8c68c8" />
+          <ColorCard $color={emotionColors.complex}>
+            <ColorSwatch $color={emotionColors.complex} />
             <ColorLabel>Complex</ColorLabel>
             <ColorNote>
               Violets for mixed states that need more nuance.
@@ -705,25 +775,48 @@ export default function MosaicCaseStudy() {
         </p>
       </CaseStudySection>
 
-      <CaseStudySection title="What the research showed">
+      <CaseStudySection title="Research signals that shaped the product">
+        <ResearchMethod>
+          I treated this as competitive app review research: reviewing public
+          feedback from existing mood tracking and journaling apps, then
+          grouping repeated complaints into product risks. The excerpts below
+          are verbatim public review excerpts; the design responses show how
+          those signals shaped Mosaic.
+        </ResearchMethod>
         <ResearchGrid>
-          {researchQuotes.map((quote) => (
+          {researchSignals.map((quote) => (
             <ResearchQuote key={quote.label}>
               <ResearchLabel>{quote.label}</ResearchLabel>
               <ResearchExcerpt>
                 <p>&ldquo;{quote.excerpt}&rdquo;</p>
               </ResearchExcerpt>
-              <ResearchImplication>{quote.implication}</ResearchImplication>
+              <ResearchRows>
+                <ResearchRow>
+                  <ResearchRowLabel>Product risk</ResearchRowLabel>
+                  <ResearchRowText>{quote.risk}</ResearchRowText>
+                </ResearchRow>
+                <ResearchRow>
+                  <ResearchRowLabel>Design response</ResearchRowLabel>
+                  <ResearchRowText>{quote.response}</ResearchRowText>
+                </ResearchRow>
+              </ResearchRows>
             </ResearchQuote>
           ))}
         </ResearchGrid>
 
         <ThemeHeading>Recurring issues I found</ThemeHeading>
-        <ThemeList>
-          {recurringIssues.map((issue) => (
-            <ThemeItem key={issue}>{issue}</ThemeItem>
+        <ThemeClusterGrid>
+          {recurringIssueGroups.map((group) => (
+            <ThemeCluster key={group.title}>
+              <ThemeClusterTitle>{group.title}</ThemeClusterTitle>
+              <ThemeList role="list">
+                {group.items.map((issue) => (
+                  <ThemeItem key={issue}>{issue}</ThemeItem>
+                ))}
+              </ThemeList>
+            </ThemeCluster>
           ))}
-        </ThemeList>
+        </ThemeClusterGrid>
       </CaseStudySection>
 
       <CaseStudySection title="The visual system">
@@ -733,7 +826,10 @@ export default function MosaicCaseStudy() {
           designed to make that pattern visible without turning the experience
           into a data dashboard.
         </p>
-        <MosaicBoard aria-label="Example Mosaic calendar color pattern">
+        <MosaicBoard
+          role="img"
+          aria-label="Example Mosaic calendar color pattern"
+        >
           {tiles.map((color, index) => (
             <Tile key={`${color}-${index}`} $color={color} />
           ))}
@@ -799,7 +895,7 @@ export default function MosaicCaseStudy() {
           only visible at distance, nudging the user to zoom out and reflect on
           the shape of a week or month rather than fixate on any single day.
         </p>
-        <Flow>
+        <Flow role="list">
           <FlowStep>
             <StepNumber>01</StepNumber>
             <StepTitle>Reduce the ask</StepTitle>
