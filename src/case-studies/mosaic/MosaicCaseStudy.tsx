@@ -308,13 +308,17 @@ const ResearchGrid = styled.div`
 
 const ResearchQuote = styled.article`
   display: grid;
-  grid-template-rows: auto auto 1fr;
+  grid-template-rows: auto auto auto;
   gap: 1rem;
   min-height: 100%;
   padding: 1rem;
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 16px;
   background-color: ${({ theme }) => theme.colors.background};
+
+  @media (min-width: 760px) {
+    grid-template-rows: 1rem 8.75rem auto;
+  }
 `;
 
 const ResearchLabel = styled.p`
@@ -322,7 +326,9 @@ const ResearchLabel = styled.p`
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.11em;
+  line-height: 1;
   text-transform: uppercase;
+  white-space: nowrap;
 `;
 
 const ResearchMethod = styled.p`
@@ -338,26 +344,26 @@ const ResearchExcerpt = styled.blockquote`
   font-size: 1.05rem;
   font-weight: 600;
   line-height: 1.45;
-
-  @media (min-width: 760px) {
-    min-height: 8.75rem;
-  }
 `;
 
 const ResearchRows = styled.div`
   display: grid;
-  gap: 0.85rem;
-  padding-top: 1rem;
-  border-top: 1px solid ${({ theme }) => theme.colors.border};
+  row-gap: 0.45rem;
 
   @media (min-width: 760px) {
-    grid-template-rows: minmax(5.75rem, auto) auto;
+    grid-template-rows: 1px 0.8rem minmax(8rem, auto) 1px 0.8rem auto;
   }
 `;
 
-const ResearchRow = styled.div`
-  display: grid;
-  gap: 0.25rem;
+const ResearchDivider = styled.span`
+  display: block;
+  height: 1px;
+  margin-top: 0.55rem;
+  background-color: ${({ theme }) => theme.colors.border};
+
+  @media (min-width: 760px) {
+    margin-top: 0;
+  }
 `;
 
 const ResearchRowLabel = styled.p`
@@ -365,7 +371,18 @@ const ResearchRowLabel = styled.p`
   font-size: 0.66rem;
   font-weight: 800;
   letter-spacing: 0.1em;
+  line-height: 1;
   text-transform: uppercase;
+
+  &:not(:first-child) {
+    margin-top: 0.6rem;
+  }
+
+  @media (min-width: 760px) {
+    &:not(:first-child) {
+      margin-top: 0;
+    }
+  }
 `;
 
 const ResearchRowText = styled.p`
@@ -571,12 +588,11 @@ const researchSignals = [
     response: 'Keep the check-in flow fast, focused, and low-pressure.',
   },
   {
-    label: 'Emotional nuance',
-    excerpt:
-      'Limiting check-ins to a single emotion… risks invalidating the complexity of what users actually feel',
-    risk: 'A rigid mood picker can flatten mixed or contradictory emotional states.',
+    label: 'Emotional clarity',
+    excerpt: 'I cannot ID my feelings. I just draw blanks.',
+    risk: 'A mood tracker can fail before the entry is saved if people do not have an easy way to recognize or name what they feel.',
     response:
-      'Let the product language respect that people can feel more than one thing at once.',
+      'Use a guided color-and-emotion language that helps people start with a feeling and build a visual record over time.',
   },
   {
     label: 'Trust',
@@ -598,11 +614,11 @@ const recurringIssueGroups = [
     ],
   },
   {
-    title: 'Emotional expressiveness',
+    title: 'Emotional clarity',
     items: [
-      'Limited emotion options',
-      'Missing neutral or mixed emotional states',
-      'Not enough support for multiple emotions at once',
+      'Difficulty identifying what feeling fits',
+      'Limited or unclear emotion labels',
+      'Missing neutral, mixed, or in-between emotional states',
     ],
   },
   {
@@ -764,14 +780,14 @@ export default function MosaicCaseStudy() {
           Mood tracking sits in a delicate space: people want help understanding
           themselves, but many tools make reflection feel like another task to
           manage. In competitive app review research, I found repeated
-          frustration around long check-in flows, rigid emotion choices, privacy
-          concerns, and tools that either oversimplified emotional life or made
-          the experience feel too heavy.
+          frustration around long check-in flows, unclear emotion language,
+          privacy concerns, and tools that either oversimplified emotional life
+          or made the experience feel too heavy.
         </p>
         <p>
           Mosaic was designed around that tension: lightweight enough to become
-          a daily ritual, expressive enough to capture nuance, and private
-          enough to feel safe.
+          a daily ritual, expressive enough to help people name what they feel,
+          and private enough to feel safe.
         </p>
       </CaseStudySection>
 
@@ -791,20 +807,18 @@ export default function MosaicCaseStudy() {
                 <p>&ldquo;{quote.excerpt}&rdquo;</p>
               </ResearchExcerpt>
               <ResearchRows>
-                <ResearchRow>
-                  <ResearchRowLabel>Product risk</ResearchRowLabel>
-                  <ResearchRowText>{quote.risk}</ResearchRowText>
-                </ResearchRow>
-                <ResearchRow>
-                  <ResearchRowLabel>Design response</ResearchRowLabel>
-                  <ResearchRowText>{quote.response}</ResearchRowText>
-                </ResearchRow>
+                <ResearchDivider aria-hidden="true" />
+                <ResearchRowLabel>Product risk</ResearchRowLabel>
+                <ResearchRowText>{quote.risk}</ResearchRowText>
+                <ResearchDivider aria-hidden="true" />
+                <ResearchRowLabel>Design response</ResearchRowLabel>
+                <ResearchRowText>{quote.response}</ResearchRowText>
               </ResearchRows>
             </ResearchQuote>
           ))}
         </ResearchGrid>
 
-        <ThemeHeading>Recurring issues I found</ThemeHeading>
+        <ThemeHeading>Other recurring issues I found</ThemeHeading>
         <ThemeClusterGrid>
           {recurringIssueGroups.map((group) => (
             <ThemeCluster key={group.title}>
