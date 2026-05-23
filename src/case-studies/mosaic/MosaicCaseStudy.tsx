@@ -639,8 +639,13 @@ function MosaicHeroScene() {
         <PhoneFrame>
           <PhoneScreen>
             <PhoneTop>
-              <PhoneMonth>May 2026</PhoneMonth>
-              <PhoneBadge>24 check-ins</PhoneBadge>
+              <PhoneMonth>
+                {new Date().toLocaleString('default', {
+                  month: 'long',
+                  year: 'numeric',
+                })}
+              </PhoneMonth>
+              <PhoneBadge>35 day streak</PhoneBadge>
             </PhoneTop>
             <CalendarGrid>
               {heroTiles.slice(0, 35).map((color, index) => (
