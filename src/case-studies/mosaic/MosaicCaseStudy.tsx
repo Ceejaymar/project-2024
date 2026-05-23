@@ -303,12 +303,17 @@ const ResearchGrid = styled.div`
 
   @media (min-width: 760px) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows:
+      auto
+      minmax(8.75rem, auto)
+      minmax(8.5rem, auto)
+      auto;
+    align-items: stretch;
   }
 `;
 
 const ResearchQuote = styled.article`
   display: grid;
-  grid-template-rows: auto auto auto;
   gap: 1rem;
   min-height: 100%;
   padding: 1rem;
@@ -317,7 +322,8 @@ const ResearchQuote = styled.article`
   background-color: ${({ theme }) => theme.colors.background};
 
   @media (min-width: 760px) {
-    grid-template-rows: 1rem 8.75rem auto;
+    grid-row: span 4;
+    grid-template-rows: subgrid;
   }
 `;
 
@@ -346,24 +352,12 @@ const ResearchExcerpt = styled.blockquote`
   line-height: 1.45;
 `;
 
-const ResearchRows = styled.div`
+const ResearchBlock = styled.div`
   display: grid;
-  row-gap: 0.45rem;
-
-  @media (min-width: 760px) {
-    grid-template-rows: 1px 0.8rem minmax(8rem, auto) 1px 0.8rem auto;
-  }
-`;
-
-const ResearchDivider = styled.span`
-  display: block;
-  height: 1px;
-  margin-top: 0.55rem;
-  background-color: ${({ theme }) => theme.colors.border};
-
-  @media (min-width: 760px) {
-    margin-top: 0;
-  }
+  align-content: start;
+  gap: 0.35rem;
+  padding-top: 1rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.border};
 `;
 
 const ResearchRowLabel = styled.p`
@@ -373,16 +367,6 @@ const ResearchRowLabel = styled.p`
   letter-spacing: 0.1em;
   line-height: 1;
   text-transform: uppercase;
-
-  &:not(:first-child) {
-    margin-top: 0.6rem;
-  }
-
-  @media (min-width: 760px) {
-    &:not(:first-child) {
-      margin-top: 0;
-    }
-  }
 `;
 
 const ResearchRowText = styled.p`
@@ -806,14 +790,14 @@ export default function MosaicCaseStudy() {
               <ResearchExcerpt>
                 <p>&ldquo;{quote.excerpt}&rdquo;</p>
               </ResearchExcerpt>
-              <ResearchRows>
-                <ResearchDivider aria-hidden="true" />
+              <ResearchBlock>
                 <ResearchRowLabel>Product risk</ResearchRowLabel>
                 <ResearchRowText>{quote.risk}</ResearchRowText>
-                <ResearchDivider aria-hidden="true" />
+              </ResearchBlock>
+              <ResearchBlock>
                 <ResearchRowLabel>Design response</ResearchRowLabel>
                 <ResearchRowText>{quote.response}</ResearchRowText>
-              </ResearchRows>
+              </ResearchBlock>
             </ResearchQuote>
           ))}
         </ResearchGrid>
