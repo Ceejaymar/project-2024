@@ -50,23 +50,6 @@ const HeroScene = styled.figure`
     ${({ theme }) => theme.colors.background};
   box-shadow: 0 30px 90px -58px ${({ theme }) => theme.colors.boxShadow};
 
-  &::before {
-    position: absolute;
-    inset: -12% -8% auto auto;
-    z-index: -1;
-    width: min(34rem, 72vw);
-    aspect-ratio: 1;
-    content: '';
-    background-image: linear-gradient(
-        oklch(100% 0 0 / 0.3) 1px,
-        transparent 1px
-      ),
-      linear-gradient(90deg, oklch(100% 0 0 / 0.3) 1px, transparent 1px);
-    background-size: 22px 22px;
-    mask-image: linear-gradient(135deg, oklch(0% 0 0), transparent 72%);
-    opacity: 0.85;
-  }
-
   @media (min-width: 860px) {
     grid-template-columns: minmax(0, 0.82fr) minmax(22rem, 1fr);
     align-items: center;
@@ -120,10 +103,11 @@ const HeroMeta = styled.dl`
   );
 
   @media (min-width: 640px) {
-    grid-template-columns: minmax(7rem, 0.7fr) minmax(9rem, 0.9fr) minmax(
-        0,
-        2.2fr
-      );
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (min-width: 960px) {
+    grid-template-columns: repeat(4, minmax(7rem, 1fr)) minmax(14rem, 2fr);
   }
 `;
 
@@ -134,6 +118,12 @@ const HeroMetaItem = styled.div`
     ${({ theme }) => theme.colors.background},
     transparent 16%
   );
+
+  @media (min-width: 640px) and (max-width: 959px) {
+    &:last-child {
+      grid-column: 1 / -1;
+    }
+  }
 `;
 
 const HeroMetaLabel = styled.dt`
@@ -150,6 +140,7 @@ const HeroMetaValue = styled.dd`
   font-size: 0.9rem;
   font-weight: 700;
   line-height: 1.45;
+  overflow-wrap: anywhere;
 `;
 
 const PhoneStage = styled.div`
@@ -304,6 +295,99 @@ const ColorNote = styled.p`
   line-height: 1.5;
 `;
 
+const ResearchGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+
+  @media (min-width: 760px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+`;
+
+const ResearchQuote = styled.article`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 100%;
+  padding: 1rem;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 16px;
+  background: linear-gradient(
+    180deg,
+    color-mix(
+      in oklch,
+      ${({ theme }) => theme.colors.background},
+      ${({ theme }) => theme.colors.primary} 6%
+    ),
+    ${({ theme }) => theme.colors.background}
+  );
+`;
+
+const ResearchLabel = styled.p`
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+`;
+
+const ResearchExcerpt = styled.blockquote`
+  color: ${({ theme }) => theme.colors['default-text']};
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.45;
+`;
+
+const ResearchImplication = styled.p`
+  margin-top: auto;
+  padding-top: 0.9rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.border};
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  font-size: 0.9rem;
+  line-height: 1.6;
+`;
+
+const ThemeHeading = styled.h3`
+  margin-top: 2rem;
+  color: ${({ theme }) => theme.colors['default-text']};
+  font-size: 1.05rem;
+  font-weight: 700;
+`;
+
+const ThemeList = styled.ul`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.65rem 1rem;
+  margin-top: 0.85rem;
+  padding: 0;
+  list-style: none;
+
+  @media (min-width: 760px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+`;
+
+const ThemeItem = styled.li`
+  position: relative;
+  padding-left: 1rem;
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  font-size: 0.95rem;
+  line-height: 1.55;
+
+  &::before {
+    position: absolute;
+    top: 0.68em;
+    left: 0;
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 50%;
+    content: '';
+    background-color: ${({ theme }) => theme.colors.primary};
+  }
+`;
+
 const MosaicBoard = styled.div`
   display: grid;
   grid-template-columns: repeat(14, minmax(0, 1fr));
@@ -426,6 +510,41 @@ const tiles = [
 
 const heroTiles = [...tiles, ...tiles];
 
+const researchQuotes = [
+  {
+    label: 'Friction',
+    excerpt: 'multiple entry screens are redundant and nauseating',
+    implication:
+      'The check-in flow needed to stay fast, focused, and low-pressure.',
+  },
+  {
+    label: 'Emotional nuance',
+    excerpt:
+      'Limiting check-ins to a single emotion… risks invalidating the complexity of what users actually feel',
+    implication:
+      'Mosaic should respect that people can feel more than one thing at once.',
+  },
+  {
+    label: 'Trust',
+    excerpt:
+      'I want to track my mental health without worrying about my data being collected.',
+    implication:
+      'Privacy needed to be treated as a core product principle, not a settings-page afterthought.',
+  },
+];
+
+const recurringIssues = [
+  'Long or forced check-in flows',
+  'Too many screens before saving an entry',
+  'Limited emotion options',
+  'Missing neutral or mixed emotional states',
+  'Not enough support for multiple emotions at once',
+  'Privacy concerns around mental health and journal data',
+  'Accessibility/readability issues',
+  'Data export, backup, and sync concerns',
+  'Insights that were either too shallow or too complicated',
+];
+
 function MosaicHeroScene() {
   return (
     <HeroScene aria-labelledby="mosaic-hero-title">
@@ -474,6 +593,14 @@ function MosaicHeroScene() {
         <HeroMetaItem>
           <HeroMetaLabel>Role</HeroMetaLabel>
           <HeroMetaValue>{mosaicCaseStudyMeta.role}</HeroMetaValue>
+        </HeroMetaItem>
+        <HeroMetaItem>
+          <HeroMetaLabel>Type</HeroMetaLabel>
+          <HeroMetaValue>{mosaicCaseStudyMeta.type}</HeroMetaValue>
+        </HeroMetaItem>
+        <HeroMetaItem>
+          <HeroMetaLabel>Industry</HeroMetaLabel>
+          <HeroMetaValue>{mosaicCaseStudyMeta.industry}</HeroMetaValue>
         </HeroMetaItem>
         <HeroMetaItem>
           <HeroMetaLabel>Stack</HeroMetaLabel>
@@ -560,6 +687,43 @@ export default function MosaicCaseStudy() {
             </ColorNote>
           </ColorCard>
         </ColorStory>
+      </CaseStudySection>
+
+      <CaseStudySection title="The problem">
+        <p>
+          Mood tracking sits in a delicate space: people want help understanding
+          themselves, but many tools make reflection feel like another task to
+          manage. In competitive app review research, I found repeated
+          frustration around long check-in flows, rigid emotion choices, privacy
+          concerns, and tools that either oversimplified emotional life or made
+          the experience feel too heavy.
+        </p>
+        <p>
+          Mosaic was designed around that tension: lightweight enough to become
+          a daily ritual, expressive enough to capture nuance, and private
+          enough to feel safe.
+        </p>
+      </CaseStudySection>
+
+      <CaseStudySection title="What the research showed">
+        <ResearchGrid>
+          {researchQuotes.map((quote) => (
+            <ResearchQuote key={quote.label}>
+              <ResearchLabel>{quote.label}</ResearchLabel>
+              <ResearchExcerpt>
+                <p>&ldquo;{quote.excerpt}&rdquo;</p>
+              </ResearchExcerpt>
+              <ResearchImplication>{quote.implication}</ResearchImplication>
+            </ResearchQuote>
+          ))}
+        </ResearchGrid>
+
+        <ThemeHeading>Recurring issues I found</ThemeHeading>
+        <ThemeList>
+          {recurringIssues.map((issue) => (
+            <ThemeItem key={issue}>{issue}</ThemeItem>
+          ))}
+        </ThemeList>
       </CaseStudySection>
 
       <CaseStudySection title="The visual system">
