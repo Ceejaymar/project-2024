@@ -108,9 +108,8 @@ export function trackEvent(
   }
 
   const baseProperties: AnalyticsProperties = {
-    path: window.location.href,
+    path: window.location.pathname,
     pathname: window.location.pathname,
-    hash: window.location.hash || undefined,
     referrer: document.referrer || undefined,
     timestamp: new Date().toISOString(),
     environment: import.meta.env.MODE,

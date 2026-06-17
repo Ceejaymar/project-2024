@@ -10,7 +10,7 @@ import {
   syncAnalyticsIgnoreFlag,
 } from './lib/analytics';
 
-const isProduction = import.meta.env.MODE === 'production';
+const isProduction = import.meta.env.PROD;
 const hasPostHogKey = Boolean(import.meta.env.VITE_POSTHOG_KEY);
 
 syncAnalyticsIgnoreFlag();

@@ -228,7 +228,7 @@ const ProjectCard = ({
 
     trackEvent('project_clicked', {
       project: title,
-      location: 'projects_section',
+      location: 'project_card',
       target,
     });
 

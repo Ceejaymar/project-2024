@@ -127,6 +127,7 @@ const HeroMetaItem = styled.div`
 `;
 
 const HeroMetaLabel = styled.dt`
+  margin: 0;
   margin-bottom: 0.35rem;
   color: ${({ theme }) => theme.colors['secondary-text']};
   font-size: 0.67rem;
@@ -136,6 +137,7 @@ const HeroMetaLabel = styled.dt`
 `;
 
 const HeroMetaValue = styled.dd`
+  margin: 0;
   color: ${({ theme }) => theme.colors['default-text']};
   font-size: 0.9rem;
   font-weight: 700;

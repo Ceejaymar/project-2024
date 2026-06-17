@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import { AnimatePresence, motion, MotionConfig } from 'framer-motion';
 import GradientLogo from '../logoGradient/GradientLogo';
@@ -144,6 +145,7 @@ const HamburgerLine = styled(motion.span)`
 `;
 const MobileNavigation = () => {
   const [active, setActive] = useState<boolean>(false);
+  const { pathname } = useLocation();
 
   return (
     <MotionConfig transition={{ duration: 0.4, ease: 'easeInOut' }}>
@@ -194,26 +196,30 @@ const MobileNavigation = () => {
                 height: '100%',
               }}
             >
-              {navbarItems.map((item) => (
-                <div key={item} style={{ overflow: 'hidden' }}>
-                  <NavItem variants={navItemVariants}>
-                    <NavLink
-                      key={item}
-                      href={`#${item}`}
-                      onClick={() => {
-                        trackEvent('nav_clicked', {
-                          label: formatNavLabel(item),
-                          destination: `#${item}`,
-                          location: 'mobile_nav',
-                        });
-                        setActive(false);
-                      }}
-                    >
-                      {item}
-                    </NavLink>
-                  </NavItem>
-                </div>
-              ))}
+              {navbarItems.map((item) => {
+                const to = pathname === '/' ? `#${item}` : `/#${item}`;
+
+                return (
+                  <div key={item} style={{ overflow: 'hidden' }}>
+                    <NavItem variants={navItemVariants}>
+                      <NavLink
+                        key={item}
+                        href={to}
+                        onClick={() => {
+                          trackEvent('nav_clicked', {
+                            label: formatNavLabel(item),
+                            destination: to,
+                            location: 'mobile_nav',
+                          });
+                          setActive(false);
+                        }}
+                      >
+                        {item}
+                      </NavLink>
+                    </NavItem>
+                  </div>
+                );
+              })}
             </motion.div>
           </SideNavigation>
         )}

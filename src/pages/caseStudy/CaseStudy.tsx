@@ -44,7 +44,9 @@ export default function CaseStudy() {
   const { slug } = useParams<{ slug: string }>();
   const trackedSlugRef = useRef<string | null>(null);
   const caseStudy =
-    slug && slug in caseStudies ? caseStudies[slug as CaseStudySlug] : null;
+    slug && Object.hasOwn(caseStudies, slug)
+      ? caseStudies[slug as CaseStudySlug]
+      : null;
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
