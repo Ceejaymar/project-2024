@@ -27,7 +27,17 @@ const MotionArrowUpRight = styled(motion.div)`
   align-items: center;
 `;
 
-export default function ExternalLink({ href, children }) {
+interface ExternalLinkProps {
+  href: string;
+  children: React.ReactNode;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+}
+
+export default function ExternalLink({
+  href,
+  children,
+  onClick,
+}: ExternalLinkProps) {
   return (
     <CardLink
       href={href}
@@ -35,6 +45,7 @@ export default function ExternalLink({ href, children }) {
       rel="noopener noreferrer"
       initial="hidden"
       whileHover="visible"
+      onClick={onClick}
     >
       {children}
       <MotionArrowUpRight variants={arrowVariants} transition={arrowTransition}>

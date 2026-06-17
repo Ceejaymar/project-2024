@@ -11,6 +11,7 @@ import {
 
 import ExternalLink from '../externalLink/ExternalLink';
 import { Project, ProjectLink } from '../../types';
+import { getProjectLinkTarget, trackEvent } from '../../lib/analytics';
 
 const HIDE_CASE_STUDY_LINKS: boolean = false;
 
@@ -140,6 +141,25 @@ interface ProjectCardCompactProps {
 export default function ProjectCardCompact({
   project,
 }: ProjectCardCompactProps) {
+  const trackProjectLinkClick = (link: ProjectLink) => {
+    const target = getProjectLinkTarget(link.type, link.label);
+
+    trackEvent('project_clicked', {
+      project: project.title,
+      location: 'projects_page',
+      target,
+    });
+
+    if ('url' in link) {
+      trackEvent('outbound_clicked', {
+        label: link.label,
+        project: project.title,
+        destination: link.url,
+        location: 'project_card',
+      });
+    }
+  };
+
   return (
     <Card>
       <ImgWrapper>
@@ -157,7 +177,11 @@ export default function ProjectCardCompact({
               }
 
               return (
-                <CaseStudyLink key={link.to} to={link.to}>
+                <CaseStudyLink
+                  key={link.to}
+                  to={link.to}
+                  onClick={() => trackProjectLinkClick(link)}
+                >
                   {getLinkIcon(link.type)}
                   {link.label}
                 </CaseStudyLink>
@@ -165,7 +189,11 @@ export default function ProjectCardCompact({
             }
 
             return (
-              <ExternalLink key={link.url} href={link.url}>
+              <ExternalLink
+                key={link.url}
+                href={link.url}
+                onClick={() => trackProjectLinkClick(link)}
+              >
                 {getLinkIcon(link.type)}
                 {link.label}
               </ExternalLink>

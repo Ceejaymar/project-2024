@@ -4,11 +4,18 @@ import styled, { useTheme } from 'styled-components';
 import GradientLogo from '../logoGradient/GradientLogo';
 import media from '../../utils/mediaQueries';
 import { socialLinks } from '../../portfolio-data';
+import { trackEvent } from '../../lib/analytics';
 
 const GRADIENT_MAP = {
   'grad-1': { start: 'primary-pastel', end: 'secondary-pastel' },
   'grad-2': { start: 'quinary-pastel', end: 'quaternary-pastel' },
   'grad-3': { start: 'senary-pastel', end: 'tertiary-pastel' },
+};
+
+const getContactType = (name: string) => {
+  if (name === 'github') return 'github';
+
+  return 'other';
 };
 
 const FooterContainer = styled.footer`
@@ -135,6 +142,12 @@ const Footer = () => {
                 aria-label={link.name}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() =>
+                  trackEvent('contact_clicked', {
+                    type: getContactType(link.name),
+                    location: 'footer',
+                  })
+                }
                 style={
                   {
                     '--start-color': theme.colors[gradient.start],

@@ -9,6 +9,7 @@ import {
 } from '@phosphor-icons/react';
 import media from '../../utils/mediaQueries';
 import { ProjectLink } from '../../types';
+import { getProjectLinkTarget, trackEvent } from '../../lib/analytics';
 
 interface GlanceMetric {
   label: string;
@@ -323,6 +324,25 @@ export default function CaseStudyLayout({
     tech ? { label: 'Stack', value: tech } : null,
   ].filter(Boolean) as Array<{ label: string; value: string | number }>;
 
+  const trackCaseStudyLinkClick = (link: ProjectLink) => {
+    const target = getProjectLinkTarget(link.type, link.label);
+
+    trackEvent('project_clicked', {
+      project: title,
+      location: 'case_study',
+      target,
+    });
+
+    if ('url' in link) {
+      trackEvent('outbound_clicked', {
+        label: link.label,
+        project: title,
+        destination: link.url,
+        location: 'case_study',
+      });
+    }
+  };
+
   return (
     <Page>
       <BackLink to="/projects">
@@ -386,7 +406,11 @@ export default function CaseStudyLayout({
           {links.map((link) => {
             if ('to' in link) {
               return (
-                <CaseStudyLink key={link.to} to={link.to}>
+                <CaseStudyLink
+                  key={link.to}
+                  to={link.to}
+                  onClick={() => trackCaseStudyLinkClick(link)}
+                >
                   {getLinkIcon(link.type)}
                   {link.label}
                 </CaseStudyLink>
@@ -399,6 +423,7 @@ export default function CaseStudyLayout({
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackCaseStudyLinkClick(link)}
               >
                 {getLinkIcon(link.type)}
                 {link.label}

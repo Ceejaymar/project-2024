@@ -5,12 +5,22 @@ import { PostHogProvider } from 'posthog-js/react';
 
 import App from './App.tsx';
 import './index.css';
+import {
+  shouldIgnoreAnalytics,
+  syncAnalyticsIgnoreFlag,
+} from './lib/analytics';
 
 const isProduction = import.meta.env.MODE === 'production';
+const hasPostHogKey = Boolean(import.meta.env.VITE_POSTHOG_KEY);
 
-if (isProduction) {
+syncAnalyticsIgnoreFlag();
+
+if (isProduction && hasPostHogKey && !shouldIgnoreAnalytics()) {
   posthog.init(import.meta.env.VITE_POSTHOG_KEY, {
     api_host: import.meta.env.VITE_POSTHOG_HOST,
+    autocapture: false,
+    capture_pageview: true,
+    capture_pageleave: false,
     person_profiles: 'identified_only',
   });
 }

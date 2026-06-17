@@ -435,20 +435,223 @@ const ThemeItem = styled.li`
   }
 `;
 
-const MosaicBoard = styled.div`
+const VisualSystemLead = styled.p`
+  max-width: 68ch;
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  font-size: clamp(1rem, 2vw, 1.12rem);
+  line-height: 1.75;
+`;
+
+const VisualSubsection = styled.section`
   display: grid;
-  grid-template-columns: repeat(14, minmax(0, 1fr));
-  gap: 0.35rem;
+  gap: 1rem;
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+`;
+
+const VisualSubheading = styled.h3`
+  color: ${({ theme }) => theme.colors['default-text']};
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.08;
+`;
+
+const VisualPlaceholder = styled.div<{ $height?: string }>`
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  min-height: ${({ $height }) => $height ?? '14rem'};
+  padding: 1rem;
+  border: 1px solid
+    color-mix(in oklch, ${({ theme }) => theme.colors.border}, transparent 8%);
+  border-radius: 18px;
+  background: radial-gradient(
+      circle at 16% 18%,
+      color-mix(
+        in oklch,
+        ${({ theme }) => theme.colors.primary},
+        transparent 78%
+      ),
+      transparent 34%
+    ),
+    linear-gradient(
+      135deg,
+      color-mix(
+        in oklch,
+        ${({ theme }) => theme.colors.background},
+        oklch(82% 0.08 80) 8%
+      ),
+      ${({ theme }) => theme.colors.background}
+    );
+
+  &::before {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    content: '';
+    background-image: linear-gradient(
+        color-mix(
+            in oklch,
+            ${({ theme }) => theme.colors.border},
+            transparent 44%
+          )
+          1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        color-mix(
+            in oklch,
+            ${({ theme }) => theme.colors.border},
+            transparent 44%
+          )
+          1px,
+        transparent 1px
+      );
+    background-size: 24px 24px;
+    mask-image: linear-gradient(135deg, oklch(0% 0 0), transparent 72%);
+    opacity: 0.34;
+  }
+`;
+
+const VisualPlaceholderLabel = styled.p`
+  display: grid;
+  gap: 0.45rem;
+  max-width: 24rem;
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+
+  span {
+    color: ${({ theme }) => theme.colors.primary};
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+`;
+
+const EvolutionGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+
+  @media (min-width: 760px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+`;
+
+const EvolutionCard = styled.article`
+  display: grid;
+  gap: 0.9rem;
   padding: 1rem;
   border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 18px;
+  border-radius: 16px;
   background-color: ${({ theme }) => theme.colors.background};
 `;
 
-const Tile = styled.span<{ $color: string }>`
-  aspect-ratio: 1;
-  border-radius: 4px;
-  background-color: ${({ $color }) => $color};
+const EvolutionTitle = styled.h4`
+  color: ${({ theme }) => theme.colors['default-text']};
+  font-size: 1rem;
+  font-weight: 700;
+`;
+
+const EvolutionText = styled.p`
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  font-size: 0.92rem;
+  line-height: 1.6;
+`;
+
+const DesignSystemGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+
+  @media (min-width: 760px) {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+`;
+
+const DesignToken = styled.div`
+  display: grid;
+  gap: 0.7rem;
+  min-height: 7rem;
+  padding: 0.8rem;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 14px;
+  background-color: ${({ theme }) => theme.colors.background};
+`;
+
+const DesignTokenSwatch = styled.span<{ $swatch: string }>`
+  display: block;
+  min-height: 2.8rem;
+  border-radius: 10px;
+  background: ${({ $swatch }) => $swatch};
+  box-shadow: inset 0 0 0 1px oklch(98% 0.006 250 / 0.3);
+`;
+
+const DesignTokenLabel = styled.p`
+  color: ${({ theme }) => theme.colors['default-text']};
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.25;
+`;
+
+const DesignResponseGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+
+  @media (min-width: 760px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+`;
+
+const DesignResponseCard = styled.article`
+  display: grid;
+  align-content: start;
+  gap: 0.65rem;
+  padding: 1rem;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 16px;
+  background-color: ${({ theme }) => theme.colors.background};
+`;
+
+const DesignResponseLabel = styled.p`
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+`;
+
+const DesignResponseTitle = styled.h4`
+  color: ${({ theme }) => theme.colors['default-text']};
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25;
+`;
+
+const DesignResponseText = styled.p`
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  font-size: 0.9rem;
+  line-height: 1.6;
+`;
+
+const FinalScreensGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+
+  @media (min-width: 760px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 `;
 
 const DecisionGrid = styled.div`
@@ -822,21 +1025,174 @@ export default function MosaicCaseStudy() {
         </ThemeClusterGrid>
       </CaseStudySection>
 
-      <CaseStudySection title="The visual system">
-        <p>
-          The calendar is the emotional memory layer. A single tile is a small
-          check-in, but a month of tiles becomes a pattern. The interface is
-          designed to make that pattern visible without turning the experience
-          into a data dashboard.
-        </p>
-        <MosaicBoard
-          role="img"
-          aria-label="Example Mosaic calendar color pattern"
-        >
-          {tiles.map((color, index) => (
-            <Tile key={`${color}-${index}`} $color={color} />
-          ))}
-        </MosaicBoard>
+      <CaseStudySection title="Designing the visual system">
+        <VisualSystemLead>
+          Mosaic&apos;s visual system needed to make emotional tracking feel
+          personal and expressive without becoming busy, clinical, or overly
+          gamified. The goal was to create a product that felt sleek, warm, and
+          reflective, closer to a private ritual than a mental health form.
+        </VisualSystemLead>
+
+        <VisualSubsection>
+          <VisualSubheading>
+            The original hook: a year in color
+          </VisualSubheading>
+          <p>
+            The earliest concept centered on the mosaic itself: a monthly and
+            yearly view that could turn small emotional entries into a visible
+            pattern over time. The idea was simple: one check-in becomes one
+            tile, and enough tiles become a personal emotional landscape.
+          </p>
+          <VisualPlaceholder>
+            <VisualPlaceholderLabel>
+              <span>Image placeholder</span>
+              Original hand-drawn mosaic wireframe / early calendar concept
+            </VisualPlaceholderLabel>
+          </VisualPlaceholder>
+        </VisualSubsection>
+
+        <VisualSubsection>
+          <VisualSubheading>
+            The product shift: check-in first, calendar second
+          </VisualSubheading>
+          <p>
+            As the product direction sharpened, the most important realization
+            was that the calendar only becomes meaningful if the check-in is
+            easy enough to repeat. The mosaic view was the original hook, but
+            the check-in became the foundation. The final experience separates
+            the product into two rhythms: a lightweight daily check-in and a
+            longer-term reflection view.
+          </p>
+          <EvolutionGrid>
+            <EvolutionCard>
+              <EvolutionTitle>Original emphasis</EvolutionTitle>
+              <EvolutionText>
+                Monthly and yearly mosaic views as the main feature attraction.
+              </EvolutionText>
+              <VisualPlaceholder $height="11rem">
+                <VisualPlaceholderLabel>
+                  <span>Image placeholder</span>
+                  Early monthly/yearly mosaic concept
+                </VisualPlaceholderLabel>
+              </VisualPlaceholder>
+            </EvolutionCard>
+            <EvolutionCard>
+              <EvolutionTitle>Final emphasis</EvolutionTitle>
+              <EvolutionText>
+                A focused daily check-in that builds the mosaic over time.
+              </EvolutionText>
+              <VisualPlaceholder $height="11rem">
+                <VisualPlaceholderLabel>
+                  <span>Image placeholder</span>
+                  Final check-in screen placeholder
+                </VisualPlaceholderLabel>
+              </VisualPlaceholder>
+            </EvolutionCard>
+          </EvolutionGrid>
+        </VisualSubsection>
+
+        <VisualSubsection>
+          <VisualSubheading>Warm, not clinical</VisualSubheading>
+          <p>
+            The visual language needed to avoid the sterile feeling common in
+            health tools. I used a dark, sleek interface with a gold accent to
+            give Mosaic a sense of warmth, care, and polish. Gold became the
+            product&apos;s emotional anchor: elegant without feeling cold,
+            expressive without feeling childish, and premium without turning the
+            app into a dashboard.
+          </p>
+          <DesignSystemGrid aria-label="Mosaic visual design tokens">
+            <DesignToken>
+              <DesignTokenSwatch $swatch="oklch(75% 0.15 63)" />
+              <DesignTokenLabel>Gold accent</DesignTokenLabel>
+            </DesignToken>
+            <DesignToken>
+              <DesignTokenSwatch $swatch="linear-gradient(135deg, oklch(24% 0.035 260), oklch(13% 0.025 260))" />
+              <DesignTokenLabel>Dark surface</DesignTokenLabel>
+            </DesignToken>
+            <DesignToken>
+              <DesignTokenSwatch $swatch="radial-gradient(circle at 30% 25%, oklch(75% 0.15 63 / 0.44), transparent 46%), linear-gradient(135deg, oklch(27% 0.04 260), oklch(17% 0.025 250))" />
+              <DesignTokenLabel>Soft gradients</DesignTokenLabel>
+            </DesignToken>
+            <DesignToken>
+              <DesignTokenSwatch $swatch="linear-gradient(90deg, oklch(75% 0.15 63) 0 25%, oklch(67% 0.12 250) 25% 50%, oklch(72% 0.12 154) 50% 75%, oklch(63% 0.13 304) 75%)" />
+              <DesignTokenLabel>Emotion tiles</DesignTokenLabel>
+            </DesignToken>
+            <DesignToken>
+              <DesignTokenSwatch $swatch="linear-gradient(135deg, oklch(98% 0.008 92), oklch(91% 0.018 260))" />
+              <DesignTokenLabel>Rounded cards</DesignTokenLabel>
+            </DesignToken>
+            <DesignToken>
+              <DesignTokenSwatch $swatch="linear-gradient(180deg, oklch(32% 0.035 260) 0 18%, transparent 18% 36%, oklch(72% 0.04 260 / 0.45) 36% 44%, transparent 44% 60%, oklch(72% 0.04 260 / 0.28) 60% 67%, transparent 67%)" />
+              <DesignTokenLabel>Editorial type</DesignTokenLabel>
+            </DesignToken>
+          </DesignSystemGrid>
+        </VisualSubsection>
+
+        <VisualSubsection>
+          <VisualSubheading>Design responses to the research</VisualSubheading>
+          <DesignResponseGrid>
+            <DesignResponseCard>
+              <DesignResponseLabel>Friction</DesignResponseLabel>
+              <DesignResponseTitle>
+                Make the first action feel light
+              </DesignResponseTitle>
+              <DesignResponseText>
+                The check-in screen became the primary ritual so users could
+                record a feeling quickly without moving through a heavy flow.
+              </DesignResponseText>
+            </DesignResponseCard>
+            <DesignResponseCard>
+              <DesignResponseLabel>Emotional clarity</DesignResponseLabel>
+              <DesignResponseTitle>
+                Use color as a starting point
+              </DesignResponseTitle>
+              <DesignResponseText>
+                Color gives users another way into reflection when naming a
+                feeling is difficult.
+              </DesignResponseText>
+            </DesignResponseCard>
+            <DesignResponseCard>
+              <DesignResponseLabel>Trust</DesignResponseLabel>
+              <DesignResponseTitle>
+                Keep the interface quiet
+              </DesignResponseTitle>
+              <DesignResponseText>
+                The design avoids aggressive prompts and clinical dashboards so
+                the experience feels private, calm, and self-directed.
+              </DesignResponseText>
+            </DesignResponseCard>
+          </DesignResponseGrid>
+        </VisualSubsection>
+
+        <VisualSubsection>
+          <VisualSubheading>The final system</VisualSubheading>
+          <p>
+            The final visual system gives Mosaic both immediacy and memory. The
+            check-in captures the moment. The monthly and yearly views turn
+            those moments into a pattern the user can return to later.
+          </p>
+          <FinalScreensGrid>
+            <VisualPlaceholder $height="16rem">
+              <VisualPlaceholderLabel>
+                <span>Image placeholder</span>
+                Today / check-in screen
+              </VisualPlaceholderLabel>
+            </VisualPlaceholder>
+            <VisualPlaceholder $height="16rem">
+              <VisualPlaceholderLabel>
+                <span>Image placeholder</span>
+                Monthly mosaic view
+              </VisualPlaceholderLabel>
+            </VisualPlaceholder>
+            <VisualPlaceholder $height="16rem">
+              <VisualPlaceholderLabel>
+                <span>Image placeholder</span>
+                Yearly mosaic view
+              </VisualPlaceholderLabel>
+            </VisualPlaceholder>
+          </FinalScreensGrid>
+        </VisualSubsection>
       </CaseStudySection>
 
       <CaseStudySection title="Architecture">

@@ -8,6 +8,7 @@ import shibuyaHeadshot from '../../assets/tokyo-headshot-reduced.webp';
 import media from '../../utils/mediaQueries';
 import { HeaderProps } from '../../types';
 import { getThemeTransition } from '../../utils/themeTransition';
+import { trackEvent } from '../../lib/analytics';
 
 const technologies = [
   {
@@ -379,6 +380,7 @@ const arrowVariants = {
   visible: { x: 0, opacity: 1 },
 };
 const arrowTransition = { ease: 'easeIn', duration: 0.2, delay: 0.2 };
+const RESUME_PATH = '/carlos-martinez-resume.pdf';
 
 const Header = ({ themeName }: HeaderProps) => {
   return (
@@ -401,7 +403,17 @@ const Header = ({ themeName }: HeaderProps) => {
           problems.
         </Description>
         <ButtonContainer variants={fadeInUpAnimation}>
-          <Button whileHover="bounce" href="#projects">
+          <Button
+            whileHover="bounce"
+            href="#projects"
+            onClick={() =>
+              trackEvent('cta_clicked', {
+                label: 'Explore my projects',
+                location: 'hero',
+                destination: '#projects',
+              })
+            }
+          >
             Explore my projects{' '}
             <MotionArrowUpRight
               variants={bounceVariants}
@@ -412,11 +424,17 @@ const Header = ({ themeName }: HeaderProps) => {
           </Button>
 
           <ButtonSecondary
-            href="/carlos-martinez-resume.pdf"
+            href={RESUME_PATH}
             target="_blank"
             rel="noopener noreferrer"
             initial="hidden"
             whileHover="visible"
+            onClick={() =>
+              trackEvent('resume_clicked', {
+                location: 'hero',
+                destination: RESUME_PATH,
+              })
+            }
           >
             <Underline
               variants={underlineVariants}

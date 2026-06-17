@@ -5,6 +5,9 @@ import { Briefcase, FileArrowDown } from '@phosphor-icons/react';
 import media from '../../utils/mediaQueries';
 import { HeaderProps } from '../../types';
 import { experienceList } from '../../portfolio-data';
+import { trackEvent } from '../../lib/analytics';
+
+const RESUME_PATH = '/carlos-martinez-resume.pdf';
 
 const Section = styled(motion.section)`
   width: 100%;
@@ -430,8 +433,14 @@ const About = ({ themeName }: HeaderProps) => {
 
           <Button
             whileHover="bounce"
-            href="/carlos-martinez-resume.pdf"
+            href={RESUME_PATH}
             download
+            onClick={() =>
+              trackEvent('resume_clicked', {
+                location: 'projects',
+                destination: RESUME_PATH,
+              })
+            }
           >
             Download Resume{' '}
             <MotionArrowUpRight

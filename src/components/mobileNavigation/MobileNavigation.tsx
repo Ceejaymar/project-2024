@@ -4,6 +4,7 @@ import { AnimatePresence, motion, MotionConfig } from 'framer-motion';
 import GradientLogo from '../logoGradient/GradientLogo';
 import { NavLinkProps } from '../../types';
 import media from '../../utils/mediaQueries';
+import { trackEvent } from '../../lib/analytics';
 
 const NavItem = styled(motion.li)`
   position: relative;
@@ -70,6 +71,8 @@ const HamburgerButton = styled(motion.button)`
 `;
 
 const navbarItems = ['experience', 'projects', 'contact'];
+const formatNavLabel = (label: string) =>
+  `${label.charAt(0).toUpperCase()}${label.slice(1)}`;
 
 const hamburgerTopVariants = {
   open: { rotate: ['0deg', '0deg', '45deg'], top: ['35%', '50%', '50%'] },
@@ -197,7 +200,14 @@ const MobileNavigation = () => {
                     <NavLink
                       key={item}
                       href={`#${item}`}
-                      onClick={() => setActive(false)}
+                      onClick={() => {
+                        trackEvent('nav_clicked', {
+                          label: formatNavLabel(item),
+                          destination: `#${item}`,
+                          location: 'mobile_nav',
+                        });
+                        setActive(false);
+                      }}
                     >
                       {item}
                     </NavLink>
