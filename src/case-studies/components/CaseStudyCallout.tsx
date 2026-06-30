@@ -7,9 +7,12 @@ interface CaseStudyCalloutProps {
 }
 
 const Callout = styled.aside`
-  max-width: 72ch;
-  margin: 0 auto;
-  padding: 1.35rem 1.5rem;
+  box-sizing: border-box;
+  align-self: stretch;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 1.1rem 1.25rem;
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 14px;
   background-color: ${({ theme }) => theme.colors.primary}08;
@@ -20,7 +23,7 @@ const Callout = styled.aside`
 `;
 
 const Label = styled.p`
-  margin-bottom: 0.45rem;
+  margin-bottom: 0.35rem;
   color: ${({ theme }) => theme.colors.primary};
   font-size: 0.72rem;
   font-weight: 700;

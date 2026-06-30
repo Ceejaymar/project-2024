@@ -562,38 +562,193 @@ const FinalScreensGrid = styled.div`
   }
 `;
 
-const DecisionGrid = styled.div`
+const ArchitectureContent = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1px;
+  gap: clamp(1.25rem, 3vw, 2rem);
+  width: 100%;
+`;
+
+const ArchitectureLead = styled.p`
+  margin: 0;
+  max-width: 68ch;
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  font-size: clamp(1rem, 2vw, 1.12rem);
+  line-height: 1.75;
+`;
+
+const ArchitectureTechLine = styled.p`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.7rem;
+  margin: 0;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+`;
+
+const ArchitectureTechLabel = styled.span`
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  line-height: 1;
+  text-transform: uppercase;
+`;
+
+const ArchitectureTechValue = styled.span`
+  color: ${({ theme }) => theme.colors['default-text']};
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.55;
+`;
+
+const ArchitecturePanel = styled.div`
+  width: 100%;
   overflow: hidden;
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 16px;
-  background-color: ${({ theme }) => theme.colors.border};
+  background-color: ${({ theme }) => theme.colors.background};
+`;
 
-  @media (min-width: 720px) {
+const ArchitecturePanelHeader = styled.div`
+  padding: clamp(1.1rem, 2.5vw, 1.5rem);
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+`;
+
+const ArchitecturePanelTitle = styled.h3`
+  margin: 0;
+  color: ${({ theme }) => theme.colors['default-text']};
+  font-size: clamp(1.2rem, 2.4vw, 1.55rem);
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.16;
+`;
+
+const ArchitecturePanelGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+
+  @media (min-width: 760px) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 `;
 
-const Decision = styled.div`
-  padding: 1.15rem;
-  background-color: ${({ theme }) => theme.colors.background};
+const ArchitecturePanelColumn = styled.div`
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+  padding: clamp(1.1rem, 2.5vw, 1.5rem);
+
+  & + & {
+    border-top: 1px solid ${({ theme }) => theme.colors.border};
+  }
+
+  @media (min-width: 760px) {
+    & + & {
+      border-top: 0;
+      border-left: 1px solid ${({ theme }) => theme.colors.border};
+    }
+  }
 `;
 
-const DecisionLabel = styled.p`
-  margin-bottom: 0.6rem;
+const ArchitectureEyebrow = styled.p`
+  margin: 0;
   color: ${({ theme }) => theme.colors.primary};
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  line-height: 1;
   text-transform: uppercase;
 `;
 
-const DecisionText = styled.p`
+const ArchitectureColumnTitle = styled.h4`
+  margin: 0;
   color: ${({ theme }) => theme.colors['default-text']};
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25;
+`;
+
+const ArchitectureColumnText = styled.p`
+  margin: 0;
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  font-size: 0.9rem;
+  line-height: 1.6;
+`;
+
+const ArchitectureDataList = styled.div`
+  display: grid;
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 12px;
+  background-color: ${({ theme }) => theme.colors.border};
+`;
+
+const ArchitectureDataItem = styled.div`
+  display: grid;
+  grid-template-columns: minmax(4.4rem, 0.7fr) minmax(0, 1fr);
+  gap: 0.75rem;
+  padding: 0.65rem 0.75rem;
+  background-color: ${({ theme }) => theme.colors.background};
+`;
+
+const ArchitectureDataLabel = styled.span`
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+`;
+
+const ArchitectureDataValue = styled.span`
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  color: ${({ theme }) => theme.colors['default-text']};
+  font-size: 0.84rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+`;
+
+const ArchitectureReasonList = styled.ul`
+  display: grid;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid ${({ theme }) => theme.colors.border};
+  list-style: none;
+`;
+
+const ArchitectureReasonItem = styled.li`
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.55rem;
+  padding: 0.72rem 0;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  font-size: 0.9rem;
+  line-height: 1.55;
+
+  &::before {
+    width: 0.38rem;
+    height: 0.38rem;
+    margin-top: 0.52rem;
+    border-radius: 999px;
+    background-color: ${({ theme }) => theme.colors.primary};
+    content: '';
+  }
+
+  &:last-child {
+    border-bottom: 0;
+  }
+`;
+
+const ArchitecturePostCopy = styled.p`
+  margin: 0;
+  max-width: 68ch;
+  color: ${({ theme }) => theme.colors['secondary-text']};
   font-size: 0.95rem;
-  line-height: 1.65;
+  line-height: 1.7;
 `;
 
 const Flow = styled.ol`
@@ -813,9 +968,9 @@ export default function MosaicCaseStudy() {
           option to explore more specific feelings when needed. In as few as
           three taps, a user can save a check-in. Up to four entries can be
           recorded in a day, and Mosaic combines them into one daily tile: full
-          color for a single entry, then divided as the day changes. Weekly and
-          monthly insights make recurring emotions and timing patterns easier to
-          notice.
+          color for a single entry, then divided as additional check-ins are
+          added. Weekly and monthly insights make recurring emotions and timing
+          patterns easier to notice.
         </p>
       </CaseStudySection>
 
@@ -825,13 +980,13 @@ export default function MosaicCaseStudy() {
           themselves, but many tools make reflection feel like another task to
           manage. In competitive app review research, I found repeated
           frustration around long check-in flows, unclear emotion language,
-          privacy concerns, and tools that either oversimplified emotional life
-          or made the experience feel too heavy.
+          privacy concerns, and products that either flattened emotional life
+          into rigid options or made reflection feel like more work.
         </p>
         <p>
-          Mosaic was designed around that tension: lightweight enough to become
-          a daily ritual, expressive enough to help people name what they feel,
-          and private enough to feel safe.
+          Mosaic was designed around that tension: lightweight enough to fit
+          into a day, expressive enough to make room for nuance, and calm enough
+          to support honest reflection.
         </p>
       </CaseStudySection>
 
@@ -883,8 +1038,9 @@ export default function MosaicCaseStudy() {
           <p>
             The earliest concept centered on the mosaic itself: a monthly and
             yearly view that could turn small emotional entries into a visible
-            pattern over time. The idea was simple: one check-in becomes one
-            tile, and enough tiles become a personal emotional landscape.
+            pattern over time. The idea was simple: each day could become a
+            tile, with its color composition reflecting the check-ins recorded
+            over time.
           </p>
           <VisualPlaceholder>
             <VisualPlaceholderLabel>
@@ -1056,58 +1212,121 @@ export default function MosaicCaseStudy() {
       </CaseStudySection>
 
       <CaseStudySection title="Architecture">
-        <p>
-          Built with React Native and Expo, TypeScript, and Unistyles. A
-          token-driven styling system keeps color, typography, contrast, and
-          motion behavior consistent as the product grows.
-        </p>
-        <p>
-          Underneath the interface, Mosaic uses a shared emotion model that
-          connects each feeling to its emotion family, display metadata, and
-          insight category. The same model drives the selector, the mosaic
-          calendar, and the weekly and monthly insight views.
-        </p>
-        <p>
-          Check-ins are grouped by date and time of day, allowing up to four
-          entries to resolve into one composite daily tile. That same structure
-          powers percentage views across emotion families, specific emotions,
-          times of day, and days of the week.
-        </p>
-        <p>
-          Sensitive mood and journal content remains on-device by default.
-          Separate, privacy-conscious product analytics and error monitoring
-          help identify high-level feature adoption and reliability issues
-          without treating personal reflections as product data.
-        </p>
-        <DecisionGrid>
-          <Decision>
-            <DecisionLabel>Decision</DecisionLabel>
-            <DecisionText>
-              Create one shared emotion and check-in model that drives
-              selection, visualization, and insights.
-            </DecisionText>
-          </Decision>
-          <Decision>
-            <DecisionLabel>Tradeoff</DecisionLabel>
-            <DecisionText>
-              Model daily tiles and time-based summaries explicitly instead of
-              allowing each screen to derive its own version of the same data.
-            </DecisionText>
-          </Decision>
-          <Decision>
-            <DecisionLabel>Result</DecisionLabel>
-            <DecisionText>
-              The check-in, mosaic, and insight views stay consistent as the
-              product gains more emotional detail and longer-term history.
-            </DecisionText>
-          </Decision>
-        </DecisionGrid>
-      </CaseStudySection>
+        <ArchitectureContent>
+          <ArchitectureTechLine>
+            <ArchitectureTechLabel>Built with</ArchitectureTechLabel>
+            <ArchitectureTechValue>
+              React Native · Expo · TypeScript · SQLite + Drizzle · Zustand ·
+              MMKV · Unistyles
+            </ArchitectureTechValue>
+          </ArchitectureTechLine>
 
-      <CaseStudyCallout label="System principle">
-        One shared emotion model connects the check-in, the mosaic, and the
-        patterns users see later.
-      </CaseStudyCallout>
+          <ArchitectureLead>
+            The technical work focused on making a simple check-in useful beyond
+            the moment it is saved. A single entry can shape the day’s mosaic
+            and contribute to longer-term patterns, while Mosaic keeps the
+            emotional language consistent across the app.
+          </ArchitectureLead>
+
+          <ArchitecturePanel>
+            <ArchitecturePanelHeader>
+              <ArchitecturePanelTitle>
+                A small record with room to grow
+              </ArchitecturePanelTitle>
+            </ArchitecturePanelHeader>
+            <ArchitecturePanelGrid>
+              <ArchitecturePanelColumn>
+                <ArchitectureEyebrow>Shared emotion system</ArchitectureEyebrow>
+                <ArchitectureColumnTitle>
+                  Define a feeling once
+                </ArchitectureColumnTitle>
+                <ArchitectureColumnText>
+                  Each feeling belongs to an emotion family and has display
+                  details that can be reused throughout Mosaic.
+                </ArchitectureColumnText>
+                <ArchitectureDataList aria-label="Shared emotion system example">
+                  <ArchitectureDataItem>
+                    <ArchitectureDataLabel>Family</ArchitectureDataLabel>
+                    <ArchitectureDataValue>Happy</ArchitectureDataValue>
+                  </ArchitectureDataItem>
+                  <ArchitectureDataItem>
+                    <ArchitectureDataLabel>Feeling</ArchitectureDataLabel>
+                    <ArchitectureDataValue>Joyful</ArchitectureDataValue>
+                  </ArchitectureDataItem>
+                  <ArchitectureDataItem>
+                    <ArchitectureDataLabel>Shown as</ArchitectureDataLabel>
+                    <ArchitectureDataValue>label + color</ArchitectureDataValue>
+                  </ArchitectureDataItem>
+                </ArchitectureDataList>
+              </ArchitecturePanelColumn>
+
+              <ArchitecturePanelColumn>
+                <ArchitectureEyebrow>Saved check-in</ArchitectureEyebrow>
+                <ArchitectureColumnTitle>
+                  Keep the moment simple
+                </ArchitectureColumnTitle>
+                <ArchitectureColumnText>
+                  Each check-in remembers which feeling was selected and when it
+                  happened. Notes and context tags stay optional.
+                </ArchitectureColumnText>
+                <ArchitectureDataList aria-label="Saved check-in example">
+                  <ArchitectureDataItem>
+                    <ArchitectureDataLabel>Feeling</ArchitectureDataLabel>
+                    <ArchitectureDataValue>Joyful</ArchitectureDataValue>
+                  </ArchitectureDataItem>
+                  <ArchitectureDataItem>
+                    <ArchitectureDataLabel>Date</ArchitectureDataLabel>
+                    <ArchitectureDataValue>June 30th</ArchitectureDataValue>
+                  </ArchitectureDataItem>
+                  <ArchitectureDataItem>
+                    <ArchitectureDataLabel>Recorded</ArchitectureDataLabel>
+                    <ArchitectureDataValue>9:15 AM</ArchitectureDataValue>
+                  </ArchitectureDataItem>
+                  <ArchitectureDataItem>
+                    <ArchitectureDataLabel>Optional</ArchitectureDataLabel>
+                    <ArchitectureDataValue>note + tags</ArchitectureDataValue>
+                  </ArchitectureDataItem>
+                </ArchitectureDataList>
+              </ArchitecturePanelColumn>
+
+              <ArchitecturePanelColumn>
+                <ArchitectureEyebrow>Why it matters</ArchitectureEyebrow>
+                <ArchitectureColumnTitle>
+                  Reuse the same foundation
+                </ArchitectureColumnTitle>
+                <ArchitectureColumnText>
+                  That small structure gives Mosaic room to support reflection
+                  at different points in time.
+                </ArchitectureColumnText>
+                <ArchitectureReasonList>
+                  <ArchitectureReasonItem>
+                    Up to four check-ins can form one daily mosaic tile.
+                  </ArchitectureReasonItem>
+                  <ArchitectureReasonItem>
+                    Entries can be grouped into weekly and monthly patterns.
+                  </ArchitectureReasonItem>
+                  <ArchitectureReasonItem>
+                    Labels and color palettes can evolve without changing past
+                    check-ins.
+                  </ArchitectureReasonItem>
+                </ArchitectureReasonList>
+              </ArchitecturePanelColumn>
+            </ArchitecturePanelGrid>
+          </ArchitecturePanel>
+
+          <ArchitecturePostCopy>
+            Instead of copying a label or color into every check-in, Mosaic
+            looks up those display details when it needs them. That leaves room
+            to refine wording, add translations, or adjust palettes over time
+            without rewriting someone’s history.
+          </ArchitecturePostCopy>
+
+          <CaseStudyCallout label="Key takeaway">
+            One small check-in can stay useful across the mosaic, insights, and
+            future product improvements without changing someone’s history.
+          </CaseStudyCallout>
+        </ArchitectureContent>
+      </CaseStudySection>
 
       <CaseStudySection title="Challenges & Solutions">
         <p>
