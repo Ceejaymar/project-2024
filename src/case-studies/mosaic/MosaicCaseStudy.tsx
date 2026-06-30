@@ -251,52 +251,6 @@ const CalendarTile = styled.span<{ $color: string; $delay: string }>`
   }
 `;
 
-const ColorStory = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
-
-  @media (min-width: 640px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-`;
-
-const ColorCard = styled.div<{ $color: string }>`
-  min-height: 7rem;
-  padding: 1rem;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 14px;
-  background: linear-gradient(
-      180deg,
-      color-mix(in oklch, ${({ $color }) => $color}, transparent 76%),
-      transparent 78%
-    ),
-    ${({ theme }) => theme.colors.background};
-`;
-
-const ColorSwatch = styled.span<{ $color: string }>`
-  display: block;
-  width: 2rem;
-  height: 2rem;
-  margin-bottom: 1rem;
-  border-radius: 50%;
-  background-color: ${({ $color }) => $color};
-`;
-
-const ColorLabel = styled.p`
-  color: ${({ theme }) => theme.colors['default-text']};
-  font-size: 0.95rem;
-  font-weight: 600;
-`;
-
-const ColorNote = styled.p`
-  margin-top: 0.25rem;
-  color: ${({ theme }) => theme.colors['secondary-text']};
-  font-size: 0.82rem;
-  line-height: 1.5;
-`;
-
 const ResearchGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
@@ -347,6 +301,14 @@ const ResearchMethod = styled.p`
   line-height: 1.7;
 `;
 
+const ResearchInsightNote = styled.p`
+  max-width: 62ch;
+  margin-top: 1.5rem;
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  font-size: 0.95rem;
+  line-height: 1.7;
+`;
+
 const ResearchExcerpt = styled.blockquote`
   color: ${({ theme }) => theme.colors['default-text']};
   font-size: 1.05rem;
@@ -375,66 +337,6 @@ const ResearchRowText = styled.p`
   color: ${({ theme }) => theme.colors['secondary-text']};
   font-size: 0.9rem;
   line-height: 1.6;
-`;
-
-const ThemeHeading = styled.h3`
-  margin-top: 2rem;
-  color: ${({ theme }) => theme.colors['default-text']};
-  font-size: 1.05rem;
-  font-weight: 700;
-`;
-
-const ThemeClusterGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1px;
-  margin-top: 1rem;
-  overflow: hidden;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 16px;
-  background-color: ${({ theme }) => theme.colors.border};
-
-  @media (min-width: 760px) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-`;
-
-const ThemeCluster = styled.div`
-  padding: 1rem;
-  background-color: ${({ theme }) => theme.colors.background};
-`;
-
-const ThemeClusterTitle = styled.h4`
-  margin-bottom: 0.75rem;
-  color: ${({ theme }) => theme.colors['default-text']};
-  font-size: 0.95rem;
-  font-weight: 700;
-`;
-
-const ThemeList = styled.ul`
-  display: grid;
-  gap: 0.55rem;
-  padding: 0;
-  list-style: none;
-`;
-
-const ThemeItem = styled.li`
-  position: relative;
-  padding-left: 1rem;
-  color: ${({ theme }) => theme.colors['secondary-text']};
-  font-size: 0.95rem;
-  line-height: 1.55;
-
-  &::before {
-    position: absolute;
-    top: 0.68em;
-    left: 0;
-    width: 0.35rem;
-    height: 0.35rem;
-    border-radius: 50%;
-    content: '';
-    background-color: ${({ theme }) => theme.colors.primary};
-  }
 `;
 
 const VisualSystemLead = styled.p`
@@ -610,7 +512,11 @@ const DesignResponseGrid = styled.div`
   gap: 1rem;
 
   @media (min-width: 760px) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (min-width: 1120px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 `;
 
@@ -762,61 +668,29 @@ const tiles = [
 
 const heroTiles = [...tiles, ...tiles];
 
-const emotionColors = {
-  highEnergy: 'oklch(75% 0.15 63)',
-  lowEnergy: 'oklch(67% 0.12 250)',
-  grounded: 'oklch(72% 0.12 154)',
-  complex: 'oklch(63% 0.13 304)',
-};
-
 const researchSignals = [
   {
     label: 'Friction',
     excerpt: 'multiple entry screens are redundant and nauseating',
-    risk: 'Reflection can start to feel like admin work before the user saves anything.',
-    response: 'Keep the check-in flow fast, focused, and low-pressure.',
+    risk: 'When a check-in feels like a form, reflection can become work before someone records anything.',
+    response:
+      'Start with a broad emotion family and let people save a minimal check-in in as few as three taps. Journaling and added detail remain optional.',
   },
   {
-    label: 'Emotional clarity',
-    excerpt: 'I cannot ID my feelings. I just draw blanks.',
-    risk: 'A mood tracker can fail before the entry is saved if people do not have an easy way to recognize or name what they feel.',
+    label: 'Emotional range',
+    excerpt:
+      'Sometimes I’m feeling normal or good or bad, but also I can feel content or anxious, or nervous...',
+    risk: 'A flat emotion list creates opposite failure modes: too few choices can flatten someone’s experience, while too many can create decision fatigue.',
     response:
-      'Use a guided color-and-emotion language that helps people start with a feeling and build a visual record over time.',
+      'Use seven familiar emotion families as starting points, then let people explore more specific feelings only when they want greater nuance.',
   },
   {
     label: 'Trust',
     excerpt:
       'I want to track my mental health without worrying about my data being collected.',
-    risk: 'A reflection tool loses its usefulness if people do not feel safe being honest.',
+    risk: 'When people are uncertain how sensitive reflections are handled, they may hold back or avoid the product altogether.',
     response:
-      'Treat privacy as a core product principle, not a settings-page afterthought.',
-  },
-];
-
-const recurringIssueGroups = [
-  {
-    title: 'Flow friction',
-    items: [
-      'Long or forced check-in flows',
-      'Too many screens before saving an entry',
-      'Insights that were either too shallow or too complicated',
-    ],
-  },
-  {
-    title: 'Emotional clarity',
-    items: [
-      'Difficulty identifying what feeling fits',
-      'Limited or unclear emotion labels',
-      'Missing neutral, mixed, or in-between emotional states',
-    ],
-  },
-  {
-    title: 'Trust and data ownership',
-    items: [
-      'Privacy concerns around mental health and journal data',
-      'Data export, backup, and sync concerns',
-      'Accessibility/readability issues',
-    ],
+      'Treat privacy as a visible product boundary: sensitive mood and journal content stays on the device by default, while product telemetry excludes personal reflection content.',
   },
 ];
 
@@ -907,66 +781,42 @@ export default function MosaicCaseStudy() {
         {
           label: 'Problem',
           value:
-            'Mood tracking often feels clinical, so people abandon it before patterns can emerge.',
+            'Mood trackers can turn reflection into a chore, flatten complex feelings, and make it harder to see meaningful patterns over time.',
         },
         {
-          label: 'Product move',
+          label: 'Design thesis',
           value:
-            'Turn each check-in into a color tile that slowly builds a personal emotional calendar.',
+            'Make reflection feel like a private, visually expressive ritual, not a clinical form or data-entry task.',
         },
         {
-          label: 'Technical bet',
+          label: 'Core experience',
           value:
-            'Keep reflections local-first, fast, and private while generating insights on-device.',
+            'Start broad or add detail, then let up to four check-ins a day build a color mosaic and gentle insights over time.',
         },
         {
-          label: 'Proof',
+          label: 'Product system',
           value:
-            'A single-tap ritual, a color language, and a calendar view that rewards looking back.',
+            'One shared emotion model powers fast check-ins, composite daily tiles, and pattern-based insights across the app.',
         },
       ]}
     >
       <CaseStudySection title="Overview">
         <p>
-          Most mood-tracking apps feel clinical: long questionnaires, numerical
-          scales, dashboards built for data analysts. Mosaic takes the opposite
-          approach. The goal was to make emotional reflection feel like
-          something you&apos;d want to do, not something you have to.
+          Mosaic is a mood tracker built to make emotional reflection feel
+          quick, personal, and low-pressure. Rather than asking people to work
+          through long questionnaires or reduce a complex day to a single score,
+          it lets them start broad, add detail only when it helps, and build a
+          visual record they can return to over time.
         </p>
         <p>
-          A quick check-in, a color, a moment noted. Over time, your calendar
-          fills in: patches of amber and violet and deep blue accumulating into
-          something you can step back and actually see. That visual canvas, your
-          emotional year rendered in color, is the core of what Mosaic is about.
+          Each check-in begins with one of seven emotion families, with the
+          option to explore more specific feelings when needed. In as few as
+          three taps, a user can save a check-in. Up to four entries can be
+          recorded in a day, and Mosaic combines them into one daily tile: full
+          color for a single entry, then divided as the day changes. Weekly and
+          monthly insights make recurring emotions and timing patterns easier to
+          notice.
         </p>
-        <ColorStory role="group" aria-label="Emotion color language">
-          <ColorCard $color={emotionColors.highEnergy}>
-            <ColorSwatch $color={emotionColors.highEnergy} />
-            <ColorLabel>High energy</ColorLabel>
-            <ColorNote>
-              Warm tones for moments that feel bright or activated.
-            </ColorNote>
-          </ColorCard>
-          <ColorCard $color={emotionColors.lowEnergy}>
-            <ColorSwatch $color={emotionColors.lowEnergy} />
-            <ColorLabel>Low energy</ColorLabel>
-            <ColorNote>
-              Cool tones for calm, heavy, or reflective states.
-            </ColorNote>
-          </ColorCard>
-          <ColorCard $color={emotionColors.grounded}>
-            <ColorSwatch $color={emotionColors.grounded} />
-            <ColorLabel>Grounded</ColorLabel>
-            <ColorNote>Greens for steady days that feel regulated.</ColorNote>
-          </ColorCard>
-          <ColorCard $color={emotionColors.complex}>
-            <ColorSwatch $color={emotionColors.complex} />
-            <ColorLabel>Complex</ColorLabel>
-            <ColorNote>
-              Violets for mixed states that need more nuance.
-            </ColorNote>
-          </ColorCard>
-        </ColorStory>
       </CaseStudySection>
 
       <CaseStudySection title="The problem">
@@ -985,13 +835,12 @@ export default function MosaicCaseStudy() {
         </p>
       </CaseStudySection>
 
-      <CaseStudySection title="Research signals that shaped the product">
+      <CaseStudySection title="Competitive review signals">
         <ResearchMethod>
-          I treated this as competitive app review research: reviewing public
-          feedback from existing mood tracking and journaling apps, then
-          grouping repeated complaints into product risks. The excerpts below
-          are verbatim public review excerpts; the design responses show how
-          those signals shaped Mosaic.
+          To understand where existing mood trackers break down, I reviewed 150+
+          public App Store reviews across 5+ mood-tracking and journaling apps.
+          I grouped repeated feedback into three themes that shaped Mosaic’s
+          interaction model.
         </ResearchMethod>
         <ResearchGrid>
           {researchSignals.map((quote) => (
@@ -1011,20 +860,12 @@ export default function MosaicCaseStudy() {
             </ResearchQuote>
           ))}
         </ResearchGrid>
-
-        <ThemeHeading>Other recurring issues I found</ThemeHeading>
-        <ThemeClusterGrid>
-          {recurringIssueGroups.map((group) => (
-            <ThemeCluster key={group.title}>
-              <ThemeClusterTitle>{group.title}</ThemeClusterTitle>
-              <ThemeList role="list">
-                {group.items.map((issue) => (
-                  <ThemeItem key={issue}>{issue}</ThemeItem>
-                ))}
-              </ThemeList>
-            </ThemeCluster>
-          ))}
-        </ThemeClusterGrid>
+        <ResearchInsightNote>
+          Reviews also showed that logging alone was not enough. People wanted a
+          clearer way to look back at emotional patterns without being pushed
+          into a dense dashboard. That informed Mosaic’s weekly and monthly
+          insight views.
+        </ResearchInsightNote>
       </CaseStudySection>
 
       <CaseStudySection title="Designing the visual system">
@@ -1137,31 +978,45 @@ export default function MosaicCaseStudy() {
             <DesignResponseCard>
               <DesignResponseLabel>Friction</DesignResponseLabel>
               <DesignResponseTitle>
-                Make the first action feel light
+                Make the first action light
               </DesignResponseTitle>
               <DesignResponseText>
-                The check-in screen became the primary ritual so users could
-                record a feeling quickly without moving through a heavy flow.
+                Start with one familiar emotion family and save a minimal
+                check-in in as few as three taps. Journaling and added detail
+                remain optional.
               </DesignResponseText>
             </DesignResponseCard>
             <DesignResponseCard>
-              <DesignResponseLabel>Emotional clarity</DesignResponseLabel>
+              <DesignResponseLabel>Emotional range</DesignResponseLabel>
               <DesignResponseTitle>
-                Use color as a starting point
+                Support broad-to-specific reflection
               </DesignResponseTitle>
               <DesignResponseText>
-                Color gives users another way into reflection when naming a
-                feeling is difficult.
+                Seven emotion families reduce the blank-page problem, while more
+                specific choices within each family make room for nuance without
+                overwhelming every check-in.
               </DesignResponseText>
             </DesignResponseCard>
             <DesignResponseCard>
               <DesignResponseLabel>Trust</DesignResponseLabel>
               <DesignResponseTitle>
-                Keep the interface quiet
+                Make privacy feel concrete
               </DesignResponseTitle>
               <DesignResponseText>
-                The design avoids aggressive prompts and clinical dashboards so
-                the experience feels private, calm, and self-directed.
+                Keep sensitive reflections out of product analytics and avoid
+                patterns that pressure people to share or perform their
+                feelings.
+              </DesignResponseText>
+            </DesignResponseCard>
+            <DesignResponseCard>
+              <DesignResponseLabel>Meaning over data</DesignResponseLabel>
+              <DesignResponseTitle>
+                Make patterns easy to revisit
+              </DesignResponseTitle>
+              <DesignResponseText>
+                Weekly and monthly views surface recurring emotion patterns,
+                most selected emotions, and percentage breakdowns by time of day
+                and day of week.
               </DesignResponseText>
             </DesignResponseCard>
           </DesignResponseGrid>
@@ -1170,9 +1025,12 @@ export default function MosaicCaseStudy() {
         <VisualSubsection>
           <VisualSubheading>The final system</VisualSubheading>
           <p>
-            The final visual system gives Mosaic both immediacy and memory. The
-            check-in captures the moment. The monthly and yearly views turn
-            those moments into a pattern the user can return to later.
+            The final system connects capture to reflection. A fast check-in
+            records the moment. Each day resolves into one composite mosaic
+            tile, full color for one entry and split into up to four sections as
+            the day changes. Weekly and monthly insights turn those entries into
+            gentle, specific patterns people can revisit without turning
+            reflection into a score.
           </p>
           <FinalScreensGrid>
             <VisualPlaceholder $height="16rem">
@@ -1199,86 +1057,99 @@ export default function MosaicCaseStudy() {
 
       <CaseStudySection title="Architecture">
         <p>
-          Built with React Native and Expo for cross-platform reach, TypeScript
-          throughout, and Unistyles for a typed, scalable styling layer that
-          avoids the runtime cost of some alternatives.
+          Built with React Native and Expo, TypeScript, and Unistyles. A
+          token-driven styling system keeps color, typography, contrast, and
+          motion behavior consistent as the product grows.
         </p>
         <p>
-          Check-in data is stored locally first, keeping the app fast and
-          private by default. The insights engine runs entirely on the client,
-          analyzing rolling windows of entries to surface day-of-week
-          tendencies, streak patterns, and correlations between emotion types.
-          No server round-trip required for the patterns that matter most.
+          Underneath the interface, Mosaic uses a shared emotion model that
+          connects each feeling to its emotion family, display metadata, and
+          insight category. The same model drives the selector, the mosaic
+          calendar, and the weekly and monthly insight views.
+        </p>
+        <p>
+          Check-ins are grouped by date and time of day, allowing up to four
+          entries to resolve into one composite daily tile. That same structure
+          powers percentage views across emotion families, specific emotions,
+          times of day, and days of the week.
+        </p>
+        <p>
+          Sensitive mood and journal content remains on-device by default.
+          Separate, privacy-conscious product analytics and error monitoring
+          help identify high-level feature adoption and reliability issues
+          without treating personal reflections as product data.
         </p>
         <DecisionGrid>
           <Decision>
             <DecisionLabel>Decision</DecisionLabel>
             <DecisionText>
-              Store check-ins locally first so personal reflections stay private
-              by default.
+              Create one shared emotion and check-in model that drives
+              selection, visualization, and insights.
             </DecisionText>
           </Decision>
           <Decision>
             <DecisionLabel>Tradeoff</DecisionLabel>
             <DecisionText>
-              Keep early insights lightweight and on-device instead of depending
-              on server-side analysis.
+              Model daily tiles and time-based summaries explicitly instead of
+              allowing each screen to derive its own version of the same data.
             </DecisionText>
           </Decision>
           <Decision>
             <DecisionLabel>Result</DecisionLabel>
             <DecisionText>
-              The product can feel immediate and safe, even before accounts,
-              syncing, or heavier analytics exist.
+              The check-in, mosaic, and insight views stay consistent as the
+              product gains more emotional detail and longer-term history.
             </DecisionText>
           </Decision>
         </DecisionGrid>
       </CaseStudySection>
 
-      <CaseStudyCallout label="Technical principle">
-        Local-first storage keeps personal mood and journal data private by
-        default.
+      <CaseStudyCallout label="System principle">
+        One shared emotion model connects the check-in, the mosaic, and the
+        patterns users see later.
       </CaseStudyCallout>
 
       <CaseStudySection title="Challenges & Solutions">
         <p>
-          The hardest design problem was the check-in moment itself. Too many
-          emotion options and friction goes up; too few and the granularity
-          isn&apos;t useful. The solution was a curated emotion set with clear,
-          intuitive color associations, warm tones for high-energy states, cool
-          tones for calm or low ones, so the choice feels immediate rather than
-          cognitive.
+          The hardest interaction problem was supporting different levels of
+          emotional specificity without making check-ins feel like a test. Some
+          people want to record a broad feeling quickly. Others need more
+          language to identify what is going on. Mosaic starts with seven
+          emotion families, then lets people explore more specific feelings only
+          when they want to. This keeps the default interaction light while
+          leaving room for nuance.
         </p>
         <p>
-          The calendar visualization posed its own challenge: how do you render
-          months of data without overwhelming the person looking at it? The
-          mosaic metaphor was the answer. Small colored tiles form a picture
-          only visible at distance, nudging the user to zoom out and reflect on
-          the shape of a week or month rather than fixate on any single day.
+          The calendar visualization posed a different problem: how do you show
+          a month of emotional data without reducing a day to one label or
+          overwhelming the person looking at it? Mosaic treats each day as one
+          composite tile. A single check-in fills the tile; additional check-ins
+          divide it into up to four sections. At month and year scale, those
+          tiles make shifts and repeated patterns visible without asking the
+          user to study a dense chart.
         </p>
         <Flow role="list">
           <FlowStep>
             <StepNumber>01</StepNumber>
-            <StepTitle>Reduce the ask</StepTitle>
+            <StepTitle>Start at the right level</StepTitle>
             <StepBody>
-              The check-in moment starts small: choose a feeling, color the day,
-              move on.
+              Choose a broad emotion family or explore a more specific feeling.
             </StepBody>
           </FlowStep>
           <FlowStep>
             <StepNumber>02</StepNumber>
-            <StepTitle>Build the pattern</StepTitle>
+            <StepTitle>Let a day hold more than one moment</StepTitle>
             <StepBody>
-              Each entry adds a tile, making repeated states easier to notice
-              over time.
+              Up to four check-ins can share a single mosaic tile, showing
+              shifts across the day.
             </StepBody>
           </FlowStep>
           <FlowStep>
             <StepNumber>03</StepNumber>
-            <StepTitle>Reflect without pressure</StepTitle>
+            <StepTitle>Turn entries into gentle patterns</StepTitle>
             <StepBody>
-              Insights are framed as gentle observations, not judgments or
-              performance scores.
+              Weekly and monthly insights surface recurring emotions and timing
+              patterns without scoring the user.
             </StepBody>
           </FlowStep>
         </Flow>
