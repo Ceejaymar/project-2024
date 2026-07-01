@@ -650,6 +650,16 @@
   dependencies:
     levn "^0.4.1"
 
+"@fontsource/fraunces@^5.2.9":
+  version "5.2.9"
+  resolved "https://registry.yarnpkg.com/@fontsource/fraunces/-/fraunces-5.2.9.tgz#f3a19bb5fcfe0aa3e39f232a801c803117f1b528"
+  integrity sha512-XDzuddBtoC7BZgZdBn6b7hsFZY2+V1hgN7yca5fBTKuHjb/lOd45a0Ji8dTUgFhPoL7RdGupo+bC2BFSt6UH8Q==
+
+"@fontsource/space-mono@^5.2.9":
+  version "5.2.9"
+  resolved "https://registry.yarnpkg.com/@fontsource/space-mono/-/space-mono-5.2.9.tgz#481321c2a6e139e54dbbfdb904af7dae23b4b9f4"
+  integrity sha512-b61faFOHEISQ/pD25G+cfGY9o/WW6lRv6hBQQfpWvEJ4y1V+S4gmth95EVyBE2VL3qDYHeVQ8nBzrplzdXTDDg==
+
 "@humanwhocodes/module-importer@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/module-importer/-/module-importer-1.0.1.tgz#af5b2691a22b44be847b0ca81641c5fb6ad0172c"

@@ -2,6 +2,9 @@ import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import posthog from 'posthog-js';
 import { PostHogProvider } from 'posthog-js/react';
+import '@fontsource/fraunces/600.css';
+import '@fontsource/space-mono/400.css';
+import '@fontsource/space-mono/700.css';
 
 import App from './App.tsx';
 import './index.css';

@@ -24,6 +24,8 @@
     ]
   },
   "dependencies": {
+    "@fontsource/fraunces": "^5.2.9",
+    "@fontsource/space-mono": "^5.2.9",
     "@phosphor-icons/react": "^2.1.7",
     "@storybook/testing-library": "^0.2.2",
     "@testing-library/jest-dom": "^6.5.0",

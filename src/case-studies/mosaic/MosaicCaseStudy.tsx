@@ -564,19 +564,31 @@ const TypeRole = styled.div<{ $role: 'heading' | 'body' | 'label' }>`
     color: ${({ theme }) => theme.colors['default-text']};
     font-family: ${({ $role }) => {
       if ($role === 'heading') {
-        return '"Protest Guerrilla", sans-serif';
+        return '"Fraunces", Georgia, serif';
       }
 
       if ($role === 'label') {
-        return 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace';
+        return '"Space Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace';
       }
 
-      return '"Inter", system-ui, sans-serif';
+      return "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
     }};
-    font-size: ${({ $role }) => ($role === 'heading' ? '1.35rem' : '0.95rem')};
-    font-weight: ${({ $role }) => ($role === 'heading' ? 400 : 700)};
-    letter-spacing: ${({ $role }) => ($role === 'label' ? '0.06em' : 0)};
-    line-height: 1.25;
+    font-size: ${({ $role }) => {
+      if ($role === 'label') {
+        return '0.82rem';
+      }
+
+      return $role === 'heading' ? '1.35rem' : '0.95rem';
+    }};
+    font-weight: ${({ $role }) => ($role === 'heading' ? 600 : 700)};
+    letter-spacing: ${({ $role }) => {
+      if ($role === 'heading') {
+        return '-0.02em';
+      }
+
+      return $role === 'label' ? '0.06em' : 0;
+    }};
+    line-height: ${({ $role }) => ($role === 'heading' ? 1.2 : 1.35)};
   }
 
   p {
