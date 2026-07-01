@@ -165,7 +165,7 @@ const CalendarHalo = styled.div`
   opacity: 0.42;
 `;
 
-const HaloTile = styled.span<{ $color: string }>`
+const CalendarHaloTile = styled.span<{ $color: string }>`
   aspect-ratio: 1;
   border-radius: 0.35rem;
   background-color: ${({ $color }) => $color};
@@ -176,32 +176,45 @@ const PhoneFrame = styled.div`
   z-index: 1;
   width: min(100%, 22rem);
   padding: 0.75rem;
-  border: 1px solid oklch(98% 0.006 250 / 0.5);
+  border: 1px solid
+    color-mix(in oklch, ${({ theme }) => theme.colors.border}, transparent 18%);
   border-radius: 2rem;
-  background: linear-gradient(180deg, oklch(99% 0.008 80), oklch(94% 0.012 250)),
-    ${({ theme }) => theme.colors.background};
+  background: color-mix(
+    in oklch,
+    ${({ theme }) => theme.colors.background},
+    ${({ theme }) => theme.colors['default-text']} 5%
+  );
   box-shadow:
     0 28px 70px -38px ${({ theme }) => theme.colors.boxShadow},
-    inset 0 0 0 1px oklch(98% 0.006 250 / 0.45);
+    inset 0 0 0 1px
+      color-mix(
+        in oklch,
+        ${({ theme }) => theme.colors.border},
+        transparent 28%
+      );
 `;
 
 const PhoneScreen = styled.div`
   overflow: hidden;
   padding: 1rem;
   border-radius: 1.45rem;
-  background: linear-gradient(180deg, oklch(98% 0.008 92), oklch(94% 0.012 260)),
-    ${({ theme }) => theme.colors.background};
+  background-color: color-mix(
+    in oklch,
+    ${({ theme }) => theme.colors.background},
+    ${({ theme }) => theme.colors['default-text']} 2.5%
+  );
 `;
 
 const PhoneTop = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.75rem;
   margin-bottom: 1.25rem;
 `;
 
 const PhoneMonth = styled.p`
-  color: oklch(31% 0.04 260);
+  color: ${({ theme }) => theme.colors['default-text']};
   font-size: 0.94rem;
   font-weight: 800;
 `;
@@ -209,13 +222,25 @@ const PhoneMonth = styled.p`
 const PhoneBadge = styled.span`
   display: inline-flex;
   align-items: center;
-  min-height: 1.75rem;
-  padding: 0 0.65rem;
+  min-height: 1.65rem;
+  padding: 0 0.6rem;
+  border: 1px solid
+    color-mix(
+      in oklch,
+      ${({ theme }) => theme.colors.primary},
+      ${({ theme }) => theme.colors.border} 58%
+    );
   border-radius: 999px;
-  color: oklch(37% 0.11 150);
-  background-color: oklch(91% 0.06 150);
-  font-size: 0.72rem;
+  color: ${({ theme }) => theme.colors.primary};
+  background-color: color-mix(
+    in oklch,
+    ${({ theme }) => theme.colors.primary},
+    ${({ theme }) => theme.colors.background} 84%
+  );
+  font-size: 0.7rem;
   font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
 `;
 
 const CalendarGrid = styled.div`
@@ -224,13 +249,29 @@ const CalendarGrid = styled.div`
   gap: 0.35rem;
 `;
 
-const CalendarTile = styled.span<{ $color: string; $delay: string }>`
+const CalendarTile = styled.span<{
+  $layout: 'one' | 'two' | 'three' | 'four';
+  $delay: string;
+}>`
+  display: grid;
+  grid-template-columns: ${({ $layout }) =>
+    $layout === 'one' ? '1fr' : 'repeat(2, minmax(0, 1fr))'};
+  grid-template-rows: ${({ $layout }) =>
+    $layout === 'three' || $layout === 'four'
+      ? 'repeat(2, minmax(0, 1fr))'
+      : '1fr'};
+  gap: 1px;
+  overflow: hidden;
   aspect-ratio: 1;
   border-radius: 0.5rem;
-  background-color: ${({ $color }) => $color};
+  background-color: oklch(18% 0.01 250 / 0.12);
   box-shadow: inset 0 -1px 0 oklch(18% 0.01 250 / 0.12);
   animation: tile-breathe 7s cubic-bezier(0.16, 1, 0.3, 1) infinite;
   animation-delay: ${({ $delay }) => $delay};
+
+  span:last-child {
+    ${({ $layout }) => ($layout === 'three' ? 'grid-column: 1 / -1;' : '')}
+  }
 
   @keyframes tile-breathe {
     0%,
@@ -249,6 +290,16 @@ const CalendarTile = styled.span<{ $color: string; $delay: string }>`
   @media (prefers-reduced-motion: reduce) {
     animation: none;
   }
+`;
+
+const CalendarTileSegment = styled.span<{ $color: string }>`
+  min-width: 0;
+  min-height: 0;
+  background-color: ${({ $color }) => $color};
+`;
+
+const CalendarBlank = styled.span`
+  aspect-ratio: 1;
 `;
 
 const ResearchGrid = styled.div`
@@ -1008,38 +1059,94 @@ const NextDirectionsList = styled.div`
   }
 `;
 
-const tiles = [
-  'oklch(75% 0.15 63)',
-  'oklch(82% 0.12 82)',
-  'oklch(67% 0.12 250)',
-  'oklch(63% 0.13 304)',
-  'oklch(58% 0.1 224)',
-  'oklch(86% 0.11 94)',
-  'oklch(72% 0.12 154)',
-  'oklch(68% 0.13 29)',
-  'oklch(60% 0.12 275)',
-  'oklch(76% 0.15 67)',
-  'oklch(50% 0.1 232)',
-  'oklch(66% 0.13 306)',
-  'oklch(80% 0.13 86)',
-  'oklch(64% 0.12 153)',
-  'oklch(63% 0.13 304)',
-  'oklch(67% 0.12 250)',
-  'oklch(75% 0.15 63)',
-  'oklch(58% 0.1 224)',
-  'oklch(68% 0.13 29)',
-  'oklch(86% 0.11 94)',
-  'oklch(72% 0.12 154)',
-  'oklch(50% 0.1 232)',
-  'oklch(80% 0.13 86)',
-  'oklch(66% 0.13 306)',
-  'oklch(76% 0.15 67)',
-  'oklch(60% 0.12 275)',
-  'oklch(64% 0.12 153)',
-  'oklch(82% 0.12 82)',
-];
+const CORE_EMOTION_COLORS = {
+  happy: '#F2A900',
+  sad: '#3D71D9',
+  calm: '#00B894',
+  angry: '#FF2D55',
+  fearful: '#FF8A00',
+  surprised: '#C026D3',
+  disgusted: '#7C3AED',
+} as const;
 
-const heroTiles = [...tiles, ...tiles];
+const HERO_EMOTION_COLOR_SCALES = [
+  ['#F2A900', '#F4C95D', '#FFE08A'], // Happy
+  ['#3D71D9', '#53C7F5', '#91E2FF'], // Sad
+  ['#00B894', '#22CFA3', '#8FE6C8'], // Calm
+  ['#FF2D55', '#F26D6D', '#FFA19A'], // Angry
+  ['#FF8A00', '#F2A65A', '#FFC078'], // Fearful
+  ['#C026D3', '#D946EF', '#F0ABFC'], // Surprised
+  ['#7C3AED', '#A77CEB', '#C9A7FF'], // Disgusted
+] as const;
+
+type HeroEmotionColor = (typeof HERO_EMOTION_COLOR_SCALES)[number][number];
+
+type HeroCalendarDay = {
+  day: number;
+  colors: HeroEmotionColor[];
+};
+
+type HeroCalendarTileLayout = 'one' | 'two' | 'three' | 'four';
+
+function getPreviousMonthCalendar(referenceDate = new Date()) {
+  const finalDayOfPreviousMonth = new Date(
+    referenceDate.getFullYear(),
+    referenceDate.getMonth(),
+    0,
+  );
+  const year = finalDayOfPreviousMonth.getFullYear();
+  const monthIndex = finalDayOfPreviousMonth.getMonth();
+  const daysInMonth = finalDayOfPreviousMonth.getDate();
+  const leadingEmptyCells = new Date(year, monthIndex, 1).getDay();
+  const totalCells =
+    Math.max(5, Math.ceil((leadingEmptyCells + daysInMonth) / 7)) * 7;
+
+  const cells: Array<HeroCalendarDay | null> = Array.from(
+    { length: totalCells },
+    (_, cellIndex): HeroCalendarDay | null => {
+      const day = cellIndex - leadingEmptyCells + 1;
+
+      if (day < 1 || day > daysInMonth) {
+        return null;
+      }
+
+      const segmentCount = ((day + monthIndex) % 4) + 1;
+      const startingFamilyIndex =
+        (day * 2 + monthIndex) % HERO_EMOTION_COLOR_SCALES.length;
+      const colors = Array.from({ length: segmentCount }, (_, colorOffset) => {
+        const familyIndex =
+          (startingFamilyIndex + colorOffset) %
+          HERO_EMOTION_COLOR_SCALES.length;
+        const stops = HERO_EMOTION_COLOR_SCALES[familyIndex];
+        const stopIndex = (day + monthIndex + colorOffset * 2) % stops.length;
+
+        return stops[stopIndex];
+      });
+
+      return {
+        day,
+        colors,
+      };
+    },
+  );
+
+  return {
+    daysInMonth,
+    monthDate: new Date(year, monthIndex, 1),
+    monthKey: `${year}-${monthIndex}`,
+    cells,
+  };
+}
+
+const heroCalendar = getPreviousMonthCalendar();
+
+function getHeroCalendarTileLayout(
+  colors: HeroCalendarDay['colors'],
+): HeroCalendarTileLayout {
+  return ['one', 'two', 'three', 'four'][
+    colors.length - 1
+  ] as HeroCalendarTileLayout;
+}
 
 const researchSignals = [
   {
@@ -1083,29 +1190,49 @@ function MosaicHeroScene() {
 
       <PhoneStage aria-hidden="true">
         <CalendarHalo>
-          {heroTiles.map((color, index) => (
-            <HaloTile key={`${color}-halo-${index}`} $color={color} />
-          ))}
+          {heroCalendar.cells.map((tile) =>
+            tile ? (
+              <CalendarHaloTile
+                key={`${heroCalendar.monthKey}-halo-${tile.day}`}
+                $color={tile.colors[0]}
+              />
+            ) : null,
+          )}
         </CalendarHalo>
         <PhoneFrame>
           <PhoneScreen>
             <PhoneTop>
               <PhoneMonth>
-                {new Date().toLocaleString('default', {
+                {heroCalendar.monthDate.toLocaleString('default', {
                   month: 'long',
                   year: 'numeric',
                 })}
               </PhoneMonth>
-              <PhoneBadge>35 day streak</PhoneBadge>
+              <PhoneBadge>{heroCalendar.daysInMonth} day streak</PhoneBadge>
             </PhoneTop>
             <CalendarGrid>
-              {heroTiles.slice(0, 35).map((color, index) => (
-                <CalendarTile
-                  key={`${color}-calendar-${index}`}
-                  $color={color}
-                  $delay={`${index * 0.09}s`}
-                />
-              ))}
+              {heroCalendar.cells.map((tile, index) => {
+                if (!tile) {
+                  return (
+                    <CalendarBlank
+                      key={`${heroCalendar.monthKey}-blank-${index}`}
+                      aria-hidden="true"
+                    />
+                  );
+                }
+
+                return (
+                  <CalendarTile
+                    key={`${heroCalendar.monthKey}-day-${tile.day}`}
+                    $layout={getHeroCalendarTileLayout(tile.colors)}
+                    $delay={`${index * 0.09}s`}
+                  >
+                    {tile.colors.map((color) => (
+                      <CalendarTileSegment key={color} $color={color} />
+                    ))}
+                  </CalendarTile>
+                );
+              })}
             </CalendarGrid>
           </PhoneScreen>
         </PhoneFrame>
@@ -1290,22 +1417,22 @@ export default function MosaicCaseStudy() {
             <div>
               <TileProgression aria-label="Daily tile progression">
                 <TileProgressionTile $layout="one">
-                  <span style={{ background: 'oklch(75% 0.15 63)' }} />
+                  <span style={{ background: CORE_EMOTION_COLORS.happy }} />
                 </TileProgressionTile>
                 <TileProgressionTile $layout="two">
-                  <span style={{ background: 'oklch(75% 0.15 63)' }} />
-                  <span style={{ background: 'oklch(72% 0.12 154)' }} />
+                  <span style={{ background: CORE_EMOTION_COLORS.happy }} />
+                  <span style={{ background: CORE_EMOTION_COLORS.calm }} />
                 </TileProgressionTile>
                 <TileProgressionTile $layout="three">
-                  <span style={{ background: 'oklch(75% 0.15 63)' }} />
-                  <span style={{ background: 'oklch(67% 0.12 250)' }} />
-                  <span style={{ background: 'oklch(72% 0.12 154)' }} />
+                  <span style={{ background: CORE_EMOTION_COLORS.happy }} />
+                  <span style={{ background: CORE_EMOTION_COLORS.sad }} />
+                  <span style={{ background: CORE_EMOTION_COLORS.calm }} />
                 </TileProgressionTile>
                 <TileProgressionTile $layout="four">
-                  <span style={{ background: 'oklch(75% 0.15 63)' }} />
-                  <span style={{ background: 'oklch(72% 0.12 154)' }} />
-                  <span style={{ background: 'oklch(67% 0.12 250)' }} />
-                  <span style={{ background: 'oklch(63% 0.13 304)' }} />
+                  <span style={{ background: CORE_EMOTION_COLORS.happy }} />
+                  <span style={{ background: CORE_EMOTION_COLORS.calm }} />
+                  <span style={{ background: CORE_EMOTION_COLORS.sad }} />
+                  <span style={{ background: CORE_EMOTION_COLORS.surprised }} />
                 </TileProgressionTile>
               </TileProgression>
               <TileProgressionCaption>
