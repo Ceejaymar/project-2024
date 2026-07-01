@@ -66,10 +66,11 @@ const SceneCopy = styled.figcaption`
 const SceneTitle = styled.h1`
   max-width: 8ch;
   color: ${({ theme }) => theme.colors['default-text']};
-  font-size: clamp(3.6rem, 10vw, 7rem);
+  font-size: clamp(3.25rem, 9vw, 6rem);
   font-weight: 500;
   letter-spacing: 0;
-  line-height: 0.86;
+  line-height: 0.92;
+  text-wrap: balance;
 `;
 
 const SceneSubtitle = styled.p`
@@ -390,6 +391,53 @@ const ResearchRowText = styled.p`
   line-height: 1.6;
 `;
 
+const OverviewProofStrip = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(0.75rem, 2vw, 1rem);
+  margin-top: clamp(1.75rem, 4vw, 2.5rem);
+
+  @media (min-width: 720px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+`;
+
+const OverviewProofItem = styled.div`
+  display: grid;
+  align-content: center;
+  gap: 0.45rem;
+  min-height: 7.5rem;
+  padding: clamp(1rem, 2vw, 1.25rem);
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 14px;
+  background-color: color-mix(
+    in oklch,
+    ${({ theme }) => theme.colors.primary},
+    ${({ theme }) => theme.colors.background} 96%
+  );
+`;
+
+const OverviewProofLabel = styled.p`
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+`;
+
+const OverviewProofTitle = styled.p`
+  color: ${({ theme }) => theme.colors['default-text']};
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.35;
+`;
+
+const OverviewProofFile = styled.p`
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.35;
+`;
+
 const VisualSystemLead = styled.p`
   max-width: 68ch;
   color: ${({ theme }) => theme.colors['secondary-text']};
@@ -399,8 +447,8 @@ const VisualSystemLead = styled.p`
 
 const VisualSubsection = styled.section`
   display: grid;
-  gap: 1rem;
-  margin-top: clamp(2rem, 5vw, 3.5rem);
+  gap: clamp(1.1rem, 3vw, 1.75rem);
+  margin-top: clamp(2.25rem, 5vw, 3.75rem);
 `;
 
 const VisualSubheading = styled.h3`
@@ -444,11 +492,10 @@ const ScreenshotPlaceholder = styled.div<{ $size: 'portrait' | 'wide' }>`
 
 const ScreenshotPlaceholderLabel = styled.p`
   color: ${({ theme }) => theme.colors.primary};
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0;
   line-height: 1;
-  text-transform: uppercase;
 `;
 
 const ScreenshotPlaceholderTitle = styled.p`
@@ -499,11 +546,10 @@ const VisualFoundationColumn = styled.div`
 
 const FoundationEyebrow = styled.p`
   color: ${({ theme }) => theme.colors.primary};
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.11em;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0;
   line-height: 1;
-  text-transform: uppercase;
 `;
 
 const FoundationTitle = styled.h4`
@@ -873,31 +919,34 @@ const InteractionLead = styled.p`
 
 const InteractionDecisionList = styled.div`
   display: grid;
-  gap: clamp(1.5rem, 4vw, 2.5rem);
+  gap: 0;
   border-top: 1px solid ${({ theme }) => theme.colors.border};
 
   > * {
-    padding-top: clamp(1.5rem, 4vw, 2.5rem);
+    padding: clamp(1.5rem, 4vw, 2.5rem) 0;
   }
 
   > * + * {
     border-top: 1px solid ${({ theme }) => theme.colors.border};
   }
+
+  > *:last-child {
+    padding-bottom: 0;
+  }
 `;
 
 const InteractionDecision = styled.article`
   display: grid;
-  gap: 0.65rem;
+  gap: 0.75rem;
   max-width: 72ch;
 `;
 
 const InteractionDecisionEyebrow = styled.p`
   color: ${({ theme }) => theme.colors.primary};
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.11em;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0;
   line-height: 1;
-  text-transform: uppercase;
 `;
 
 const InteractionDecisionTitle = styled.h3`
@@ -919,7 +968,7 @@ const InteractionFlowVisual = styled.div`
   grid-template-columns: 1fr;
   gap: clamp(0.9rem, 2.5vw, 1.25rem);
   width: 100%;
-  margin-top: 0.85rem;
+  margin-top: 0.25rem;
 
   @media (min-width: 680px) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -978,7 +1027,7 @@ const ReflectionViewsPair = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: clamp(1.25rem, 4vw, 2.5rem);
-  margin-top: 0.85rem;
+  margin-top: 0.25rem;
 
   @media (min-width: 680px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -993,7 +1042,7 @@ const TileProgression = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.75rem;
-  margin-top: 0.65rem;
+  margin-top: 0.25rem;
 
   @media (min-width: 420px) {
     grid-template-columns: repeat(2, minmax(0, max-content));
@@ -1035,7 +1084,7 @@ const TileProgressionTile = styled.span<{
 
 const TileProgressionCaption = styled.p`
   max-width: 52ch;
-  margin-top: 0.75rem;
+  margin-top: 0.65rem;
   color: ${({ theme }) => theme.colors['secondary-text']};
   font-size: 0.86rem;
   font-weight: 600;
@@ -1044,6 +1093,7 @@ const TileProgressionCaption = styled.p`
 
 const NextDirectionsList = styled.div`
   display: grid;
+  margin-bottom: clamp(1.5rem, 4vw, 2.25rem);
   border-top: 1px solid ${({ theme }) => theme.colors.border};
 
   > * {
@@ -1294,9 +1344,28 @@ export default function MosaicCaseStudy() {
           added. Weekly and monthly insights make recurring emotions and timing
           patterns easier to notice.
         </p>
+        <OverviewProofStrip aria-label="Mosaic product screenshot placeholders">
+          <OverviewProofItem>
+            <OverviewProofLabel>Placeholder</OverviewProofLabel>
+            <OverviewProofTitle>Fast check-in flow</OverviewProofTitle>
+            <OverviewProofFile>01-emotion-families.png</OverviewProofFile>
+          </OverviewProofItem>
+          <OverviewProofItem>
+            <OverviewProofLabel>Placeholder</OverviewProofLabel>
+            <OverviewProofTitle>Composite daily tile</OverviewProofTitle>
+            <OverviewProofFile>04-today-composite.png</OverviewProofFile>
+          </OverviewProofItem>
+          <OverviewProofItem>
+            <OverviewProofLabel>Placeholder</OverviewProofLabel>
+            <OverviewProofTitle>Monthly and yearly views</OverviewProofTitle>
+            <OverviewProofFile>
+              05-monthly-mosaic.png, 06-yearly-mosaic.png
+            </OverviewProofFile>
+          </OverviewProofItem>
+        </OverviewProofStrip>
       </CaseStudySection>
 
-      <CaseStudySection title="The problem">
+      <CaseStudySection title="The problem" spacing="compact">
         <p>
           Mood tracking sits in a delicate space: people want help understanding
           themselves, but many tools make reflection feel like another task to
@@ -1312,7 +1381,7 @@ export default function MosaicCaseStudy() {
         </p>
       </CaseStudySection>
 
-      <CaseStudySection title="Competitive review signals">
+      <CaseStudySection title="Competitive review signals" spacing="spacious">
         <ResearchMethod>
           To understand where existing mood trackers break down, I reviewed 150+
           public App Store reviews across 5+ mood-tracking and journaling apps.
@@ -1345,7 +1414,7 @@ export default function MosaicCaseStudy() {
         </ResearchInsightNote>
       </CaseStudySection>
 
-      <CaseStudySection title="Key interaction decisions">
+      <CaseStudySection title="Key interaction decisions" spacing="spacious">
         <InteractionLead>
           The goal was not to fit every possible tracking option into one
           check-in. It was to make the first choice easy while ensuring that
@@ -1354,7 +1423,7 @@ export default function MosaicCaseStudy() {
         <InteractionDecisionList>
           <InteractionDecision>
             <InteractionDecisionEyebrow>
-              START SIMPLE
+              Start simple
             </InteractionDecisionEyebrow>
             <InteractionDecisionTitle>
               Start simple, add detail when it helps
@@ -1403,7 +1472,7 @@ export default function MosaicCaseStudy() {
 
           <InteractionDecision>
             <InteractionDecisionEyebrow>
-              REPRESENT CHANGE
+              Represent change
             </InteractionDecisionEyebrow>
             <InteractionDecisionTitle>
               Let a day hold more than one feeling
@@ -1444,7 +1513,7 @@ export default function MosaicCaseStudy() {
 
           <InteractionDecision>
             <InteractionDecisionEyebrow>
-              REFLECT GENTLY
+              Reflect gently
             </InteractionDecisionEyebrow>
             <InteractionDecisionTitle>
               Turn reflection into a pattern, not a score
@@ -1458,7 +1527,7 @@ export default function MosaicCaseStudy() {
             <ReflectionViewsPair>
               <ScreenshotPlaceholder $size="portrait">
                 <ScreenshotPlaceholderLabel>
-                  SCREENSHOT PLACEHOLDER
+                  Placeholder
                 </ScreenshotPlaceholderLabel>
                 <ScreenshotPlaceholderTitle>
                   Monthly mosaic view
@@ -1469,7 +1538,7 @@ export default function MosaicCaseStudy() {
               </ScreenshotPlaceholder>
               <ScreenshotPlaceholder $size="portrait">
                 <ScreenshotPlaceholderLabel>
-                  SCREENSHOT PLACEHOLDER
+                  Placeholder
                 </ScreenshotPlaceholderLabel>
                 <ScreenshotPlaceholderTitle>
                   Yearly mosaic view
@@ -1488,7 +1557,7 @@ export default function MosaicCaseStudy() {
         </InteractionDecisionList>
       </CaseStudySection>
 
-      <CaseStudySection title="Designing the visual system">
+      <CaseStudySection title="Designing the visual system" spacing="spacious">
         <VisualSystemLead>
           Mosaic uses a dark, quiet foundation so emotional reflection can feel
           personal rather than clinical. The interface stays restrained while
@@ -1498,7 +1567,7 @@ export default function MosaicCaseStudy() {
 
         <VisualFoundationsPanel>
           <VisualFoundationColumn>
-            <FoundationEyebrow>SYSTEM PALETTE</FoundationEyebrow>
+            <FoundationEyebrow>System palette</FoundationEyebrow>
             <FoundationTitle>Quiet surfaces, clear hierarchy</FoundationTitle>
             <FoundationText>
               Mosaic keeps its interface colors restrained so the colors
@@ -1549,7 +1618,7 @@ export default function MosaicCaseStudy() {
                 </span>
               </ColorToken>
             </ColorTokenGrid>
-            <FoundationEyebrow>EMOTION FAMILIES</FoundationEyebrow>
+            <FoundationEyebrow>Emotion families</FoundationEyebrow>
             <FoundationText>
               Color variation belongs to the emotional entries, not the
               surrounding chrome.
@@ -1565,7 +1634,7 @@ export default function MosaicCaseStudy() {
             </EmotionColorStrip>
           </VisualFoundationColumn>
           <VisualFoundationColumn>
-            <FoundationEyebrow>TYPE ROLES</FoundationEyebrow>
+            <FoundationEyebrow>Type roles</FoundationEyebrow>
             <FoundationTitle>Editorial warmth, clear utility</FoundationTitle>
             <FoundationText>
               Typography separates reflection from supporting information
@@ -1617,7 +1686,7 @@ export default function MosaicCaseStudy() {
             </div>
             <ScreenshotPlaceholder $size="portrait">
               <ScreenshotPlaceholderLabel>
-                SCREENSHOT PLACEHOLDER
+                Placeholder
               </ScreenshotPlaceholderLabel>
               <ScreenshotPlaceholderTitle>
                 Today with a composite mosaic
@@ -1640,7 +1709,7 @@ export default function MosaicCaseStudy() {
           <VisualScreensPair>
             <ScreenshotPlaceholder $size="portrait">
               <ScreenshotPlaceholderLabel>
-                SCREENSHOT PLACEHOLDER
+                Placeholder
               </ScreenshotPlaceholderLabel>
               <ScreenshotPlaceholderTitle>
                 Emotion summary and recurring feelings
@@ -1651,7 +1720,7 @@ export default function MosaicCaseStudy() {
             </ScreenshotPlaceholder>
             <ScreenshotPlaceholder $size="portrait">
               <ScreenshotPlaceholderLabel>
-                SCREENSHOT PLACEHOLDER
+                Placeholder
               </ScreenshotPlaceholderLabel>
               <ScreenshotPlaceholderTitle>
                 Time and day patterns
@@ -1681,7 +1750,7 @@ export default function MosaicCaseStudy() {
             </div>
             <ScreenshotPlaceholder $size="portrait">
               <ScreenshotPlaceholderLabel>
-                SCREENSHOT PLACEHOLDER
+                Placeholder
               </ScreenshotPlaceholderLabel>
               <ScreenshotPlaceholderTitle>
                 Accessibility settings
@@ -1694,7 +1763,7 @@ export default function MosaicCaseStudy() {
         </VisualSubsection>
       </CaseStudySection>
 
-      <CaseStudySection title="Architecture">
+      <CaseStudySection title="Architecture" spacing="spacious">
         <ArchitectureContent>
           <ArchitectureTechLine>
             <ArchitectureTechLabel>Built with</ArchitectureTechLabel>
@@ -1811,7 +1880,10 @@ export default function MosaicCaseStudy() {
         </ArchitectureContent>
       </CaseStudySection>
 
-      <CaseStudySection title="Early release, ongoing learning">
+      <CaseStudySection
+        title="Early release, ongoing learning"
+        spacing="spacious"
+      >
         <p>
           Mosaic is live and still early. The next phase is focused on learning
           where more depth would genuinely help, while keeping the core check-in
@@ -1819,7 +1891,7 @@ export default function MosaicCaseStudy() {
         </p>
         <NextDirectionsList>
           <InteractionDecision>
-            <InteractionDecisionEyebrow>CAPACITY</InteractionDecisionEyebrow>
+            <InteractionDecisionEyebrow>Capacity</InteractionDecisionEyebrow>
             <InteractionDecisionTitle>
               Validate room for a changing day
             </InteractionDecisionTitle>
@@ -1834,7 +1906,7 @@ export default function MosaicCaseStudy() {
 
           <InteractionDecision>
             <InteractionDecisionEyebrow>
-              PRIVATE INSIGHTS
+              Private insights
             </InteractionDecisionEyebrow>
             <InteractionDecisionTitle>
               Explore AI-assisted pattern reflection
@@ -1850,7 +1922,7 @@ export default function MosaicCaseStudy() {
 
           <InteractionDecision>
             <InteractionDecisionEyebrow>
-              COLOR ACCESS
+              Color access
             </InteractionDecisionEyebrow>
             <InteractionDecisionTitle>
               Make color patterns more accessible
@@ -1864,6 +1936,11 @@ export default function MosaicCaseStudy() {
             </InteractionDecisionText>
           </InteractionDecision>
         </NextDirectionsList>
+        <CaseStudyCallout label="Product judgment">
+          Mosaic&apos;s next phase is not about more tracking. It is about
+          learning which additions make private reflection clearer without
+          making the daily ritual heavier.
+        </CaseStudyCallout>
       </CaseStudySection>
     </CaseStudyLayout>
   );
