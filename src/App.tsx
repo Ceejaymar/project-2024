@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { motion } from 'framer-motion';
 import { GlobalStyles } from './GlobalStyles';
-import { usePostHog } from 'posthog-js/react';
 import { BrowserRouter, Routes, Route } from 'react-router';
 
 import { lightTheme, darkTheme } from './themes';
+import { trackEvent } from './lib/analytics';
 
 const themes = { light: lightTheme, dark: darkTheme };
 import Navbar from './components/navbar/Navbar';
@@ -46,7 +46,6 @@ const updateThemeColor = (color: string) => {
 };
 
 function App() {
-  const posthog = usePostHog();
   const [theme, setTheme] = useState<ThemeName>(getInitialTheme);
   const [hasSavedTheme, setHasSavedTheme] = useState(() =>
     Boolean(getSavedTheme()),
@@ -54,8 +53,17 @@ function App() {
 
   const toggleTheme = () => {
     setHasSavedTheme(true);
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
-    posthog?.capture('theme_toggled');
+    setTheme((prevTheme) => {
+      const nextTheme = prevTheme === 'light' ? 'dark' : 'light';
+
+      trackEvent('theme_toggled', {
+        from: prevTheme,
+        to: nextTheme,
+        location: 'theme_toggle',
+      });
+
+      return nextTheme;
+    });
   };
 
   const currentTheme = themes[theme];

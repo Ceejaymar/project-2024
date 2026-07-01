@@ -8,8 +8,10 @@ export const mosaicCaseStudyMeta: CaseStudyMeta = {
   summary:
     'A privacy-first mood tracking app that turns emotional reflection into a visual, color-based ritual.',
   year: 2026,
-  role: 'Founder & Product Engineer',
-  tech: 'React Native, Expo, TypeScript, Unistyles, SQLite, Drizzle',
+  role: 'Product Engineer',
+  type: 'Mobile app / B2C',
+  industry: 'Consumer wellness / lifestyle',
+  tech: 'React Native, Expo, TypeScript, SQLite, Drizzle, Unistyles',
   heroImage:
     'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/mosaic.webp',
   links: [

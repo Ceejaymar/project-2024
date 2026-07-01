@@ -1,5 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import {
+  getCaseStudyGoldSurfaceColor,
+  getCaseStudyGoldTextColor,
+} from './caseStudyColorTokens';
 
 interface CaseStudyCalloutProps {
   label?: string;
@@ -7,12 +11,16 @@ interface CaseStudyCalloutProps {
 }
 
 const Callout = styled.aside`
-  max-width: 72ch;
-  margin: 0 auto;
-  padding: 1.35rem 1.5rem;
+  box-sizing: border-box;
+  align-self: stretch;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 1.1rem 1.25rem;
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 14px;
-  background-color: ${({ theme }) => theme.colors.primary}08;
+  background-color: ${({ theme }) =>
+    getCaseStudyGoldSurfaceColor(theme.colors.background, 92)};
   color: ${({ theme }) => theme.colors['default-text']};
   font-size: 1.05rem;
   font-weight: 500;
@@ -20,8 +28,9 @@ const Callout = styled.aside`
 `;
 
 const Label = styled.p`
-  margin-bottom: 0.45rem;
-  color: ${({ theme }) => theme.colors.primary};
+  margin-bottom: 0.35rem;
+  color: ${({ theme }) =>
+    getCaseStudyGoldTextColor(theme.colors['default-text'])};
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.1em;

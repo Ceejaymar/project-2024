@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import { AnimatePresence, motion, MotionConfig } from 'framer-motion';
 import GradientLogo from '../logoGradient/GradientLogo';
 import { NavLinkProps } from '../../types';
 import media from '../../utils/mediaQueries';
+import { trackEvent } from '../../lib/analytics';
 
 const NavItem = styled(motion.li)`
   position: relative;
@@ -70,6 +72,8 @@ const HamburgerButton = styled(motion.button)`
 `;
 
 const navbarItems = ['experience', 'projects', 'contact'];
+const formatNavLabel = (label: string) =>
+  `${label.charAt(0).toUpperCase()}${label.slice(1)}`;
 
 const hamburgerTopVariants = {
   open: { rotate: ['0deg', '0deg', '45deg'], top: ['35%', '50%', '50%'] },
@@ -141,6 +145,7 @@ const HamburgerLine = styled(motion.span)`
 `;
 const MobileNavigation = () => {
   const [active, setActive] = useState<boolean>(false);
+  const { pathname } = useLocation();
 
   return (
     <MotionConfig transition={{ duration: 0.4, ease: 'easeInOut' }}>
@@ -191,19 +196,30 @@ const MobileNavigation = () => {
                 height: '100%',
               }}
             >
-              {navbarItems.map((item) => (
-                <div key={item} style={{ overflow: 'hidden' }}>
-                  <NavItem variants={navItemVariants}>
-                    <NavLink
-                      key={item}
-                      href={`#${item}`}
-                      onClick={() => setActive(false)}
-                    >
-                      {item}
-                    </NavLink>
-                  </NavItem>
-                </div>
-              ))}
+              {navbarItems.map((item) => {
+                const to = pathname === '/' ? `#${item}` : `/#${item}`;
+
+                return (
+                  <div key={item} style={{ overflow: 'hidden' }}>
+                    <NavItem variants={navItemVariants}>
+                      <NavLink
+                        key={item}
+                        href={to}
+                        onClick={() => {
+                          trackEvent('nav_clicked', {
+                            label: formatNavLabel(item),
+                            destination: to,
+                            location: 'mobile_nav',
+                          });
+                          setActive(false);
+                        }}
+                      >
+                        {item}
+                      </NavLink>
+                    </NavItem>
+                  </div>
+                );
+              })}
             </motion.div>
           </SideNavigation>
         )}

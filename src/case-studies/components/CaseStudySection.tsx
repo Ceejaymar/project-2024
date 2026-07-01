@@ -4,14 +4,27 @@ import media from '../../utils/mediaQueries';
 
 interface CaseStudySectionProps {
   title: string;
+  spacing?: 'compact' | 'default' | 'spacious';
   children: React.ReactNode;
 }
 
-const Section = styled.section`
+const Section = styled.section<{
+  $spacing: NonNullable<CaseStudySectionProps['spacing']>;
+}>`
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
-  padding: 2rem 0;
+  padding: ${({ $spacing }) => {
+    if ($spacing === 'compact') {
+      return 'clamp(1.75rem, 4vw, 2.5rem) 0';
+    }
+
+    if ($spacing === 'spacious') {
+      return 'clamp(2.5rem, 6vw, 3.5rem) 0';
+    }
+
+    return '2rem 0';
+  }};
   border-top: 1px solid ${({ theme }) => theme.colors.border};
 
   ${media.laptop`
@@ -40,10 +53,11 @@ const Body = styled.div`
 
 export default function CaseStudySection({
   title,
+  spacing = 'default',
   children,
 }: CaseStudySectionProps) {
   return (
-    <Section>
+    <Section $spacing={spacing}>
       <Title>{title}</Title>
       <Body>{children}</Body>
     </Section>

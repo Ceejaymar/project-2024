@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link, useParams } from 'react-router';
 import styled from 'styled-components';
 import { ArrowLeft } from '@phosphor-icons/react';
 
 import { caseStudies, CaseStudySlug } from '../../case-studies';
+import { trackEvent } from '../../lib/analytics';
 
 const NotFoundPage = styled.main`
   display: flex;
@@ -41,12 +42,27 @@ const Title = styled.h1`
 
 export default function CaseStudy() {
   const { slug } = useParams<{ slug: string }>();
+  const trackedSlugRef = useRef<string | null>(null);
+  const caseStudy =
+    slug && Object.hasOwn(caseStudies, slug)
+      ? caseStudies[slug as CaseStudySlug]
+      : null;
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, [slug]);
 
-  if (!slug || !(slug in caseStudies)) {
+  useEffect(() => {
+    if (!slug || !caseStudy || trackedSlugRef.current === slug) return;
+
+    trackEvent('case_study_viewed', {
+      project: caseStudy.title,
+      slug,
+    });
+    trackedSlugRef.current = slug;
+  }, [caseStudy, slug]);
+
+  if (!caseStudy) {
     return (
       <NotFoundPage>
         <BackLink to="/projects">
@@ -58,7 +74,7 @@ export default function CaseStudy() {
     );
   }
 
-  const { Component } = caseStudies[slug as CaseStudySlug];
+  const { Component } = caseStudy;
 
   return <Component />;
 }

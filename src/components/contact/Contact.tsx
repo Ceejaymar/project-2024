@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Envelope, LinkedinLogo } from '@phosphor-icons/react';
 
 import media from '../../utils/mediaQueries';
+import { trackEvent } from '../../lib/analytics';
 
 const Section = styled.section`
   max-width: 1280px;
@@ -196,6 +197,12 @@ const Contact = () => {
             target="_blank"
             rel="noopener noreferrer"
             whileHover="bounce"
+            onClick={() =>
+              trackEvent('contact_clicked', {
+                type: 'linkedin',
+                location: 'contact_section',
+              })
+            }
           >
             Connect on Linkedin{' '}
             <MotionLinkedinLogo
@@ -204,7 +211,16 @@ const Contact = () => {
               transition={bounceTransition}
             />
           </Button>
-          <EmailButton href="mailto:ceejaymar@gmail.com" whileHover="bounce">
+          <EmailButton
+            href="mailto:ceejaymar@gmail.com"
+            whileHover="bounce"
+            onClick={() =>
+              trackEvent('contact_clicked', {
+                type: 'email',
+                location: 'contact_section',
+              })
+            }
+          >
             Send an email{' '}
             <MotionEnvelope
               size="20"

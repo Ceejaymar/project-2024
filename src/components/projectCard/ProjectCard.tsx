@@ -13,8 +13,9 @@ import {
 import media from '../../utils/mediaQueries';
 import ExternalLink from '../externalLink/ExternalLink';
 import { ProjectLink } from '../../types';
+import { getProjectLinkTarget, trackEvent } from '../../lib/analytics';
 
-const HIDE_CASE_STUDY_LINKS: boolean = true;
+const HIDE_CASE_STUDY_LINKS: boolean = false;
 
 const ProjectCardContainer = styled.div`
   display: flex;
@@ -222,6 +223,25 @@ const ProjectCard = ({
     mouseY.set(0);
   };
 
+  const trackProjectLinkClick = (link: ProjectLink) => {
+    const target = getProjectLinkTarget(link.type, link.label);
+
+    trackEvent('project_clicked', {
+      project: title,
+      location: 'project_card',
+      target,
+    });
+
+    if ('url' in link) {
+      trackEvent('outbound_clicked', {
+        label: link.label,
+        project: title,
+        destination: link.url,
+        location: 'project_card',
+      });
+    }
+  };
+
   return (
     <ProjectCardContainer
       onMouseMove={handleMouseMove}
@@ -246,7 +266,11 @@ const ProjectCard = ({
               }
 
               return (
-                <CaseStudyLink key={link.to} to={link.to}>
+                <CaseStudyLink
+                  key={link.to}
+                  to={link.to}
+                  onClick={() => trackProjectLinkClick(link)}
+                >
                   {getLinkIcon(link.type)}
                   {link.label}
                 </CaseStudyLink>
@@ -254,7 +278,11 @@ const ProjectCard = ({
             }
 
             return (
-              <ExternalLink key={link.url} href={link.url}>
+              <ExternalLink
+                key={link.url}
+                href={link.url}
+                onClick={() => trackProjectLinkClick(link)}
+              >
                 {getLinkIcon(link.type)}
                 {link.label}
               </ExternalLink>

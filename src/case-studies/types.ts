@@ -8,6 +8,8 @@ export interface CaseStudyMeta {
   summary: string;
   year?: number;
   role?: string;
+  type?: string;
+  industry?: string;
   tech?: string;
   heroImage?: string;
   links?: ProjectLink[];

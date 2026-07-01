@@ -9,6 +9,7 @@ import { getThemeTransition } from '../../utils/themeTransition';
 import ThemeToggle from '../themeToggle/ThemeToggle';
 import media from '../../utils/mediaQueries';
 import GradientLogo from '../logoGradient/GradientLogo';
+import { trackEvent } from '../../lib/analytics';
 
 const Nav = styled(motion.nav)`
   position: relative;
@@ -103,6 +104,8 @@ const Underline = styled(motion.li)`
 `;
 
 const navbarItems = ['experience', 'projects', 'contact'];
+const formatNavLabel = (label: string) =>
+  `${label.charAt(0).toUpperCase()}${label.slice(1)}`;
 
 const Navbar = ({ themeName, toggleTheme }: ThemeProps) => {
   const { pathname } = useLocation();
@@ -116,7 +119,16 @@ const Navbar = ({ themeName, toggleTheme }: ThemeProps) => {
   return (
     <Nav key={themeName} {...getThemeTransition(themeName)}>
       <MobileNavigation />
-      <BrandLink to="/">
+      <BrandLink
+        to="/"
+        onClick={() =>
+          trackEvent('nav_clicked', {
+            label: 'Home',
+            destination: '/',
+            location: 'nav',
+          })
+        }
+      >
         <Logo>
           <GradientLogo width={65} height="100%" />
         </Logo>
@@ -144,9 +156,31 @@ const Navbar = ({ themeName, toggleTheme }: ThemeProps) => {
               }}
             >
               {pathname === '/' ? (
-                <AnchorLink href={to}>{item}</AnchorLink>
+                <AnchorLink
+                  href={to}
+                  onClick={() =>
+                    trackEvent('nav_clicked', {
+                      label: formatNavLabel(item),
+                      destination: to,
+                      location: 'nav',
+                    })
+                  }
+                >
+                  {item}
+                </AnchorLink>
               ) : (
-                <RouterLink to={to}>{item}</RouterLink>
+                <RouterLink
+                  to={to}
+                  onClick={() =>
+                    trackEvent('nav_clicked', {
+                      label: formatNavLabel(item),
+                      destination: to,
+                      location: 'nav',
+                    })
+                  }
+                >
+                  {item}
+                </RouterLink>
               )}
             </NavItem>
           );
