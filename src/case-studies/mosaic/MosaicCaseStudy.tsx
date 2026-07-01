@@ -360,205 +360,129 @@ const VisualSubheading = styled.h3`
   line-height: 1.08;
 `;
 
-const VisualPlaceholder = styled.div<{ $height?: string }>`
-  position: relative;
-  isolation: isolate;
+const VisualFeatureLayout = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: start;
+
+  @media (min-width: 760px) {
+    grid-template-columns: minmax(0, 0.9fr) minmax(17rem, 0.7fr);
+  }
+`;
+
+const ScreenshotPlaceholder = styled.div<{ $size: 'portrait' | 'wide' }>`
   display: grid;
   place-items: center;
-  overflow: hidden;
-  min-height: ${({ $height }) => $height ?? '14rem'};
-  padding: 1rem;
-  border: 1px solid
-    color-mix(in oklch, ${({ theme }) => theme.colors.border}, transparent 8%);
-  border-radius: 18px;
-  background: radial-gradient(
-      circle at 16% 18%,
-      color-mix(
-        in oklch,
-        ${({ theme }) => theme.colors.primary},
-        transparent 78%
-      ),
-      transparent 34%
-    ),
-    linear-gradient(
-      135deg,
-      color-mix(
-        in oklch,
-        ${({ theme }) => theme.colors.background},
-        oklch(82% 0.08 80) 8%
-      ),
-      ${({ theme }) => theme.colors.background}
-    );
-
-  &::before {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    content: '';
-    background-image: linear-gradient(
-        color-mix(
-            in oklch,
-            ${({ theme }) => theme.colors.border},
-            transparent 44%
-          )
-          1px,
-        transparent 1px
-      ),
-      linear-gradient(
-        90deg,
-        color-mix(
-            in oklch,
-            ${({ theme }) => theme.colors.border},
-            transparent 44%
-          )
-          1px,
-        transparent 1px
-      );
-    background-size: 24px 24px;
-    mask-image: linear-gradient(135deg, oklch(0% 0 0), transparent 72%);
-    opacity: 0.34;
-  }
-`;
-
-const VisualPlaceholderLabel = styled.p`
-  display: grid;
   gap: 0.45rem;
-  max-width: 24rem;
-  color: ${({ theme }) => theme.colors['secondary-text']};
-  font-size: 0.92rem;
-  font-weight: 600;
-  line-height: 1.5;
+  width: 100%;
+  max-width: ${({ $size }) => ($size === 'portrait' ? '22rem' : 'none')};
+  aspect-ratio: ${({ $size }) =>
+    $size === 'portrait' ? '9 / 19.5' : '16 / 10'};
+  justify-self: center;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 18px;
+  background-color: color-mix(
+    in oklch,
+    ${({ theme }) => theme.colors.primary},
+    ${({ theme }) => theme.colors.background} 92%
+  );
   text-align: center;
-
-  span {
-    color: ${({ theme }) => theme.colors.primary};
-    font-size: 0.68rem;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    line-height: 1;
-    text-transform: uppercase;
-  }
 `;
 
-const EvolutionGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-
-  @media (min-width: 760px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-`;
-
-const EvolutionCard = styled.article`
-  display: grid;
-  gap: 0.9rem;
-  padding: 1rem;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 16px;
-  background-color: ${({ theme }) => theme.colors.background};
-`;
-
-const EvolutionTitle = styled.h4`
-  color: ${({ theme }) => theme.colors['default-text']};
-  font-size: 1rem;
-  font-weight: 700;
-`;
-
-const EvolutionText = styled.p`
-  color: ${({ theme }) => theme.colors['secondary-text']};
-  font-size: 0.92rem;
-  line-height: 1.6;
-`;
-
-const DesignSystemGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
-
-  @media (min-width: 760px) {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-  }
-`;
-
-const DesignToken = styled.div`
-  display: grid;
-  gap: 0.7rem;
-  min-height: 7rem;
-  padding: 0.8rem;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 14px;
-  background-color: ${({ theme }) => theme.colors.background};
-`;
-
-const DesignTokenSwatch = styled.span<{ $swatch: string }>`
-  display: block;
-  min-height: 2.8rem;
-  border-radius: 10px;
-  background: ${({ $swatch }) => $swatch};
-  box-shadow: inset 0 0 0 1px oklch(98% 0.006 250 / 0.3);
-`;
-
-const DesignTokenLabel = styled.p`
-  color: ${({ theme }) => theme.colors['default-text']};
-  font-size: 0.78rem;
-  font-weight: 800;
-  line-height: 1.25;
-`;
-
-const DesignResponseGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-
-  @media (min-width: 760px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  @media (min-width: 1120px) {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-`;
-
-const DesignResponseCard = styled.article`
-  display: grid;
-  align-content: start;
-  gap: 0.65rem;
-  padding: 1rem;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 16px;
-  background-color: ${({ theme }) => theme.colors.background};
-`;
-
-const DesignResponseLabel = styled.p`
+const ScreenshotPlaceholderLabel = styled.p`
   color: ${({ theme }) => theme.colors.primary};
   font-size: 0.68rem;
   font-weight: 800;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   line-height: 1;
   text-transform: uppercase;
 `;
 
-const DesignResponseTitle = styled.h4`
+const ScreenshotPlaceholderTitle = styled.p`
   color: ${({ theme }) => theme.colors['default-text']};
   font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.25;
+  font-weight: 600;
+  line-height: 1.35;
 `;
 
-const DesignResponseText = styled.p`
+const ScreenshotPlaceholderFile = styled.p`
   color: ${({ theme }) => theme.colors['secondary-text']};
-  font-size: 0.9rem;
-  line-height: 1.6;
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.35;
 `;
 
-const FinalScreensGrid = styled.div`
+const SystemCueStrip = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  overflow: hidden;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 16px;
+  background-color: ${({ theme }) => theme.colors.background};
 
   @media (min-width: 760px) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+`;
+
+const SystemCue = styled.div`
+  display: grid;
+  align-content: start;
+  gap: 0.45rem;
+  padding: clamp(1rem, 2.5vw, 1.35rem);
+
+  & + & {
+    border-top: 1px solid ${({ theme }) => theme.colors.border};
+  }
+
+  @media (min-width: 760px) {
+    & + & {
+      border-top: 0;
+      border-left: 1px solid ${({ theme }) => theme.colors.border};
+    }
+  }
+
+  span {
+    color: ${({ theme }) => theme.colors.primary};
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 0.11em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  p {
+    color: ${({ theme }) => theme.colors['secondary-text']};
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+`;
+
+const VisualScreensPair = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.25rem, 4vw, 2.5rem);
+  align-items: start;
+
+  @media (min-width: 680px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  > * {
+    justify-self: center;
+  }
+`;
+
+const AccessibilityLayout = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: start;
+
+  @media (min-width: 760px) {
+    grid-template-columns: minmax(0, 0.9fr) minmax(17rem, 0.7fr);
   }
 `;
 
@@ -751,43 +675,124 @@ const ArchitecturePostCopy = styled.p`
   line-height: 1.7;
 `;
 
-const Flow = styled.ol`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  padding: 0;
-  list-style: none;
+const InteractionLead = styled.p`
+  max-width: 68ch;
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  font-size: clamp(1rem, 2vw, 1.12rem);
+  line-height: 1.75;
+`;
 
-  @media (min-width: 720px) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+const InteractionDecisionList = styled.div`
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+  border-top: 1px solid ${({ theme }) => theme.colors.border};
+
+  > * {
+    padding-top: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  > * + * {
+    border-top: 1px solid ${({ theme }) => theme.colors.border};
   }
 `;
 
-const FlowStep = styled.li`
-  padding: 1rem;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 14px;
+const InteractionDecision = styled.article`
+  display: grid;
+  gap: 0.65rem;
+  max-width: 72ch;
 `;
 
-const StepNumber = styled.span`
-  display: inline-flex;
-  margin-bottom: 0.75rem;
+const InteractionDecisionEyebrow = styled.p`
   color: ${({ theme }) => theme.colors.primary};
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  line-height: 1;
+  text-transform: uppercase;
 `;
 
-const StepTitle = styled.h3`
-  margin-bottom: 0.35rem;
+const InteractionDecisionTitle = styled.h3`
   color: ${({ theme }) => theme.colors['default-text']};
-  font-size: 1rem;
+  font-size: clamp(1.2rem, 2.4vw, 1.55rem);
   font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.16;
 `;
 
-const StepBody = styled.p`
+const InteractionDecisionText = styled.p`
   color: ${({ theme }) => theme.colors['secondary-text']};
-  font-size: 0.9rem;
-  line-height: 1.6;
+  font-size: 0.95rem;
+  line-height: 1.7;
+`;
+
+const TileProgression = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-top: 0.65rem;
+
+  @media (min-width: 420px) {
+    grid-template-columns: repeat(2, minmax(0, max-content));
+  }
+
+  @media (min-width: 760px) {
+    grid-template-columns: repeat(4, minmax(0, max-content));
+  }
+`;
+
+const TileProgressionTile = styled.span<{
+  $layout: 'one' | 'two' | 'three' | 'four';
+}>`
+  display: grid;
+  grid-template-columns: ${({ $layout }) =>
+    $layout === 'one' ? '1fr' : 'repeat(2, minmax(0, 1fr))'};
+  grid-template-rows: ${({ $layout }) =>
+    $layout === 'three' || $layout === 'four'
+      ? 'repeat(2, minmax(0, 1fr))'
+      : '1fr'};
+  gap: 1px;
+  overflow: hidden;
+  width: 4.75rem;
+  aspect-ratio: 1;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 0.65rem;
+  background-color: ${({ theme }) => theme.colors.border};
+  box-shadow: inset 0 -1px 0 oklch(18% 0.01 250 / 0.08);
+
+  span {
+    min-width: 0;
+    min-height: 0;
+  }
+
+  span:last-child {
+    ${({ $layout }) => ($layout === 'three' ? 'grid-column: 1 / -1;' : '')}
+  }
+`;
+
+const TileProgressionCaption = styled.p`
+  max-width: 52ch;
+  margin-top: 0.75rem;
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.55;
+`;
+
+const NextDirectionsList = styled.div`
+  display: grid;
+  border-top: 1px solid ${({ theme }) => theme.colors.border};
+
+  > * {
+    padding: clamp(1.25rem, 3vw, 2rem) 0;
+  }
+
+  > * + * {
+    border-top: 1px solid ${({ theme }) => theme.colors.border};
+  }
+
+  > *:last-child {
+    padding-bottom: 0;
+  }
 `;
 
 const tiles = [
@@ -858,9 +863,8 @@ function MosaicHeroScene() {
         </SceneTitle>
         <SceneSubtitle>See the pattern in your pieces</SceneSubtitle>
         <SceneText>
-          Mosaic is a privacy-first mood tracker that turns small emotional
-          check-ins into a color-based calendar, helping people notice patterns
-          over time without making reflection feel clinical.
+          An emotion journal that turns quick emotional check-ins into a visual
+          record you can return to over time.
         </SceneText>
       </SceneCopy>
 
@@ -932,28 +936,6 @@ export default function MosaicCaseStudy() {
       heroVisual={<MosaicHeroScene />}
       showIntro={false}
       links={mosaicCaseStudyMeta.links}
-      glanceItems={[
-        {
-          label: 'Problem',
-          value:
-            'Mood trackers can turn reflection into a chore, flatten complex feelings, and make it harder to see meaningful patterns over time.',
-        },
-        {
-          label: 'Design thesis',
-          value:
-            'Make reflection feel like a private, visually expressive ritual, not a clinical form or data-entry task.',
-        },
-        {
-          label: 'Core experience',
-          value:
-            'Start broad or add detail, then let up to four check-ins a day build a color mosaic and gentle insights over time.',
-        },
-        {
-          label: 'Product system',
-          value:
-            'One shared emotion model powers fast check-ins, composite daily tiles, and pattern-based insights across the app.',
-        },
-      ]}
     >
       <CaseStudySection title="Overview">
         <p>
@@ -1023,191 +1005,207 @@ export default function MosaicCaseStudy() {
         </ResearchInsightNote>
       </CaseStudySection>
 
+      <CaseStudySection title="Key interaction decisions">
+        <InteractionLead>
+          The goal was not to fit every possible tracking option into one
+          check-in. It was to make the first choice easy while ensuring that
+          each entry could become more useful over time.
+        </InteractionLead>
+        <InteractionDecisionList>
+          <InteractionDecision>
+            <InteractionDecisionEyebrow>
+              START SIMPLE
+            </InteractionDecisionEyebrow>
+            <InteractionDecisionTitle>
+              Start simple, add detail when it helps
+            </InteractionDecisionTitle>
+            <InteractionDecisionText>
+              People do not always need the same level of emotional specificity.
+              Mosaic begins with seven emotion families, then lets someone
+              explore more specific feelings only when they want to. The default
+              stays quick, without treating every day as simple.
+            </InteractionDecisionText>
+          </InteractionDecision>
+
+          <InteractionDecision>
+            <InteractionDecisionEyebrow>
+              REPRESENT CHANGE
+            </InteractionDecisionEyebrow>
+            <InteractionDecisionTitle>
+              Let a day hold more than one feeling
+            </InteractionDecisionTitle>
+            <InteractionDecisionText>
+              A single label cannot always represent a full day. Mosaic allows
+              up to four check-ins, then combines them into one daily tile. That
+              makes emotional shifts visible without turning a day into a
+              scattered list of separate logs.
+            </InteractionDecisionText>
+            <div>
+              <TileProgression aria-label="Daily tile progression">
+                <TileProgressionTile $layout="one">
+                  <span style={{ background: 'oklch(75% 0.15 63)' }} />
+                </TileProgressionTile>
+                <TileProgressionTile $layout="two">
+                  <span style={{ background: 'oklch(75% 0.15 63)' }} />
+                  <span style={{ background: 'oklch(72% 0.12 154)' }} />
+                </TileProgressionTile>
+                <TileProgressionTile $layout="three">
+                  <span style={{ background: 'oklch(75% 0.15 63)' }} />
+                  <span style={{ background: 'oklch(67% 0.12 250)' }} />
+                  <span style={{ background: 'oklch(72% 0.12 154)' }} />
+                </TileProgressionTile>
+                <TileProgressionTile $layout="four">
+                  <span style={{ background: 'oklch(75% 0.15 63)' }} />
+                  <span style={{ background: 'oklch(72% 0.12 154)' }} />
+                  <span style={{ background: 'oklch(67% 0.12 250)' }} />
+                  <span style={{ background: 'oklch(63% 0.13 304)' }} />
+                </TileProgressionTile>
+              </TileProgression>
+              <TileProgressionCaption>
+                Each new check-in adds another segment, so one tile can hold the
+                shape of a changing day.
+              </TileProgressionCaption>
+            </div>
+          </InteractionDecision>
+
+          <InteractionDecision>
+            <InteractionDecisionEyebrow>
+              REFLECT GENTLY
+            </InteractionDecisionEyebrow>
+            <InteractionDecisionTitle>
+              Turn reflection into a pattern, not a score
+            </InteractionDecisionTitle>
+            <InteractionDecisionText>
+              Check-ins become more useful when they can be revisited in
+              context. Weekly and monthly views surface recurring emotions and
+              timing patterns, helping people notice what is showing up without
+              judging whether they are doing well or poorly.
+            </InteractionDecisionText>
+          </InteractionDecision>
+        </InteractionDecisionList>
+      </CaseStudySection>
+
       <CaseStudySection title="Designing the visual system">
         <VisualSystemLead>
-          Mosaic&apos;s visual system needed to make emotional tracking feel
-          personal and expressive without becoming busy, clinical, or overly
-          gamified. The goal was to create a product that felt sleek, warm, and
-          reflective, closer to a private ritual than a mental health form.
+          Mosaic uses a dark, quiet foundation so emotional reflection can feel
+          personal rather than clinical. The interface stays restrained while
+          color, type, and small moments of motion give each check-in its own
+          presence.
         </VisualSystemLead>
 
         <VisualSubsection>
-          <VisualSubheading>
-            The original hook: a year in color
-          </VisualSubheading>
-          <p>
-            The earliest concept centered on the mosaic itself: a monthly and
-            yearly view that could turn small emotional entries into a visible
-            pattern over time. The idea was simple: each day could become a
-            tile, with its color composition reflecting the check-ins recorded
-            over time.
-          </p>
-          <VisualPlaceholder>
-            <VisualPlaceholderLabel>
-              <span>Image placeholder</span>
-              Original hand-drawn mosaic wireframe / early calendar concept
-            </VisualPlaceholderLabel>
-          </VisualPlaceholder>
+          <VisualSubheading>Quiet chrome, expressive emotion</VisualSubheading>
+          <VisualFeatureLayout>
+            <div>
+              <p>
+                Mosaic keeps its system chrome deliberately quiet. The black
+                canvas, softened surfaces, and restrained gold accent create
+                hierarchy without competing with the colors attached to each
+                emotion.
+              </p>
+              <p>
+                The Today screen is the clearest expression of that balance.
+                Emotion colors carry the personal signal, while the surrounding
+                interface makes space for the moment instead of treating it like
+                a dashboard.
+              </p>
+            </div>
+            <ScreenshotPlaceholder $size="portrait">
+              <ScreenshotPlaceholderLabel>
+                SCREENSHOT PLACEHOLDER
+              </ScreenshotPlaceholderLabel>
+              <ScreenshotPlaceholderTitle>
+                Today with a composite mosaic
+              </ScreenshotPlaceholderTitle>
+              <ScreenshotPlaceholderFile>
+                04-today-composite.png
+              </ScreenshotPlaceholderFile>
+            </ScreenshotPlaceholder>
+          </VisualFeatureLayout>
+          <SystemCueStrip>
+            <SystemCue>
+              <span>CANVAS</span>
+              <p>Dark-first surfaces keep the interface quiet.</p>
+            </SystemCue>
+            <SystemCue>
+              <span>ACCENT</span>
+              <p>Burnished gold marks hierarchy and primary action.</p>
+            </SystemCue>
+            <SystemCue>
+              <span>EMOTION COLOR</span>
+              <p>Color belongs to the entry, not the surrounding chrome.</p>
+            </SystemCue>
+            <SystemCue>
+              <span>TYPE</span>
+              <p>Editorial headings sit alongside clear system text.</p>
+            </SystemCue>
+          </SystemCueStrip>
         </VisualSubsection>
 
         <VisualSubsection>
           <VisualSubheading>
-            The product shift: check-in first, calendar second
+            From one moment to a broader pattern
           </VisualSubheading>
           <p>
-            As the product direction sharpened, the most important realization
-            was that the calendar only becomes meaningful if the check-in is
-            easy enough to repeat. The mosaic view was the original hook, but
-            the check-in became the foundation. The final experience separates
-            the product into two rhythms: a lightweight daily check-in and a
-            longer-term reflection view.
+            The same visual language carries from a single check-in into the
+            calendar and insights. Color helps people move from a moment
+            recorded today to a broader pattern without having to decode a dense
+            chart.
           </p>
-          <EvolutionGrid>
-            <EvolutionCard>
-              <EvolutionTitle>Original emphasis</EvolutionTitle>
-              <EvolutionText>
-                Monthly and yearly mosaic views as the main feature attraction.
-              </EvolutionText>
-              <VisualPlaceholder $height="11rem">
-                <VisualPlaceholderLabel>
-                  <span>Image placeholder</span>
-                  Early monthly/yearly mosaic concept
-                </VisualPlaceholderLabel>
-              </VisualPlaceholder>
-            </EvolutionCard>
-            <EvolutionCard>
-              <EvolutionTitle>Final emphasis</EvolutionTitle>
-              <EvolutionText>
-                A focused daily check-in that builds the mosaic over time.
-              </EvolutionText>
-              <VisualPlaceholder $height="11rem">
-                <VisualPlaceholderLabel>
-                  <span>Image placeholder</span>
-                  Final check-in screen placeholder
-                </VisualPlaceholderLabel>
-              </VisualPlaceholder>
-            </EvolutionCard>
-          </EvolutionGrid>
-        </VisualSubsection>
-
-        <VisualSubsection>
-          <VisualSubheading>Warm, not clinical</VisualSubheading>
-          <p>
-            The visual language needed to avoid the sterile feeling common in
-            health tools. I used a dark, sleek interface with a gold accent to
-            give Mosaic a sense of warmth, care, and polish. Gold became the
-            product&apos;s emotional anchor: elegant without feeling cold,
-            expressive without feeling childish, and premium without turning the
-            app into a dashboard.
-          </p>
-          <DesignSystemGrid aria-label="Mosaic visual design tokens">
-            <DesignToken>
-              <DesignTokenSwatch $swatch="oklch(75% 0.15 63)" />
-              <DesignTokenLabel>Gold accent</DesignTokenLabel>
-            </DesignToken>
-            <DesignToken>
-              <DesignTokenSwatch $swatch="linear-gradient(135deg, oklch(24% 0.035 260), oklch(13% 0.025 260))" />
-              <DesignTokenLabel>Dark surface</DesignTokenLabel>
-            </DesignToken>
-            <DesignToken>
-              <DesignTokenSwatch $swatch="radial-gradient(circle at 30% 25%, oklch(75% 0.15 63 / 0.44), transparent 46%), linear-gradient(135deg, oklch(27% 0.04 260), oklch(17% 0.025 250))" />
-              <DesignTokenLabel>Soft gradients</DesignTokenLabel>
-            </DesignToken>
-            <DesignToken>
-              <DesignTokenSwatch $swatch="linear-gradient(90deg, oklch(75% 0.15 63) 0 25%, oklch(67% 0.12 250) 25% 50%, oklch(72% 0.12 154) 50% 75%, oklch(63% 0.13 304) 75%)" />
-              <DesignTokenLabel>Emotion tiles</DesignTokenLabel>
-            </DesignToken>
-            <DesignToken>
-              <DesignTokenSwatch $swatch="linear-gradient(135deg, oklch(98% 0.008 92), oklch(91% 0.018 260))" />
-              <DesignTokenLabel>Rounded cards</DesignTokenLabel>
-            </DesignToken>
-            <DesignToken>
-              <DesignTokenSwatch $swatch="linear-gradient(180deg, oklch(32% 0.035 260) 0 18%, transparent 18% 36%, oklch(72% 0.04 260 / 0.45) 36% 44%, transparent 44% 60%, oklch(72% 0.04 260 / 0.28) 60% 67%, transparent 67%)" />
-              <DesignTokenLabel>Editorial type</DesignTokenLabel>
-            </DesignToken>
-          </DesignSystemGrid>
-        </VisualSubsection>
-
-        <VisualSubsection>
-          <VisualSubheading>Design responses to the research</VisualSubheading>
-          <DesignResponseGrid>
-            <DesignResponseCard>
-              <DesignResponseLabel>Friction</DesignResponseLabel>
-              <DesignResponseTitle>
-                Make the first action light
-              </DesignResponseTitle>
-              <DesignResponseText>
-                Start with one familiar emotion family and save a minimal
-                check-in in as few as three taps. Journaling and added detail
-                remain optional.
-              </DesignResponseText>
-            </DesignResponseCard>
-            <DesignResponseCard>
-              <DesignResponseLabel>Emotional range</DesignResponseLabel>
-              <DesignResponseTitle>
-                Support broad-to-specific reflection
-              </DesignResponseTitle>
-              <DesignResponseText>
-                Seven emotion families reduce the blank-page problem, while more
-                specific choices within each family make room for nuance without
-                overwhelming every check-in.
-              </DesignResponseText>
-            </DesignResponseCard>
-            <DesignResponseCard>
-              <DesignResponseLabel>Trust</DesignResponseLabel>
-              <DesignResponseTitle>
-                Make privacy feel concrete
-              </DesignResponseTitle>
-              <DesignResponseText>
-                Keep sensitive reflections out of product analytics and avoid
-                patterns that pressure people to share or perform their
-                feelings.
-              </DesignResponseText>
-            </DesignResponseCard>
-            <DesignResponseCard>
-              <DesignResponseLabel>Meaning over data</DesignResponseLabel>
-              <DesignResponseTitle>
-                Make patterns easy to revisit
-              </DesignResponseTitle>
-              <DesignResponseText>
-                Weekly and monthly views surface recurring emotion patterns,
-                most selected emotions, and percentage breakdowns by time of day
-                and day of week.
-              </DesignResponseText>
-            </DesignResponseCard>
-          </DesignResponseGrid>
-        </VisualSubsection>
-
-        <VisualSubsection>
-          <VisualSubheading>The final system</VisualSubheading>
-          <p>
-            The final system connects capture to reflection. A fast check-in
-            records the moment. Each day resolves into one composite mosaic
-            tile, full color for one entry and split into up to four sections as
-            the day changes. Weekly and monthly insights turn those entries into
-            gentle, specific patterns people can revisit without turning
-            reflection into a score.
-          </p>
-          <FinalScreensGrid>
-            <VisualPlaceholder $height="16rem">
-              <VisualPlaceholderLabel>
-                <span>Image placeholder</span>
-                Today / check-in screen
-              </VisualPlaceholderLabel>
-            </VisualPlaceholder>
-            <VisualPlaceholder $height="16rem">
-              <VisualPlaceholderLabel>
-                <span>Image placeholder</span>
+          <VisualScreensPair>
+            <ScreenshotPlaceholder $size="portrait">
+              <ScreenshotPlaceholderLabel>
+                SCREENSHOT PLACEHOLDER
+              </ScreenshotPlaceholderLabel>
+              <ScreenshotPlaceholderTitle>
                 Monthly mosaic view
-              </VisualPlaceholderLabel>
-            </VisualPlaceholder>
-            <VisualPlaceholder $height="16rem">
-              <VisualPlaceholderLabel>
-                <span>Image placeholder</span>
-                Yearly mosaic view
-              </VisualPlaceholderLabel>
-            </VisualPlaceholder>
-          </FinalScreensGrid>
+              </ScreenshotPlaceholderTitle>
+              <ScreenshotPlaceholderFile>
+                05-monthly-mosaic.png
+              </ScreenshotPlaceholderFile>
+            </ScreenshotPlaceholder>
+            <ScreenshotPlaceholder $size="portrait">
+              <ScreenshotPlaceholderLabel>
+                SCREENSHOT PLACEHOLDER
+              </ScreenshotPlaceholderLabel>
+              <ScreenshotPlaceholderTitle>
+                Insights view
+              </ScreenshotPlaceholderTitle>
+              <ScreenshotPlaceholderFile>
+                06-insights.png
+              </ScreenshotPlaceholderFile>
+            </ScreenshotPlaceholder>
+          </VisualScreensPair>
+        </VisualSubsection>
+
+        <VisualSubsection>
+          <VisualSubheading>Designed to adapt</VisualSubheading>
+          <AccessibilityLayout>
+            <div>
+              <p>
+                Accessibility is part of the same product system, not a separate
+                version of Mosaic. High-contrast text makes subtle text and
+                borders easier to see. Reduced motion removes screen transitions
+                and heavier animations. Haptic feedback can also be turned off
+                entirely.
+              </p>
+              <p>
+                Those settings let the interface adapt to different needs while
+                preserving the same core experience.
+              </p>
+            </div>
+            <ScreenshotPlaceholder $size="portrait">
+              <ScreenshotPlaceholderLabel>
+                SCREENSHOT PLACEHOLDER
+              </ScreenshotPlaceholderLabel>
+              <ScreenshotPlaceholderTitle>
+                Accessibility settings
+              </ScreenshotPlaceholderTitle>
+              <ScreenshotPlaceholderFile>
+                07-accessibility-settings.png
+              </ScreenshotPlaceholderFile>
+            </ScreenshotPlaceholder>
+          </AccessibilityLayout>
         </VisualSubsection>
       </CaseStudySection>
 
@@ -1328,50 +1326,56 @@ export default function MosaicCaseStudy() {
         </ArchitectureContent>
       </CaseStudySection>
 
-      <CaseStudySection title="Challenges & Solutions">
+      <CaseStudySection title="Next directions">
         <p>
-          The hardest interaction problem was supporting different levels of
-          emotional specificity without making check-ins feel like a test. Some
-          people want to record a broad feeling quickly. Others need more
-          language to identify what is going on. Mosaic starts with seven
-          emotion families, then lets people explore more specific feelings only
-          when they want to. This keeps the default interaction light while
-          leaving room for nuance.
+          Mosaic is still evolving, so the next phase is less about adding every
+          possible tracking feature and more about learning what makes
+          reflection genuinely useful over time.
         </p>
-        <p>
-          The calendar visualization posed a different problem: how do you show
-          a month of emotional data without reducing a day to one label or
-          overwhelming the person looking at it? Mosaic treats each day as one
-          composite tile. A single check-in fills the tile; additional check-ins
-          divide it into up to four sections. At month and year scale, those
-          tiles make shifts and repeated patterns visible without asking the
-          user to study a dense chart.
-        </p>
-        <Flow role="list">
-          <FlowStep>
-            <StepNumber>01</StepNumber>
-            <StepTitle>Start at the right level</StepTitle>
-            <StepBody>
-              Choose a broad emotion family or explore a more specific feeling.
-            </StepBody>
-          </FlowStep>
-          <FlowStep>
-            <StepNumber>02</StepNumber>
-            <StepTitle>Let a day hold more than one moment</StepTitle>
-            <StepBody>
-              Up to four check-ins can share a single mosaic tile, showing
-              shifts across the day.
-            </StepBody>
-          </FlowStep>
-          <FlowStep>
-            <StepNumber>03</StepNumber>
-            <StepTitle>Turn entries into gentle patterns</StepTitle>
-            <StepBody>
-              Weekly and monthly insights surface recurring emotions and timing
-              patterns without scoring the user.
-            </StepBody>
-          </FlowStep>
-        </Flow>
+        <NextDirectionsList>
+          <InteractionDecision>
+            <InteractionDecisionEyebrow>LEARN</InteractionDecisionEyebrow>
+            <InteractionDecisionTitle>
+              Validate the reflection loop
+            </InteractionDecisionTitle>
+            <InteractionDecisionText>
+              Use privacy-conscious product signals and direct feedback to learn
+              whether people return to the check-in, mosaic, and insight views,
+              and which patterns feel worth revisiting.
+            </InteractionDecisionText>
+          </InteractionDecision>
+
+          <InteractionDecision>
+            <InteractionDecisionEyebrow>CONTINUITY</InteractionDecisionEyebrow>
+            <InteractionDecisionTitle>
+              Improve continuity without losing control
+            </InteractionDecisionTitle>
+            <InteractionDecisionText>
+              Explore optional ways for people to back up, export, or move their
+              history between devices without making accounts or cloud storage
+              the default experience.
+            </InteractionDecisionText>
+          </InteractionDecision>
+
+          <InteractionDecision>
+            <InteractionDecisionEyebrow>
+              ADAPTABILITY
+            </InteractionDecisionEyebrow>
+            <InteractionDecisionTitle>
+              Make the system more adaptable
+            </InteractionDecisionTitle>
+            <InteractionDecisionText>
+              Continue expanding accessibility and language support, then
+              evaluate which personalization options would make the emotional
+              vocabulary more useful without overwhelming the core check-in
+              flow.
+            </InteractionDecisionText>
+          </InteractionDecision>
+        </NextDirectionsList>
+        <CaseStudyCallout label="Looking ahead">
+          The goal is not to add more tracking for its own sake. It is to make
+          reflection more useful while keeping the core ritual simple.
+        </CaseStudyCallout>
       </CaseStudySection>
     </CaseStudyLayout>
   );
