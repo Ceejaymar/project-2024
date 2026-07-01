@@ -851,6 +851,81 @@ const InteractionDecisionText = styled.p`
   line-height: 1.7;
 `;
 
+const InteractionFlowVisual = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(0.9rem, 2.5vw, 1.25rem);
+  width: 100%;
+  margin-top: 0.85rem;
+
+  @media (min-width: 680px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+`;
+
+const InteractionScreenPlaceholder = styled.div`
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 0.45rem;
+  min-height: 14rem;
+  padding: 1rem;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 16px;
+  aspect-ratio: 9 / 15;
+  background-color: color-mix(
+    in oklch,
+    ${({ theme }) => theme.colors.primary},
+    ${({ theme }) => theme.colors.background} 94%
+  );
+  text-align: center;
+`;
+
+const InteractionScreenStep = styled.p`
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  line-height: 1;
+  text-transform: uppercase;
+`;
+
+const InteractionScreenTitle = styled.p`
+  color: ${({ theme }) => theme.colors['default-text']};
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.35;
+`;
+
+const InteractionScreenFile = styled.p`
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.35;
+`;
+
+const InteractionFlowCaption = styled.p`
+  max-width: 62ch;
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  font-size: 0.9rem;
+  line-height: 1.65;
+`;
+
+const ReflectionViewsPair = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.25rem, 4vw, 2.5rem);
+  margin-top: 0.85rem;
+
+  @media (min-width: 680px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  > * {
+    justify-self: center;
+  }
+`;
+
 const TileProgression = styled.div`
   display: grid;
   grid-template-columns: 1fr;
@@ -1151,6 +1226,40 @@ export default function MosaicCaseStudy() {
               explore more specific feelings only when they want to. The default
               stays quick, without treating every day as simple.
             </InteractionDecisionText>
+            <InteractionFlowVisual aria-label="Check-in flow screenshot placeholders">
+              <InteractionScreenPlaceholder>
+                <InteractionScreenStep>STEP 1</InteractionScreenStep>
+                <InteractionScreenTitle>
+                  Choose an emotion family
+                </InteractionScreenTitle>
+                <InteractionScreenFile>
+                  01-emotion-families.png
+                </InteractionScreenFile>
+              </InteractionScreenPlaceholder>
+              <InteractionScreenPlaceholder>
+                <InteractionScreenStep>STEP 2</InteractionScreenStep>
+                <InteractionScreenTitle>
+                  Explore a specific feeling
+                </InteractionScreenTitle>
+                <InteractionScreenFile>
+                  02-emotion-expanded.png
+                </InteractionScreenFile>
+              </InteractionScreenPlaceholder>
+              <InteractionScreenPlaceholder>
+                <InteractionScreenStep>STEP 3</InteractionScreenStep>
+                <InteractionScreenTitle>
+                  Add context only when useful
+                </InteractionScreenTitle>
+                <InteractionScreenFile>
+                  03-checkin-details.png
+                </InteractionScreenFile>
+              </InteractionScreenPlaceholder>
+            </InteractionFlowVisual>
+            <InteractionFlowCaption>
+              Every check-in starts with a broad choice. More specific feelings,
+              notes, and context tags remain available without becoming required
+              steps.
+            </InteractionFlowCaption>
           </InteractionDecision>
 
           <InteractionDecision>
@@ -1203,10 +1312,39 @@ export default function MosaicCaseStudy() {
             </InteractionDecisionTitle>
             <InteractionDecisionText>
               Check-ins become more useful when they can be revisited in
-              context. Weekly and monthly views surface recurring emotions and
-              timing patterns, helping people notice what is showing up without
-              judging whether they are doing well or poorly.
+              context. Monthly and yearly mosaic views help people step back
+              from individual moments and notice what has been showing up over
+              time, without turning reflection into a score.
             </InteractionDecisionText>
+            <ReflectionViewsPair>
+              <ScreenshotPlaceholder $size="portrait">
+                <ScreenshotPlaceholderLabel>
+                  SCREENSHOT PLACEHOLDER
+                </ScreenshotPlaceholderLabel>
+                <ScreenshotPlaceholderTitle>
+                  Monthly mosaic view
+                </ScreenshotPlaceholderTitle>
+                <ScreenshotPlaceholderFile>
+                  05-monthly-mosaic.png
+                </ScreenshotPlaceholderFile>
+              </ScreenshotPlaceholder>
+              <ScreenshotPlaceholder $size="portrait">
+                <ScreenshotPlaceholderLabel>
+                  SCREENSHOT PLACEHOLDER
+                </ScreenshotPlaceholderLabel>
+                <ScreenshotPlaceholderTitle>
+                  Yearly mosaic view
+                </ScreenshotPlaceholderTitle>
+                <ScreenshotPlaceholderFile>
+                  06-yearly-mosaic.png
+                </ScreenshotPlaceholderFile>
+              </ScreenshotPlaceholder>
+            </ReflectionViewsPair>
+            <InteractionFlowCaption>
+              The monthly view keeps individual days legible. The yearly view
+              makes the longer rhythm of emotional reflection easier to see at a
+              glance.
+            </InteractionFlowCaption>
           </InteractionDecision>
         </InteractionDecisionList>
       </CaseStudySection>
@@ -1353,14 +1491,12 @@ export default function MosaicCaseStudy() {
         </VisualSubsection>
 
         <VisualSubsection>
-          <VisualSubheading>
-            From one moment to a broader pattern
-          </VisualSubheading>
+          <VisualSubheading>Insights without a dashboard</VisualSubheading>
           <p>
-            The same visual language carries from a single check-in into the
-            calendar and insights. Color helps people move from a moment
-            recorded today to a broader pattern without having to decode a dense
-            chart.
+            Insights are designed as a paced reflection rather than one dense
+            dashboard. Emotional summaries, recurring feelings, and timing
+            patterns are grouped into distinct moments, so people can take in
+            what stands out without having to decode everything at once.
           </p>
           <VisualScreensPair>
             <ScreenshotPlaceholder $size="portrait">
@@ -1368,10 +1504,10 @@ export default function MosaicCaseStudy() {
                 SCREENSHOT PLACEHOLDER
               </ScreenshotPlaceholderLabel>
               <ScreenshotPlaceholderTitle>
-                Monthly mosaic view
+                Emotion summary and recurring feelings
               </ScreenshotPlaceholderTitle>
               <ScreenshotPlaceholderFile>
-                05-monthly-mosaic.png
+                07-insights-summary.png
               </ScreenshotPlaceholderFile>
             </ScreenshotPlaceholder>
             <ScreenshotPlaceholder $size="portrait">
@@ -1379,10 +1515,10 @@ export default function MosaicCaseStudy() {
                 SCREENSHOT PLACEHOLDER
               </ScreenshotPlaceholderLabel>
               <ScreenshotPlaceholderTitle>
-                Insights view
+                Time and day patterns
               </ScreenshotPlaceholderTitle>
               <ScreenshotPlaceholderFile>
-                06-insights.png
+                08-insights-timing-patterns.png
               </ScreenshotPlaceholderFile>
             </ScreenshotPlaceholder>
           </VisualScreensPair>
@@ -1412,7 +1548,7 @@ export default function MosaicCaseStudy() {
                 Accessibility settings
               </ScreenshotPlaceholderTitle>
               <ScreenshotPlaceholderFile>
-                07-accessibility-settings.png
+                09-accessibility-settings.png
               </ScreenshotPlaceholderFile>
             </ScreenshotPlaceholder>
           </AccessibilityLayout>
