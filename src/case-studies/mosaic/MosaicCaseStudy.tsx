@@ -414,24 +414,25 @@ const ScreenshotPlaceholderFile = styled.p`
   line-height: 1.35;
 `;
 
-const SystemCueStrip = styled.div`
+const VisualFoundationsPanel = styled.div`
   display: grid;
   grid-template-columns: 1fr;
+  width: 100%;
   overflow: hidden;
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 16px;
   background-color: ${({ theme }) => theme.colors.background};
 
   @media (min-width: 760px) {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 `;
 
-const SystemCue = styled.div`
+const VisualFoundationColumn = styled.div`
   display: grid;
   align-content: start;
-  gap: 0.45rem;
-  padding: clamp(1rem, 2.5vw, 1.35rem);
+  gap: 1rem;
+  padding: clamp(1.1rem, 2.5vw, 1.5rem);
 
   & + & {
     border-top: 1px solid ${({ theme }) => theme.colors.border};
@@ -443,6 +444,112 @@ const SystemCue = styled.div`
       border-left: 1px solid ${({ theme }) => theme.colors.border};
     }
   }
+`;
+
+const FoundationEyebrow = styled.p`
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  line-height: 1;
+  text-transform: uppercase;
+`;
+
+const FoundationTitle = styled.h4`
+  color: ${({ theme }) => theme.colors['default-text']};
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25;
+`;
+
+const FoundationText = styled.p`
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  font-size: 0.9rem;
+  line-height: 1.6;
+`;
+
+const ColorTokenGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem 0.8rem;
+
+  @media (min-width: 480px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+`;
+
+const ColorToken = styled.div`
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 0;
+
+  span {
+    display: block;
+  }
+`;
+
+const ColorTokenSwatch = styled.span<{ $color: string }>`
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 0.45rem;
+  background-color: ${({ $color }) => $color};
+`;
+
+const ColorTokenName = styled.span`
+  color: ${({ theme }) => theme.colors['default-text']};
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.25;
+`;
+
+const ColorTokenValue = styled.span`
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.25;
+`;
+
+const EmotionColorStrip = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 0.85rem;
+`;
+
+const EmotionColorItem = styled.span<{ $color: string }>`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.2;
+
+  &::before {
+    width: 0.58rem;
+    height: 0.58rem;
+    border-radius: 999px;
+    background-color: ${({ $color }) => $color};
+    content: '';
+  }
+`;
+
+const TypeRoleList = styled.div`
+  display: grid;
+  border-top: 1px solid ${({ theme }) => theme.colors.border};
+`;
+
+const TypeRole = styled.div<{ $role: 'heading' | 'body' | 'label' }>`
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+
+  &:last-child {
+    border-bottom: 0;
+  }
 
   span {
     color: ${({ theme }) => theme.colors.primary};
@@ -453,10 +560,29 @@ const SystemCue = styled.div`
     text-transform: uppercase;
   }
 
+  strong {
+    color: ${({ theme }) => theme.colors['default-text']};
+    font-family: ${({ $role }) => {
+      if ($role === 'heading') {
+        return '"Protest Guerrilla", sans-serif';
+      }
+
+      if ($role === 'label') {
+        return 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace';
+      }
+
+      return '"Inter", system-ui, sans-serif';
+    }};
+    font-size: ${({ $role }) => ($role === 'heading' ? '1.35rem' : '0.95rem')};
+    font-weight: ${({ $role }) => ($role === 'heading' ? 400 : 700)};
+    letter-spacing: ${({ $role }) => ($role === 'label' ? '0.06em' : 0)};
+    line-height: 1.25;
+  }
+
   p {
     color: ${({ theme }) => theme.colors['secondary-text']};
-    font-size: 0.9rem;
-    line-height: 1.55;
+    font-size: 0.82rem;
+    line-height: 1.5;
   }
 `;
 
@@ -1093,6 +1219,108 @@ export default function MosaicCaseStudy() {
           presence.
         </VisualSystemLead>
 
+        <VisualFoundationsPanel>
+          <VisualFoundationColumn>
+            <FoundationEyebrow>SYSTEM PALETTE</FoundationEyebrow>
+            <FoundationTitle>Quiet surfaces, clear hierarchy</FoundationTitle>
+            <FoundationText>
+              Mosaic keeps its interface colors restrained so the colors
+              attached to emotional entries can remain the most expressive part
+              of the experience.
+            </FoundationText>
+            <ColorTokenGrid aria-label="Mosaic system palette">
+              <ColorToken>
+                <ColorTokenSwatch $color="#000000" />
+                <span>
+                  <ColorTokenName>Canvas</ColorTokenName>
+                  <ColorTokenValue>#000000</ColorTokenValue>
+                </span>
+              </ColorToken>
+              <ColorToken>
+                <ColorTokenSwatch $color="#1C1C1E" />
+                <span>
+                  <ColorTokenName>Surface</ColorTokenName>
+                  <ColorTokenValue>#1C1C1E</ColorTokenValue>
+                </span>
+              </ColorToken>
+              <ColorToken>
+                <ColorTokenSwatch $color="#C09040" />
+                <span>
+                  <ColorTokenName>Gold</ColorTokenName>
+                  <ColorTokenValue>#C09040</ColorTokenValue>
+                </span>
+              </ColorToken>
+              <ColorToken>
+                <ColorTokenSwatch $color="#FFFFFF" />
+                <span>
+                  <ColorTokenName>Primary text</ColorTokenName>
+                  <ColorTokenValue>#FFFFFF</ColorTokenValue>
+                </span>
+              </ColorToken>
+              <ColorToken>
+                <ColorTokenSwatch $color="#A1A1A6" />
+                <span>
+                  <ColorTokenName>Muted text</ColorTokenName>
+                  <ColorTokenValue>#A1A1A6</ColorTokenValue>
+                </span>
+              </ColorToken>
+              <ColorToken>
+                <ColorTokenSwatch $color="#3A3A3C" />
+                <span>
+                  <ColorTokenName>Divider</ColorTokenName>
+                  <ColorTokenValue>#3A3A3C</ColorTokenValue>
+                </span>
+              </ColorToken>
+            </ColorTokenGrid>
+            <FoundationEyebrow>EMOTION FAMILIES</FoundationEyebrow>
+            <FoundationText>
+              Color variation belongs to the emotional entries, not the
+              surrounding chrome.
+            </FoundationText>
+            <EmotionColorStrip aria-label="Mosaic emotion family colors">
+              <EmotionColorItem $color="#F2A900">Happy</EmotionColorItem>
+              <EmotionColorItem $color="#00B894">Calm</EmotionColorItem>
+              <EmotionColorItem $color="#3D71D9">Sad</EmotionColorItem>
+              <EmotionColorItem $color="#FF2D55">Angry</EmotionColorItem>
+              <EmotionColorItem $color="#FF8A00">Fearful</EmotionColorItem>
+              <EmotionColorItem $color="#C026D3">Surprised</EmotionColorItem>
+              <EmotionColorItem $color="#7C3AED">Disgusted</EmotionColorItem>
+            </EmotionColorStrip>
+          </VisualFoundationColumn>
+          <VisualFoundationColumn>
+            <FoundationEyebrow>TYPE ROLES</FoundationEyebrow>
+            <FoundationTitle>Editorial warmth, clear utility</FoundationTitle>
+            <FoundationText>
+              Typography separates reflection from supporting information
+              without making the interface feel ornamental.
+            </FoundationText>
+            <TypeRoleList>
+              <TypeRole $role="heading">
+                <span>HEADING</span>
+                <strong>How are you feeling?</strong>
+                <p>
+                  Editorial display type for page titles and reflective moments.
+                </p>
+              </TypeRole>
+              <TypeRole $role="body">
+                <span>BODY</span>
+                <strong>A calm, readable voice for everyday reflection.</strong>
+                <p>
+                  Neutral system text for notes, choices, and supporting copy.
+                </p>
+              </TypeRole>
+              <TypeRole $role="label">
+                <span>LABEL</span>
+                <strong>JUNE 30 · 9:15 AM</strong>
+                <p>
+                  Monospace labels for dates, metadata, and small system
+                  details.
+                </p>
+              </TypeRole>
+            </TypeRoleList>
+          </VisualFoundationColumn>
+        </VisualFoundationsPanel>
+
         <VisualSubsection>
           <VisualSubheading>Quiet chrome, expressive emotion</VisualSubheading>
           <VisualFeatureLayout>
@@ -1122,24 +1350,6 @@ export default function MosaicCaseStudy() {
               </ScreenshotPlaceholderFile>
             </ScreenshotPlaceholder>
           </VisualFeatureLayout>
-          <SystemCueStrip>
-            <SystemCue>
-              <span>CANVAS</span>
-              <p>Dark-first surfaces keep the interface quiet.</p>
-            </SystemCue>
-            <SystemCue>
-              <span>ACCENT</span>
-              <p>Burnished gold marks hierarchy and primary action.</p>
-            </SystemCue>
-            <SystemCue>
-              <span>EMOTION COLOR</span>
-              <p>Color belongs to the entry, not the surrounding chrome.</p>
-            </SystemCue>
-            <SystemCue>
-              <span>TYPE</span>
-              <p>Editorial headings sit alongside clear system text.</p>
-            </SystemCue>
-          </SystemCueStrip>
         </VisualSubsection>
 
         <VisualSubsection>
