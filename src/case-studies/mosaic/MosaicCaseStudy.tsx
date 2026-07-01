@@ -516,6 +516,7 @@ const VisualFoundationsPanel = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   width: 100%;
+  margin-top: clamp(1.5rem, 4vw, 2.5rem);
   overflow: hidden;
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 16px;
@@ -529,8 +530,8 @@ const VisualFoundationsPanel = styled.div`
 const VisualFoundationColumn = styled.div`
   display: grid;
   align-content: start;
-  gap: 1rem;
-  padding: clamp(1.1rem, 2.5vw, 1.5rem);
+  gap: clamp(1.25rem, 3vw, 1.75rem);
+  padding: clamp(1.35rem, 3vw, 2rem);
 
   & + & {
     border-top: 1px solid ${({ theme }) => theme.colors.border};
@@ -544,12 +545,23 @@ const VisualFoundationColumn = styled.div`
   }
 `;
 
+const FoundationGroup = styled.div`
+  display: grid;
+  align-content: start;
+  gap: 0.85rem;
+
+  & + & {
+    padding-top: clamp(0.5rem, 2vw, 0.85rem);
+  }
+`;
+
 const FoundationEyebrow = styled.p`
   color: ${({ theme }) => theme.colors.primary};
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
   line-height: 1;
+  text-transform: uppercase;
 `;
 
 const FoundationTitle = styled.h4`
@@ -568,28 +580,27 @@ const FoundationText = styled.p`
 const ColorTokenGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.65rem 0.8rem;
-
-  @media (min-width: 480px) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
+  gap: 0.95rem 1rem;
 `;
 
 const ColorToken = styled.div`
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: 2.15rem minmax(0, 1fr);
   align-items: center;
-  gap: 0.55rem;
+  align-content: start;
+  gap: 0.65rem;
   min-width: 0;
 
-  span {
-    display: block;
+  > span:last-child {
+    display: grid;
+    gap: 0.18rem;
+    min-width: 0;
   }
 `;
 
 const ColorTokenSwatch = styled.span<{ $color: string }>`
-  width: 2rem;
-  height: 2rem;
+  width: 2.15rem;
+  height: 2.15rem;
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 0.45rem;
   background-color: ${({ $color }) => $color};
@@ -600,6 +611,7 @@ const ColorTokenName = styled.span`
   font-size: 0.8rem;
   font-weight: 700;
   line-height: 1.25;
+  overflow-wrap: anywhere;
 `;
 
 const ColorTokenValue = styled.span`
@@ -607,41 +619,63 @@ const ColorTokenValue = styled.span`
   font-size: 0.72rem;
   font-weight: 600;
   line-height: 1.25;
+  white-space: nowrap;
 `;
 
-const EmotionColorStrip = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem 0.85rem;
+const EmotionColorGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.85rem 0.65rem;
+  padding-top: 0.15rem;
 `;
 
-const EmotionColorItem = styled.span<{ $color: string }>`
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  color: ${({ theme }) => theme.colors['secondary-text']};
-  font-size: 0.78rem;
-  font-weight: 700;
-  line-height: 1.2;
+const EmotionColorItem = styled.div`
+  display: grid;
+  align-content: start;
+  gap: 0.45rem;
+  min-width: 0;
 
-  &::before {
-    width: 0.58rem;
-    height: 0.58rem;
-    border-radius: 999px;
-    background-color: ${({ $color }) => $color};
-    content: '';
+  > span:last-child {
+    display: grid;
+    gap: 0.18rem;
+    min-width: 0;
   }
+`;
+
+const EmotionColorSwatch = styled.span<{ $color: string }>`
+  width: 2rem;
+  aspect-ratio: 1;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 0.45rem;
+  background-color: ${({ $color }) => $color};
+`;
+
+const EmotionColorName = styled.span`
+  color: ${({ theme }) => theme.colors['default-text']};
+  font-size: 0.74rem;
+  font-weight: 700;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+`;
+
+const EmotionColorValue = styled.span`
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  font-size: 0.66rem;
+  font-weight: 600;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
 `;
 
 const TypeRoleList = styled.div`
   display: grid;
+  margin-top: 0.15rem;
   border-top: 1px solid ${({ theme }) => theme.colors.border};
 `;
 
 const TypeRole = styled.div<{ $role: 'heading' | 'body' | 'label' }>`
   display: grid;
-  gap: 0.35rem;
-  padding: 0.85rem 0;
+  gap: 0.5rem;
+  padding: clamp(1rem, 2vw, 1.25rem) 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 
   &:last-child {
@@ -650,9 +684,9 @@ const TypeRole = styled.div<{ $role: 'heading' | 'body' | 'label' }>`
 
   span {
     color: ${({ theme }) => theme.colors.primary};
-    font-size: 0.66rem;
+    font-size: 0.64rem;
     font-weight: 800;
-    letter-spacing: 0.11em;
+    letter-spacing: 0.08em;
     line-height: 1;
     text-transform: uppercase;
   }
@@ -943,10 +977,11 @@ const InteractionDecision = styled.article`
 
 const InteractionDecisionEyebrow = styled.p`
   color: ${({ theme }) => theme.colors.primary};
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
   line-height: 1;
+  text-transform: uppercase;
 `;
 
 const InteractionDecisionTitle = styled.h3`
@@ -1567,103 +1602,154 @@ export default function MosaicCaseStudy() {
 
         <VisualFoundationsPanel>
           <VisualFoundationColumn>
-            <FoundationEyebrow>System palette</FoundationEyebrow>
-            <FoundationTitle>Quiet surfaces, clear hierarchy</FoundationTitle>
-            <FoundationText>
-              Mosaic keeps its interface colors restrained so the colors
-              attached to emotional entries can remain the most expressive part
-              of the experience.
-            </FoundationText>
-            <ColorTokenGrid aria-label="Mosaic system palette">
-              <ColorToken>
-                <ColorTokenSwatch $color="#000000" />
-                <span>
-                  <ColorTokenName>Canvas</ColorTokenName>
-                  <ColorTokenValue>#000000</ColorTokenValue>
-                </span>
-              </ColorToken>
-              <ColorToken>
-                <ColorTokenSwatch $color="#1C1C1E" />
-                <span>
-                  <ColorTokenName>Surface</ColorTokenName>
-                  <ColorTokenValue>#1C1C1E</ColorTokenValue>
-                </span>
-              </ColorToken>
-              <ColorToken>
-                <ColorTokenSwatch $color="#C09040" />
-                <span>
-                  <ColorTokenName>Gold</ColorTokenName>
-                  <ColorTokenValue>#C09040</ColorTokenValue>
-                </span>
-              </ColorToken>
-              <ColorToken>
-                <ColorTokenSwatch $color="#FFFFFF" />
-                <span>
-                  <ColorTokenName>Primary text</ColorTokenName>
-                  <ColorTokenValue>#FFFFFF</ColorTokenValue>
-                </span>
-              </ColorToken>
-              <ColorToken>
-                <ColorTokenSwatch $color="#A1A1A6" />
-                <span>
-                  <ColorTokenName>Muted text</ColorTokenName>
-                  <ColorTokenValue>#A1A1A6</ColorTokenValue>
-                </span>
-              </ColorToken>
-              <ColorToken>
-                <ColorTokenSwatch $color="#3A3A3C" />
-                <span>
-                  <ColorTokenName>Divider</ColorTokenName>
-                  <ColorTokenValue>#3A3A3C</ColorTokenValue>
-                </span>
-              </ColorToken>
-            </ColorTokenGrid>
-            <FoundationEyebrow>Emotion families</FoundationEyebrow>
-            <FoundationText>
-              Color variation belongs to the emotional entries, not the
-              surrounding chrome.
-            </FoundationText>
-            <EmotionColorStrip aria-label="Mosaic emotion family colors">
-              <EmotionColorItem $color="#F2A900">Happy</EmotionColorItem>
-              <EmotionColorItem $color="#00B894">Calm</EmotionColorItem>
-              <EmotionColorItem $color="#3D71D9">Sad</EmotionColorItem>
-              <EmotionColorItem $color="#FF2D55">Angry</EmotionColorItem>
-              <EmotionColorItem $color="#FF8A00">Fearful</EmotionColorItem>
-              <EmotionColorItem $color="#C026D3">Surprised</EmotionColorItem>
-              <EmotionColorItem $color="#7C3AED">Disgusted</EmotionColorItem>
-            </EmotionColorStrip>
+            <FoundationGroup>
+              <FoundationEyebrow>System palette</FoundationEyebrow>
+              <FoundationTitle>Quiet surfaces, clear hierarchy</FoundationTitle>
+              <FoundationText>
+                Mosaic keeps its interface colors restrained so the colors
+                attached to emotional entries can remain the most expressive
+                part of the experience.
+              </FoundationText>
+              <ColorTokenGrid aria-label="Mosaic system palette">
+                <ColorToken>
+                  <ColorTokenSwatch $color="#000000" />
+                  <span>
+                    <ColorTokenName>Canvas</ColorTokenName>
+                    <ColorTokenValue>#000000</ColorTokenValue>
+                  </span>
+                </ColorToken>
+                <ColorToken>
+                  <ColorTokenSwatch $color="#1C1C1E" />
+                  <span>
+                    <ColorTokenName>Surface</ColorTokenName>
+                    <ColorTokenValue>#1C1C1E</ColorTokenValue>
+                  </span>
+                </ColorToken>
+                <ColorToken>
+                  <ColorTokenSwatch $color="#C09040" />
+                  <span>
+                    <ColorTokenName>Gold</ColorTokenName>
+                    <ColorTokenValue>#C09040</ColorTokenValue>
+                  </span>
+                </ColorToken>
+                <ColorToken>
+                  <ColorTokenSwatch $color="#FFFFFF" />
+                  <span>
+                    <ColorTokenName>Primary text</ColorTokenName>
+                    <ColorTokenValue>#FFFFFF</ColorTokenValue>
+                  </span>
+                </ColorToken>
+                <ColorToken>
+                  <ColorTokenSwatch $color="#A1A1A6" />
+                  <span>
+                    <ColorTokenName>Muted text</ColorTokenName>
+                    <ColorTokenValue>#A1A1A6</ColorTokenValue>
+                  </span>
+                </ColorToken>
+                <ColorToken>
+                  <ColorTokenSwatch $color="#3A3A3C" />
+                  <span>
+                    <ColorTokenName>Divider</ColorTokenName>
+                    <ColorTokenValue>#3A3A3C</ColorTokenValue>
+                  </span>
+                </ColorToken>
+              </ColorTokenGrid>
+            </FoundationGroup>
+            <FoundationGroup>
+              <FoundationEyebrow>Emotion families</FoundationEyebrow>
+              <FoundationText>
+                Color variation belongs to emotional entries, while the
+                surrounding interface stays intentionally quiet.
+              </FoundationText>
+              <EmotionColorGrid aria-label="Mosaic emotion family colors">
+                <EmotionColorItem>
+                  <EmotionColorSwatch $color="#F2A900" />
+                  <span>
+                    <EmotionColorName>Happy</EmotionColorName>
+                    <EmotionColorValue>#F2A900</EmotionColorValue>
+                  </span>
+                </EmotionColorItem>
+                <EmotionColorItem>
+                  <EmotionColorSwatch $color="#00B894" />
+                  <span>
+                    <EmotionColorName>Calm</EmotionColorName>
+                    <EmotionColorValue>#00B894</EmotionColorValue>
+                  </span>
+                </EmotionColorItem>
+                <EmotionColorItem>
+                  <EmotionColorSwatch $color="#3D71D9" />
+                  <span>
+                    <EmotionColorName>Sad</EmotionColorName>
+                    <EmotionColorValue>#3D71D9</EmotionColorValue>
+                  </span>
+                </EmotionColorItem>
+                <EmotionColorItem>
+                  <EmotionColorSwatch $color="#FF2D55" />
+                  <span>
+                    <EmotionColorName>Angry</EmotionColorName>
+                    <EmotionColorValue>#FF2D55</EmotionColorValue>
+                  </span>
+                </EmotionColorItem>
+                <EmotionColorItem>
+                  <EmotionColorSwatch $color="#FF8A00" />
+                  <span>
+                    <EmotionColorName>Fearful</EmotionColorName>
+                    <EmotionColorValue>#FF8A00</EmotionColorValue>
+                  </span>
+                </EmotionColorItem>
+                <EmotionColorItem>
+                  <EmotionColorSwatch $color="#C026D3" />
+                  <span>
+                    <EmotionColorName>Surprised</EmotionColorName>
+                    <EmotionColorValue>#C026D3</EmotionColorValue>
+                  </span>
+                </EmotionColorItem>
+                <EmotionColorItem>
+                  <EmotionColorSwatch $color="#7C3AED" />
+                  <span>
+                    <EmotionColorName>Disgusted</EmotionColorName>
+                    <EmotionColorValue>#7C3AED</EmotionColorValue>
+                  </span>
+                </EmotionColorItem>
+              </EmotionColorGrid>
+            </FoundationGroup>
           </VisualFoundationColumn>
           <VisualFoundationColumn>
-            <FoundationEyebrow>Type roles</FoundationEyebrow>
-            <FoundationTitle>Editorial warmth, clear utility</FoundationTitle>
-            <FoundationText>
-              Typography separates reflection from supporting information
-              without making the interface feel ornamental.
-            </FoundationText>
-            <TypeRoleList>
-              <TypeRole $role="heading">
-                <span>HEADING</span>
-                <strong>How are you feeling?</strong>
-                <p>
-                  Editorial display type for page titles and reflective moments.
-                </p>
-              </TypeRole>
-              <TypeRole $role="body">
-                <span>BODY</span>
-                <strong>A calm, readable voice for everyday reflection.</strong>
-                <p>
-                  Neutral system text for notes, choices, and supporting copy.
-                </p>
-              </TypeRole>
-              <TypeRole $role="label">
-                <span>LABEL</span>
-                <strong>JUNE 30 · 9:15 AM</strong>
-                <p>
-                  Monospace labels for dates, metadata, and small system
-                  details.
-                </p>
-              </TypeRole>
-            </TypeRoleList>
+            <FoundationGroup>
+              <FoundationEyebrow>Type roles</FoundationEyebrow>
+              <FoundationTitle>Editorial warmth, clear utility</FoundationTitle>
+              <FoundationText>
+                Typography separates reflection from supporting information
+                without making the interface feel ornamental.
+              </FoundationText>
+              <TypeRoleList>
+                <TypeRole $role="heading">
+                  <span>HEADING</span>
+                  <strong>How are you feeling?</strong>
+                  <p>
+                    Editorial display type for page titles and reflective
+                    moments.
+                  </p>
+                </TypeRole>
+                <TypeRole $role="body">
+                  <span>BODY</span>
+                  <strong>
+                    A calm, readable voice for everyday reflection.
+                  </strong>
+                  <p>
+                    Neutral system text for notes, choices, and supporting copy.
+                  </p>
+                </TypeRole>
+                <TypeRole $role="label">
+                  <span>LABEL</span>
+                  <strong>JUNE 30 · 9:15 AM</strong>
+                  <p>
+                    Monospace labels for dates, metadata, and small system
+                    details.
+                  </p>
+                </TypeRole>
+              </TypeRoleList>
+            </FoundationGroup>
           </VisualFoundationColumn>
         </VisualFoundationsPanel>
 
