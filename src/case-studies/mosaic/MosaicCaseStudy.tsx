@@ -3,9 +3,24 @@ import styled from 'styled-components';
 import CaseStudyCallout from '../components/CaseStudyCallout';
 import CaseStudyLayout from '../components/CaseStudyLayout';
 import CaseStudySection from '../components/CaseStudySection';
+import {
+  CASE_STUDY_GOLD,
+  getCaseStudyGoldSurfaceColor,
+  getCaseStudyGoldTextColor,
+} from '../components/caseStudyColorTokens';
 import { mosaicCaseStudyMeta } from './mosaicCaseStudyData';
 
-const MOSAIC_GOLD = '#C09040';
+import ci1 from '../../assets/case-study/mosaic/ci-1.webp';
+import ci3 from '../../assets/case-study/mosaic/ci-3.webp';
+import ci4 from '../../assets/case-study/mosaic/ci-4.webp';
+import a11y from '../../assets/case-study/mosaic/a11y.webp';
+import e1 from '../../assets/case-study/mosaic/e-1.webp';
+import e2 from '../../assets/case-study/mosaic/e-2.webp';
+import m from '../../assets/case-study/mosaic/m.webp';
+import y from '../../assets/case-study/mosaic/y.webp';
+import t from '../../assets/case-study/mosaic/t.webp';
+
+const MOSAIC_GOLD = CASE_STUDY_GOLD;
 
 const HeroScene = styled.figure`
   position: relative;
@@ -234,7 +249,8 @@ const PhoneBadge = styled.span`
       ${({ theme }) => theme.colors.border} 58%
     );
   border-radius: 999px;
-  color: ${MOSAIC_GOLD};
+  color: ${({ theme }) =>
+    getCaseStudyGoldTextColor(theme.colors['default-text'])};
   background-color: color-mix(
     in oklch,
     ${MOSAIC_GOLD},
@@ -338,7 +354,8 @@ const ResearchQuote = styled.article`
 `;
 
 const ResearchLabel = styled.p`
-  color: ${MOSAIC_GOLD};
+  color: ${({ theme }) =>
+    getCaseStudyGoldTextColor(theme.colors['default-text'])};
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.11em;
@@ -379,7 +396,8 @@ const ResearchBlock = styled.div`
 `;
 
 const ResearchRowLabel = styled.p`
-  color: ${MOSAIC_GOLD};
+  color: ${({ theme }) =>
+    getCaseStudyGoldTextColor(theme.colors['default-text'])};
   font-size: 0.66rem;
   font-weight: 800;
   letter-spacing: 0.1em;
@@ -412,15 +430,13 @@ const OverviewProofItem = styled.div`
   padding: clamp(1rem, 2vw, 1.25rem);
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 14px;
-  background-color: color-mix(
-    in oklch,
-    ${({ theme }) => theme.colors.primary},
-    ${({ theme }) => theme.colors.background} 96%
-  );
+  background-color: ${({ theme }) =>
+    getCaseStudyGoldSurfaceColor(theme.colors.background, 96)};
 `;
 
 const OverviewProofLabel = styled.p`
-  color: ${MOSAIC_GOLD};
+  color: ${({ theme }) =>
+    getCaseStudyGoldTextColor(theme.colors['default-text'])};
   font-size: 0.72rem;
   font-weight: 700;
   line-height: 1;
@@ -472,48 +488,6 @@ const VisualFeatureLayout = styled.div`
   }
 `;
 
-const ScreenshotPlaceholder = styled.div<{ $size: 'portrait' | 'wide' }>`
-  display: grid;
-  place-items: center;
-  gap: 0.45rem;
-  width: 100%;
-  max-width: ${({ $size }) => ($size === 'portrait' ? '22rem' : 'none')};
-  aspect-ratio: ${({ $size }) =>
-    $size === 'portrait' ? '9 / 19.5' : '16 / 10'};
-  justify-self: center;
-  padding: clamp(1rem, 3vw, 1.5rem);
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 18px;
-  background-color: color-mix(
-    in oklch,
-    ${({ theme }) => theme.colors.primary},
-    ${({ theme }) => theme.colors.background} 92%
-  );
-  text-align: center;
-`;
-
-const ScreenshotPlaceholderLabel = styled.p`
-  color: ${MOSAIC_GOLD};
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0;
-  line-height: 1;
-`;
-
-const ScreenshotPlaceholderTitle = styled.p`
-  color: ${({ theme }) => theme.colors['default-text']};
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 1.35;
-`;
-
-const ScreenshotPlaceholderFile = styled.p`
-  color: ${({ theme }) => theme.colors['secondary-text']};
-  font-size: 0.82rem;
-  font-weight: 600;
-  line-height: 1.35;
-`;
-
 const VisualFoundationsPanel = styled.div`
   display: grid;
   grid-template-columns: 1fr;
@@ -558,7 +532,8 @@ const FoundationGroup = styled.div`
 `;
 
 const FoundationEyebrow = styled.p`
-  color: ${MOSAIC_GOLD};
+  color: ${({ theme }) =>
+    getCaseStudyGoldTextColor(theme.colors['default-text'])};
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.11em;
@@ -581,8 +556,12 @@ const FoundationText = styled.p`
 
 const ColorTokenGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 0.95rem 1rem;
+
+  @media (min-width: 380px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 `;
 
 const ColorToken = styled.div`
@@ -626,9 +605,13 @@ const ColorTokenValue = styled.span`
 
 const EmotionColorGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.85rem 0.65rem;
   padding-top: 0.15rem;
+
+  @media (min-width: 560px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 `;
 
 const EmotionColorItem = styled.div`
@@ -685,7 +668,8 @@ const TypeRole = styled.div<{ $role: 'heading' | 'body' | 'label' }>`
   }
 
   span {
-    color: ${MOSAIC_GOLD};
+    color: ${({ theme }) =>
+      getCaseStudyGoldTextColor(theme.colors['default-text'])};
     font-size: 0.64rem;
     font-weight: 800;
     letter-spacing: 0.08em;
@@ -782,7 +766,8 @@ const ArchitectureTechLine = styled.p`
 `;
 
 const ArchitectureTechLabel = styled.span`
-  color: ${MOSAIC_GOLD};
+  color: ${({ theme }) =>
+    getCaseStudyGoldTextColor(theme.colors['default-text'])};
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.11em;
@@ -856,7 +841,8 @@ const ArchitecturePanelColumn = styled.div`
 
 const ArchitectureEyebrow = styled.p`
   margin: 0;
-  color: ${MOSAIC_GOLD};
+  color: ${({ theme }) =>
+    getCaseStudyGoldTextColor(theme.colors['default-text'])};
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.11em;
@@ -939,7 +925,11 @@ const ArchitectureReasonItem = styled.li`
     height: 0.38rem;
     margin-top: 0.52rem;
     border-radius: 999px;
-    background-color: color-mix(in oklch, ${MOSAIC_GOLD}, black 30%);
+    background-color: color-mix(
+      in oklch,
+      ${MOSAIC_GOLD},
+      ${({ theme }) => theme.colors['default-text']} 34%
+    );
     content: '';
   }
 
@@ -988,7 +978,8 @@ const InteractionDecision = styled.article`
 `;
 
 const InteractionDecisionEyebrow = styled.p`
-  color: ${MOSAIC_GOLD};
+  color: ${({ theme }) =>
+    getCaseStudyGoldTextColor(theme.colors['default-text'])};
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.11em;
@@ -1022,45 +1013,25 @@ const InteractionFlowVisual = styled.div`
   }
 `;
 
-const InteractionScreenPlaceholder = styled.div`
-  display: grid;
-  place-items: center;
-  align-content: center;
-  gap: 0.45rem;
-  min-height: 14rem;
-  padding: 1rem;
+const InteractionScreenImageFrame = styled.figure`
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 16px;
-  aspect-ratio: 9 / 15;
+  aspect-ratio: 9 / 19.5;
   background-color: color-mix(
     in oklch,
     ${({ theme }) => theme.colors.primary},
     ${({ theme }) => theme.colors.background} 94%
   );
-  text-align: center;
 `;
 
-const InteractionScreenStep = styled.p`
-  color: ${MOSAIC_GOLD};
-  font-size: 0.66rem;
-  font-weight: 800;
-  letter-spacing: 0.11em;
-  line-height: 1;
-  text-transform: uppercase;
-`;
-
-const InteractionScreenTitle = styled.p`
-  color: ${({ theme }) => theme.colors['default-text']};
-  font-size: 0.95rem;
-  font-weight: 600;
-  line-height: 1.35;
-`;
-
-const InteractionScreenFile = styled.p`
-  color: ${({ theme }) => theme.colors['secondary-text']};
-  font-size: 0.78rem;
-  font-weight: 600;
-  line-height: 1.35;
+const InteractionScreenImage = styled.img`
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const InteractionFlowCaption = styled.p`
@@ -1482,33 +1453,24 @@ export default function MosaicCaseStudy() {
               stays quick, without treating every day as simple.
             </InteractionDecisionText>
             <InteractionFlowVisual aria-label="Check-in flow screenshot placeholders">
-              <InteractionScreenPlaceholder>
-                <InteractionScreenStep>STEP 1</InteractionScreenStep>
-                <InteractionScreenTitle>
-                  Choose an emotion family
-                </InteractionScreenTitle>
-                <InteractionScreenFile>
-                  01-emotion-families.png
-                </InteractionScreenFile>
-              </InteractionScreenPlaceholder>
-              <InteractionScreenPlaceholder>
-                <InteractionScreenStep>STEP 2</InteractionScreenStep>
-                <InteractionScreenTitle>
-                  Explore a specific feeling
-                </InteractionScreenTitle>
-                <InteractionScreenFile>
-                  02-emotion-expanded.png
-                </InteractionScreenFile>
-              </InteractionScreenPlaceholder>
-              <InteractionScreenPlaceholder>
-                <InteractionScreenStep>STEP 3</InteractionScreenStep>
-                <InteractionScreenTitle>
-                  Add context only when useful
-                </InteractionScreenTitle>
-                <InteractionScreenFile>
-                  03-checkin-details.png
-                </InteractionScreenFile>
-              </InteractionScreenPlaceholder>
+              <InteractionScreenImageFrame>
+                <InteractionScreenImage
+                  src={ci1}
+                  alt="Mosaic emotion-family selection screen"
+                />
+              </InteractionScreenImageFrame>
+              <InteractionScreenImageFrame>
+                <InteractionScreenImage
+                  src={ci3}
+                  alt="Mosaic calm emotion selection"
+                />
+              </InteractionScreenImageFrame>
+              <InteractionScreenImageFrame>
+                <InteractionScreenImage
+                  src={ci4}
+                  alt="Mosaic check-in screen"
+                />
+              </InteractionScreenImageFrame>
             </InteractionFlowVisual>
             <InteractionFlowCaption>
               Every check-in starts with a broad choice. More specific feelings,
@@ -1572,28 +1534,12 @@ export default function MosaicCaseStudy() {
               time, without turning reflection into a score.
             </InteractionDecisionText>
             <ReflectionViewsPair>
-              <ScreenshotPlaceholder $size="portrait">
-                <ScreenshotPlaceholderLabel>
-                  Placeholder
-                </ScreenshotPlaceholderLabel>
-                <ScreenshotPlaceholderTitle>
-                  Monthly mosaic view
-                </ScreenshotPlaceholderTitle>
-                <ScreenshotPlaceholderFile>
-                  05-monthly-mosaic.png
-                </ScreenshotPlaceholderFile>
-              </ScreenshotPlaceholder>
-              <ScreenshotPlaceholder $size="portrait">
-                <ScreenshotPlaceholderLabel>
-                  Placeholder
-                </ScreenshotPlaceholderLabel>
-                <ScreenshotPlaceholderTitle>
-                  Yearly mosaic view
-                </ScreenshotPlaceholderTitle>
-                <ScreenshotPlaceholderFile>
-                  06-yearly-mosaic.png
-                </ScreenshotPlaceholderFile>
-              </ScreenshotPlaceholder>
+              <InteractionScreenImageFrame>
+                <InteractionScreenImage src={m} alt="Mosaic monthly view" />
+              </InteractionScreenImageFrame>
+              <InteractionScreenImageFrame>
+                <InteractionScreenImage src={y} alt="Mosaic yearly view" />
+              </InteractionScreenImageFrame>
             </ReflectionViewsPair>
             <InteractionFlowCaption>
               The monthly view keeps individual days legible. The yearly view
@@ -1766,14 +1712,15 @@ export default function MosaicCaseStudy() {
         </VisualFoundationsPanel>
 
         <VisualSubsection>
-          <VisualSubheading>Quiet chrome, expressive emotion</VisualSubheading>
+          <VisualSubheading>
+            Quiet interface, expressive emotion
+          </VisualSubheading>
           <VisualFeatureLayout>
             <div>
               <p>
-                Mosaic keeps its system chrome deliberately quiet. The black
-                canvas, softened surfaces, and restrained gold accent create
-                hierarchy without competing with the colors attached to each
-                emotion.
+                Mosaic keeps the interface deliberately quiet. The black canvas,
+                softened surfaces, and restrained gold accent create hierarchy
+                without competing with the colors attached to each emotion.
               </p>
               <p>
                 The Today screen is the clearest expression of that balance.
@@ -1782,17 +1729,9 @@ export default function MosaicCaseStudy() {
                 a dashboard.
               </p>
             </div>
-            <ScreenshotPlaceholder $size="portrait">
-              <ScreenshotPlaceholderLabel>
-                Placeholder
-              </ScreenshotPlaceholderLabel>
-              <ScreenshotPlaceholderTitle>
-                Today with a composite mosaic
-              </ScreenshotPlaceholderTitle>
-              <ScreenshotPlaceholderFile>
-                04-today-composite.png
-              </ScreenshotPlaceholderFile>
-            </ScreenshotPlaceholder>
+            <InteractionScreenImageFrame>
+              <InteractionScreenImage src={t} alt="Mosaic today screen" />
+            </InteractionScreenImageFrame>
           </VisualFeatureLayout>
         </VisualSubsection>
 
@@ -1805,28 +1744,12 @@ export default function MosaicCaseStudy() {
             what stands out without having to decode everything at once.
           </p>
           <VisualScreensPair>
-            <ScreenshotPlaceholder $size="portrait">
-              <ScreenshotPlaceholderLabel>
-                Placeholder
-              </ScreenshotPlaceholderLabel>
-              <ScreenshotPlaceholderTitle>
-                Emotion summary and recurring feelings
-              </ScreenshotPlaceholderTitle>
-              <ScreenshotPlaceholderFile>
-                07-insights-summary.png
-              </ScreenshotPlaceholderFile>
-            </ScreenshotPlaceholder>
-            <ScreenshotPlaceholder $size="portrait">
-              <ScreenshotPlaceholderLabel>
-                Placeholder
-              </ScreenshotPlaceholderLabel>
-              <ScreenshotPlaceholderTitle>
-                Time and day patterns
-              </ScreenshotPlaceholderTitle>
-              <ScreenshotPlaceholderFile>
-                08-insights-timing-patterns.png
-              </ScreenshotPlaceholderFile>
-            </ScreenshotPlaceholder>
+            <InteractionScreenImageFrame>
+              <InteractionScreenImage src={e1} alt="Mosaic insights screen 1" />
+            </InteractionScreenImageFrame>
+            <InteractionScreenImageFrame>
+              <InteractionScreenImage src={e2} alt="Mosaic insights screen 2" />
+            </InteractionScreenImageFrame>
           </VisualScreensPair>
         </VisualSubsection>
 
@@ -1846,17 +1769,12 @@ export default function MosaicCaseStudy() {
                 preserving the same core experience.
               </p>
             </div>
-            <ScreenshotPlaceholder $size="portrait">
-              <ScreenshotPlaceholderLabel>
-                Placeholder
-              </ScreenshotPlaceholderLabel>
-              <ScreenshotPlaceholderTitle>
-                Accessibility settings
-              </ScreenshotPlaceholderTitle>
-              <ScreenshotPlaceholderFile>
-                09-accessibility-settings.png
-              </ScreenshotPlaceholderFile>
-            </ScreenshotPlaceholder>
+            <InteractionScreenImageFrame>
+              <InteractionScreenImage
+                src={a11y}
+                alt="Mosaic accessibility settings"
+              />
+            </InteractionScreenImageFrame>
           </AccessibilityLayout>
         </VisualSubsection>
       </CaseStudySection>

@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import {
+  getCaseStudyGoldSurfaceColor,
+  getCaseStudyGoldTextColor,
+} from './caseStudyColorTokens';
 
 interface CaseStudyCalloutProps {
   label?: string;
   children: React.ReactNode;
 }
-
-const CALLOUT_GOLD = '#C09040';
 
 const Callout = styled.aside`
   box-sizing: border-box;
@@ -17,7 +19,8 @@ const Callout = styled.aside`
   padding: 1.1rem 1.25rem;
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 14px;
-  background-color: ${CALLOUT_GOLD}0d;
+  background-color: ${({ theme }) =>
+    getCaseStudyGoldSurfaceColor(theme.colors.background, 92)};
   color: ${({ theme }) => theme.colors['default-text']};
   font-size: 1.05rem;
   font-weight: 500;
@@ -26,7 +29,8 @@ const Callout = styled.aside`
 
 const Label = styled.p`
   margin-bottom: 0.35rem;
-  color: ${CALLOUT_GOLD};
+  color: ${({ theme }) =>
+    getCaseStudyGoldTextColor(theme.colors['default-text'])};
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.1em;
