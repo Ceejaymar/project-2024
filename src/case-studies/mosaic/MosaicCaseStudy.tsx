@@ -823,6 +823,9 @@ const ArchitecturePanelGrid = styled.div`
 
   @media (min-width: 760px) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto auto auto minmax(0, 1fr);
+    row-gap: 1rem;
+    align-items: stretch;
   }
 `;
 
@@ -837,6 +840,11 @@ const ArchitecturePanelColumn = styled.div`
   }
 
   @media (min-width: 760px) {
+    grid-row: span 4;
+    grid-template-rows: subgrid;
+    align-content: stretch;
+    gap: 1rem;
+
     & + & {
       border-top: 0;
       border-left: 1px solid ${({ theme }) => theme.colors.border};
@@ -871,6 +879,7 @@ const ArchitectureColumnText = styled.p`
 
 const ArchitectureDataList = styled.div`
   display: grid;
+  align-self: start;
   gap: 1px;
   overflow: hidden;
   border: 1px solid ${({ theme }) => theme.colors.border};
@@ -906,6 +915,7 @@ const ArchitectureDataValue = styled.span`
 
 const ArchitectureReasonList = styled.ul`
   display: grid;
+  align-self: start;
   margin: 0;
   padding: 0;
   border-top: 1px solid ${({ theme }) => theme.colors.border};
@@ -1869,7 +1879,7 @@ export default function MosaicCaseStudy() {
           <ArchitecturePanel>
             <ArchitecturePanelHeader>
               <ArchitecturePanelTitle>
-                A small record with room to grow
+                One check-in, many ways to reflect
               </ArchitecturePanelTitle>
             </ArchitecturePanelHeader>
             <ArchitecturePanelGrid>
