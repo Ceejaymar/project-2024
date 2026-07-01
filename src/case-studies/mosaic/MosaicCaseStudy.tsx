@@ -5,7 +5,6 @@ import CaseStudyLayout from '../components/CaseStudyLayout';
 import CaseStudySection from '../components/CaseStudySection';
 import {
   CASE_STUDY_GOLD,
-  getCaseStudyGoldSurfaceColor,
   getCaseStudyGoldTextColor,
 } from '../components/caseStudyColorTokens';
 import { mosaicCaseStudyMeta } from './mosaicCaseStudyData';
@@ -21,6 +20,12 @@ import y from '../../assets/case-study/mosaic/y.webp';
 import t from '../../assets/case-study/mosaic/t.webp';
 
 const MOSAIC_GOLD = CASE_STUDY_GOLD;
+const EMOTION_SURFACE_GRADIENT = `linear-gradient(
+  180deg,
+  rgb(255 255 255 / 0.16) 0%,
+  rgb(255 255 255 / 0.03) 46%,
+  rgb(0 0 0 / 0.14) 100%
+)`;
 
 const HeroScene = styled.figure`
   position: relative;
@@ -186,7 +191,7 @@ const CalendarHalo = styled.div`
 const CalendarHaloTile = styled.span<{ $color: string }>`
   aspect-ratio: 1;
   border-radius: 0.35rem;
-  background-color: ${({ $color }) => $color};
+  background: ${EMOTION_SURFACE_GRADIENT}, ${({ $color }) => $color};
 `;
 
 const PhoneFrame = styled.div`
@@ -314,7 +319,7 @@ const CalendarTile = styled.span<{
 const CalendarTileSegment = styled.span<{ $color: string }>`
   min-width: 0;
   min-height: 0;
-  background-color: ${({ $color }) => $color};
+  background: ${EMOTION_SURFACE_GRADIENT}, ${({ $color }) => $color};
 `;
 
 const CalendarBlank = styled.span`
@@ -409,51 +414,6 @@ const ResearchRowText = styled.p`
   color: ${({ theme }) => theme.colors['secondary-text']};
   font-size: 0.9rem;
   line-height: 1.6;
-`;
-
-const OverviewProofStrip = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(0.75rem, 2vw, 1rem);
-  margin-top: clamp(1.75rem, 4vw, 2.5rem);
-
-  @media (min-width: 720px) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-`;
-
-const OverviewProofItem = styled.div`
-  display: grid;
-  align-content: center;
-  gap: 0.45rem;
-  min-height: 7.5rem;
-  padding: clamp(1rem, 2vw, 1.25rem);
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 14px;
-  background-color: ${({ theme }) =>
-    getCaseStudyGoldSurfaceColor(theme.colors.background, 96)};
-`;
-
-const OverviewProofLabel = styled.p`
-  color: ${({ theme }) =>
-    getCaseStudyGoldTextColor(theme.colors['default-text'])};
-  font-size: 0.72rem;
-  font-weight: 700;
-  line-height: 1;
-`;
-
-const OverviewProofTitle = styled.p`
-  color: ${({ theme }) => theme.colors['default-text']};
-  font-size: 0.95rem;
-  font-weight: 700;
-  line-height: 1.35;
-`;
-
-const OverviewProofFile = styled.p`
-  color: ${({ theme }) => theme.colors['secondary-text']};
-  font-size: 0.78rem;
-  font-weight: 600;
-  line-height: 1.35;
 `;
 
 const VisualSystemLead = styled.p`
@@ -632,7 +592,7 @@ const EmotionColorSwatch = styled.span<{ $color: string }>`
   aspect-ratio: 1;
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 0.45rem;
-  background-color: ${({ $color }) => $color};
+  background: ${EMOTION_SURFACE_GRADIENT}, ${({ $color }) => $color};
 `;
 
 const EmotionColorName = styled.span`
@@ -1093,6 +1053,7 @@ const TileProgressionTile = styled.span<{
   span {
     min-width: 0;
     min-height: 0;
+    background-image: ${EMOTION_SURFACE_GRADIENT};
   }
 
   span:last-child {
@@ -1347,55 +1308,23 @@ export default function MosaicCaseStudy() {
     >
       <CaseStudySection title="Overview">
         <p>
-          Mosaic is a mood tracker built to make emotional reflection feel
-          quick, personal, and low-pressure. Rather than asking people to work
-          through long questionnaires or reduce a complex day to a single score,
-          it lets them start broad, add detail only when it helps, and build a
-          visual record they can return to over time.
+          Mosaic is an emotion journal built for quick, low-pressure reflection.
+          People start with one of seven emotion families, add detail only when
+          it helps, and can save a check-in in as few as three taps. Up to four
+          check-ins become one daily mosaic tile, creating a visual record that
+          makes shifts over time easier to revisit.
         </p>
-        <p>
-          Each check-in begins with one of seven emotion families, with the
-          option to explore more specific feelings when needed. In as few as
-          three taps, a user can save a check-in. Up to four entries can be
-          recorded in a day, and Mosaic combines them into one daily tile: full
-          color for a single entry, then divided as additional check-ins are
-          added. Weekly and monthly insights make recurring emotions and timing
-          patterns easier to notice.
-        </p>
-        <OverviewProofStrip aria-label="Mosaic product screenshot placeholders">
-          <OverviewProofItem>
-            <OverviewProofLabel>Placeholder</OverviewProofLabel>
-            <OverviewProofTitle>Fast check-in flow</OverviewProofTitle>
-            <OverviewProofFile>01-emotion-families.png</OverviewProofFile>
-          </OverviewProofItem>
-          <OverviewProofItem>
-            <OverviewProofLabel>Placeholder</OverviewProofLabel>
-            <OverviewProofTitle>Composite daily tile</OverviewProofTitle>
-            <OverviewProofFile>04-today-composite.png</OverviewProofFile>
-          </OverviewProofItem>
-          <OverviewProofItem>
-            <OverviewProofLabel>Placeholder</OverviewProofLabel>
-            <OverviewProofTitle>Monthly and yearly views</OverviewProofTitle>
-            <OverviewProofFile>
-              05-monthly-mosaic.png, 06-yearly-mosaic.png
-            </OverviewProofFile>
-          </OverviewProofItem>
-        </OverviewProofStrip>
       </CaseStudySection>
 
       <CaseStudySection title="The problem" spacing="compact">
         <p>
-          Mood tracking sits in a delicate space: people want help understanding
-          themselves, but many tools make reflection feel like another task to
-          manage. In competitive app review research, I found repeated
-          frustration around long check-in flows, unclear emotion language,
-          privacy concerns, and products that either flattened emotional life
-          into rigid options or made reflection feel like more work.
-        </p>
-        <p>
-          Mosaic was designed around that tension: lightweight enough to fit
-          into a day, expressive enough to make room for nuance, and calm enough
-          to support honest reflection.
+          Mood tracking can become another task to manage. In competitive app
+          review research, I repeatedly saw frustration with long check-in
+          flows, unclear emotion language, privacy concerns, and tools that
+          either oversimplified a day or demanded too much effort. Mosaic was
+          designed to hold that balance: quick enough for everyday use,
+          expressive enough for nuance, and calm enough to support honest
+          reflection.
         </p>
       </CaseStudySection>
 
@@ -1495,22 +1424,34 @@ export default function MosaicCaseStudy() {
             <div>
               <TileProgression aria-label="Daily tile progression">
                 <TileProgressionTile $layout="one">
-                  <span style={{ background: CORE_EMOTION_COLORS.happy }} />
+                  <span
+                    style={{ backgroundColor: CORE_EMOTION_COLORS.happy }}
+                  />
                 </TileProgressionTile>
                 <TileProgressionTile $layout="two">
-                  <span style={{ background: CORE_EMOTION_COLORS.happy }} />
-                  <span style={{ background: CORE_EMOTION_COLORS.calm }} />
+                  <span
+                    style={{ backgroundColor: CORE_EMOTION_COLORS.happy }}
+                  />
+                  <span style={{ backgroundColor: CORE_EMOTION_COLORS.calm }} />
                 </TileProgressionTile>
                 <TileProgressionTile $layout="three">
-                  <span style={{ background: CORE_EMOTION_COLORS.happy }} />
-                  <span style={{ background: CORE_EMOTION_COLORS.sad }} />
-                  <span style={{ background: CORE_EMOTION_COLORS.calm }} />
+                  <span
+                    style={{ backgroundColor: CORE_EMOTION_COLORS.happy }}
+                  />
+                  <span style={{ backgroundColor: CORE_EMOTION_COLORS.sad }} />
+                  <span style={{ backgroundColor: CORE_EMOTION_COLORS.calm }} />
                 </TileProgressionTile>
                 <TileProgressionTile $layout="four">
-                  <span style={{ background: CORE_EMOTION_COLORS.happy }} />
-                  <span style={{ background: CORE_EMOTION_COLORS.calm }} />
-                  <span style={{ background: CORE_EMOTION_COLORS.sad }} />
-                  <span style={{ background: CORE_EMOTION_COLORS.surprised }} />
+                  <span
+                    style={{ backgroundColor: CORE_EMOTION_COLORS.happy }}
+                  />
+                  <span style={{ backgroundColor: CORE_EMOTION_COLORS.calm }} />
+                  <span style={{ backgroundColor: CORE_EMOTION_COLORS.sad }} />
+                  <span
+                    style={{
+                      backgroundColor: CORE_EMOTION_COLORS.surprised,
+                    }}
+                  />
                 </TileProgressionTile>
               </TileProgression>
               <TileProgressionCaption>

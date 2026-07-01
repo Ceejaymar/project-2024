@@ -10,6 +10,7 @@ import {
 import media from '../../utils/mediaQueries';
 import { ProjectLink } from '../../types';
 import { getProjectLinkTarget, trackEvent } from '../../lib/analytics';
+import { getCaseStudyGoldTextColor } from './caseStudyColorTokens';
 
 interface GlanceMetric {
   label: string;
@@ -81,9 +82,12 @@ const Hero = styled.header`
   `}
 `;
 
-const Eyebrow = styled.p`
+const Eyebrow = styled.p<{ $useCaseStudyGold?: boolean }>`
   margin-bottom: 0.85rem;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ $useCaseStudyGold, theme }) =>
+    $useCaseStudyGold
+      ? getCaseStudyGoldTextColor(theme.colors['default-text'])
+      : theme.colors.primary};
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -236,6 +240,14 @@ const ClosingCopy = styled.p`
   line-height: 1.7;
 `;
 
+const MosaicClosing = styled(Closing)`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(0.85rem, 3vw, 1.25rem);
+`;
+
 const LinkList = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -296,6 +308,62 @@ const ExternalLink = styled.a`
   }
 `;
 
+const MosaicSecondaryLink = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: ${({ theme }) => theme.colors['secondary-text']};
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors['default-text']};
+    transform: translateY(-1px);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.primary};
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+`;
+
+const MosaicPrimaryLink = styled.a`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: ${({ theme }) =>
+    getCaseStudyGoldTextColor(theme.colors['default-text'])};
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.primary};
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+`;
+
 const getLinkIcon = (type: string) => {
   if (type === 'case-study') {
     return <BookOpen size={16} weight="bold" />;
@@ -323,6 +391,9 @@ export default function CaseStudyLayout({
     role ? { label: 'Role', value: role } : null,
     tech ? { label: 'Stack', value: tech } : null,
   ].filter(Boolean) as Array<{ label: string; value: string | number }>;
+  const useCaseStudyGoldEyebrow = eyebrow === 'Product case study';
+  const isMosaicCaseStudy = title === 'Mosaic';
+  const mosaicLiveLink = links.find((link) => 'url' in link);
 
   const trackCaseStudyLinkClick = (link: ProjectLink) => {
     const target = getProjectLinkTarget(link.type, link.label);
@@ -353,7 +424,11 @@ export default function CaseStudyLayout({
       {showIntro ? (
         <Hero>
           <div>
-            {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
+            {eyebrow ? (
+              <Eyebrow $useCaseStudyGold={useCaseStudyGoldEyebrow}>
+                {eyebrow}
+              </Eyebrow>
+            ) : null}
             <Title>{title}</Title>
           </div>
 
@@ -375,7 +450,9 @@ export default function CaseStudyLayout({
       ) : null}
 
       {!showIntro && eyebrow ? (
-        <StandaloneEyebrow>{eyebrow}</StandaloneEyebrow>
+        <StandaloneEyebrow $useCaseStudyGold={useCaseStudyGoldEyebrow}>
+          {eyebrow}
+        </StandaloneEyebrow>
       ) : null}
 
       {heroVisual || heroImage ? (
@@ -397,46 +474,69 @@ export default function CaseStudyLayout({
 
       <Content>{children}</Content>
 
-      <Closing>
-        <ClosingCopy>
-          Want to keep exploring? View the live product or head back to the
-          project archive.
-        </ClosingCopy>
-        <LinkList>
-          {links.map((link) => {
-            if ('to' in link) {
+      {isMosaicCaseStudy && mosaicLiveLink && 'url' in mosaicLiveLink ? (
+        <MosaicClosing>
+          <MosaicSecondaryLink to="/projects">
+            <ArrowLeft size={16} weight="bold" />
+            Back to projects
+          </MosaicSecondaryLink>
+          <MosaicPrimaryLink
+            href={mosaicLiveLink.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() =>
+              trackCaseStudyLinkClick({
+                ...mosaicLiveLink,
+                label: 'Get Mosaic',
+              })
+            }
+          >
+            Get Mosaic
+            <ArrowUpRight size={14} weight="bold" />
+          </MosaicPrimaryLink>
+        </MosaicClosing>
+      ) : (
+        <Closing>
+          <ClosingCopy>
+            Want to keep exploring? View the live product or head back to the
+            project archive.
+          </ClosingCopy>
+          <LinkList>
+            {links.map((link) => {
+              if ('to' in link) {
+                return (
+                  <CaseStudyLink
+                    key={link.to}
+                    to={link.to}
+                    onClick={() => trackCaseStudyLinkClick(link)}
+                  >
+                    {getLinkIcon(link.type)}
+                    {link.label}
+                  </CaseStudyLink>
+                );
+              }
+
               return (
-                <CaseStudyLink
-                  key={link.to}
-                  to={link.to}
+                <ExternalLink
+                  key={link.url}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => trackCaseStudyLinkClick(link)}
                 >
                   {getLinkIcon(link.type)}
                   {link.label}
-                </CaseStudyLink>
+                  <ArrowUpRight size={14} weight="bold" />
+                </ExternalLink>
               );
-            }
-
-            return (
-              <ExternalLink
-                key={link.url}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackCaseStudyLinkClick(link)}
-              >
-                {getLinkIcon(link.type)}
-                {link.label}
-                <ArrowUpRight size={14} weight="bold" />
-              </ExternalLink>
-            );
-          })}
-          <CaseStudyLink to="/projects">
-            <ArrowLeft size={16} weight="bold" />
-            All projects
-          </CaseStudyLink>
-        </LinkList>
-      </Closing>
+            })}
+            <CaseStudyLink to="/projects">
+              <ArrowLeft size={16} weight="bold" />
+              All projects
+            </CaseStudyLink>
+          </LinkList>
+        </Closing>
+      )}
     </Page>
   );
 }
