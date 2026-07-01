@@ -1684,56 +1684,59 @@ export default function MosaicCaseStudy() {
         </ArchitectureContent>
       </CaseStudySection>
 
-      <CaseStudySection title="Next directions">
+      <CaseStudySection title="Early release, ongoing learning">
         <p>
-          Mosaic is still evolving, so the next phase is less about adding every
-          possible tracking feature and more about learning what makes
-          reflection genuinely useful over time.
+          Mosaic is live and still early. The next phase is focused on learning
+          where more depth would genuinely help, while keeping the core check-in
+          private, lightweight, and easy to return to.
         </p>
         <NextDirectionsList>
           <InteractionDecision>
-            <InteractionDecisionEyebrow>LEARN</InteractionDecisionEyebrow>
+            <InteractionDecisionEyebrow>CAPACITY</InteractionDecisionEyebrow>
             <InteractionDecisionTitle>
-              Validate the reflection loop
+              Validate room for a changing day
             </InteractionDecisionTitle>
             <InteractionDecisionText>
-              Use privacy-conscious product signals and direct feedback to learn
-              whether people return to the check-in, mosaic, and insight views,
-              and which patterns feel worth revisiting.
-            </InteractionDecisionText>
-          </InteractionDecision>
-
-          <InteractionDecision>
-            <InteractionDecisionEyebrow>CONTINUITY</InteractionDecisionEyebrow>
-            <InteractionDecisionTitle>
-              Improve continuity without losing control
-            </InteractionDecisionTitle>
-            <InteractionDecisionText>
-              Explore optional ways for people to back up, export, or move their
-              history between devices without making accounts or cloud storage
-              the default experience.
+              The current four-entry limit keeps a day easy to read at a glance.
+              I&apos;ll use privacy-conscious interaction signals to understand
+              whether people reach that limit or want to capture more moments. A
+              higher limit is worth testing only if the daily mosaic can still
+              make those moments easy to read.
             </InteractionDecisionText>
           </InteractionDecision>
 
           <InteractionDecision>
             <InteractionDecisionEyebrow>
-              ADAPTABILITY
+              PRIVATE INSIGHTS
             </InteractionDecisionEyebrow>
             <InteractionDecisionTitle>
-              Make the system more adaptable
+              Explore AI-assisted pattern reflection
             </InteractionDecisionTitle>
             <InteractionDecisionText>
-              Continue expanding accessibility and language support, then
-              evaluate which personalization options would make the emotional
-              vocabulary more useful without overwhelming the core check-in
-              flow.
+              Explore optional AI-assisted summaries that help people notice
+              recurring emotions, shifts over time, and meaningful timing
+              patterns in their own history. The goal is to turn existing
+              check-ins into clearer, more useful observations, with on-device
+              processing where supported.
+            </InteractionDecisionText>
+          </InteractionDecision>
+
+          <InteractionDecision>
+            <InteractionDecisionEyebrow>
+              COLOR ACCESS
+            </InteractionDecisionEyebrow>
+            <InteractionDecisionTitle>
+              Make color patterns more accessible
+            </InteractionDecisionTitle>
+            <InteractionDecisionText>
+              Explore alternative emotion palettes and supporting visual cues so
+              Mosaic&apos;s patterns remain easy to distinguish across different
+              forms of color vision. The goal is to preserve color as a
+              meaningful part of reflection while making the system easier for
+              more people to read.
             </InteractionDecisionText>
           </InteractionDecision>
         </NextDirectionsList>
-        <CaseStudyCallout label="Looking ahead">
-          The goal is not to add more tracking for its own sake. It is to make
-          reflection more useful while keeping the core ritual simple.
-        </CaseStudyCallout>
       </CaseStudySection>
     </CaseStudyLayout>
   );
