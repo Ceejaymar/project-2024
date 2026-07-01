@@ -5,6 +5,8 @@ import CaseStudyLayout from '../components/CaseStudyLayout';
 import CaseStudySection from '../components/CaseStudySection';
 import { mosaicCaseStudyMeta } from './mosaicCaseStudyData';
 
+const MOSAIC_GOLD = '#C09040';
+
 const HeroScene = styled.figure`
   position: relative;
   isolation: isolate;
@@ -228,14 +230,14 @@ const PhoneBadge = styled.span`
   border: 1px solid
     color-mix(
       in oklch,
-      ${({ theme }) => theme.colors.primary},
+      ${MOSAIC_GOLD},
       ${({ theme }) => theme.colors.border} 58%
     );
   border-radius: 999px;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${MOSAIC_GOLD};
   background-color: color-mix(
     in oklch,
-    ${({ theme }) => theme.colors.primary},
+    ${MOSAIC_GOLD},
     ${({ theme }) => theme.colors.background} 84%
   );
   font-size: 0.7rem;
@@ -336,7 +338,7 @@ const ResearchQuote = styled.article`
 `;
 
 const ResearchLabel = styled.p`
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${MOSAIC_GOLD};
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.11em;
@@ -377,7 +379,7 @@ const ResearchBlock = styled.div`
 `;
 
 const ResearchRowLabel = styled.p`
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${MOSAIC_GOLD};
   font-size: 0.66rem;
   font-weight: 800;
   letter-spacing: 0.1em;
@@ -418,7 +420,7 @@ const OverviewProofItem = styled.div`
 `;
 
 const OverviewProofLabel = styled.p`
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${MOSAIC_GOLD};
   font-size: 0.72rem;
   font-weight: 700;
   line-height: 1;
@@ -491,7 +493,7 @@ const ScreenshotPlaceholder = styled.div<{ $size: 'portrait' | 'wide' }>`
 `;
 
 const ScreenshotPlaceholderLabel = styled.p`
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${MOSAIC_GOLD};
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0;
@@ -556,7 +558,7 @@ const FoundationGroup = styled.div`
 `;
 
 const FoundationEyebrow = styled.p`
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${MOSAIC_GOLD};
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.11em;
@@ -683,7 +685,7 @@ const TypeRole = styled.div<{ $role: 'heading' | 'body' | 'label' }>`
   }
 
   span {
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${MOSAIC_GOLD};
     font-size: 0.64rem;
     font-weight: 800;
     letter-spacing: 0.08em;
@@ -780,7 +782,7 @@ const ArchitectureTechLine = styled.p`
 `;
 
 const ArchitectureTechLabel = styled.span`
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${MOSAIC_GOLD};
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.11em;
@@ -854,7 +856,7 @@ const ArchitecturePanelColumn = styled.div`
 
 const ArchitectureEyebrow = styled.p`
   margin: 0;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${MOSAIC_GOLD};
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.11em;
@@ -937,7 +939,7 @@ const ArchitectureReasonItem = styled.li`
     height: 0.38rem;
     margin-top: 0.52rem;
     border-radius: 999px;
-    background-color: ${({ theme }) => theme.colors.primary};
+    background-color: color-mix(in oklch, ${MOSAIC_GOLD}, black 30%);
     content: '';
   }
 
@@ -986,7 +988,7 @@ const InteractionDecision = styled.article`
 `;
 
 const InteractionDecisionEyebrow = styled.p`
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${MOSAIC_GOLD};
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.11em;
@@ -1039,7 +1041,7 @@ const InteractionScreenPlaceholder = styled.div`
 `;
 
 const InteractionScreenStep = styled.p`
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${MOSAIC_GOLD};
   font-size: 0.66rem;
   font-weight: 800;
   letter-spacing: 0.11em;
@@ -2032,7 +2034,7 @@ export default function MosaicCaseStudy() {
             </InteractionDecisionText>
           </InteractionDecision>
         </NextDirectionsList>
-        <CaseStudyCallout label="Product judgment">
+        <CaseStudyCallout label="Key takeaway">
           Mosaic&apos;s next phase is not about more tracking. It is about
           learning which additions make private reflection clearer without
           making the daily ritual heavier.

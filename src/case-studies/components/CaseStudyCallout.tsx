@@ -6,6 +6,8 @@ interface CaseStudyCalloutProps {
   children: React.ReactNode;
 }
 
+const CALLOUT_GOLD = '#C09040';
+
 const Callout = styled.aside`
   box-sizing: border-box;
   align-self: stretch;
@@ -15,7 +17,7 @@ const Callout = styled.aside`
   padding: 1.1rem 1.25rem;
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 14px;
-  background-color: ${({ theme }) => theme.colors.primary}08;
+  background-color: ${CALLOUT_GOLD}0d;
   color: ${({ theme }) => theme.colors['default-text']};
   font-size: 1.05rem;
   font-weight: 500;
@@ -24,7 +26,7 @@ const Callout = styled.aside`
 
 const Label = styled.p`
   margin-bottom: 0.35rem;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${CALLOUT_GOLD};
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.1em;
