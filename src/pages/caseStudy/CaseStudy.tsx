@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { ArrowLeft } from '@phosphor-icons/react';
 
 import { caseStudies, CaseStudySlug } from '../../case-studies';
-import { trackEvent } from '../../lib/analytics';
+import { getCaseStudyViewEventName, trackEvent } from '../../lib/analytics';
 
 const NotFoundPage = styled.main`
   display: flex;
@@ -55,9 +55,9 @@ export default function CaseStudy() {
   useEffect(() => {
     if (!slug || !caseStudy || trackedSlugRef.current === slug) return;
 
-    trackEvent('case_study_viewed', {
-      project: caseStudy.title,
-      slug,
+    trackEvent(getCaseStudyViewEventName({ projectName: caseStudy.title }), {
+      project_slug: slug,
+      project_name: caseStudy.title,
     });
     trackedSlugRef.current = slug;
   }, [caseStudy, slug]);

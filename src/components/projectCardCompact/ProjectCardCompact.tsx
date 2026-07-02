@@ -11,7 +11,7 @@ import {
 
 import ExternalLink from '../externalLink/ExternalLink';
 import { Project, ProjectLink } from '../../types';
-import { getProjectLinkTarget, trackEvent } from '../../lib/analytics';
+import { getProjectLinkAnalytics, trackEvent } from '../../lib/analytics';
 
 const HIDE_CASE_STUDY_LINKS: boolean = false;
 
@@ -142,22 +142,16 @@ export default function ProjectCardCompact({
   project,
 }: ProjectCardCompactProps) {
   const trackProjectLinkClick = (link: ProjectLink) => {
-    const target = getProjectLinkTarget(link.type, link.label);
-
-    trackEvent('project_clicked', {
-      project: project.title,
-      location: 'projects_page',
-      target,
+    const analyticsEvent = getProjectLinkAnalytics({
+      link,
+      projectName: project.title,
+      analyticsProjectName: project.analyticsName,
+      projectSlug: project.slug,
+      placement: 'projects_page',
+      elementIdPrefix: 'project',
     });
 
-    if ('url' in link) {
-      trackEvent('outbound_clicked', {
-        label: link.label,
-        project: project.title,
-        destination: link.url,
-        location: 'project_card',
-      });
-    }
+    trackEvent(analyticsEvent.eventName, analyticsEvent.properties);
   };
 
   return (

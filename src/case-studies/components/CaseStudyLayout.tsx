@@ -9,7 +9,7 @@ import {
 } from '@phosphor-icons/react';
 import media from '../../utils/mediaQueries';
 import { ProjectLink } from '../../types';
-import { getProjectLinkTarget, trackEvent } from '../../lib/analytics';
+import { getProjectLinkAnalytics, trackEvent } from '../../lib/analytics';
 import { getCaseStudyGoldTextColor } from './caseStudyColorTokens';
 
 interface GlanceMetric {
@@ -19,6 +19,7 @@ interface GlanceMetric {
 
 interface CaseStudyLayoutProps {
   title: string;
+  slug?: string;
   eyebrow?: string;
   summary: string;
   year?: number;
@@ -374,6 +375,7 @@ const getLinkIcon = (type: string) => {
 
 export default function CaseStudyLayout({
   title,
+  slug,
   eyebrow,
   summary,
   year,
@@ -396,22 +398,15 @@ export default function CaseStudyLayout({
   const mosaicLiveLink = links.find((link) => 'url' in link);
 
   const trackCaseStudyLinkClick = (link: ProjectLink) => {
-    const target = getProjectLinkTarget(link.type, link.label);
-
-    trackEvent('project_clicked', {
-      project: title,
-      location: 'case_study',
-      target,
+    const analyticsEvent = getProjectLinkAnalytics({
+      link,
+      projectName: title,
+      projectSlug: slug,
+      placement: 'case_study_footer',
+      elementIdPrefix: 'case_study',
     });
 
-    if ('url' in link) {
-      trackEvent('outbound_clicked', {
-        label: link.label,
-        project: title,
-        destination: link.url,
-        location: 'case_study',
-      });
-    }
+    trackEvent(analyticsEvent.eventName, analyticsEvent.properties);
   };
 
   return (

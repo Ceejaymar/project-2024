@@ -5,7 +5,7 @@ import { Briefcase, FileArrowDown } from '@phosphor-icons/react';
 import media from '../../utils/mediaQueries';
 import { HeaderProps } from '../../types';
 import { experienceList } from '../../portfolio-data';
-import { trackEvent } from '../../lib/analytics';
+import { getResumeEventName, trackEvent } from '../../lib/analytics';
 
 const RESUME_PATH = '/carlos-martinez-resume.pdf';
 
@@ -435,10 +435,19 @@ const About = ({ themeName }: HeaderProps) => {
             href={RESUME_PATH}
             download
             onClick={() =>
-              trackEvent('resume_clicked', {
-                location: 'projects',
-                destination: RESUME_PATH,
-              })
+              trackEvent(
+                getResumeEventName({
+                  label: 'Download Resume',
+                  placement: 'experience_section',
+                }),
+                {
+                  placement: 'experience_section',
+                  element_id: 'experience_download_resume',
+                  element_label: 'Download Resume',
+                  destination_type: 'download',
+                  destination: RESUME_PATH,
+                },
+              )
             }
           >
             Download Resume{' '}

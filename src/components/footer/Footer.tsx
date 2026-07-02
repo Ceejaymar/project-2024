@@ -4,7 +4,13 @@ import styled, { useTheme } from 'styled-components';
 import GradientLogo from '../logoGradient/GradientLogo';
 import media from '../../utils/mediaQueries';
 import { socialLinks } from '../../portfolio-data';
-import { trackEvent } from '../../lib/analytics';
+import {
+  ContactType,
+  getAnalyticsIdSegment,
+  getContactEventName,
+  sanitizeAnalyticsDestination,
+  trackEvent,
+} from '../../lib/analytics';
 
 const GRADIENT_MAP = {
   'grad-1': { start: 'primary-pastel', end: 'secondary-pastel' },
@@ -12,10 +18,14 @@ const GRADIENT_MAP = {
   'grad-3': { start: 'senary-pastel', end: 'tertiary-pastel' },
 };
 
-const getContactType = (name: string) => {
-  if (name === 'github') return 'github';
+const getContactType = (name: string): ContactType => {
+  const normalizedName = name.toLowerCase();
 
-  return 'other';
+  if (normalizedName === 'github') return 'github';
+  if (normalizedName === 'youtube') return 'youtube';
+  if (normalizedName === 'instagram') return 'instagram';
+
+  return 'github';
 };
 
 const FooterContainer = styled.footer`
@@ -143,10 +153,20 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() =>
-                  trackEvent('contact_clicked', {
-                    type: getContactType(link.name),
-                    location: 'footer',
-                  })
+                  trackEvent(
+                    getContactEventName({
+                      contactType: getContactType(link.name),
+                      placement: 'footer',
+                    }),
+                    {
+                      placement: 'footer',
+                      element_id: `footer_${getAnalyticsIdSegment(link.name)}`,
+                      element_label: link.name,
+                      destination_type: 'external',
+                      destination: sanitizeAnalyticsDestination(link.url),
+                      contact_type: getContactType(link.name),
+                    },
+                  )
                 }
                 style={
                   {

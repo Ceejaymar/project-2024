@@ -5,7 +5,7 @@ import { GlobalStyles } from './GlobalStyles';
 import { BrowserRouter, Routes, Route } from 'react-router';
 
 import { lightTheme, darkTheme } from './themes';
-import { trackEvent } from './lib/analytics';
+import { getThemeEventName, trackEvent } from './lib/analytics';
 
 const themes = { light: lightTheme, dark: darkTheme };
 import Navbar from './components/navbar/Navbar';
@@ -56,10 +56,12 @@ function App() {
     setTheme((prevTheme) => {
       const nextTheme = prevTheme === 'light' ? 'dark' : 'light';
 
-      trackEvent('theme_toggled', {
+      trackEvent(getThemeEventName({ from: prevTheme, to: nextTheme }), {
         from: prevTheme,
         to: nextTheme,
-        location: 'theme_toggle',
+        placement: 'nav',
+        element_id: 'theme_toggle',
+        element_label: 'Theme toggle',
       });
 
       return nextTheme;

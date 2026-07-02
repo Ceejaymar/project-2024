@@ -13,7 +13,7 @@ import {
 import media from '../../utils/mediaQueries';
 import ExternalLink from '../externalLink/ExternalLink';
 import { ProjectLink } from '../../types';
-import { getProjectLinkTarget, trackEvent } from '../../lib/analytics';
+import { getProjectLinkAnalytics, trackEvent } from '../../lib/analytics';
 
 const HIDE_CASE_STUDY_LINKS: boolean = false;
 
@@ -187,20 +187,24 @@ const getLinkIcon = (type: string) => {
 
 interface ProjectCardProps {
   title: string;
+  analyticsName?: string;
   image: string;
   description: string;
   tech: string;
   links: ProjectLink[];
+  slug?: string;
 }
 
 const springConfig = { stiffness: 120, damping: 22, mass: 0.5 };
 
 const ProjectCard = ({
   title,
+  analyticsName,
   image,
   description,
   tech,
   links,
+  slug,
 }: ProjectCardProps) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -224,22 +228,16 @@ const ProjectCard = ({
   };
 
   const trackProjectLinkClick = (link: ProjectLink) => {
-    const target = getProjectLinkTarget(link.type, link.label);
-
-    trackEvent('project_clicked', {
-      project: title,
-      location: 'project_card',
-      target,
+    const analyticsEvent = getProjectLinkAnalytics({
+      link,
+      projectName: title,
+      analyticsProjectName: analyticsName,
+      projectSlug: slug,
+      placement: 'featured_projects',
+      elementIdPrefix: 'project',
     });
 
-    if ('url' in link) {
-      trackEvent('outbound_clicked', {
-        label: link.label,
-        project: title,
-        destination: link.url,
-        location: 'project_card',
-      });
-    }
+    trackEvent(analyticsEvent.eventName, analyticsEvent.properties);
   };
 
   return (

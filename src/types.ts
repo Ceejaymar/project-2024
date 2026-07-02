@@ -14,6 +14,7 @@ export type ProjectLink =
 
 export interface Project {
   title: string;
+  analyticsName?: string;
   image: string;
   description: string;
   tech: string;
