@@ -9,14 +9,7 @@ import {
 } from '@phosphor-icons/react';
 import media from '../../utils/mediaQueries';
 import { ProjectLink } from '../../types';
-import {
-  getAnalyticsIdSegment,
-  getOutboundEventName,
-  getProjectEventName,
-  getProjectLinkAction,
-  sanitizeAnalyticsDestination,
-  trackEvent,
-} from '../../lib/analytics';
+import { getProjectLinkAnalytics, trackEvent } from '../../lib/analytics';
 import { getCaseStudyGoldTextColor } from './caseStudyColorTokens';
 
 interface GlanceMetric {
@@ -403,45 +396,17 @@ export default function CaseStudyLayout({
   const useCaseStudyGoldEyebrow = eyebrow === 'Product case study';
   const isMosaicCaseStudy = title === 'Mosaic';
   const mosaicLiveLink = links.find((link) => 'url' in link);
-  const projectSlug = slug || getAnalyticsIdSegment(title);
 
   const trackCaseStudyLinkClick = (link: ProjectLink) => {
-    const action = getProjectLinkAction(link.type, link.label);
-
-    if ('url' in link) {
-      trackEvent(
-        getOutboundEventName({
-          projectName: title,
-          label: link.label,
-          placement: 'case_study_footer',
-        }),
-        {
-          placement: 'case_study_footer',
-          element_id: `case_study_${projectSlug}_${getAnalyticsIdSegment(
-            link.label,
-          )}`,
-          element_label: link.label,
-          destination_type: 'external',
-          destination: sanitizeAnalyticsDestination(link.url),
-          project_slug: projectSlug,
-          project_name: title,
-          action,
-        },
-      );
-
-      return;
-    }
-
-    trackEvent(getProjectEventName({ projectName: title, action }), {
+    const analyticsEvent = getProjectLinkAnalytics({
+      link,
+      projectName: title,
+      projectSlug: slug,
       placement: 'case_study_footer',
-      element_id: `case_study_${projectSlug}_${action}`,
-      element_label: link.label,
-      destination_type: 'internal',
-      destination: link.to,
-      project_slug: projectSlug,
-      project_name: title,
-      action,
+      elementIdPrefix: 'case_study',
     });
+
+    trackEvent(analyticsEvent.eventName, analyticsEvent.properties);
   };
 
   return (

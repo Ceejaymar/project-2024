@@ -11,14 +11,7 @@ import {
 
 import ExternalLink from '../externalLink/ExternalLink';
 import { Project, ProjectLink } from '../../types';
-import {
-  getAnalyticsIdSegment,
-  getOutboundEventName,
-  getProjectEventName,
-  getProjectLinkAction,
-  sanitizeAnalyticsDestination,
-  trackEvent,
-} from '../../lib/analytics';
+import { getProjectLinkAnalytics, trackEvent } from '../../lib/analytics';
 
 const HIDE_CASE_STUDY_LINKS: boolean = false;
 
@@ -149,50 +142,16 @@ export default function ProjectCardCompact({
   project,
 }: ProjectCardCompactProps) {
   const trackProjectLinkClick = (link: ProjectLink) => {
-    const action = getProjectLinkAction(link.type, link.label);
-    const projectSlug = project.slug || getAnalyticsIdSegment(project.title);
-    const analyticsProjectName = project.analyticsName || project.title;
+    const analyticsEvent = getProjectLinkAnalytics({
+      link,
+      projectName: project.title,
+      analyticsProjectName: project.analyticsName,
+      projectSlug: project.slug,
+      placement: 'projects_page',
+      elementIdPrefix: 'project',
+    });
 
-    if ('url' in link) {
-      trackEvent(
-        getOutboundEventName({
-          projectName: analyticsProjectName,
-          label: link.label,
-          placement: 'projects_page',
-        }),
-        {
-          placement: 'projects_page',
-          element_id: `project_${projectSlug}_${getAnalyticsIdSegment(
-            link.label,
-          )}`,
-          element_label: link.label,
-          destination_type: 'external',
-          destination: sanitizeAnalyticsDestination(link.url),
-          project_slug: projectSlug,
-          project_name: analyticsProjectName,
-          action,
-        },
-      );
-
-      return;
-    }
-
-    trackEvent(
-      getProjectEventName({
-        projectName: analyticsProjectName,
-        action,
-      }),
-      {
-        placement: 'projects_page',
-        element_id: `project_${projectSlug}_${action}`,
-        element_label: link.label,
-        destination_type: 'internal',
-        destination: link.to,
-        project_slug: projectSlug,
-        project_name: analyticsProjectName,
-        action,
-      },
-    );
+    trackEvent(analyticsEvent.eventName, analyticsEvent.properties);
   };
 
   return (

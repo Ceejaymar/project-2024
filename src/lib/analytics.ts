@@ -53,6 +53,18 @@ export type DestinationType = 'internal' | 'external' | 'download' | 'email';
 
 export type PageType = 'home' | 'projects_index' | 'case_study';
 
+export type ProjectAnalyticsLink =
+  | {
+      label: string;
+      url: string;
+      type: string;
+    }
+  | {
+      label: string;
+      to: string;
+      type: string;
+    };
+
 const PLACEMENT_LABELS: Record<Placement, string> = {
   hero: 'Hero',
   nav: 'Desktop',
@@ -307,13 +319,70 @@ export function getProjectLinkAction(type: string, label = ''): ProjectAction {
     return 'website';
   }
 
-  if (
-    type === 'web' ||
-    normalizedLabel.includes('live') ||
-    normalizedLabel.includes('website')
-  ) {
+  if (type === 'web' || normalizedLabel.includes('live')) {
     return 'live_site';
   }
 
   return 'website';
+}
+
+export function getProjectLinkAnalytics({
+  link,
+  projectName,
+  analyticsProjectName = projectName,
+  projectSlug,
+  placement,
+  elementIdPrefix,
+}: {
+  link: ProjectAnalyticsLink;
+  projectName: string;
+  analyticsProjectName?: string;
+  projectSlug?: string;
+  placement: Placement;
+  elementIdPrefix: string;
+}): {
+  eventName: AnalyticsEventName;
+  properties: AnalyticsProperties;
+} {
+  const action = getProjectLinkAction(link.type, link.label);
+  const resolvedProjectSlug = projectSlug || getAnalyticsIdSegment(projectName);
+
+  if ('url' in link) {
+    return {
+      eventName: getOutboundEventName({
+        projectName: analyticsProjectName,
+        label: link.label,
+        placement,
+      }),
+      properties: {
+        placement,
+        element_id: `${elementIdPrefix}_${resolvedProjectSlug}_${getAnalyticsIdSegment(
+          link.label,
+        )}`,
+        element_label: link.label,
+        destination_type: 'external',
+        destination: sanitizeAnalyticsDestination(link.url),
+        project_slug: resolvedProjectSlug,
+        project_name: analyticsProjectName,
+        action,
+      },
+    };
+  }
+
+  return {
+    eventName: getProjectEventName({
+      projectName: analyticsProjectName,
+      action,
+    }),
+    properties: {
+      placement,
+      element_id: `${elementIdPrefix}_${resolvedProjectSlug}_${action}`,
+      element_label: link.label,
+      destination_type: 'internal',
+      destination: link.to,
+      project_slug: resolvedProjectSlug,
+      project_name: analyticsProjectName,
+      action,
+    },
+  };
 }

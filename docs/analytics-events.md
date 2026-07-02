@@ -62,6 +62,7 @@ Event-name formatting is centralized in `src/lib/analytics.ts`.
 | `experience_section` | `Experience` |
 | `featured_projects` | `Featured Projects` |
 | `projects_page` | `Projects Page` |
+| `project_card` | `Project Card` |
 | `case_study_footer` | `Case Study Footer` |
 | `contact_section` | `Contact Section` |
 | `footer` | `Footer` |

@@ -81,23 +81,6 @@ export const projects: Project[] = [
     ],
   },
   {
-    title: 'Batéy Fashion',
-    analyticsName: 'Batey',
-    image:
-      'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/batey.webp',
-    description:
-      "I wanted to experience the feeling of creating a fashion brand, imagining it born from the culture and spirit of my home country. What would it look like? What emotions would it stir? This is the unfolding story of that exploration. This project is a WORK IN PROGRESS, and I'm excited to share what I've discovered so far.",
-    tech: 'Next.js, TypeScript, CSS Modules, Better-SQLite3, Zod',
-    links: [
-      {
-        label: 'GitHub',
-        url: 'https://github.com/Ceejaymar/batey-fs',
-        type: 'github',
-      },
-      { label: 'Live Site', url: 'https://batey.vercel.app/', type: 'web' },
-    ],
-  },
-  {
     title: 'Resplash',
     image:
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/resplash.webp',

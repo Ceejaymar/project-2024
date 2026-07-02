@@ -13,14 +13,7 @@ import {
 import media from '../../utils/mediaQueries';
 import ExternalLink from '../externalLink/ExternalLink';
 import { ProjectLink } from '../../types';
-import {
-  getAnalyticsIdSegment,
-  getOutboundEventName,
-  getProjectEventName,
-  getProjectLinkAction,
-  sanitizeAnalyticsDestination,
-  trackEvent,
-} from '../../lib/analytics';
+import { getProjectLinkAnalytics, trackEvent } from '../../lib/analytics';
 
 const HIDE_CASE_STUDY_LINKS: boolean = false;
 
@@ -235,50 +228,16 @@ const ProjectCard = ({
   };
 
   const trackProjectLinkClick = (link: ProjectLink) => {
-    const action = getProjectLinkAction(link.type, link.label);
-    const projectSlug = slug || getAnalyticsIdSegment(title);
-    const analyticsProjectName = analyticsName || title;
+    const analyticsEvent = getProjectLinkAnalytics({
+      link,
+      projectName: title,
+      analyticsProjectName: analyticsName,
+      projectSlug: slug,
+      placement: 'featured_projects',
+      elementIdPrefix: 'project',
+    });
 
-    if ('url' in link) {
-      trackEvent(
-        getOutboundEventName({
-          projectName: analyticsProjectName,
-          label: link.label,
-          placement: 'featured_projects',
-        }),
-        {
-          placement: 'featured_projects',
-          element_id: `project_${projectSlug}_${getAnalyticsIdSegment(
-            link.label,
-          )}`,
-          element_label: link.label,
-          destination_type: 'external',
-          destination: sanitizeAnalyticsDestination(link.url),
-          project_slug: projectSlug,
-          project_name: analyticsProjectName,
-          action,
-        },
-      );
-
-      return;
-    }
-
-    trackEvent(
-      getProjectEventName({
-        projectName: analyticsProjectName,
-        action,
-      }),
-      {
-        placement: 'featured_projects',
-        element_id: `project_${projectSlug}_${action}`,
-        element_label: link.label,
-        destination_type: 'internal',
-        destination: link.to,
-        project_slug: projectSlug,
-        project_name: analyticsProjectName,
-        action,
-      },
-    );
+    trackEvent(analyticsEvent.eventName, analyticsEvent.properties);
   };
 
   return (

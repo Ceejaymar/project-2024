@@ -336,6 +336,21 @@ type ContactType =
   | "instagram";
 ```
 
+Placement labels:
+
+| Placement value | Activity-feed label |
+| --- | --- |
+| `hero` | `Hero` |
+| `experience_section` | `Experience` |
+| `featured_projects` | `Featured Projects` |
+| `projects_page` | `Projects Page` |
+| `project_card` | `Project Card` |
+| `case_study_footer` | `Case Study Footer` |
+| `contact_section` | `Contact Section` |
+| `footer` | `Footer` |
+| `nav` | `Desktop` |
+| `mobile_nav` | `Mobile` |
+
 Recommended next review items:
 
 - Decide whether the homepage “check out my full Projects page” text link
