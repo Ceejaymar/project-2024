@@ -379,33 +379,32 @@ const About = ({ themeName }: HeaderProps) => {
       <ExperienceSection variants={fadeInUpChildren}>
         <AboutSection>
           <AboutCopy>
-            I&apos;m a <TextTitle>Creative Engineer</TextTitle> who loves
-            building elegant applications with intuitive user experiences. My
-            work is focused on bridging the gap between{' '}
-            <span>design and development</span>, crafting solutions that are as
-            beautiful to look at as they are delightful to use.
+            I&apos;m a frontend engineer with a strong eye for design. I enjoy
+            being in the space between{' '}
+            <TextTitle>design and development</TextTitle>. I craft polished,
+            intuitive interfaces that turn complex product needs into clear
+            experiences.
           </AboutCopy>
+
           <AboutCopy>
             I approach every project with a{' '}
-            <TextUserCentered>user-centered</TextUserCentered> mindset and a
-            strong commitment to <TextA11y>accessibility</TextA11y>. I love
-            taking complex challenges and breaking them down to build elegant,
-            inclusive solutions.
+            <TextUserCentered>user-centered</TextUserCentered> mindset and care
+            about the details that make a product feel considered, from reusable
+            UI systems to responsive interactions. With{' '}
+            <TextA11y>Accessibility</TextA11y> being a part of how I build from
+            the start.
           </AboutCopy>
+
           <AboutCopy>
-            I mostly find myself building with <TextTool>React</TextTool>,{' '}
+            I usually build with <TextTool>React</TextTool>,
             <TextTool>TypeScript</TextTool>, and different{' '}
-            <TextCSS>flavors of CSS</TextCSS>, shaping interfaces that feel
-            smooth, intuitive, and purposeful. Ultimately, I aim to deliver
-            interactions that genuinely improve the rhythm of a user&apos;s
-            daily life.
+            <TextCSS>flavors of CSS</TextCSS>. I&apos;m drawn to collaborative
+            spaces where design and engineering stay closely connected and where
+            I can
+            <span> nurture my creativity</span> while helping build useful,
+            thoughtful products.
           </AboutCopy>
-          <AboutCopy>
-            I want to continue being in spaces where I can{' '}
-            <span>nurture my creativity</span> and create products that will
-            propagate throughout our communities.
-          </AboutCopy>
-          <AboutCopy>✨Let&apos;s build cool stuff together✨</AboutCopy>
+          {/* <AboutCopy>✨Let&apos;s build cool stuff together✨</AboutCopy> */}
         </AboutSection>
         <ExperienceComponent>
           <WorkTitle>
