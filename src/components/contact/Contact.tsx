@@ -4,7 +4,11 @@ import { motion } from 'framer-motion';
 import { Envelope, LinkedinLogo } from '@phosphor-icons/react';
 
 import media from '../../utils/mediaQueries';
-import { trackEvent } from '../../lib/analytics';
+import {
+  getContactEventName,
+  sanitizeAnalyticsDestination,
+  trackEvent,
+} from '../../lib/analytics';
 
 const Section = styled.section`
   max-width: 1280px;
@@ -198,10 +202,22 @@ const Contact = () => {
             rel="noopener noreferrer"
             whileHover="bounce"
             onClick={() =>
-              trackEvent('contact_clicked', {
-                type: 'linkedin',
-                location: 'contact_section',
-              })
+              trackEvent(
+                getContactEventName({
+                  contactType: 'linkedin',
+                  placement: 'contact_section',
+                }),
+                {
+                  placement: 'contact_section',
+                  element_id: 'contact_linkedin',
+                  element_label: 'LinkedIn',
+                  destination_type: 'external',
+                  destination: sanitizeAnalyticsDestination(
+                    'https://www.linkedin.com/in/carmart',
+                  ),
+                  contact_type: 'linkedin',
+                },
+              )
             }
           >
             Connect on Linkedin{' '}
@@ -215,10 +231,19 @@ const Contact = () => {
             href="mailto:ceejaymar@gmail.com"
             whileHover="bounce"
             onClick={() =>
-              trackEvent('contact_clicked', {
-                type: 'email',
-                location: 'contact_section',
-              })
+              trackEvent(
+                getContactEventName({
+                  contactType: 'email',
+                  placement: 'contact_section',
+                }),
+                {
+                  placement: 'contact_section',
+                  element_id: 'contact_email',
+                  element_label: 'Email',
+                  destination_type: 'email',
+                  contact_type: 'email',
+                },
+              )
             }
           >
             Send an email{' '}

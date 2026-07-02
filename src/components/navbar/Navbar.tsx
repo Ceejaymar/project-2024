@@ -9,7 +9,7 @@ import { getThemeTransition } from '../../utils/themeTransition';
 import ThemeToggle from '../themeToggle/ThemeToggle';
 import media from '../../utils/mediaQueries';
 import GradientLogo from '../logoGradient/GradientLogo';
-import { trackEvent } from '../../lib/analytics';
+import { getNavigationEventName, trackEvent } from '../../lib/analytics';
 
 const Nav = styled(motion.nav)`
   position: relative;
@@ -122,11 +122,19 @@ const Navbar = ({ themeName, toggleTheme }: ThemeProps) => {
       <BrandLink
         to="/"
         onClick={() =>
-          trackEvent('nav_clicked', {
-            label: 'Home',
-            destination: '/',
-            location: 'nav',
-          })
+          trackEvent(
+            getNavigationEventName({
+              label: 'Home',
+              placement: 'nav',
+            }),
+            {
+              placement: 'nav',
+              element_id: 'nav_home',
+              element_label: 'Home',
+              destination_type: 'internal',
+              destination: '/',
+            },
+          )
         }
       >
         <Logo>
@@ -159,11 +167,19 @@ const Navbar = ({ themeName, toggleTheme }: ThemeProps) => {
                 <AnchorLink
                   href={to}
                   onClick={() =>
-                    trackEvent('nav_clicked', {
-                      label: formatNavLabel(item),
-                      destination: to,
-                      location: 'nav',
-                    })
+                    trackEvent(
+                      getNavigationEventName({
+                        label: formatNavLabel(item),
+                        placement: 'nav',
+                      }),
+                      {
+                        placement: 'nav',
+                        element_id: `nav_${item}`,
+                        element_label: formatNavLabel(item),
+                        destination_type: 'internal',
+                        destination: to,
+                      },
+                    )
                   }
                 >
                   {item}
@@ -172,11 +188,19 @@ const Navbar = ({ themeName, toggleTheme }: ThemeProps) => {
                 <RouterLink
                   to={to}
                   onClick={() =>
-                    trackEvent('nav_clicked', {
-                      label: formatNavLabel(item),
-                      destination: to,
-                      location: 'nav',
-                    })
+                    trackEvent(
+                      getNavigationEventName({
+                        label: formatNavLabel(item),
+                        placement: 'nav',
+                      }),
+                      {
+                        placement: 'nav',
+                        element_id: `nav_${item}`,
+                        element_label: formatNavLabel(item),
+                        destination_type: 'internal',
+                        destination: to,
+                      },
+                    )
                   }
                 >
                   {item}

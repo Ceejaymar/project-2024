@@ -82,6 +82,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Batéy Fashion',
+    analyticsName: 'Batey',
     image:
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/batey.webp',
     description:
@@ -244,6 +245,7 @@ export const fullProjects: Project[] = [
   },
   {
     title: 'Batéy Fashion',
+    analyticsName: 'Batey',
     image:
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/batey.webp',
     description:

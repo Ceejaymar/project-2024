@@ -1297,6 +1297,7 @@ export default function MosaicCaseStudy() {
   return (
     <CaseStudyLayout
       title={mosaicCaseStudyMeta.title}
+      slug={mosaicCaseStudyMeta.slug}
       eyebrow={mosaicCaseStudyMeta.eyebrow}
       summary={mosaicCaseStudyMeta.summary}
       year={mosaicCaseStudyMeta.year}

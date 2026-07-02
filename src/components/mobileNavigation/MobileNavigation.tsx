@@ -5,7 +5,7 @@ import { AnimatePresence, motion, MotionConfig } from 'framer-motion';
 import GradientLogo from '../logoGradient/GradientLogo';
 import { NavLinkProps } from '../../types';
 import media from '../../utils/mediaQueries';
-import { trackEvent } from '../../lib/analytics';
+import { getNavigationEventName, trackEvent } from '../../lib/analytics';
 
 const NavItem = styled(motion.li)`
   position: relative;
@@ -206,11 +206,19 @@ const MobileNavigation = () => {
                         key={item}
                         href={to}
                         onClick={() => {
-                          trackEvent('nav_clicked', {
-                            label: formatNavLabel(item),
-                            destination: to,
-                            location: 'mobile_nav',
-                          });
+                          trackEvent(
+                            getNavigationEventName({
+                              label: formatNavLabel(item),
+                              placement: 'mobile_nav',
+                            }),
+                            {
+                              placement: 'mobile_nav',
+                              element_id: `mobile_nav_${item}`,
+                              element_label: formatNavLabel(item),
+                              destination_type: 'internal',
+                              destination: to,
+                            },
+                          );
                           setActive(false);
                         }}
                       >

@@ -8,7 +8,11 @@ import shibuyaHeadshot from '../../assets/tokyo-headshot-reduced.webp';
 import media from '../../utils/mediaQueries';
 import { HeaderProps } from '../../types';
 import { getThemeTransition } from '../../utils/themeTransition';
-import { trackEvent } from '../../lib/analytics';
+import {
+  getCtaEventName,
+  getResumeEventName,
+  trackEvent,
+} from '../../lib/analytics';
 
 const technologies = [
   {
@@ -407,11 +411,19 @@ const Header = ({ themeName }: HeaderProps) => {
             whileHover="bounce"
             href="#projects"
             onClick={() =>
-              trackEvent('cta_clicked', {
-                label: 'Explore my projects',
-                location: 'hero',
-                destination: '#projects',
-              })
+              trackEvent(
+                getCtaEventName({
+                  label: 'Explore My Projects',
+                  placement: 'hero',
+                }),
+                {
+                  placement: 'hero',
+                  element_id: 'hero_explore_projects',
+                  element_label: 'Explore My Projects',
+                  destination_type: 'internal',
+                  destination: '#projects',
+                },
+              )
             }
           >
             Explore my projects{' '}
@@ -430,10 +442,19 @@ const Header = ({ themeName }: HeaderProps) => {
             initial="hidden"
             whileHover="visible"
             onClick={() =>
-              trackEvent('resume_clicked', {
-                location: 'hero',
-                destination: RESUME_PATH,
-              })
+              trackEvent(
+                getResumeEventName({
+                  label: 'Get My Resume',
+                  placement: 'hero',
+                }),
+                {
+                  placement: 'hero',
+                  element_id: 'hero_resume',
+                  element_label: 'Get My Resume',
+                  destination_type: 'download',
+                  destination: RESUME_PATH,
+                },
+              )
             }
           >
             <Underline

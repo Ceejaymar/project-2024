@@ -108,10 +108,12 @@ const Projects = ({ themeName }: HeaderProps) => (
         <ProjectCard
           key={project.title}
           title={project.title}
+          analyticsName={project.analyticsName}
           image={project.image}
           description={project.description}
           tech={project.tech}
           links={project.links}
+          slug={project.slug}
         />
       ))}
     </ProjectList>

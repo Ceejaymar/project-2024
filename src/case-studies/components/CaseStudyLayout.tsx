@@ -9,7 +9,14 @@ import {
 } from '@phosphor-icons/react';
 import media from '../../utils/mediaQueries';
 import { ProjectLink } from '../../types';
-import { getProjectLinkTarget, trackEvent } from '../../lib/analytics';
+import {
+  getAnalyticsIdSegment,
+  getOutboundEventName,
+  getProjectEventName,
+  getProjectLinkAction,
+  sanitizeAnalyticsDestination,
+  trackEvent,
+} from '../../lib/analytics';
 import { getCaseStudyGoldTextColor } from './caseStudyColorTokens';
 
 interface GlanceMetric {
@@ -19,6 +26,7 @@ interface GlanceMetric {
 
 interface CaseStudyLayoutProps {
   title: string;
+  slug?: string;
   eyebrow?: string;
   summary: string;
   year?: number;
@@ -374,6 +382,7 @@ const getLinkIcon = (type: string) => {
 
 export default function CaseStudyLayout({
   title,
+  slug,
   eyebrow,
   summary,
   year,
@@ -394,24 +403,45 @@ export default function CaseStudyLayout({
   const useCaseStudyGoldEyebrow = eyebrow === 'Product case study';
   const isMosaicCaseStudy = title === 'Mosaic';
   const mosaicLiveLink = links.find((link) => 'url' in link);
+  const projectSlug = slug || getAnalyticsIdSegment(title);
 
   const trackCaseStudyLinkClick = (link: ProjectLink) => {
-    const target = getProjectLinkTarget(link.type, link.label);
-
-    trackEvent('project_clicked', {
-      project: title,
-      location: 'case_study',
-      target,
-    });
+    const action = getProjectLinkAction(link.type, link.label);
 
     if ('url' in link) {
-      trackEvent('outbound_clicked', {
-        label: link.label,
-        project: title,
-        destination: link.url,
-        location: 'case_study',
-      });
+      trackEvent(
+        getOutboundEventName({
+          projectName: title,
+          label: link.label,
+          placement: 'case_study_footer',
+        }),
+        {
+          placement: 'case_study_footer',
+          element_id: `case_study_${projectSlug}_${getAnalyticsIdSegment(
+            link.label,
+          )}`,
+          element_label: link.label,
+          destination_type: 'external',
+          destination: sanitizeAnalyticsDestination(link.url),
+          project_slug: projectSlug,
+          project_name: title,
+          action,
+        },
+      );
+
+      return;
     }
+
+    trackEvent(getProjectEventName({ projectName: title, action }), {
+      placement: 'case_study_footer',
+      element_id: `case_study_${projectSlug}_${action}`,
+      element_label: link.label,
+      destination_type: 'internal',
+      destination: link.to,
+      project_slug: projectSlug,
+      project_name: title,
+      action,
+    });
   };
 
   return (

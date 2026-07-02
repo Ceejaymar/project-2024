@@ -13,7 +13,14 @@ import {
 import media from '../../utils/mediaQueries';
 import ExternalLink from '../externalLink/ExternalLink';
 import { ProjectLink } from '../../types';
-import { getProjectLinkTarget, trackEvent } from '../../lib/analytics';
+import {
+  getAnalyticsIdSegment,
+  getOutboundEventName,
+  getProjectEventName,
+  getProjectLinkAction,
+  sanitizeAnalyticsDestination,
+  trackEvent,
+} from '../../lib/analytics';
 
 const HIDE_CASE_STUDY_LINKS: boolean = false;
 
@@ -187,20 +194,24 @@ const getLinkIcon = (type: string) => {
 
 interface ProjectCardProps {
   title: string;
+  analyticsName?: string;
   image: string;
   description: string;
   tech: string;
   links: ProjectLink[];
+  slug?: string;
 }
 
 const springConfig = { stiffness: 120, damping: 22, mass: 0.5 };
 
 const ProjectCard = ({
   title,
+  analyticsName,
   image,
   description,
   tech,
   links,
+  slug,
 }: ProjectCardProps) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -224,22 +235,50 @@ const ProjectCard = ({
   };
 
   const trackProjectLinkClick = (link: ProjectLink) => {
-    const target = getProjectLinkTarget(link.type, link.label);
-
-    trackEvent('project_clicked', {
-      project: title,
-      location: 'project_card',
-      target,
-    });
+    const action = getProjectLinkAction(link.type, link.label);
+    const projectSlug = slug || getAnalyticsIdSegment(title);
+    const analyticsProjectName = analyticsName || title;
 
     if ('url' in link) {
-      trackEvent('outbound_clicked', {
-        label: link.label,
-        project: title,
-        destination: link.url,
-        location: 'project_card',
-      });
+      trackEvent(
+        getOutboundEventName({
+          projectName: analyticsProjectName,
+          label: link.label,
+          placement: 'featured_projects',
+        }),
+        {
+          placement: 'featured_projects',
+          element_id: `project_${projectSlug}_${getAnalyticsIdSegment(
+            link.label,
+          )}`,
+          element_label: link.label,
+          destination_type: 'external',
+          destination: sanitizeAnalyticsDestination(link.url),
+          project_slug: projectSlug,
+          project_name: analyticsProjectName,
+          action,
+        },
+      );
+
+      return;
     }
+
+    trackEvent(
+      getProjectEventName({
+        projectName: analyticsProjectName,
+        action,
+      }),
+      {
+        placement: 'featured_projects',
+        element_id: `project_${projectSlug}_${action}`,
+        element_label: link.label,
+        destination_type: 'internal',
+        destination: link.to,
+        project_slug: projectSlug,
+        project_name: analyticsProjectName,
+        action,
+      },
+    );
   };
 
   return (
