@@ -565,7 +565,7 @@
 }
 
 .typeRole[data-role='heading'] strong {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: Fraunces, Georgia, serif;
   font-size: 1.35rem;
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -829,22 +829,22 @@
   line-height: 1.75;
 }
 
-.interactionDecisionList {
+.dividedList {
   display: grid;
   gap: 0;
   border-top: 1px solid var(--mosaic-border);
 }
 
-.interactionDecisionList > * {
-  padding: clamp(1.5rem, 4vw, 2.5rem) 0;
-}
-
-.interactionDecisionList > * + * {
+.dividedList > * + * {
   border-top: 1px solid var(--mosaic-border);
 }
 
-.interactionDecisionList > *:last-child {
+.dividedList > *:last-child {
   padding-bottom: 0;
+}
+
+.interactionDecisionList > * {
+  padding: clamp(1.5rem, 4vw, 2.5rem) 0;
 }
 
 .interactionDecision {
@@ -964,19 +964,9 @@
 }
 
 .nextDirectionsList {
-  display: grid;
   margin-bottom: clamp(1.5rem, 4vw, 2.25rem);
-  border-top: 1px solid var(--mosaic-border);
 }
 
 .nextDirectionsList > * {
   padding: clamp(1.25rem, 3vw, 2rem) 0;
-}
-
-.nextDirectionsList > * + * {
-  border-top: 1px solid var(--mosaic-border);
-}
-
-.nextDirectionsList > *:last-child {
-  padding-bottom: 0;
 }

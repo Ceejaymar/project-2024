@@ -20,6 +20,7 @@ import y from '../../assets/case-study/mosaic/y.webp';
 import t from '../../assets/case-study/mosaic/t.webp';
 import styles from './MosaicCaseStudy.module.css';
 import MosaicTile from './MosaicTile';
+import { getMosaicTileColorStyle } from './mosaicTileStyle';
 
 const MOSAIC_GOLD = CASE_STUDY_GOLD;
 
@@ -32,10 +33,6 @@ type MosaicThemeStyle = React.CSSProperties & {
   '--mosaic-border': string;
   '--mosaic-shadow': string;
   '--mosaic-primary': string;
-};
-
-type ColorStyle = React.CSSProperties & {
-  '--tile-color': string;
 };
 
 function useMosaicThemeStyle(): MosaicThemeStyle {
@@ -52,12 +49,6 @@ function useMosaicThemeStyle(): MosaicThemeStyle {
     '--mosaic-border': theme.colors.border,
     '--mosaic-shadow': theme.colors.boxShadow,
     '--mosaic-primary': theme.colors.primary,
-  };
-}
-
-function getColorStyle(color: string): ColorStyle {
-  return {
-    '--tile-color': color,
   };
 }
 
@@ -385,7 +376,7 @@ function MosaicHeroScene() {
               <span
                 className={styles.calendarHaloTile}
                 key={`${heroCalendar.monthKey}-halo-${tile.day}`}
-                style={getColorStyle(tile.colors[0])}
+                style={getMosaicTileColorStyle(tile.colors[0])}
               />
             ) : null,
           )}
@@ -520,7 +511,9 @@ export default function MosaicCaseStudy() {
             check-in. It was to make the first choice easy while ensuring that
             each entry could become more useful over time.
           </p>
-          <div className={styles.interactionDecisionList}>
+          <div
+            className={`${styles.dividedList} ${styles.interactionDecisionList}`}
+          >
             <article className={styles.interactionDecision}>
               <p className={styles.interactionDecisionEyebrow}>Start simple</p>
               <h3 className={styles.interactionDecisionTitle}>
@@ -580,6 +573,7 @@ export default function MosaicCaseStudy() {
                   <MosaicTile
                     colors={[getMosaicEmotionColor('happy')]}
                     variant="progression"
+                    ariaHidden
                   />
                   <MosaicTile
                     colors={[
@@ -587,6 +581,7 @@ export default function MosaicCaseStudy() {
                       getMosaicEmotionColor('calm'),
                     ]}
                     variant="progression"
+                    ariaHidden
                   />
                   <MosaicTile
                     colors={[
@@ -595,6 +590,7 @@ export default function MosaicCaseStudy() {
                       getMosaicEmotionColor('calm'),
                     ]}
                     variant="progression"
+                    ariaHidden
                   />
                   <MosaicTile
                     colors={[
@@ -604,6 +600,7 @@ export default function MosaicCaseStudy() {
                       getMosaicEmotionColor('surprised'),
                     ]}
                     variant="progression"
+                    ariaHidden
                   />
                 </div>
                 <p className={styles.tileProgressionCaption}>
@@ -680,7 +677,7 @@ export default function MosaicCaseStudy() {
                     <div className={styles.colorToken} key={token.name}>
                       <span
                         className={styles.colorTokenSwatch}
-                        style={getColorStyle(token.color)}
+                        style={getMosaicTileColorStyle(token.color)}
                       />
                       <span>
                         <span className={styles.colorTokenName}>
@@ -712,7 +709,7 @@ export default function MosaicCaseStudy() {
                       <div className={styles.emotionColorItem} key={emotion.id}>
                         <span
                           className={styles.emotionColorSwatch}
-                          style={getColorStyle(color)}
+                          style={getMosaicTileColorStyle(color)}
                         />
                         <span>
                           <span className={styles.emotionColorName}>
@@ -935,7 +932,7 @@ export default function MosaicCaseStudy() {
             learning where more depth would genuinely help, while keeping the
             core check-in private, lightweight, and easy to return to.
           </p>
-          <div className={styles.nextDirectionsList}>
+          <div className={`${styles.dividedList} ${styles.nextDirectionsList}`}>
             <article className={styles.interactionDecision}>
               <p className={styles.interactionDecisionEyebrow}>Capacity</p>
               <h3 className={styles.interactionDecisionTitle}>

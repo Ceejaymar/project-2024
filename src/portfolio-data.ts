@@ -65,6 +65,28 @@ export const projects: Project[] = [
     ],
   },
   {
+    title: 'Yubico Quiz',
+    image:
+      'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/mosaic.webp',
+    description:
+      "An emotion-tracking app built around a single idea: what if you could see your year in color? Check in during the day, tag how you feel, and watch your calendar fill with color over time. Each emotion maps to a hue — warm for high-energy, cool for calm — building a visual canvas of your emotional life. Mosaic also surfaces insights: patterns you wouldn't notice on your own, surfaced quietly.",
+    tech: 'React Native, Expo, TypeScript, Unistyles',
+    slug: 'mosaic',
+    links: [
+      {
+        label: 'Live Site',
+        url: 'https://www.yubico.com/quiz/',
+        type: 'web',
+      },
+      {
+        label: 'Read Case Study',
+        to: '/projects/yubico-quiz',
+        type: 'case-study',
+        internal: true,
+      },
+    ],
+  },
+  {
     title: 'Los Zine',
     image:
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/los-zine.webp',
@@ -279,6 +301,28 @@ export const fullProjects: Project[] = [
         type: 'github',
       },
       { label: 'Live Site', url: 'https://los.codes', type: 'web' },
+    ],
+  },
+  {
+    title: 'Yubico Quiz',
+    slug: 'yubico-quiz',
+    image:
+      'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/mosaic.webp',
+    description: '',
+    year: 2023,
+    tech: 'React Native, Expo, TypeScript, Unistyles',
+    links: [
+      {
+        label: 'Live site',
+        url: 'https://www.yubico.com/quiz/',
+        type: 'web',
+      },
+      {
+        label: 'Read Case Study',
+        to: '/projects/yubico-quiz',
+        type: 'case-study',
+        internal: true,
+      },
     ],
   },
   {

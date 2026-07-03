@@ -1,20 +1,20 @@
 import React from 'react';
 import styles from './MosaicTile.module.css';
+import {
+  getMosaicTileColorStyle,
+  type MosaicTileStyle,
+} from './mosaicTileStyle';
 
 const MOSAIC_TILE_LAYOUTS = ['one', 'two', 'three', 'four'] as const;
 
 type MosaicTileLayout = (typeof MOSAIC_TILE_LAYOUTS)[number];
 type MosaicTileVariant = 'hero-calendar' | 'progression';
 
-type MosaicTileStyle = React.CSSProperties & {
-  '--tile-color'?: string;
-  '--tile-delay'?: string;
-};
-
 type MosaicTileProps = {
   colors: readonly string[];
   variant: MosaicTileVariant;
   delay?: string;
+  ariaHidden?: boolean;
 };
 
 function getMosaicTileLayout(colors: readonly string[]): MosaicTileLayout {
@@ -37,16 +37,11 @@ function getTileStyle(delay?: string): MosaicTileStyle | undefined {
   };
 }
 
-function getSegmentStyle(color: string): MosaicTileStyle {
-  return {
-    '--tile-color': color,
-  };
-}
-
 export default function MosaicTile({
   colors,
   variant,
   delay,
+  ariaHidden,
 }: MosaicTileProps) {
   return (
     <span
@@ -54,12 +49,13 @@ export default function MosaicTile({
       data-layout={getMosaicTileLayout(colors)}
       data-variant={variant}
       style={getTileStyle(delay)}
+      aria-hidden={ariaHidden ? true : undefined}
     >
       {colors.map((color, index) => (
         <span
           className={styles.segment}
           key={`${color}-${index}`}
-          style={getSegmentStyle(color)}
+          style={getMosaicTileColorStyle(color)}
         />
       ))}
     </span>
