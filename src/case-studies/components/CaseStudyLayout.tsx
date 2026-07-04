@@ -241,7 +241,7 @@ const ClosingCopy = styled.p`
   line-height: 1.7;
 `;
 
-const MosaicClosing = styled(Closing)`
+const CompactClosing = styled(Closing)`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -309,7 +309,7 @@ const ExternalLink = styled.a`
   }
 `;
 
-const MosaicSecondaryLink = styled(Link)`
+const CompactSecondaryLink = styled(Link)`
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
@@ -337,7 +337,7 @@ const MosaicSecondaryLink = styled(Link)`
   }
 `;
 
-const MosaicPrimaryLink = styled.a`
+const CompactPrimaryLink = styled.a`
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
@@ -395,7 +395,9 @@ export default function CaseStudyLayout({
   ].filter(Boolean) as Array<{ label: string; value: string | number }>;
   const useCaseStudyGoldEyebrow = eyebrow === 'Product case study';
   const isMosaicCaseStudy = title === 'Mosaic';
-  const mosaicLiveLink = links.find((link) => 'url' in link);
+  const isYubicoCaseStudy = slug === 'yubico-quiz';
+  const compactLiveLink = links.find((link) => 'url' in link);
+  const compactLiveLabel = isMosaicCaseStudy ? 'Get Mosaic' : 'View live quiz';
 
   const trackCaseStudyLinkClick = (link: ProjectLink) => {
     const analyticsEvent = getProjectLinkAnalytics({
@@ -469,27 +471,29 @@ export default function CaseStudyLayout({
 
       <Content>{children}</Content>
 
-      {isMosaicCaseStudy && mosaicLiveLink && 'url' in mosaicLiveLink ? (
-        <MosaicClosing>
-          <MosaicSecondaryLink to="/projects">
+      {(isMosaicCaseStudy || isYubicoCaseStudy) &&
+      compactLiveLink &&
+      'url' in compactLiveLink ? (
+        <CompactClosing>
+          <CompactSecondaryLink to="/projects">
             <ArrowLeft size={16} weight="bold" />
             Back to projects
-          </MosaicSecondaryLink>
-          <MosaicPrimaryLink
-            href={mosaicLiveLink.url}
+          </CompactSecondaryLink>
+          <CompactPrimaryLink
+            href={compactLiveLink.url}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() =>
               trackCaseStudyLinkClick({
-                ...mosaicLiveLink,
-                label: 'Get Mosaic',
+                ...compactLiveLink,
+                label: compactLiveLabel,
               })
             }
           >
-            Get Mosaic
+            {compactLiveLabel}
             <ArrowUpRight size={14} weight="bold" />
-          </MosaicPrimaryLink>
-        </MosaicClosing>
+          </CompactPrimaryLink>
+        </CompactClosing>
       ) : (
         <Closing>
           <ClosingCopy>

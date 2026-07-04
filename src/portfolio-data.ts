@@ -65,7 +65,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    title: 'Yubico Quiz',
+    title: 'Product Finder Quiz',
     image:
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/mosaic.webp',
     description:
@@ -304,8 +304,8 @@ export const fullProjects: Project[] = [
     ],
   },
   {
-    title: 'Yubico Quiz',
-    slug: 'yubico-quiz',
+    title: 'Product Finder Quiz',
+    slug: 'product-finder-quiz',
     image:
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/mosaic.webp',
     description: '',
