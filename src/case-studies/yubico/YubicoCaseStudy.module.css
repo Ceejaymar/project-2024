@@ -11,40 +11,6 @@
   );
 }
 
-.introMeta {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1px;
-  overflow: hidden;
-  margin: 0 0 1.35rem;
-  padding: 0;
-  border: 1px solid var(--yubico-border);
-  border-radius: 12px;
-  background-color: var(--yubico-border);
-}
-
-.introMetaItem {
-  display: grid;
-  gap: 0.25rem;
-  padding: 0.85rem 0.95rem;
-  background-color: var(--yubico-bg);
-}
-
-.introMetaLabel {
-  color: var(--yubico-muted);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.introMetaValue {
-  color: var(--yubico-text);
-  font-size: 0.95rem;
-  font-weight: 600;
-  line-height: 1.45;
-}
-
 .pathLead {
   max-width: 62ch;
   color: var(--yubico-muted);

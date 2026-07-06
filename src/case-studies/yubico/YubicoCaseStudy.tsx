@@ -21,8 +21,6 @@ type YubicoThemeStyle = React.CSSProperties & {
   '--yubico-primary': string;
 };
 
-const introMetaItems = [{ label: 'Company', value: 'Yubico' }] as const;
-
 const pathCards = [
   {
     title: 'Novice',
@@ -141,17 +139,6 @@ export default function YubicoCaseStudy() {
       links={yubicoCaseStudyMeta.links}
     >
       <YubicoSection title="Overview" themeStyle={yubicoThemeStyle}>
-        <dl
-          className={styles.introMeta}
-          aria-label="Yubico case study metadata"
-        >
-          {introMetaItems.map((item) => (
-            <div className={styles.introMetaItem} key={item.label}>
-              <dt className={styles.introMetaLabel}>{item.label}</dt>
-              <dd className={styles.introMetaValue}>{item.value}</dd>
-            </div>
-          ))}
-        </dl>
         <p>
           Yubico’s product finder helps people choose a security key without
           requiring everyone to begin with the same level of technical
