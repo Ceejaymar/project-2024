@@ -8,7 +8,7 @@ export const caseStudies = {
     ...mosaicCaseStudyMeta,
     Component: MosaicCaseStudy,
   },
-  'yubico-quiz': {
+  'product-finder-quiz': {
     ...yubicoCaseStudyMeta,
     Component: YubicoCaseStudy,
   },

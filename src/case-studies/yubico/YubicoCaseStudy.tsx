@@ -1,4 +1,10 @@
-import React from 'react';
+import React, {
+  type CSSProperties,
+  type ComponentProps,
+  useEffect,
+  useId,
+  useRef,
+} from 'react';
 import { useTheme } from 'styled-components';
 import CaseStudyCallout from '../components/CaseStudyCallout';
 import CaseStudyLayout from '../components/CaseStudyLayout';
@@ -7,10 +13,14 @@ import {
   CASE_STUDY_GOLD,
   getCaseStudyGoldTextColor,
 } from '../components/caseStudyColorTokens';
+import quizCsImage from '../../assets/case-study/quiz/quiz-cs.webp';
+import quizInfoImage from '../../assets/case-study/quiz/quiz-info.webp';
+import quizResultsImage from '../../assets/case-study/quiz/quiz-results.webp';
+import quizStartImage from '../../assets/case-study/quiz/quiz-start.webp';
 import { yubicoCaseStudyMeta } from './yubicoCaseStudyData';
 import styles from './YubicoCaseStudy.module.css';
 
-type YubicoThemeStyle = React.CSSProperties & {
+type YubicoThemeStyle = CSSProperties & {
   '--yubico-bg': string;
   '--yubico-text': string;
   '--yubico-muted': string;
@@ -64,13 +74,17 @@ const technicalPoints = [
   'Cypress coverage added later to protect key quiz paths.',
 ] as const;
 
-type MediaPlaceholderProps = {
-  format: string;
-  purpose: string;
+type ScreenshotFigureProps = {
+  src: string;
+  alt: string;
+  caption: string;
+  expandable: true;
+  expandLabel: string;
+  dialogTitle: string;
   size?: 'wide' | 'medium';
 };
 
-type YubicoSectionProps = React.ComponentProps<typeof CaseStudySection> & {
+type YubicoSectionProps = ComponentProps<typeof CaseStudySection> & {
   themeStyle: YubicoThemeStyle;
 };
 
@@ -103,24 +117,79 @@ function YubicoSection({
   );
 }
 
-function MediaPlaceholder({
-  format,
-  purpose,
+function ScreenshotFigure({
+  src,
+  alt,
+  caption,
   size = 'wide',
-}: MediaPlaceholderProps) {
+  expandable,
+  expandLabel,
+  dialogTitle,
+}: ScreenshotFigureProps) {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const titleId = useId();
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return undefined;
+
+    const returnFocusToTrigger = () => {
+      triggerRef.current?.focus();
+    };
+
+    dialog.addEventListener('close', returnFocusToTrigger);
+
+    return () => {
+      dialog.removeEventListener('close', returnFocusToTrigger);
+    };
+  }, []);
+
+  const screenshotFrame = (
+    <span className={styles.screenshotFrame}>
+      <img className={styles.screenshotImage} src={src} alt={alt} />
+    </span>
+  );
+
+  const openDialog = () => {
+    dialogRef.current?.showModal();
+  };
+
   return (
-    <figure className={styles.placeholderFigure} data-size={size}>
-      <div className={styles.placeholderFrame}>
-        <div className={styles.placeholderContent}>
-          <p className={styles.placeholderLabel}>Media placeholder</p>
-          <p className={styles.placeholderFormat}>{format}</p>
-          <p className={styles.placeholderPurpose}>{purpose}</p>
+    <figure className={styles.screenshotFigure} data-size={size}>
+      <button
+        aria-label={expandLabel}
+        className={styles.screenshotButton}
+        data-expandable={expandable ? 'true' : undefined}
+        onClick={openDialog}
+        ref={triggerRef}
+        type="button"
+      >
+        {screenshotFrame}
+        <span aria-hidden="true" className={styles.expandTooltip}>
+          Click to enlarge
+        </span>
+      </button>
+      <figcaption className={styles.screenshotCaption}>{caption}</figcaption>
+      <dialog
+        aria-labelledby={titleId}
+        className={styles.screenshotDialog}
+        ref={dialogRef}
+      >
+        <div className={styles.dialogSurface}>
+          <div className={styles.dialogHeader}>
+            <h2 className={styles.dialogTitle} id={titleId}>
+              {dialogTitle}
+            </h2>
+            <form method="dialog">
+              <button className={styles.dialogClose} type="submit">
+                Close
+              </button>
+            </form>
+          </div>
+          <img className={styles.dialogImage} src={src} alt={alt} />
         </div>
-      </div>
-      <figcaption className={styles.placeholderCaption}>
-        Temporary media slot. Replace this figure with verified project imagery
-        when the final asset is available.
-      </figcaption>
+      </dialog>
     </figure>
   );
 }
@@ -196,9 +265,13 @@ export default function YubicoCaseStudy() {
             </article>
           ))}
         </div>
-        <MediaPlaceholder
-          format="GIF or screenshot"
-          purpose="Show the entry-path selection screen with Novice, Intermediate, Skilled, and Business options."
+        <ScreenshotFigure
+          src={quizStartImage}
+          alt="Yubico Product Finder entry screen with four paths: Novice, Intermediate, Skilled, and Business."
+          caption="Four starting points let the quiz match the amount of detail to someone’s familiarity and purchase needs."
+          dialogTitle="Entry-path selection screenshot"
+          expandable
+          expandLabel="Open full-size entry-path selection screenshot"
         />
       </YubicoSection>
 
@@ -215,11 +288,15 @@ export default function YubicoCaseStudy() {
             terminology, clarify what a question is asking, and provide relevant
             Yubico context when it helps someone answer with more confidence.
           </p>
-          <MediaPlaceholder
-            format="Screenshot or GIF"
-            purpose="Show a quiz question with the supporting information panel visible."
-          />
         </div>
+        <ScreenshotFigure
+          src={quizInfoImage}
+          alt="Yubico Product Finder question screen with answer options and a side panel explaining relevant security-key terminology."
+          caption="Supporting information gives people the context they need without turning every path into a longer technical questionnaire."
+          dialogTitle="Technical question screenshot"
+          expandable
+          expandLabel="Open full-size technical question screenshot"
+        />
       </YubicoSection>
 
       <YubicoSection
@@ -246,14 +323,22 @@ export default function YubicoCaseStudy() {
           </ol>
         </div>
         <div className={styles.mediaPair}>
-          <MediaPlaceholder
-            format="Screenshot or GIF"
-            purpose="Business purchase handoff."
+          <ScreenshotFigure
+            src={quizResultsImage}
+            alt="Yubico Product Finder recommendation screen showing a suggested security key based on quiz responses."
+            caption="Individual paths end with a clearer recommendation and a direct route to the relevant product."
+            dialogTitle="Product recommendation screenshot"
+            expandable
+            expandLabel="Open full-size product recommendation screenshot"
             size="medium"
           />
-          <MediaPlaceholder
-            format="Screenshot"
-            purpose="Product recommendation screen."
+          <ScreenshotFigure
+            src={quizCsImage}
+            alt="Yubico Product Finder business result directing larger security-key purchases to Customer Success."
+            caption="Larger purchase needs shift from a standard product recommendation to a Customer Success conversation."
+            dialogTitle="Customer Success handoff screenshot"
+            expandable
+            expandLabel="Open full-size Customer Success handoff screenshot"
             size="medium"
           />
         </div>
