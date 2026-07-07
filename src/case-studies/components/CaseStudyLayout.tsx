@@ -395,7 +395,7 @@ export default function CaseStudyLayout({
   ].filter(Boolean) as Array<{ label: string; value: string | number }>;
   const useCaseStudyGoldEyebrow = eyebrow === 'Product case study';
   const isMosaicCaseStudy = title === 'Mosaic';
-  const isYubicoCaseStudy = slug === 'yubico-quiz';
+  const isYubicoCaseStudy = slug === 'product-finder-quiz';
   const compactLiveLink = links.find((link) => 'url' in link);
   const compactLiveLabel = isMosaicCaseStudy ? 'Get Mosaic' : 'View live quiz';
 

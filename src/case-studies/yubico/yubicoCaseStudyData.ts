@@ -1,7 +1,7 @@
 import type { CaseStudyMeta } from '../types';
 
 export const yubicoCaseStudyMeta: CaseStudyMeta = {
-  slug: 'yubico-quiz',
+  slug: 'product-finder-quiz',
   title: 'Yubico Product Finder Quiz',
   eyebrow: 'Product case study',
   summary:
