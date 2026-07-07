@@ -14,7 +14,6 @@ import {
 } from 'framer-motion';
 import { createPortal } from 'react-dom';
 import { useTheme } from 'styled-components';
-import CaseStudyCallout from '../components/CaseStudyCallout';
 import CaseStudyLayout from '../components/CaseStudyLayout';
 import CaseStudySection from '../components/CaseStudySection';
 import {
@@ -492,17 +491,10 @@ export default function YubicoCaseStudy() {
           spacing="spacious"
           themeStyle={yubicoThemeStyle}
         >
-          <div className={styles.outcomeBlock}>
-            <CaseStudyCallout label="Outcome">
-              At a later point, internal tracking showed that 60% of people who
-              completed the quiz continued to the e-commerce site.
-            </CaseStudyCallout>
-            <p>
-              This only reflects quiz completers who reached the store. It does
-              not attribute purchases, and it is not a metric for all site
-              visitors.
-            </p>
-          </div>
+          <p>
+            At a later point, internal tracking showed that 60% of people who
+            completed the quiz continued to the e-commerce site.
+          </p>
         </YubicoSection>
 
         <YubicoSection
