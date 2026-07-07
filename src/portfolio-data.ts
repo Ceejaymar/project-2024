@@ -69,7 +69,7 @@ export const projects: Project[] = [
     image:
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/quiz-start.webp',
     description:
-      'A guided product finder that helps people choose the right security key based on their experience, setup, and purchase needs.',
+      'A guided product finder that helps people choose the right security key based on their experience, setup, and purchase needs. I helped turn the flow into a responsive React experience with tailored quiz paths, contextual support, and clear next steps for individual buyers or larger business purchases.',
     tech: 'React, Tailwind, TypeScript',
     slug: 'product-finder-quiz',
     links: [
