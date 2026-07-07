@@ -4,7 +4,15 @@ import React, {
   useEffect,
   useId,
   useRef,
+  useState,
 } from 'react';
+import {
+  AnimatePresence,
+  LayoutGroup,
+  motion,
+  useReducedMotion,
+} from 'framer-motion';
+import { createPortal } from 'react-dom';
 import { useTheme } from 'styled-components';
 import CaseStudyCallout from '../components/CaseStudyCallout';
 import CaseStudyLayout from '../components/CaseStudyLayout';
@@ -75,12 +83,14 @@ const technicalPoints = [
 ] as const;
 
 type ScreenshotFigureProps = {
+  id: string;
   src: string;
   alt: string;
   caption: string;
   expandable: true;
   expandLabel: string;
   dialogTitle: string;
+  sharedLayoutTarget?: 'frame' | 'image';
   size?: 'wide' | 'medium';
 };
 
@@ -118,6 +128,7 @@ function YubicoSection({
 }
 
 function ScreenshotFigure({
+  id,
   src,
   alt,
   caption,
@@ -125,34 +136,118 @@ function ScreenshotFigure({
   expandable,
   expandLabel,
   dialogTitle,
+  sharedLayoutTarget = 'frame',
 }: ScreenshotFigureProps) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const titleId = useId();
+  const [isOpen, setIsOpen] = useState(false);
+  const yubicoThemeStyle = useYubicoThemeStyle();
+  const shouldReduceMotion = useReducedMotion();
+  const layoutId = `yubico-screenshot-${id}`;
+  const layoutTransition = shouldReduceMotion
+    ? { layout: { duration: 0.01 } }
+    : {
+        layout: {
+          type: 'spring',
+          stiffness: 380,
+          damping: 34,
+          mass: 0.7,
+        },
+      };
+  const backdropTransition = {
+    duration: shouldReduceMotion ? 0.01 : 0.18,
+    ease: 'easeOut',
+  };
 
   useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return undefined;
+    if (!isOpen) return undefined;
 
-    const returnFocusToTrigger = () => {
-      triggerRef.current?.focus();
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    closeButtonRef.current?.focus();
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+      }
     };
 
-    dialog.addEventListener('close', returnFocusToTrigger);
+    document.addEventListener('keydown', closeOnEscape);
 
     return () => {
-      dialog.removeEventListener('close', returnFocusToTrigger);
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', closeOnEscape);
     };
-  }, []);
+  }, [isOpen]);
 
-  const screenshotFrame = (
-    <span className={styles.screenshotFrame}>
-      <img className={styles.screenshotImage} src={src} alt={alt} />
-    </span>
-  );
+  const screenshotFrame =
+    sharedLayoutTarget === 'image' ? (
+      <div className={styles.screenshotFrame} data-shared-layout-target="image">
+        <motion.img
+          className={styles.screenshotImage}
+          layoutId={layoutId}
+          src={src}
+          alt={alt}
+          transition={layoutTransition}
+        />
+      </div>
+    ) : (
+      <motion.div
+        className={styles.screenshotFrame}
+        layoutId={layoutId}
+        transition={layoutTransition}
+      >
+        <img className={styles.screenshotImage} src={src} alt={alt} />
+      </motion.div>
+    );
 
-  const openDialog = () => {
-    dialogRef.current?.showModal();
+  const overlayFrame =
+    sharedLayoutTarget === 'image' ? (
+      <div className={styles.overlayFrame} data-shared-layout-target="image">
+        <motion.img
+          className={styles.overlayImage}
+          layoutId={layoutId}
+          src={src}
+          alt={alt}
+          transition={layoutTransition}
+        />
+      </div>
+    ) : (
+      <motion.div
+        className={styles.overlayFrame}
+        layoutId={layoutId}
+        transition={layoutTransition}
+      >
+        <img className={styles.overlayImage} src={src} alt={alt} />
+      </motion.div>
+    );
+
+  const openOverlay = () => {
+    setIsOpen(true);
+  };
+
+  const closeOverlay = () => {
+    setIsOpen(false);
+  };
+
+  const keepFocusOnCloseButton = (event: React.KeyboardEvent) => {
+    if (event.key !== 'Tab') return;
+
+    event.preventDefault();
+    closeButtonRef.current?.focus();
+  };
+
+  const closeFromBackdrop = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.target === event.currentTarget) {
+      closeOverlay();
+    }
+  };
+
+  const returnFocusToTrigger = () => {
+    if (!isOpen) {
+      triggerRef.current?.focus();
+    }
   };
 
   return (
@@ -161,7 +256,7 @@ function ScreenshotFigure({
         aria-label={expandLabel}
         className={styles.screenshotButton}
         data-expandable={expandable ? 'true' : undefined}
-        onClick={openDialog}
+        onClick={openOverlay}
         ref={triggerRef}
         type="button"
       >
@@ -171,25 +266,43 @@ function ScreenshotFigure({
         </span>
       </button>
       <figcaption className={styles.screenshotCaption}>{caption}</figcaption>
-      <dialog
-        aria-labelledby={titleId}
-        className={styles.screenshotDialog}
-        ref={dialogRef}
-      >
-        <div className={styles.dialogSurface}>
-          <div className={styles.dialogHeader}>
-            <h2 className={styles.dialogTitle} id={titleId}>
-              {dialogTitle}
-            </h2>
-            <form method="dialog">
-              <button className={styles.dialogClose} type="submit">
-                Close
-              </button>
-            </form>
-          </div>
-          <img className={styles.dialogImage} src={src} alt={alt} />
-        </div>
-      </dialog>
+      {typeof document === 'undefined'
+        ? null
+        : createPortal(
+            <AnimatePresence onExitComplete={returnFocusToTrigger}>
+              {isOpen ? (
+                <motion.div
+                  animate={{ opacity: 1 }}
+                  aria-labelledby={titleId}
+                  aria-modal="true"
+                  className={styles.screenshotOverlay}
+                  exit={{ opacity: 0 }}
+                  initial={{ opacity: 0 }}
+                  layoutRoot
+                  onKeyDown={keepFocusOnCloseButton}
+                  onMouseDown={closeFromBackdrop}
+                  role="dialog"
+                  style={yubicoThemeStyle}
+                  transition={backdropTransition}
+                >
+                  <h2 className={styles.visuallyHidden} id={titleId}>
+                    {dialogTitle}
+                  </h2>
+                  <button
+                    className={styles.overlayClose}
+                    onClick={closeOverlay}
+                    ref={closeButtonRef}
+                    type="button"
+                  >
+                    <span aria-hidden="true">×</span>
+                    <span className={styles.overlayCloseText}>Close</span>
+                  </button>
+                  {overlayFrame}
+                </motion.div>
+              ) : null}
+            </AnimatePresence>,
+            document.body,
+          )}
     </figure>
   );
 }
@@ -198,206 +311,216 @@ export default function YubicoCaseStudy() {
   const yubicoThemeStyle = useYubicoThemeStyle();
 
   return (
-    <CaseStudyLayout
-      title={yubicoCaseStudyMeta.title}
-      slug={yubicoCaseStudyMeta.slug}
-      eyebrow={yubicoCaseStudyMeta.eyebrow}
-      summary={yubicoCaseStudyMeta.summary}
-      role={yubicoCaseStudyMeta.role}
-      tech={yubicoCaseStudyMeta.tech}
-      links={yubicoCaseStudyMeta.links}
-    >
-      <YubicoSection title="Overview" themeStyle={yubicoThemeStyle}>
-        <p>
-          Yubico’s product finder helps people choose a security key without
-          requiring everyone to begin with the same level of technical
-          knowledge. Visitors choose a starting point based on their familiarity
-          and purchase context, answer a tailored set of questions, and receive
-          a product recommendation or a clear next step.
-        </p>
-      </YubicoSection>
-
-      <YubicoSection
-        title="Why rebuild it"
-        spacing="compact"
-        themeStyle={yubicoThemeStyle}
+    <LayoutGroup id="yubico-case-study-screenshots">
+      <CaseStudyLayout
+        title={yubicoCaseStudyMeta.title}
+        slug={yubicoCaseStudyMeta.slug}
+        eyebrow={yubicoCaseStudyMeta.eyebrow}
+        summary={yubicoCaseStudyMeta.summary}
+        role={yubicoCaseStudyMeta.role}
+        tech={yubicoCaseStudyMeta.tech}
+        links={yubicoCaseStudyMeta.links}
       >
-        <p>
-          The project replaced an older quiz that was harder to follow and did
-          not create a clear enough path from someone’s needs to a product
-          recommendation or business handoff. The goal was to help beginners
-          reach an answer faster, ask more relevant questions for experienced
-          buyers, and give larger business purchases a clearer route to contact
-          Customer Success.
-        </p>
-      </YubicoSection>
-
-      <YubicoSection
-        title="My role"
-        spacing="compact"
-        themeStyle={yubicoThemeStyle}
-      >
-        <p>
-          The broader quiz structure and visual direction were already underway
-          when I joined. I worked closely with UX and design to clarify
-          incomplete rules, work through unclear questions and states, and turn
-          the flow into a responsive, accessible React experience. I owned the
-          frontend implementation, conditional flow logic, responsive behavior,
-          and accessibility, then later added Cypress coverage for key quiz
-          paths.
-        </p>
-      </YubicoSection>
-
-      <YubicoSection
-        title="One product finder, four paths"
-        spacing="spacious"
-        themeStyle={yubicoThemeStyle}
-      >
-        <p className={styles.pathLead}>
-          The labels stay familiar to the quiz, but each one acts as a starting
-          point for how much guidance someone needs.
-        </p>
-        <div className={styles.pathGrid}>
-          {pathCards.map((path) => (
-            <article className={styles.pathCard} key={path.title}>
-              <h3 className={styles.pathTitle}>{path.title}</h3>
-              <p className={styles.pathText}>{path.text}</p>
-            </article>
-          ))}
-        </div>
-        <ScreenshotFigure
-          src={quizStartImage}
-          alt="Yubico Product Finder entry screen with four paths: Novice, Intermediate, Skilled, and Business."
-          caption="Four starting points let the quiz match the amount of detail to someone’s familiarity and purchase needs."
-          dialogTitle="Entry-path selection screenshot"
-          expandable
-          expandLabel="Open full-size entry-path selection screenshot"
-        />
-      </YubicoSection>
-
-      <YubicoSection
-        title="Helping people answer technical questions"
-        spacing="spacious"
-        themeStyle={yubicoThemeStyle}
-      >
-        <div className={styles.questionLayout}>
+        <YubicoSection title="Overview" themeStyle={yubicoThemeStyle}>
           <p>
-            Each path uses a different set of questions, so beginners are not
-            forced through the same level of detail as experienced buyers.
-            Supporting information sits alongside the flow to explain
-            terminology, clarify what a question is asking, and provide relevant
-            Yubico context when it helps someone answer with more confidence.
+            Yubico’s product finder helps people choose a security key without
+            requiring everyone to begin with the same level of technical
+            knowledge. Visitors choose a starting point based on their
+            familiarity and purchase context, answer a tailored set of
+            questions, and receive a product recommendation or a clear next
+            step.
           </p>
-        </div>
-        <ScreenshotFigure
-          src={quizInfoImage}
-          alt="Yubico Product Finder question screen with answer options and a side panel explaining relevant security-key terminology."
-          caption="Supporting information gives people the context they need without turning every path into a longer technical questionnaire."
-          dialogTitle="Technical question screenshot"
-          expandable
-          expandLabel="Open full-size technical question screenshot"
-        />
-      </YubicoSection>
+        </YubicoSection>
 
-      <YubicoSection
-        title="From answers to the right next step"
-        spacing="spacious"
-        themeStyle={yubicoThemeStyle}
-      >
-        <div className={styles.nextStepLayout}>
+        <YubicoSection
+          title="Why rebuild it"
+          spacing="compact"
+          themeStyle={yubicoThemeStyle}
+        >
           <p>
-            Answers guide people toward a relevant security-key recommendation
-            instead of sending every visitor through one generic flow. For
-            business buyers with larger purchase needs, the experience can move
-            from product guidance to Customer Success at the appropriate point.
+            The project replaced an older quiz that was harder to follow and did
+            not create a clear enough path from someone’s needs to a product
+            recommendation or business handoff. The goal was to help beginners
+            reach an answer faster, ask more relevant questions for experienced
+            buyers, and give larger business purchases a clearer route to
+            contact Customer Success.
           </p>
-          <ol className={styles.routeList}>
-            {nextStepRoutes.map((route) => (
-              <li className={styles.routeItem} key={route.label}>
-                <span className={styles.routeContent}>
-                  <span className={styles.routeLabel}>{route.label}</span>
-                  <span className={styles.routeText}>{route.text}</span>
-                </span>
-              </li>
+        </YubicoSection>
+
+        <YubicoSection
+          title="My role"
+          spacing="compact"
+          themeStyle={yubicoThemeStyle}
+        >
+          <p>
+            The broader quiz structure and visual direction were already
+            underway when I joined. I worked closely with UX and design to
+            clarify incomplete rules, work through unclear questions and states,
+            and turn the flow into a responsive, accessible React experience. I
+            owned the frontend implementation, conditional flow logic,
+            responsive behavior, and accessibility, then later added Cypress
+            coverage for key quiz paths.
+          </p>
+        </YubicoSection>
+
+        <YubicoSection
+          title="One product finder, four paths"
+          spacing="spacious"
+          themeStyle={yubicoThemeStyle}
+        >
+          <p className={styles.pathLead}>
+            The labels stay familiar to the quiz, but each one acts as a
+            starting point for how much guidance someone needs.
+          </p>
+          <div className={styles.pathGrid}>
+            {pathCards.map((path) => (
+              <article className={styles.pathCard} key={path.title}>
+                <h3 className={styles.pathTitle}>{path.title}</h3>
+                <p className={styles.pathText}>{path.text}</p>
+              </article>
             ))}
-          </ol>
-        </div>
-        <div className={styles.mediaPair}>
+          </div>
           <ScreenshotFigure
-            src={quizResultsImage}
-            alt="Yubico Product Finder recommendation screen showing a suggested security key based on quiz responses."
-            caption="Individual paths end with a clearer recommendation and a direct route to the relevant product."
-            dialogTitle="Product recommendation screenshot"
+            id="quiz-start"
+            src={quizStartImage}
+            alt="Yubico Product Finder entry screen with four paths: Novice, Intermediate, Skilled, and Business."
+            caption="Four starting points let the quiz match the amount of detail to someone’s familiarity and purchase needs."
+            dialogTitle="Entry-path selection screenshot"
             expandable
-            expandLabel="Open full-size product recommendation screenshot"
-            size="medium"
+            expandLabel="Open full-size entry-path selection screenshot"
           />
+        </YubicoSection>
+
+        <YubicoSection
+          title="Helping people answer technical questions"
+          spacing="spacious"
+          themeStyle={yubicoThemeStyle}
+        >
+          <div className={styles.questionLayout}>
+            <p>
+              Each path uses a different set of questions, so beginners are not
+              forced through the same level of detail as experienced buyers.
+              Supporting information sits alongside the flow to explain
+              terminology, clarify what a question is asking, and provide
+              relevant Yubico context when it helps someone answer with more
+              confidence.
+            </p>
+          </div>
           <ScreenshotFigure
-            src={quizCsImage}
-            alt="Yubico Product Finder business result directing larger security-key purchases to Customer Success."
-            caption="Larger purchase needs shift from a standard product recommendation to a Customer Success conversation."
-            dialogTitle="Customer Success handoff screenshot"
+            id="quiz-info"
+            src={quizInfoImage}
+            alt="Yubico Product Finder question screen with answer options and a side panel explaining relevant security-key terminology."
+            caption="Supporting information gives people the context they need without turning every path into a longer technical questionnaire."
+            dialogTitle="Technical question screenshot"
             expandable
-            expandLabel="Open full-size Customer Success handoff screenshot"
-            size="medium"
+            expandLabel="Open full-size technical question screenshot"
           />
-        </div>
-      </YubicoSection>
+        </YubicoSection>
 
-      <YubicoSection
-        title="Technical approach"
-        spacing="spacious"
-        themeStyle={yubicoThemeStyle}
-      >
-        <div className={styles.technicalPanel}>
-          <ul className={styles.technicalList}>
-            {technicalPoints.map((point) => (
-              <li className={styles.technicalItem} key={point}>
-                {point}
-              </li>
-            ))}
-          </ul>
-          <p className={styles.temporaryNote}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Temporary
-            implementation detail placeholder for source-code-specific rules
-            that need to be verified before they are described publicly.
-          </p>
-        </div>
-      </YubicoSection>
+        <YubicoSection
+          title="From answers to the right next step"
+          spacing="spacious"
+          themeStyle={yubicoThemeStyle}
+        >
+          <div className={styles.nextStepLayout}>
+            <p>
+              Answers guide people toward a relevant security-key recommendation
+              instead of sending every visitor through one generic flow. For
+              business buyers with larger purchase needs, the experience can
+              move from product guidance to Customer Success at the appropriate
+              point.
+            </p>
+            <ol className={styles.routeList}>
+              {nextStepRoutes.map((route) => (
+                <li className={styles.routeItem} key={route.label}>
+                  <span className={styles.routeContent}>
+                    <span className={styles.routeLabel}>{route.label}</span>
+                    <span className={styles.routeText}>{route.text}</span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </div>
+          <div className={styles.mediaPair}>
+            <ScreenshotFigure
+              id="quiz-results"
+              src={quizResultsImage}
+              alt="Yubico Product Finder recommendation screen showing a suggested security key based on quiz responses."
+              caption="Individual paths end with a clearer recommendation and a direct route to the relevant product."
+              dialogTitle="Product recommendation screenshot"
+              expandable
+              expandLabel="Open full-size product recommendation screenshot"
+              size="medium"
+            />
+            <ScreenshotFigure
+              id="quiz-cs"
+              src={quizCsImage}
+              alt="Yubico Product Finder business result directing larger security-key purchases to Customer Success."
+              caption="Larger purchase needs shift from a standard product recommendation to a Customer Success conversation."
+              dialogTitle="Customer Success handoff screenshot"
+              expandable
+              expandLabel="Open full-size Customer Success handoff screenshot"
+              sharedLayoutTarget="image"
+              size="medium"
+            />
+          </div>
+        </YubicoSection>
 
-      <YubicoSection
-        title="Outcome"
-        spacing="spacious"
-        themeStyle={yubicoThemeStyle}
-      >
-        <div className={styles.outcomeBlock}>
-          <CaseStudyCallout label="Outcome">
-            At a later point, internal tracking showed that 60% of people who
-            completed the quiz continued to the e-commerce site.
-          </CaseStudyCallout>
+        <YubicoSection
+          title="Technical approach"
+          spacing="spacious"
+          themeStyle={yubicoThemeStyle}
+        >
+          <div className={styles.technicalPanel}>
+            <ul className={styles.technicalList}>
+              {technicalPoints.map((point) => (
+                <li className={styles.technicalItem} key={point}>
+                  {point}
+                </li>
+              ))}
+            </ul>
+            <p className={styles.temporaryNote}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Temporary
+              implementation detail placeholder for source-code-specific rules
+              that need to be verified before they are described publicly.
+            </p>
+          </div>
+        </YubicoSection>
+
+        <YubicoSection
+          title="Outcome"
+          spacing="spacious"
+          themeStyle={yubicoThemeStyle}
+        >
+          <div className={styles.outcomeBlock}>
+            <CaseStudyCallout label="Outcome">
+              At a later point, internal tracking showed that 60% of people who
+              completed the quiz continued to the e-commerce site.
+            </CaseStudyCallout>
+            <p>
+              This only reflects quiz completers who reached the store. It does
+              not attribute purchases, and it is not a metric for all site
+              visitors.
+            </p>
+          </div>
+        </YubicoSection>
+
+        <YubicoSection
+          title="What I learned"
+          spacing="spacious"
+          themeStyle={yubicoThemeStyle}
+        >
           <p>
-            This only reflects quiz completers who reached the store. It does
-            not attribute purchases, and it is not a metric for all site
-            visitors.
+            The most useful simplification was not removing detail everywhere.
+            It was letting beginners reach a starting recommendation quickly
+            while keeping the questions more specific for people who already
+            knew what they needed. The project reinforced that a product finder
+            is not just a multi-step form. The order of questions, amount of
+            explanation, and quality of each branch all shape whether someone
+            feels guided or overwhelmed.
           </p>
-        </div>
-      </YubicoSection>
-
-      <YubicoSection
-        title="What I learned"
-        spacing="spacious"
-        themeStyle={yubicoThemeStyle}
-      >
-        <p>
-          The most useful simplification was not removing detail everywhere. It
-          was letting beginners reach a starting recommendation quickly while
-          keeping the questions more specific for people who already knew what
-          they needed. The project reinforced that a product finder is not just
-          a multi-step form. The order of questions, amount of explanation, and
-          quality of each branch all shape whether someone feels guided or
-          overwhelmed.
-        </p>
-      </YubicoSection>
-    </CaseStudyLayout>
+        </YubicoSection>
+      </CaseStudyLayout>
+    </LayoutGroup>
   );
 }
