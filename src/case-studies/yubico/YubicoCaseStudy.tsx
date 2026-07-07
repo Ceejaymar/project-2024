@@ -139,6 +139,7 @@ function ScreenshotFigure({
 }: ScreenshotFigureProps) {
   const triggerRef = useRef<HTMLButtonElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
   const [isOpen, setIsOpen] = useState(false);
   const yubicoThemeStyle = useYubicoThemeStyle();
@@ -230,11 +231,58 @@ function ScreenshotFigure({
     setIsOpen(false);
   };
 
-  const keepFocusOnCloseButton = (event: React.KeyboardEvent) => {
+  const keepFocusInOverlay = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key !== 'Tab') return;
 
-    event.preventDefault();
-    closeButtonRef.current?.focus();
+    const overlay = overlayRef.current;
+    if (!overlay) return;
+
+    const tabbableElements = Array.from(
+      overlay.querySelectorAll<HTMLElement>(
+        [
+          'a[href]',
+          'button:not([disabled])',
+          'input:not([disabled])',
+          'select:not([disabled])',
+          'textarea:not([disabled])',
+          '[tabindex]:not([tabindex="-1"])',
+        ].join(','),
+      ),
+    ).filter(
+      (element) =>
+        element.tabIndex >= 0 &&
+        Boolean(
+          element.offsetWidth ||
+            element.offsetHeight ||
+            element.getClientRects().length,
+        ),
+    );
+
+    if (tabbableElements.length === 0) {
+      event.preventDefault();
+      return;
+    }
+
+    const firstTabbableElement = tabbableElements[0];
+    const lastTabbableElement = tabbableElements[tabbableElements.length - 1];
+    const activeElement = document.activeElement;
+    const focusIsOutsideOverlay = activeElement
+      ? !overlay.contains(activeElement)
+      : true;
+
+    if (event.shiftKey) {
+      if (focusIsOutsideOverlay || activeElement === firstTabbableElement) {
+        event.preventDefault();
+        lastTabbableElement.focus();
+      }
+
+      return;
+    }
+
+    if (focusIsOutsideOverlay || activeElement === lastTabbableElement) {
+      event.preventDefault();
+      firstTabbableElement.focus();
+    }
   };
 
   const closeFromBackdrop = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -278,8 +326,9 @@ function ScreenshotFigure({
                   exit={{ opacity: 0 }}
                   initial={{ opacity: 0 }}
                   layoutRoot
-                  onKeyDown={keepFocusOnCloseButton}
+                  onKeyDown={keepFocusInOverlay}
                   onMouseDown={closeFromBackdrop}
+                  ref={overlayRef}
                   role="dialog"
                   style={yubicoThemeStyle}
                   transition={backdropTransition}

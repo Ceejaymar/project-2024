@@ -69,9 +69,9 @@ export const projects: Project[] = [
     image:
       'https://los-project-images.s3.us-east-1.amazonaws.com/portfolio/quiz-start.webp',
     description:
-      "An emotion-tracking app built around a single idea: what if you could see your year in color? Check in during the day, tag how you feel, and watch your calendar fill with color over time. Each emotion maps to a hue — warm for high-energy, cool for calm — building a visual canvas of your emotional life. Mosaic also surfaces insights: patterns you wouldn't notice on your own, surfaced quietly.",
-    tech: 'React Native, Expo, TypeScript, Unistyles',
-    slug: 'mosaic',
+      'A guided product finder that helps people choose the right security key based on their experience, setup, and purchase needs.',
+    tech: 'React, Tailwind, TypeScript',
+    slug: 'product-finder-quiz',
     links: [
       {
         label: 'Live Site',
